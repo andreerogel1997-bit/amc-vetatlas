@@ -1947,6 +1947,7 @@
 
       /* (1.a) Fanfarria heroica sintética corta al primer toque */
       playIntroFanfare() {
+        return; /* Música de fondo ahora en assets/vetatlas-music.js */
         if (!this.ensureReady()) return;
         const now = this.ctx.currentTime + 0.02;
 
@@ -2024,6 +2025,7 @@
 
       /* (1.b) Bucle Synthwave (Arpegio + Bajo) en segundo plano */
       startSynthLoop() {
+        return; /* Música de fondo ahora en assets/vetatlas-music.js */
         if (this.loopTimer || !this.ensureReady()) return;
         const stepDuration = 60 / 112 / 4; // Semicorcheas a 112 BPM (~0.134s)
         this.nextNoteTime = this.ctx.currentTime + 0.05;
@@ -2912,5 +2914,7 @@
 
     initHero3D();
   </script>
+  <!-- Música de fondo arcade espacial original (AMC VetAtlas) -->
+  <script src="assets/vetatlas-music.js"></script>
 </body>
 </html>
