@@ -1,0 +1,3438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Celulitis Flemonosa Bacteriana | AMC VetAtlas · Animal Medical Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --bg-base: #070b14;
+      --bg-surface: #0f172a;
+      --bg-elevated: #1e293b;
+      --bg-card: rgba(15, 23, 42, 0.85);
+      --border-subtle: rgba(148, 163, 184, 0.16);
+      --border-highlight: rgba(56, 189, 248, 0.4);
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent-cyan: #06b6d4;
+      --accent-blue: #3b82f6;
+      --accent-crimson: #ef4444;
+      --accent-amber: #f59e0b;
+      --accent-emerald: #10b981;
+      --accent-violet: #8b5cf6;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --shadow-lg: 0 20px 45px -15px rgba(0, 0, 0, 0.7);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+    }
+
+    body {
+      overflow-x: hidden;
+      min-height: 100vh;
+      background: radial-gradient(circle at 15% 10%, rgba(6, 182, 212, 0.08), transparent 35%),
+                  radial-gradient(circle at 85% 25%, rgba(239, 68, 68, 0.08), transparent 40%),
+                  var(--bg-base);
+    }
+
+    a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    a:hover {
+      color: #67e8f9;
+    }
+
+    /* Top Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(7, 11, 20, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0.75rem 1rem;
+    }
+    .header-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .brand-seal {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.16), rgba(59, 130, 246, 0.12));
+      border: 1px solid var(--border-highlight);
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--text-primary);
+    }
+    .brand-seal svg {
+      width: 18px;
+      height: 18px;
+      color: var(--accent-cyan);
+      flex-shrink: 0;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+    }
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-action:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.12);
+    }
+    .btn-action.active-sound {
+      border-color: var(--accent-emerald);
+      color: #6ee7b7;
+      background: rgba(16, 185, 129, 0.12);
+    }
+    .btn-action svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+    .mobile-menu-btn {
+      display: none;
+    }
+
+    /* Hero Section with Canvas */
+    .hero-section {
+      position: relative;
+      min-height: 460px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      overflow: hidden;
+    }
+    #heroCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      display: block;
+    }
+    .hero-overlay {
+      position: relative;
+      z-index: 2;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 3rem 1.25rem;
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 2rem;
+      align-items: center;
+      background: linear-gradient(90deg, rgba(7,11,20,0.92) 0%, rgba(7,11,20,0.75) 60%, rgba(7,11,20,0.35) 100%);
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #fca5a5;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-size: clamp(1.75rem, 3.8vw, 3.1rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 65%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--text-secondary);
+      max-width: 68ch;
+      margin-bottom: 1.5rem;
+    }
+    .hero-kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 0.75rem;
+    }
+    .kpi-box {
+      background: rgba(15, 23, 42, 0.82);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--accent-cyan);
+      padding: 0.75rem 0.85rem;
+      border-radius: var(--radius-sm);
+    }
+    .kpi-box.danger {
+      border-left-color: var(--accent-crimson);
+    }
+    .kpi-box.amber {
+      border-left-color: var(--accent-amber);
+    }
+    .kpi-val {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .kpi-lbl {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+    .hero-canvas-legend {
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      backdrop-filter: blur(8px);
+    }
+    .legend-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-cyan);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.79rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+    .legend-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Main Layout: Sidebar + Content */
+    .atlas-layout {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 2rem;
+      padding: 2rem 1rem;
+      align-items: start;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar-nav {
+      position: sticky;
+      top: 76px;
+      max-height: calc(100vh - 96px);
+      overflow-y: auto;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      scrollbar-width: thin;
+    }
+    .sidebar-heading {
+      font-size: 0.74rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.65rem;
+      padding: 0 0.5rem;
+    }
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 0.65rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      transition: all 0.18s ease;
+    }
+    .nav-link:hover, .nav-link.active {
+      background: rgba(6, 182, 212, 0.14);
+      color: var(--text-primary);
+    }
+    .nav-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.12rem 0.4rem;
+      border-radius: 4px;
+      background: var(--bg-elevated);
+      color: var(--accent-cyan);
+      flex-shrink: 0;
+    }
+    .nav-link.active .nav-num {
+      background: var(--accent-cyan);
+      color: #031525;
+    }
+
+    /* Content Modules */
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      min-width: 0;
+    }
+    .module-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.65rem;
+      box-shadow: var(--shadow-lg);
+      scroll-margin-top: 88px;
+      min-width: 0;
+    }
+    .module-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .module-tag {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .module-title {
+      font-size: clamp(1.2rem, 2.2vw, 1.65rem);
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    /* Species Tabs (7 Tabs) */
+    .tabs-bar {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.85rem;
+    }
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tab-btn:hover {
+      border-color: var(--accent-cyan);
+      color: var(--text-primary);
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.24), rgba(59, 130, 246, 0.22));
+      border-color: var(--accent-cyan);
+      color: #ffffff;
+      box-shadow: 0 0 18px rgba(6, 182, 212, 0.2);
+    }
+    .species-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+      gap: 1rem;
+    }
+    .info-panel {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      min-width: 0;
+    }
+    .info-panel h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .info-panel p, .info-panel li {
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+      overflow-wrap: break-word;
+    }
+    .info-panel ul {
+      padding-left: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .evidence-alert {
+      margin-top: 0.85rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      background: rgba(245, 158, 11, 0.12);
+      border-left: 3px solid var(--accent-amber);
+      font-size: 0.82rem;
+      color: #fde68a;
+    }
+    .contra-alert {
+      margin-top: 0.85rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      background: rgba(239, 68, 68, 0.14);
+      border-left: 3px solid var(--accent-crimson);
+      font-size: 0.82rem;
+      color: #fecaca;
+    }
+
+    /* Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-top: 1rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    table.clinical-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      text-align: left;
+      min-width: 660px;
+    }
+    table.clinical-table th {
+      background: var(--bg-elevated);
+      color: var(--accent-cyan);
+      font-weight: 700;
+      padding: 0.75rem 0.85rem;
+      border-bottom: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+    table.clinical-table td {
+      padding: 0.75rem 0.85rem;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+    table.clinical-table tr:last-child td {
+      border-bottom: none;
+    }
+    table.clinical-table tr:hover td {
+      background: rgba(30, 41, 59, 0.45);
+    }
+    .mono-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      background: rgba(6, 182, 212, 0.14);
+      color: #67e8f9;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      display: inline-block;
+      max-width: 100%;
+      overflow-wrap: break-word;
+    }
+
+    /* Pathophysiology Stepper & SVGs */
+    .patho-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.1rem;
+      margin-top: 1.25rem;
+    }
+    .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .step-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid var(--accent-crimson);
+      color: #fca5a5;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-svg-wrap {
+      width: 100%;
+      background: rgba(7, 11, 20, 0.75);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.5rem;
+      display: flex;
+      justify-content: center;
+    }
+    .step-svg-wrap svg {
+      width: 100%;
+      max-width: 340px;
+      height: auto;
+    }
+
+    /* 3D Viewer Section & Non-overlapping Callout Labels with SVG Leader Lines */
+    .viewer3d-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+    .canvas3d-box {
+      position: relative;
+      width: 100%;
+      height: 460px;
+      background: radial-gradient(circle at center, #111c33 0%, #060a12 100%);
+      border: 1px solid var(--border-highlight);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    #skin3dCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    #labels3dSvg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .labels3d-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 3;
+    }
+    .label3d-pin {
+      position: absolute;
+      background: rgba(7, 11, 20, 0.92);
+      border: 1px solid var(--accent-cyan);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      line-height: 1.25;
+      padding: 0.28rem 0.5rem;
+      border-radius: 5px;
+      max-width: 44%;
+      white-space: normal;
+      overflow-wrap: break-word;
+      pointer-events: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.65);
+    }
+    .label3d-pin.side-left {
+      left: 8px;
+      text-align: left;
+      border-left: 3px solid var(--accent-cyan);
+    }
+    .label3d-pin.side-right {
+      right: 8px;
+      text-align: right;
+      border-right: 3px solid var(--accent-emerald);
+    }
+    .controls3d-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .slider-Input {
+      width: 100%;
+      accent-color: var(--accent-crimson);
+      cursor: pointer;
+    }
+
+    /* Mini Games */
+    .games-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+    .sim-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .sim-hud {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      padding-bottom: 0.85rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+    }
+    .sim-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+      margin-top: 1rem;
+    }
+    .sim-opt-btn {
+      text-align: left;
+      padding: 0.8rem 0.95rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.86rem;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .sim-opt-btn:hover:not(:disabled) {
+      border-color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.14);
+    }
+    .sim-opt-btn:disabled {
+      opacity: 0.7;
+      cursor: default;
+    }
+
+    /* Drag & Drop Match */
+    .dd-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.15rem;
+      margin-top: 1rem;
+    }
+    .dd-column {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .draggable-item {
+      padding: 0.7rem 0.85rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--accent-cyan);
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: grab;
+      user-select: none;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .draggable-item.selected-touch {
+      outline: 2px solid var(--accent-amber);
+      background: rgba(245, 158, 11, 0.2);
+    }
+    .draggable-item.matched {
+      opacity: 0.45;
+      cursor: default;
+      border-color: var(--accent-emerald);
+    }
+    .dropzone-item {
+      padding: 0.7rem 0.85rem;
+      background: rgba(7, 11, 20, 0.65);
+      border: 1px dashed var(--text-muted);
+      border-radius: var(--radius-sm);
+      font-size: 0.81rem;
+      color: var(--text-secondary);
+      min-height: 62px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.35rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .dropzone-item.dragover {
+      border-color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.14);
+    }
+    .dropzone-item.correct {
+      border-style: solid;
+      border-color: var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.12);
+    }
+
+    /* Quiz & Certificate */
+    .quiz-q-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.15rem;
+      margin-bottom: 1rem;
+    }
+    .quiz-choice {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.7rem 0.9rem;
+      margin-top: 0.5rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .quiz-choice.selected {
+      border-color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.18);
+      color: var(--text-primary);
+    }
+    .quiz-choice.correct-ans {
+      border-color: var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.2);
+      color: #a7f3d0;
+    }
+    .quiz-choice.wrong-ans {
+      border-color: var(--accent-crimson);
+      background: rgba(239, 68, 68, 0.2);
+      color: #fecaca;
+    }
+    .cert-preview-wrap {
+      margin-top: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    #certCanvas {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid var(--border-highlight);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Commons Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.1rem;
+      margin-top: 1rem;
+    }
+    .gallery-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .gallery-card img {
+      width: 100%;
+      height: 185px;
+      object-fit: cover;
+      background: #080d1a;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .gallery-caption {
+      padding: 0.85rem;
+      font-size: 0.81rem;
+      color: var(--text-secondary);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .credit-slot {
+      font-family: var(--font-mono);
+      font-size: 0.71rem;
+      color: var(--text-muted);
+      padding-top: 0.45rem;
+      border-top: 1px dashed var(--border-subtle);
+      overflow-wrap: break-word;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: #04070d;
+      border-top: 1px solid var(--border-subtle);
+      padding: 2.75rem 1rem;
+      margin-top: 3rem;
+    }
+    .footer-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+    .sources-list {
+      columns: 2;
+      column-gap: 2rem;
+      font-size: 0.77rem;
+      padding-left: 1.2rem;
+      color: var(--text-muted);
+    }
+    .sources-list li {
+      margin-bottom: 0.4rem;
+      break-inside: avoid;
+      word-break: break-all;
+    }
+
+    /* Responsive adjustments including 390px viewports */
+    @media (max-width: 1024px) {
+      .atlas-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar-nav {
+        display: none;
+        position: fixed;
+        top: 64px;
+        left: 0.75rem;
+        right: 0.75rem;
+        z-index: 999;
+        max-height: 75vh;
+        box-shadow: var(--shadow-lg);
+      }
+      .sidebar-nav.open {
+        display: block;
+      }
+      .mobile-menu-btn {
+        display: inline-flex;
+      }
+      .hero-overlay {
+        grid-template-columns: 1fr;
+      }
+      .viewer3d-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 680px) {
+      .dd-container {
+        grid-template-columns: 1fr;
+      }
+      .sources-list {
+        columns: 1;
+      }
+      .module-card {
+        padding: 1.05rem;
+      }
+      .canvas3d-box {
+        height: 410px;
+      }
+      .label3d-pin {
+        font-size: 0.62rem;
+        padding: 0.22rem 0.38rem;
+        max-width: 45%;
+      }
+      .label3d-pin.side-left {
+        left: 5px;
+      }
+      .label3d-pin.side-right {
+        right: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand-group">
+        <div class="brand-seal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/>
+            <path d="M12 8v8M8 12h8"/>
+          </svg>
+          <span>AMC VetAtlas · Animal Medical Center</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="mobileNavBtn" class="btn-action mobile-menu-btn" type="button" aria-label="Abrir índice de módulos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <span>Módulos</span>
+        </button>
+        <button id="audioToggleBtn" class="btn-action active-sound" type="button">
+          <svg id="audioIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          </svg>
+          <span id="audioLabel">Audio: ON</span>
+        </button>
+        <a href="../../" class="btn-action">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          <span>Volver a VetAtlas</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO ANIMADO EN CANVAS -->
+  <section class="hero-section">
+    <canvas id="heroCanvas"></canvas>
+    <div class="hero-overlay">
+      <div>
+        <div class="hero-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/>
+          </svg>
+          <span>Guía Didáctica Interactiva · Infecciones de Tejidos Blandos</span>
+        </div>
+        <h1 class="hero-title">Celulitis Flemonosa Bacteriana en Medicina Veterinaria</h1>
+        <p class="hero-subtitle">
+          Fisiopatología molecular de la diseminación supurativa difusa a través de la dermis reticular, hipodermis y planos miofasciales sin neocápsula limitante; diagnóstico multimodal (PAAF, POCUS, CMI) y protocolos terapéuticos avanzados bajo directrices ISCAID y CLSI VET-series.
+        </p>
+        <div class="hero-kpis">
+          <div class="kpi-box danger">
+            <div class="kpi-val">&gt; 85–90%</div>
+            <div class="kpi-lbl">Neutrófilos degenerados en citología PAAF</div>
+          </div>
+          <div class="kpi-box amber">
+            <div class="kpi-val">&gt; 30 mmHg</div>
+            <div class="kpi-lbl">Umbral compartimental para fasciotomía</div>
+          </div>
+          <div class="kpi-box">
+            <div class="kpi-val">-75 a -125 mmHg</div>
+            <div class="kpi-lbl">Presión subatmosférica en terapia NPWT/VAC</div>
+          </div>
+          <div class="kpi-box danger">
+            <div class="kpi-val">&gt; 4,0 mmol/L</div>
+            <div class="kpi-lbl">Lactato sérico refractario de alta mortalidad</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-canvas-legend">
+        <div class="legend-title">
+          <span>Simulación en Vivo: Planos Fasciales</span>
+          <span class="mono-badge">HTML5 Canvas</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot" style="background:#ef4444;"></span>
+          <span>Patógenos bacterianos diseminando sin barrera de fibrina</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot" style="background:#f59e0b;"></span>
+          <span>Halo exoenzimático (hialuronidasa, estreptoquinasa, colagenasas)</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot" style="background:#38bdf8;"></span>
+          <span>Neutrófilos en quimiotaxis y estallido oxidativo (NADPH oxidasa)</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot" style="background:#475569;"></span>
+          <span>Fibras de colágeno I/III y septos miofasciales en lisis</span>
+        </div>
+        <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.6rem;">
+          Interactúa moviendo el cursor o tocando el lienzo para inocular carga bacteriana adicional en el intersticio laxo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTRUCTURA PRINCIPAL -->
+  <div class="atlas-layout">
+    <!-- MENÚ LATERAL -->
+    <aside id="sidebarNav" class="sidebar-nav" aria-label="Navegación de módulos">
+      <div class="sidebar-heading">Índice del Atlas</div>
+      <ul class="nav-list">
+        <li><a class="nav-link active" href="#especies-tabs"><span class="nav-num">ESP</span><span>Explorador por Especie</span></a></li>
+        <li><a class="nav-link" href="#mod-01"><span class="nav-num">01</span><span>Definición y Diferenciales</span></a></li>
+        <li><a class="nav-link" href="#mod-02"><span class="nav-num">02</span><span>Etiología y Virulencia</span></a></li>
+        <li><a class="nav-link" href="#mod-03"><span class="nav-num">03</span><span>Fisiopatología Paso a Paso</span></a></li>
+        <li><a class="nav-link" href="#mod-04"><span class="nav-num">04</span><span>Predisponentes y E. canis</span></a></li>
+        <li><a class="nav-link" href="#mod-05"><span class="nav-num">05</span><span>Signos y Fenotipo Lesional</span></a></li>
+        <li><a class="nav-link" href="#mod-06"><span class="nav-num">06</span><span>Diagnóstico Multimodal</span></a></li>
+        <li><a class="nav-link" href="#mod-07"><span class="nav-num">07</span><span>Directrices ISCAID y Cirugía</span></a></li>
+        <li><a class="nav-link" href="#mod-08"><span class="nav-num">08</span><span>Uso Prudente Antimicrobiano</span></a></li>
+        <li><a class="nav-link" href="#mod-09"><span class="nav-num">09</span><span>Pronóstico y Cuadro Integral</span></a></li>
+        <li><a class="nav-link" href="#mod-3d"><span class="nav-num">3D</span><span>Modelo 3D Capas y Linfático</span></a></li>
+        <li><a class="nav-link" href="#mod-juegos"><span class="nav-num">SIM</span><span>Simulador y Emparejamiento</span></a></li>
+        <li><a class="nav-link" href="#mod-quiz"><span class="nav-num">EVA</span><span>Autoevaluación y Certificado</span></a></li>
+        <li><a class="nav-link" href="#mod-galeria"><span class="nav-num">IMG</span><span>Galería Clínica Commons</span></a></li>
+      </ul>
+    </aside>
+
+    <!-- CONTENIDO CENTRAL -->
+    <main class="main-content">
+
+      <!-- 7 PESTAÑAS POR ESPECIE (CANINOS Y FELINOS SEPARADOS) -->
+      <section id="especies-tabs" class="module-card">
+        <div class="module-header">
+          <div>
+            <span class="module-tag">Abordaje Comparado Interespecífico · 7 Especies</span>
+            <h2 class="module-title">Pestañas por Especie: Diferencias, Etiología, Presentación y Posología con Fuente</h2>
+          </div>
+          <span class="mono-badge">7 Pestañas Independientes</span>
+        </div>
+
+        <div class="tabs-bar" id="speciesTabButtons" role="tablist">
+          <button class="tab-btn active" data-species="caninos" type="button">Caninos (Foco)</button>
+          <button class="tab-btn" data-species="felinos" type="button">Felinos (Foco)</button>
+          <button class="tab-btn" data-species="equinos" type="button">Equinos</button>
+          <button class="tab-btn" data-species="porcinos" type="button">Porcinos</button>
+          <button class="tab-btn" data-species="rumiantes" type="button">Rumiantes</button>
+          <button class="tab-btn" data-species="aves" type="button">Aves</button>
+          <button class="tab-btn" data-species="conejos" type="button">Conejos</button>
+        </div>
+
+        <div id="speciesTabContent"></div>
+      </section>
+
+      <!-- MÓDULO 01: DEFINICIÓN Y DIFERENCIALES -->
+      <section id="mod-01" class="module-card">
+        <div class="module-header">
+          <div>
+            <span class="module-tag">Módulo 01 · Delimitación Nosológica</span>
+            <h2 class="module-title">Definición Clínica y Diagnóstico Diferencial</h2>
+          </div>
+        </div>
+        <p style="color:var(--text-secondary);margin-bottom:1rem;">
+          La <strong>celulitis flemonosa bacteriana</strong> (flemón o celulitis supurativa difusa) es una infección aguda o subaguda grave y exudativa del tejido conectivo subcutáneo, la dermis reticular y los planos miofasciales. A diferencia de los procesos piógenos focales, <strong>carece de una membrana limitante o neocápsula conectiva fibrovascular</strong>, permitiendo la dispersión ilimitada del exudado inflamatorio y los detritos bacterianos por los planos tisulares de menor resistencia.
+        </p>
+
+        <div class="species-grid" style="margin-bottom:1.25rem;">
+          <div class="info-panel">
+            <h4>Absceso Subcutáneo</h4>
+            <p>Necrosis por licuefacción circunscrita, encapsulada por una pared de tejido de granulación rico en colágeno sintetizado por miofibroblastos ante señales quimioatrayentes sostenidas. En el flemón, las exoenzimas líticas superan esta contención y disecan en sábana la hipodermis.</p>
+          </div>
+          <div class="info-panel">
+            <h4>Celulitis Juvenil Canina (Puppy Strangles)</h4>
+            <p>Linfadenitis vesicular y paniculitis estéril juvenil: dermatosis idiopática e inmunomediada no infecciosa primaria. Histológicamente cursa como paniculitis y dermatitis piogranulomatosa estéril centrada en el folículo piloso. Los antimicrobianos solos fracasan; exige inmunosupresión glucocorticoidea sistémica agresiva inmediata.</p>
+          </div>
+          <div class="info-panel">
+            <h4>Fascitis Necrotizante (FN)</h4>
+            <p>Involucra necrosis isquémica rápida y licuefacción de la fascia superficial, grasa subcutánea y aponeurosis profunda por oclusión trombótica microvascular generalizada. Produce denervación sensorial con anestesia cutánea secundaria, exudado acuoso serosanguinolento («agua de fregar platos» o <em>dishwater fluid</em>) sin pus franco y choque tóxico.</p>
+          </div>
+          <div class="info-panel">
+            <h4>Linfangitis Séptica Primaria</h4>
+            <p>Circunscrita al endotelio y luz de colectores linfáticos. Exhibe engrosamiento cordoniforme ascendente, linfadenitis satélite temprana y edema distal por falla mecánica del drenaje. En el flemón, el foco primario reside en el intersticio laxo y no en la luz vascular linfática.</p>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="clinical-table">
+            <thead>
+              <tr>
+                <th>Entidad Nosológica</th>
+                <th>Delimitación Anatómica</th>
+                <th>Fisiopatología Primaria</th>
+                <th>Características al Examen Físico</th>
+                <th>Perfil de Dolor</th>
+                <th>Abordaje Terapéutico Cardinal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Celulitis Flemonosa (Flemón)</strong></td>
+                <td>Difusa, sin límites definidos, diseca planos fasciales</td>
+                <td>Invasión bacteriana exudativa con lisis de sustancia fundamental sin encapsulamiento</td>
+                <td>Placa eritematosa, tumefacción empastada, piel a tensión y trayectos fistulosos múltiples</td>
+                <td>Dolor urente severo y difuso</td>
+                <td>Antimicrobianos sistémicos según CMI, analgesia multimodal y soporte hemodinámico</td>
+              </tr>
+              <tr>
+                <td><strong>Absceso Subcutáneo</strong></td>
+                <td>Focal, confinado por cápsula fibrosa colagenosa</td>
+                <td>Necrosis licuefactiva delimitada por barrera de tejido conectivo maduro</td>
+                <td>Masa fluctuante central circunscrita con halo eritematoso indurado periférico</td>
+                <td>Dolor punzante por sobretensión de la cápsula</td>
+                <td>Drenaje quirúrgico mecánico, legrado, lavado y desbridamiento</td>
+              </tr>
+              <tr>
+                <td><strong>Celulitis Juvenil Canina</strong></td>
+                <td>Regional facial bilateral (hocico, periocular, pabellones)</td>
+                <td>Respuesta autoinmune / piogranulomatosa estéril folicular e hipodérmica</td>
+                <td>Pústulas foliculares, fístulas estériles, edema facial masivo y linfadenomegalia cervical gigante</td>
+                <td>Dolor moderado a severo por distensión y tirantez cutánea</td>
+                <td>Inmunosupresión sistémica inmediata con glucocorticoides en monoterapia inicial</td>
+              </tr>
+              <tr>
+                <td><strong>Fascitis Necrotizante</strong></td>
+                <td>Extensa, longitudinal, rápida destrucción fascial</td>
+                <td>Trombosis microvascular séptica, colapso de la perfusión dérmica y necrosis fascial</td>
+                <td>Piel violácea marmórea, flictenas hemorrágicas, desvitalización y exudado acuoso fétido</td>
+                <td>Desproporcionado inicial; evoluciona a anestesia por denervación</td>
+                <td>Emergencia quirúrgica: desbridamiento radical precoz (necrosectomía) e intensivo</td>
+              </tr>
+              <tr>
+                <td><strong>Linfangitis Séptica</strong></td>
+                <td>Lineal, delimitada al trayecto de colectores linfáticos</td>
+                <td>Infección endoluminal y pericolangítica con insuficiencia del transporte de linfa</td>
+                <td>Cordones subcutáneos palpables, nódulos en rosario y edema distal masivo</td>
+                <td>Dolor localizado a lo largo del trayecto vascular</td>
+                <td>Terapia antimicrobiana parenteral, vendajes compresivos elásticos y antiinflamatorios</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- MÓDULO 02: ETIOLOGÍA Y VIRULENCIA -->
+      <section id="mod-02" class="module-card">
+        <div class="module-header">
+          <div>
+            <span class="module-tag">Módulo 02 · Microbiología Clínica</span>
+            <h2 class="module-title">Etiología Microbiológica y Mecanismos de Virulencia</h2>
+          </div>
+        </div>
+        <div class="species-grid">
+          <div class="info-panel">
+            <h4>Caninos: S. pseudintermedius, S. canis y Gram negativos</h4>
+            <ul>
+              <li><strong>Staphylococcus pseudintermedius:</strong> Agente más frecuente. Produce coagulasa libre, termonucleasa, proteasas serínicas, hialuronidasa y leucocidinas bicomponentes (<strong>LukS-I y LukF-I</strong>) que lisan neutrófilos. Las cepas <strong>MRSP</strong> portan el casete <em>SCCmec</em> con el gen <em>mecA</em>, expresando <strong>PBP2a</strong> y resistencia cruzada absoluta a todos los betalactámicos convencionales.</li>
+              <li><strong>Streptococcus canis (Grupo G β-hemolítico):</strong> Segundo agente en perros, alta propagación flemónica. Expresa estreptoquinasa (activa plasminógeno a plasmina y degrada redes de fibrina), hialuronidasa tisular, estreptolisina O (citotóxica para leucocitos y cardiomiocitos), proteína M (bloquea opsonización C3b) y profagos con superantígenos pirógenos causantes de síndrome de choque tóxico estreptocócico (STSS).</li>
+              <li><strong>E. coli y Pseudomonas aeruginosa:</strong> En flemones postraumáticos o iatrogénicos. <em>P. aeruginosa</em> secreta elastasas (<strong>LasA y LasB</strong>) y <strong>exotoxina A</strong> que inactiva el factor de elongación eucariota 2 (<strong>eEF-2</strong>), provocando necrosis hipodérmica y disfunción vascular.</li>
+            </ul>
+          </div>
+          <div class="info-panel">
+            <h4>Felinos: Ecosistema Polimicrobiano Sinérgico</h4>
+            <ul>
+              <li>Secundario a mordeduras y arañazos profundos que inoculan microbiota orofaríngea felina.</li>
+              <li><strong>Pasteurella multocida (subsp. multocida y septica):</strong> Patógeno predominante. Posee cápsula de mucopolisacáridos rica en ácido hialurónico (inhibe fagocitosis) y endotoxinas lipopolisacarídicas dermonecróticas.</li>
+              <li><strong>Sinergia con anaerobios estrictos:</strong> <em>Bacteroides fragilis, Prevotella bivia, Porphyromonas</em> spp., <em>Peptostreptococcus</em> spp. y <em>Fusobacterium nucleatum</em> consumen el oxígeno remanente y liberan proteasas de matriz, acelerando la replicación de <em>Pasteurella</em> y estreptococos en un medio hipóxico y ácido.</li>
+            </ul>
+          </div>
+          <div class="info-panel">
+            <h4>Equinos, Rumiantes y Porcinos</h4>
+            <ul>
+              <li><strong>Equinos:</strong> <em>Streptococcus equi</em> subsp. <em>zooepidemicus</em> (Grupo C β-hemolítico) y <em>Staphylococcus aureus</em>. Tras laceraciones de casco/cuartilla o inyecciones contaminadas: <em>E. coli, Klebsiella pneumoniae, P. aeruginosa</em> y <em>Fusobacterium necrophorum</em> (microtromboflebitis séptica de plexos digitales).</li>
+              <li><strong>Rumiantes:</strong> Sinergia de <em>Fusobacterium necrophorum</em> subsp. <em>necrophorum</em> (leucotoxina lítica para neutrófilos y coagulación intravascular local) y <em>Trueperella pyogenes</em> (piolisina <strong>PLO</strong> dependiente de colesterol). En bovinos de ceba y leche, <em>Mycoplasma bovis</em> causa celulitis necrosupurativa difusa y tenosinovitis de miembros y prepucio.</li>
+              <li><strong>Porcinos:</strong> <em>Streptococcus suis</em> (suilisina y proteína MRP), <em>Erysipelothrix rhusiopathiae</em> y anaerobios bucales inoculados por caudofagia.</li>
+            </ul>
+          </div>
+          <div class="info-panel">
+            <h4>Aves y Conejos</h4>
+            <ul>
+              <li><strong>Aves de producción y ornato:</strong> Cepas patógenas aviares de <em>Escherichia coli</em> (<strong>APEC</strong>) portadoras del plásmido <strong>ColV</strong>, sistema de aerobactina para quelación de hierro férrico y adhesinas fimbriales <strong>F11</strong>; también se reporta <em>Enterococcus</em> spp.</li>
+              <li><strong>Conejos (Oryctolagus cuniculus):</strong> <em>Pasteurella multocida, Staphylococcus aureus</em> y <em>Pseudomonas aeruginosa</em> predominan en flemones orofaciales odontogénicos y pododermatíticos.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- MÓDULO 03: FISIOPATOLOGÍA PASO A PASO CON DIAGRAMAS SVG -->
+      <section id="mod-03" class="module-card">
+        <div class="module-header">
+          <div>
+            <span class="module-tag">Módulo 03 · Cascada Biopatológica</span>
+            <h2 class="module-title">Fisiopatología Molecular y Secuencia Invasiva Paso a Paso</h2>
+          </div>
+        </div>
+
+        <div class="patho-steps">
+          <!-- PASO 1 -->
+          <div class="step-card">
+            <div class="step-header">
+              <span class="step-badge">1</span>
+              <h4 style="font-size:0.95rem;">Disrupción Epidérmica y Adhesión MSCRAMMs</h4>
+            </div>
+            <div class="step-svg-wrap">
+              <svg viewBox="0 0 320 130" fill="none">
+                <rect width="320" height="130" rx="8" fill="#09101f"/>
+                <path d="M10 35 H135 L160 65 L185 35 H310" stroke="#f59e0b" stroke-width="3"/>
+                <text x="16" y="25" fill="#cbd5e1" font-size="10" font-family="monospace">Barrera Córnea Disrumpida</text>
+                <line x1="20" y1="85" x2="300" y2="85" stroke="#334155" stroke-width="2" stroke-dasharray="6 4"/>
+                <line x1="20" y1="105" x2="300" y2="105" stroke="#334155" stroke-width="2"/>
+                <circle cx="155" cy="72" r="8" fill="#ef4444"/>
+                <circle cx="172" cy="82" r="8" fill="#ef4444"/>
+                <circle cx="140" cy="88" r="8" fill="#ef4444"/>
+                <path d="M155 80 L155 103 M172 90 L172 103 M140 96 L140 103" stroke="#38bdf8" stroke-width="2"/>
+                <text x="20" y="120" fill="#38bdf8" font-size="10" font-family="monospace">Adhesinas MSCRAMMs y Colágeno I/III</text>
+              </svg>
+            </div>
+            <p style="font-size:0.84rem;color:var(--text-secondary);">
+              Tras la rotura de la barrera córnea, los patógenos se traslocan al tejido conectivo laxo hipodérmico. Fijan sus adhesinas <strong>MSCRAMMs</strong> (en <em>S. pseudintermedius</em>) y proteínas fijadoras de fibronectina (en <em>S. canis</em>) al colágeno tipos I y III, laminina y proteoglicanos basales, impidiendo el barrido por flujo intersticial.
+            </p>
+          </div>
+
+          <!-- PASO 2 -->
+          <div class="step-card">
+            <div class="step-header">
+              <span class="step-badge">2</span>
+              <h4 style="font-size:0.95rem;">Batería Exoenzimática y Fibrinólisis</h4>
+            </div>
+            <div class="step-svg-wrap">
+              <svg viewBox="0 0 320 130" fill="none">
+                <rect width="320" height="130" rx="8" fill="#09101f"/>
+                <circle cx="75" cy="65" r="22" fill="rgba(239,68,68,0.2)" stroke="#ef4444" stroke-width="2"/>
+                <circle cx="75" cy="65" r="8" fill="#ef4444"/>
+                <path d="M105 50 L155 35 M105 65 L155 65 M105 80 L155 95" stroke="#f59e0b" stroke-width="2"/>
+                <rect x="160" y="20" width="145" height="26" rx="4" fill="#1e293b" stroke="#f59e0b"/>
+                <text x="168" y="37" fill="#fde68a" font-size="9.5" font-family="monospace">Hialuronidasa: Matriz Laxa</text>
+                <rect x="160" y="52" width="145" height="26" rx="4" fill="#1e293b" stroke="#ef4444"/>
+                <text x="168" y="69" fill="#fecaca" font-size="9.5" font-family="monospace">Quinasas: Lisis de Fibrina</text>
+                <rect x="160" y="84" width="145" height="26" rx="4" fill="#1e293b" stroke="#38bdf8"/>
+                <text x="168" y="101" fill="#bae6fd" font-size="9.5" font-family="monospace">Colagenasas: Septos Adiposos</text>
+              </svg>
+            </div>
+            <p style="font-size:0.84rem;color:var(--text-secondary);">
+              Las <strong>hialuronidasas</strong> despolimerizan el ácido hialurónico intersticial. La <strong>estreptoquinasa y estafiloquinasa</strong> convierten el plasminógeno endotelial en plasmina activa, disolviendo los depósitos de fibrina que formarían una cápsula. Las <strong>colagenasas y serin-proteasas</strong> hidrolizan septos interlobulares adiposos.
+            </p>
+          </div>
+
+          <!-- PASO 3 -->
+          <div class="step-card">
+            <div class="step-header">
+              <span class="step-badge">3</span>
+              <h4 style="font-size:0.95rem;">Señalización TLR-2/4, NF-κB y Estallido Oxidativo</h4>
+            </div>
+            <div class="step-svg-wrap">
+              <svg viewBox="0 0 320 130" fill="none">
+                <rect width="320" height="130" rx="8" fill="#09101f"/>
+                <rect x="15" y="25" width="85" height="80" rx="8" fill="#1e293b" stroke="#06b6d4" stroke-width="2"/>
+                <text x="25" y="52" fill="#67e8f9" font-size="10" font-family="monospace">TLR-2 / TLR-4</text>
+                <text x="32" y="75" fill="#ffffff" font-size="11" font-weight="bold" font-family="monospace">NF-κB</text>
+                <path d="M105 65 H140" stroke="#06b6d4" stroke-width="2"/>
+                <rect x="142" y="20" width="162" height="42" rx="6" fill="rgba(239,68,68,0.15)" stroke="#ef4444"/>
+                <text x="150" y="38" fill="#fca5a5" font-size="9.5" font-family="monospace">TNF-α, IL-1β, IL-6, CXCL8</text>
+                <text x="150" y="53" fill="#cbd5e1" font-size="9" font-family="monospace">Selectinas E/P + ICAM-1</text>
+                <rect x="142" y="68" width="162" height="42" rx="6" fill="rgba(56,189,248,0.15)" stroke="#38bdf8"/>
+                <text x="150" y="86" fill="#bae6fd" font-size="9.5" font-family="monospace">NADPH Oxidasa: Superóxido</text>
+                <text x="150" y="101" fill="#cbd5e1" font-size="9" font-family="monospace">MPO + Elastasa (Daño Espectador)</text>
+              </svg>
+            </div>
+            <p style="font-size:0.84rem;color:var(--text-secondary);">
+              Los PAMPs (peptidoglicano, ácido lipoteicoico, LPS) activan <strong>TLR-2 y TLR-4</strong>, translocando <strong>NF-κB</strong> al núcleo para transcribir <strong>TNF-α, IL-1β, IL-6 y CXCL8 (IL-8)</strong>. El endotelio expresa selectinas E/P e ICAM-1. Los neutrófilos activan la <strong>NADPH oxidasa</strong> (anión superóxido y peróxido de hidrógeno), mieloperoxidasa y elastasa, causando necrosis por espectador.
+            </p>
+          </div>
+
+          <!-- PASO 4 -->
+          <div class="step-card">
+            <div class="step-header">
+              <span class="step-badge">4</span>
+              <h4 style="font-size:0.95rem;">Diseminación en Sábana y Linfadenitis Satélite</h4>
+            </div>
+            <div class="step-svg-wrap">
+              <svg viewBox="0 0 320 130" fill="none">
+                <rect width="320" height="130" rx="8" fill="#09101f"/>
+                <path d="M20 45 Q110 25 210 55" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
+                <ellipse cx="255" cy="58" rx="38" ry="26" fill="rgba(16,185,129,0.2)" stroke="#10b981" stroke-width="2"/>
+                <text x="228" y="55" fill="#6ee7b7" font-size="9.5" font-family="monospace">Linfonodo</text>
+                <text x="228" y="68" fill="#fca5a5" font-size="9" font-family="monospace">Trombosis Senos</text>
+                <path d="M20 95 H295" stroke="#ef4444" stroke-width="10" stroke-opacity="0.35"/>
+                <text x="25" y="115" fill="#cbd5e1" font-size="9.5" font-family="monospace">Disección hidrodinámica fascial + Colapso capilar linfático</text>
+              </svg>
+            </div>
+            <p style="font-size:0.84rem;color:var(--text-secondary);">
+              El exudado hiperosmolar diseca los planos fasciales laxos. La alta presión hidrostática colapsa capilares linfáticos terminales, mientras que los colectores permeables drenan bacterias y citocinas al <strong>linfonodo regional satélite</strong>, provocando infiltración neutrofílica subcapsular y trombosis de senos medulares.
+            </p>
+          </div>
+
+          <!-- PASO 5 -->
+          <div class="step-card">
+            <div class="step-header">
+              <span class="step-badge">5</span>
+              <h4 style="font-size:0.95rem;">Trombosis Microvascular, Flictenas y Escaras</h4>
+            </div>
+            <div class="step-svg-wrap">
+              <svg viewBox="0 0 320 130" fill="none">
+                <rect width="320" height="130" rx="8" fill="#09101f"/>
+                <rect x="20" y="42" width="280" height="28" rx="14" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+                <circle cx="145" cy="56" r="10" fill="#ef4444"/>
+                <circle cx="162" cy="54" r="9" fill="#991b1b"/>
+                <circle cx="178" cy="58" r="10" fill="#7f1d1d"/>
+                <text x="32" y="60" fill="#fca5a5" font-size="9.5" font-family="monospace">Factor Tisular activo | Proteína C y AT-III deprimidas</text>
+                <text x="30" y="98" fill="#cbd5e1" font-size="9.5" font-family="monospace">Oclusión venular/arteriolar e Isquemia Dérmica</text>
+              </svg>
+            </div>
+            <p style="font-size:0.84rem;color:var(--text-secondary);">
+              El TNF-α, la IL-1β y el factor tisular extravascular tornan procoagulante al endotelio y deprimen la <strong>proteína C y antitrombina III</strong>. Los microtrombos de plaquetas y fibrina ocluyen vénulas poscapilares y arteriolas nutricias, causando isquemia crítica, flictenas hemorrágicas y escaras necróticas.
+            </p>
+          </div>
+
+          <!-- PASO 6 -->
+          <div class="step-card">
+            <div class="step-header">
+              <span class="step-badge">6</span>
+              <h4 style="font-size:0.95rem;">Superantígenos (MHC-II / TCR Vβ), iNOS y MODS</h4>
+            </div>
+            <div class="step-svg-wrap">
+              <svg viewBox="0 0 320 130" fill="none">
+                <rect width="320" height="130" rx="8" fill="#09101f"/>
+                <rect x="18" y="25" width="90" height="36" rx="6" fill="#1e293b" stroke="#8b5cf6"/>
+                <text x="26" y="47" fill="#ddd6fe" font-size="9.5" font-family="monospace">APC (MHC-II)</text>
+                <rect x="140" y="25" width="95" height="36" rx="6" fill="#1e293b" stroke="#ec4899"/>
+                <text x="148" y="47" fill="#fbcfe8" font-size="9.5" font-family="monospace">Linfocito T (Vβ)</text>
+                <circle cx="124" cy="43" r="12" fill="#ef4444"/>
+                <text x="116" y="47" fill="#fff" font-size="8.5" font-family="monospace">SAg</text>
+                <rect x="18" y="75" width="284" height="38" rx="6" fill="rgba(239,68,68,0.18)" stroke="#ef4444"/>
+                <text x="28" y="92" fill="#fecaca" font-size="9.5" font-family="monospace">20% Linfocitos T: IFN-γ, TNF-α, IL-2 e iNOS (NO)</text>
+                <text x="28" y="106" fill="#fde68a" font-size="9" font-family="monospace">Vasoplejía refractaria + Hiperlactatemia + MODS</text>
+              </svg>
+            </div>
+            <p style="font-size:0.84rem;color:var(--text-secondary);">
+              En infecciones por <em>S. canis</em> o <em>S. equi</em>, los superantígenos unen lateralmente el <strong>MHC-II</strong> con la región <strong>Vβ del TCR</strong>, activando policlonalmente hasta el <strong>20% de los linfocitos T</strong> (tormenta de IFN-γ, TNF-α, IL-2). La inducción de <strong>iNOS</strong> eleva el óxido nítrico (NO), causando vasoplejía, hipotensión, hiperlactatemia, MODS y CID.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- MÓDULO 04: FACTORES PREDISPONENTES Y EHRLICHIA CANIS -->
+      <section id="mod-04" class="module-card">
+        <div class="module-header">
+          <div>
+            <span class="module-tag">Módulo 04 · Inmunosupresión y Comorbilidades</span>
+            <h2 class="module-title">Factores Predisponentes y Coinfección por Ehrlichia canis</h2>
+          </div>
+        </div>
+
+        <div class="species-grid" style="margin-bottom:1.5rem;">
+          <div class="info-panel">
+            <h4>Endocrinopatías en Caninos y Felinos</h4>
+            <p>El <strong>hiperadrenocorticismo</strong> (hipofisario, adrenal o iatrogénico) y la <strong>diabetes mellitus descompensada</strong> deterioran severamente la quimiotaxis, la adhesión endotelial y la desgranulación de neutrófilos, además de provocar angiogénesis anómala por el estado catabólico.</p>
+          </div>
+          <div class="info-panel">
+            <h4>Síndrome Metabólico Equino y PPID</h4>
+            <p>En equinos, el <strong>síndrome metabólico equino (EMS)</strong> y la <strong>disfunción de la pars intermedia de la hipófisis (PPID)</strong> predisponen a celulitis recurrentes o recalcitrantes de las extremidades debido a microangiopatía periférica y disregulación de citocinas basales.</p>
+          </div>
+          <div class="info-panel">
+            <h4>Retrovirus Felinos (FIV y FeLV)</h4>
+            <p>Las infecciones crónicas por el <strong>Virus de la Inmunodeficiencia Felina (FIV)</strong> y el <strong>Virus de la Leucemia Felina (FeLV)</strong> reducen la subpoblación de linfocitos T CD4+, desarticulando la inmunidad adaptativa frente a patógenos orales inoculados en mordeduras territoriales.</p>
+          </div>
+        </div>
+
+        <div style="background:linear-gradient(135deg, rgba(239,68,68,0.12), rgba(15,23,42,0.9));border:1px solid rgba(239,68,68,0.4);border-radius:var(--radius-md);padding:1.35rem;">
+          <h3 style="font-size:1.15rem;color:#fca5a5;margin-bottom:0.65rem;">Fisiopatología de la Coinfección con Ehrlichia canis</h3>
+          <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:1rem;">
+            La rickettsia intracelular obligada <em>Ehrlichia canis</em>, transmitida por la garrapata café del perro (<em>Rhipicephalus sanguineus</em>), compromete la competencia inmune y la microvasculatura del paciente canino mediante cuatro mecanismos sinérgicos:
+          </p>
+          <div class="species-grid">
+            <div class="info-panel">
+              <h4>1. Mielosupresión e Inmunodeficiencia Innata</h4>
+              <p>En fase subaguda y crónica grave, lesiona células progenitoras hematopoyéticas medulares causando hipoplasia o aplasia mieloide y pancitopenia. La <strong>neutropenia absoluta</strong> resultante permite que inoculaciones menores de <em>S. pseudintermedius</em> o estreptococos diseminen sin oposición celular.</p>
+            </div>
+            <div class="info-panel">
+              <h4>2. Agotamiento Adaptativo Th1</h4>
+              <p>Disminuye la inmunocompetencia de linfocitos T colaboradores (<strong>Th1</strong>) por agotamiento celular sostenido e induce activación policlonal inespecífica de linfocitos B con hipergammaglobulinemia carente de anticuerpos opsonizantes protectores frente a bacterias cutáneas.</p>
+            </div>
+            <div class="info-panel">
+              <h4>3. Vasculitis Inmunomediada e Hipoperfusión</h4>
+              <p>El depósito de inmunocomplejos solubles en arteriolas dérmicas y subcutáneas activa el complemento e induce <strong>vasculitis necrotizante</strong>, generando isquemia focal basal, hipoxia y permeabilidad vascular aumentada que nutre a las bacterias invasoras.</p>
+            </div>
+            <div class="info-panel">
+              <h4>4. Estado Proinflamatorio Basal y Choque</h4>
+              <p>Mantiene niveles basales elevados de <strong>TNF-α, IL-1β, IL-6 e IFN-γ</strong> con agotamiento regulador de <strong>IL-10</strong>. Ante sobreinfección bacteriana piógena, amplifica la necrosis colateral y acelera el choque séptico hiperdinámico con coagulación intravascular diseminada (CID).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MÓDULO 05: SIGNOS CLÍNICOS Y FENOTIPO HETEROFÍLICO -->
+      <section id="mod-05" class="module-card">
+        <div class="module-header">
+          <div>
+            <span class="module-tag">Módulo 05 · Semiología Comparada</span>
+            <h2 class="module-title">Signos Clínicos y Modificación por el Heterófilo Aviar y Leporino</h2>
+          </div>
+        </div>
+        <div class="species-grid">
+          <div class="info-panel">
+            <h4>Caninos y Felinos</h4>
+            <p>Tumefacción difusa de márgenes indistintos, induración empastada no fluctuante, calor local, eritema y dolor urente agudo con vocalización o claudicación sin apoyo. Entre <strong>24 y 48 h postinoculación</strong> la piel se tensa, brilla y drena exudado serosanguinolento o fibrinopurulento por múltiples fístulas sin colección central evacuable. En gatos, la piel se torna violácea marmórea o grisácea y se esfacela por trombosis del plexo subdérmico. Hay crepitación enfisematosa si participan bacterias productoras de gas.</p>
+          </div>
+          <div class="info-panel">
+            <h4>Equinos («Pata de Elefante»)</h4>
+            <p>Presentación hiperaguda en extremidades (predominio pelviano): aumento de volumen masivo, circunferencial y cilíndrico desde menudillo o corona hasta corvejón e ingle. Claudicación <strong>grado 4/5 a 5/5</strong>, exudación transcutánea de suero ámbar («sudoración de suero»), necrosis epidérmica por desprendimiento laminar, hipertermia <strong>&gt; 39,5 °C</strong>, taquicardia y anorexia.</p>
+          </div>
+          <div class="info-panel">
+            <h4>Rumiantes y Porcinos</h4>
+            <p>En bovinos predomina en el espacio interdigital (panadizo interdigital) con tumefacción asimétrica de corona y cuartilla, divergencia de dedos pezuñarios, fisuras necróticas de olor pútrido por <em>F. necrophorum</em> y anorexia álgica; o flemón muscular en cuello/anca tras inyecciones sépticas. En porcinos, flemones faciales, periorbitarios o perineales posmordedura/caudofagia o poscastración que evolucionan hacia fibrosis.</p>
+          </div>
+          <div class="info-panel" style="border-color:var(--accent-amber);">
+            <h4>Fenotipo Caseoso en Aves y Conejos (Heterófilos)</h4>
+            <p>En aves (<em>Gallus gallus</em>, psitácidos, paseriformes) y conejos (<em>Oryctolagus cuniculus</em>), los <strong>heterófilos carecen funcionalmente de mieloperoxidasa activa cuantificable</strong> y tienen mínimas enzimas proteolíticas hidrosolubles. Sin digestión licuefactiva, el exudado se deseca e inspisa en un material sólido o semisólido laminado blanquecino-amarillento («caseoso»). Se palpa como placa o masa firme, indurada, adherida, fría y no fluctuante, simulando granulomas micóticos, esteatonecrosis o neoplasias.</p>
+          </div>
+        </div>
+      </section><!-- MÓDULO 06: DIAGNÓSTICO MULTIMODAL -->
+      <section id="mod-06" class="module-card">
+        <div class="module-header">
+          <div>
+            <span class="module-tag">Módulo 06 · Confirmación Analítica e Imagen</span>
+            <h2 class="module-title">Diagnóstico Multimodal de Laboratorio y Ecografía POCUS</h2>
+          </div>
+        </div>
+
+        <div class="species-grid" style="margin-bottom:1.25rem;">
+          <div class="info-panel">
+            <h4>Citopatología por PAAF (21–23G)</h4>
+            <p>Procedimiento confirmatorio inicial mandatorio en márgenes de induración activa previa antisepsia. La tinción Romanowsky muestra fondo proteináceo basófilo, fibrina acelular y <strong>&gt; 85–90% de neutrófilos degenerados</strong> (cariolisis, cariorrexis, vacuolización tóxica) con <strong>bacterias intracitoplasmáticas fagocitadas</strong> (cocos en racimos o cadenas, bacilos pleomórficos o Gram negativos).</p>
+          </div>
+          <div class="info-panel">
+            <h4>Cultivo Cuantitativo y CMI (CLSI VET)</h4>
+            <p>El hisopado superficial está proscrito por aislar saprófitos. Se exige aspirado profundo estéril o biopsia <em>punch</em> para cultivo aerobio y anaerobio obligado. Susceptibilidad basada en <strong>Concentración Mínima Inhibitoria (CMI en μg/mL)</strong> bajo estándares CLSI VET-series, incluyendo obligatoriamente <strong>cefoxitina u oxacilina</strong> para detectar resistencia mediada por <em>mecA</em> (MRSP).</p>
+          </div>
+          <div class="info-panel">
+            <h4>Ecografía POCUS (Signo del Empedrado)</h4>
+            <p>Con transductor lineal (7,5–15 MHz), el hallazgo cardinal es el <strong>signo del empedrado (cobblestone sign)</strong>: lobulillos grasos hipodérmicos aumentados e hiperecoicos disecados por bandas anecoicas/hipoecoicas de edema intersticial. Diferencia abscesos encapsulados, detecta gas libre (cola de cometa/sombra sucia) y evalúa perfusión en Doppler color (ausencia de flujo indica trombosis y necrosis).</p>
+          </div>
+          <div class="info-panel">
+            <h4>Biomarcadores y Lactato Sérico</h4>
+            <p><strong>Proteínas de fase aguda:</strong> Proteína C Reactiva (<strong>PCR</strong>) en caninos y cerdos; Amiloide A Sérico (<strong>SAA</strong>) en équidos y gatos (suben en &lt; 24 h). <strong>Lactato sérico:</strong> alerta de hipoperfusión si <strong>&gt; 2,5 mmol/L</strong> (pequeños animales) o <strong>&gt; 2,0 mmol/L</strong> (équidos); valores refractarios <strong>&gt; 4,0 mmol/L</strong> predicen colapso cardiovascular y alta mortalidad.</p>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="clinical-table">
+            <thead>
+              <tr>
+                <th>Prueba Diagnóstica</th>
+                <th>Modalidad y Procesamiento</th>
+                <th>Flemón No Complicado / Fase Temprana</th>
+                <th>Flemón Severo Complicado / Sepsis / Necrosis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Citología (PAAF)</strong></td>
+                <td>Aspirado estéril profundo con aguja 21–23G; tinción rápida tipo Romanowsky</td>
+                <td>Fondo granular basófilo con abundantes neutrófilos degenerados y bacterias fagocitadas intracelulares</td>
+                <td>Lisis celular neutrofílica generalizada, abundante necrosis amorfa de fondo y bacterias libres intra y extracelulares en gran cuantía</td>
+              </tr>
+              <tr>
+                <td><strong>Bacteriología</strong></td>
+                <td>Cultivo profundo cuantitativo (aerobio/anaerobio) con CMI bajo estándares CLSI</td>
+                <td>Aislamiento monotípico o bifásico de cepas sensibles comensales (<em>S. pseudintermedius</em> MSSP, <em>Pasteurella</em>)</td>
+                <td>Microorganismos multirresistentes (MRSP, <em>P. aeruginosa</em>, <em>E. coli</em> BLEE) o combinaciones polimicrobianas sinérgicas con anaerobios</td>
+              </tr>
+              <tr>
+                <td><strong>Ecografía Tisular</strong></td>
+                <td>Transductor lineal multifrecuencia (7,5–15 MHz) en cortes ortogonales</td>
+                <td>Patrón de empedrado (<em>cobblestone sign</em>): edema intersticial hipoecoico que diseca lóbulos grasos hiperecoicos</td>
+                <td>Disrupción anecoica de fascias profundas, áreas de hipoperfusión en Doppler color y focos refráctiles de gas tisular con reverberación</td>
+              </tr>
+              <tr>
+                <td><strong>Hemograma</strong></td>
+                <td>Conteo automatizado complementado con examen manual de frotis teñido</td>
+                <td>Leucocitosis neutrofílica con desviación a la izquierda regenerativa y toxicidad leve (grados I-II)</td>
+                <td>Leucopenia con neutropenia degenerativa de consumo, toxicidad grado III-IV marcada (cuerpos de Döhle, basofilia, vacuolización) y trombocitopenia severa</td>
+              </tr>
+              <tr>
+                <td><strong>Bioquímica</strong></td>
+                <td>Análisis fotométrico de suero o plasma heparinizado</td>
+                <td>Hipoalbuminemia leve por pérdida tisular local y aumento moderado de globulinas inflamatorias</td>
+                <td>Hipoalbuminemia marcada (&lt; 1,5–1,8 g/dL), azotemia renal, hiperbilirrubinemia por colestasis intrahepática séptica</td>
+              </tr>
+              <tr>
+                <td><strong>Lactato Sérico</strong></td>
+                <td>Analizador de gases o lactímetro de cabecera en sangre periférica</td>
+                <td>Concentraciones normales a limítrofes (&lt; 2,0–2,5 mmol/L)</td>
+                <td>Hiperlactatemia severa (&gt; 4,0 mmol/L) o aclaramiento nulo tras sobrecarga de cristaloides</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- MÓDULO 07: TRATAMIENTO ISCAID, CIRUGÍA, ANALGESIA Y SEPSIS -->
+      <section id="mod-07" class="module-card">
+        <div class="module-header">
+          <div>
+            <span class="module-tag">Módulo 07 · Terapéutica Médica, Quirúrgica e Intensiva</span>
+            <h2 class="module-title">Directrices ISCAID, Posología, Criterios Quirúrgicos, Analgesia y Sepsis</h2>
+          </div>
+        </div>
+
+        <div class="species-grid" style="margin-bottom:1.25rem;">
+          <div class="info-panel">
+            <h4>Terapia Empírica vs. Dirigida</h4>
+            <p>Iniciar terapia parenteral inmediatamente tras recolectar muestras profundas para citología y cultivo. En pequeños animales, primera línea empírica: <strong>amoxicilina-ácido clavulánico</strong> o cefalosporinas de 1.ª generación (<strong>cefalexina, cefadroxilo</strong>). Ante anaerobios (mordeduras felinas o exudados fétidos): <strong>clindamicina</strong> o amoxicilina-clavulánico. Utilizar el rango superior de la ventana terapéutica para penetrar tejido edematizado e hipoperfundido.</p>
+          </div>
+          <div class="info-panel">
+            <h4>Duración del Tratamiento (Consenso ISCAID)</h4>
+            <p>Las directrices actualizadas de la <em>ISCAID Guidelines for Canine Pyoderma</em> <strong>suprimen el postulado tradicional de extender el antibiótico 2 a 3 semanas más allá de la curación aparente</strong>. El tratamiento debe mantenerse estrictamente hasta la desaparición de los signos clínicos de infección (remisión del edema, dolor e induración, ausencia de secreción y cierre de fístulas) respaldada por normalización citológica.</p>
+          </div>
+        </div>
+
+        <h3 style="font-size:1.05rem;color:var(--accent-cyan);margin:1.25rem 0 0.5rem;">Posología Detallada de Antimicrobianos por Especie (Fuente: Manuales de Farmacología de Posgrado y Consensos ISCAID / CLSI del Informe)</h3>
+        <div class="table-responsive" style="margin-bottom:1.5rem;">
+          <table class="clinical-table">
+            <thead>
+              <tr>
+                <th>Especie</th>
+                <th>Fármaco Antimicrobiano</th>
+                <th>Dosis, Vía e Intervalo</th>
+                <th>Fundamento Clínico y Espectro Farmacológico</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Canino</strong></td>
+                <td>Amoxicilina + Ácido Clavulánico</td>
+                <td><span class="mono-badge">12,5–25 mg/kg PO o IV c/12h</span></td>
+                <td>Primera elección empírica; activo frente a MSSP, <em>Streptococcus</em>, <em>Pasteurella</em> y bacterias productoras de betalactamasas.</td>
+              </tr>
+              <tr>
+                <td><strong>Canino</strong></td>
+                <td>Cefalexina</td>
+                <td><span class="mono-badge">22–30 mg/kg PO c/12h</span></td>
+                <td>Cefalosporina de primera generación; óptima biodisponibilidad y potencia anti-estafilocócica convencional.</td>
+              </tr>
+              <tr>
+                <td><strong>Canino</strong></td>
+                <td>Clindamicina</td>
+                <td><span class="mono-badge">11 mg/kg PO o SC c/12h</span></td>
+                <td>Lincosamida; elevada penetración tisular y ósea, potente efecto contra cocos Gram positivos y anaerobios, e inhibición de la síntesis de exotoxinas.</td>
+              </tr>
+              <tr>
+                <td><strong>Canino</strong></td>
+                <td>Doxiciclina Hiclato / Monohidrato</td>
+                <td><span class="mono-badge">10 mg/kg PO c/24h o 5 mg/kg PO c/12h</span></td>
+                <td>Primera elección en sospecha o confirmación de coinfección por <em>Ehrlichia canis</em> y cepas de MRSP sensibles.</td>
+              </tr>
+              <tr>
+                <td><strong>Canino</strong></td>
+                <td>Enrofloxacina</td>
+                <td><span class="mono-badge">5–10 mg/kg PO, SC o IV lenta c/24h</span></td>
+                <td>Fluoroquinolona de reserva; limitada a infecciones profundas por bacilos Gram negativos (<em>Pseudomonas, E. coli</em>) bajo antibiograma.</td>
+              </tr>
+              <tr>
+                <td><strong>Felino</strong></td>
+                <td>Amoxicilina + Ácido Clavulánico</td>
+                <td><span class="mono-badge">12,5–20 mg/kg PO c/12h</span></td>
+                <td>Terapia empírica primordial en celulitis por agresión; excelente eficacia frente a <em>Pasteurella multocida</em> y microbiota anaerobia oral.</td>
+              </tr>
+              <tr>
+                <td><strong>Felino</strong></td>
+                <td>Ampicilina Sódica</td>
+                <td><span class="mono-badge">20 mg/kg IV o SC c/8h</span></td>
+                <td>Alternativa parenteral hospitalaria en felinos cursando con náuseas o intolerancia gástrica aguda.</td>
+              </tr>
+              <tr>
+                <td><strong>Felino</strong></td>
+                <td>Pradofloxacina</td>
+                <td><span class="mono-badge">3–5 mg/kg PO c/24h</span></td>
+                <td>Fluoroquinolona veterinaria de tercera generación; cobertura de Gram negativos y anaerobios sin riesgo de degeneración retiniana idiopática felina.</td>
+              </tr>
+              <tr>
+                <td><strong>Felino</strong></td>
+                <td>Cefovecina Sódica</td>
+                <td><span class="mono-badge">8 mg/kg SC dosis única (repetible a los 14 días)</span></td>
+                <td>Cefalosporina de tercera generación; reservada de manera exclusiva para escenarios con imposibilidad documentada de administración oral diaria.</td>
+              </tr>
+              <tr>
+                <td><strong>Equino</strong></td>
+                <td>Penicilina G Potásica o Sódica</td>
+                <td><span class="mono-badge">22.000–44.000 UI/kg IV c/6h</span></td>
+                <td>Bactericida de elección frente a <em>Streptococcus equi</em> subsp. <em>zooepidemicus</em>; administrada en combinación hospitalaria de choque.</td>
+              </tr>
+              <tr>
+                <td><strong>Equino</strong></td>
+                <td>Gentamicina Sulfato</td>
+                <td><span class="mono-badge">6,6 mg/kg IV o IM c/24h</span></td>
+                <td>Aminoglucósido de choque; sinergismo bactericida con penicilinas contra bacterias Gram negativas entéricas invasivas en linfangitis aguda.</td>
+              </tr>
+              <tr>
+                <td><strong>Equino</strong></td>
+                <td>Trimetoprima + Sulfadiazina (TMS)</td>
+                <td><span class="mono-badge">15–30 mg/kg PO c/12h</span></td>
+                <td>Terapia oral ambulatoria de desescalamiento una vez estabilizado el paciente tras la fase parenteral inicial.</td>
+              </tr>
+              <tr>
+                <td><strong>Equino</strong></td>
+                <td>Enrofloxacina</td>
+                <td><span class="mono-badge">5–7,5 mg/kg IV diluida c/24h</span></td>
+                <td>Antimicrobiano de segunda línea en équidos adultos frente a <em>Pseudomonas</em> o enterobacterias resistentes aisladas en cultivo.</td>
+              </tr>
+              <tr>
+                <td><strong>Bovino</strong></td>
+                <td>Penicilina G Procaína</td>
+                <td><span class="mono-badge">20.000–22.000 UI/kg IM profunda c/24h</span></td>
+                <td>Primera línea en celulitis profunda y flemones musculares por anaerobios Gram positivos y <em>T. pyogenes</em>.</td>
+              </tr>
+              <tr>
+                <td><strong>Bovino</strong></td>
+                <td>Oxitetraciclina Larga Acción (LA)</td>
+                <td><span class="mono-badge">20 mg/kg IM o SC c/48–72h</span></td>
+                <td>Amplio espectro con adecuada distribución dérmica e interdigital en panadizo difuso (<em>F. necrophorum</em>).</td>
+              </tr>
+              <tr>
+                <td><strong>Bovino</strong></td>
+                <td>Florfenicol</td>
+                <td><span class="mono-badge">20 mg/kg IM c/48h o 40 mg/kg SC dosis única</span></td>
+                <td>Fenicoleano sintético con alta penetración en tejidos subcutáneos necrosados y lecho podal.</td>
+              </tr>
+              <tr>
+                <td><strong>Porcino</strong></td>
+                <td>Amoxicilina Trihidrato</td>
+                <td><span class="mono-badge">15 mg/kg IM profunda c/24h</span></td>
+                <td>Betalactámico parenteral de primera opción frente a flemones sistémicos locomotores por <em>Streptococcus suis</em>.</td>
+              </tr>
+              <tr>
+                <td><strong>Porcino</strong></td>
+                <td>Ceftiofur Sódico o Clorhidrato</td>
+                <td><span class="mono-badge">3–5 mg/kg IM c/24h</span></td>
+                <td>Cefalosporina aprobada en porcinos para cuadros infecciosos sistémicos con compromiso locomotor y fascial.</td>
+              </tr>
+              <tr>
+                <td><strong>Conejo</strong></td>
+                <td>Trimetoprima + Sulfametoxazol</td>
+                <td><span class="mono-badge">30 mg/kg PO o SC c/12h</span></td>
+                <td>Fármaco seguro en lagomorfos; no induce disbiosis cecal potencialmente letal mediada por clostridios.</td>
+              </tr>
+              <tr>
+                <td><strong>Conejo</strong></td>
+                <td>Enrofloxacina</td>
+                <td><span class="mono-badge">10–20 mg/kg PO o SC c/12–24h</span></td>
+                <td>Quinolona bactericida bien tolerada; elección preferencial en flemones orofaciales por <em>Pseudomonas</em> o <em>Pasteurella</em>.</td>
+              </tr>
+              <tr>
+                <td><strong>Conejo</strong></td>
+                <td>Azitromicina</td>
+                <td><span class="mono-badge">15–30 mg/kg PO c/24h</span></td>
+                <td>Macrólido azálido con acumulación en el compartimento heterofílico caseoso hipodérmico.</td>
+              </tr>
+              <tr>
+                <td><strong>Conejo</strong></td>
+                <td>Advertencia Formal: Betalactámicos orales</td>
+                <td><span class="mono-badge" style="background:rgba(239,68,68,0.25);color:#fecaca;">CONTRAINDICADOS</span></td>
+                <td>Penicilinas, cefalosporinas o clindamicina orales provocan enterotoxemia fatal por sobrecrecimiento de <em>Clostridium spiroforme</em>.</td>
+              </tr>
+              <tr>
+                <td><strong>Aves</strong></td>
+                <td>Amoxicilina + Ácido Clavulánico</td>
+                <td><span class="mono-badge">125–150 mg/kg PO c/12h</span></td>
+                <td>Posología corregida para equilibrar la tasa metabólica basal y el rápido aclaramiento renal aviar; activa frente a coliformes.</td>
+              </tr>
+              <tr>
+                <td><strong>Aves</strong></td>
+                <td>Enrofloxacina</td>
+                <td><span class="mono-badge">15–30 mg/kg PO o IM c/12–24h</span></td>
+                <td>Quinolona de amplio espectro contra cepas de <em>E. coli</em> APEC involucradas en flemón subcutáneo.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="species-grid">
+          <div class="info-panel">
+            <h4>Criterios Quirúrgicos y Drenajes</h4>
+            <ul>
+              <li><strong>Necrosectomía radical precoz:</strong> Obligatoria ante máculas violáceas frías, escaras negruzcas insensibles o desvitalización dérmica, escindiendo hasta bordes con sangrado capilar uniforme y contracción muscular.</li>
+              <li><strong>Fasciotomía descompresiva longitudinal:</strong> Inmediata cuando la presión intracompartimental supera los <strong>30 mmHg</strong> en miembros distales de pequeños animales y equinos.</li>
+              <li><strong>Gas tisular o fluctuación secundaria:</strong> Incisiones de descarga y fenestración dependiente.</li>
+              <li><strong>Drenajes y NPWT/VAC:</strong> Los drenajes pasivos (<em>Penrose</em>) tienen utilidad restringida y riesgo nosocomial ascendente. Se prefieren drenajes activos cerrados (<em>Jackson-Pratt, Blake</em>) o terapia de cierre asistido por vacío (<strong>NPWT/VAC a -75 a -125 mmHg</strong>) sobre esponjas de poliuretano reticulado.</li>
+              <li><strong>Aves y Lagomorfos:</strong> Los drenajes fracasan por el pus caseoso semisólido; requieren incisión amplia, curetaje mecánico, resección de pseudocápsula, lavado a presión y cicatrización por segunda intención, hidrocoloides, miel médica de Manuka o marsupialización.</li>
+            </ul>
+          </div>
+
+          <div class="info-panel">
+            <h4>Analgesia Multimodal</h4>
+            <ul>
+              <li><strong>Opioides μ puros (caninos y felinos):</strong> Metadona <span class="mono-badge">0,2–0,4 mg/kg IV o IM c/4–6h</span> o Fentanilo en infusión continua <span class="mono-badge">2–5 μg/kg/h</span>.</li>
+              <li><strong>Infusión continua MLK (exclusiva caninos):</strong> Morfina <span class="mono-badge">0,1–0,2 mg/kg/h</span> + Lidocaína <span class="mono-badge">1–2 mg/kg/h</span> + Ketamina <span class="mono-badge">0,1–0,3 mg/kg/h</span> (bloqueo NMDA contra alodinia y sensibilización central). <strong>La lidocaína IV está rigurosamente contraindicada en felinos</strong> por cardiodepresión y neurotoxicidad.</li>
+              <li><strong>Contraindicación de AINEs:</strong> Estrictamente contraindicados durante reanimación inicial, hipotensión o azotemia (inhiben PGE2 y PGI2 precipitando necrosis tubular renal aguda, y enmascaran la fiebre y el dolor de conversión a fascitis necrotizante).</li>
+              <li><em>Nota de evidencia:</em> El informe no especifica dosis numéricas de analgésicos para equinos, rumiantes, porcinos, aves o conejos.</li>
+            </ul>
+          </div>
+
+          <div class="info-panel">
+            <h4>Reanimación Hemodinámica y Sepsis</h4>
+            <ul>
+              <li><strong>Cristaloides isotónicos balanceados (Ringer Lactato / Plasmalyte-A):</strong> Bolos de <span class="mono-badge">10–20 mL/kg en 15–20 min</span> en caninos; <span class="mono-badge">5–10 mL/kg en 20–30 min</span> en felinos (cuidando complacencia miocárdica); e infusión continua de <span class="mono-badge">60–100 mL/kg/día</span> en equinos.</li>
+              <li><strong>Metas fisiológicas:</strong> PAM <strong>&gt; 65–70 mmHg</strong>, diuresis en sistema cerrado <strong>&gt; 1–2 mL/kg/h</strong> y depuración de lactato sérico <strong>≥ 50% en 4–6 h</strong>.</li>
+              <li><strong>Soporte vasopresor e inotrópico:</strong> En choque vasodilatador refractario a volumen, <strong>Noradrenalina</strong> <span class="mono-badge">0,1–1 μg/kg/min IV CRI</span> (agonista α<sub>1</sub>) + <strong>Dobutamina</strong> <span class="mono-badge">2,5–10 μg/kg/min</span> si hay depresión contráctil miocárdica.</li>
+              <li><strong>Terapia física equina:</strong> Crioterapia con manguera fría a presión (<strong>20 min, 2–3 veces/día</strong>) tras controlar el dolor + vendaje compresivo elástico multicapa (<strong>Robert Jones modificado</strong>).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- MÓDULO 08: USO PRUDENTE DE ANTIMICROBIANOS -->
+      <section id="mod-08" class="module-card">
+        <div class="module-header">
+          <div>
+            <span class="module-tag">Módulo 08 · Optimización Antimicrobiana (PROA / ISCAID)</span>
+            <h2 class="module-title">Uso Prudente de Antimicrobianos y Prevención de Resistencias</h2>
+          </div>
+        </div>
+        <div class="species-grid">
+          <div class="info-panel">
+            <h4>Restricción de Fármacos Críticos</h4>
+            <p>Las <strong>fluoroquinolonas</strong> (enrofloxacina, marbofloxacina, pradofloxacina) y las <strong>cefalosporinas de 3.ª generación de depósito (cefovecina) o 4.ª generación</strong> son antimicrobianos de importancia crítica. Su prescripción empírica indiscriminada está proscrita; solo se emplean cuando el antibiograma demuestra refractariedad a primera línea o en choque séptico con bacteriemia citológica por bacilos Gram negativos.</p>
+          </div>
+          <div class="info-panel">
+            <h4>Manejo de MRSP (Gen mecA / PBP2a)</h4>
+            <p>Frente a <em>Staphylococcus pseudintermedius</em> resistente a meticilina (MRSP), <strong>todos los betalactámicos (incluyendo cefalosporinas de cualquier generación y carbapenémicos) son ineficaces</strong>. La selección terapéutica debe guiarse estrictamente por la CMI hacia opciones no betalactámicas (doxiciclina, minociclina, trimetoprima-sulfonamida o amikacina).</p>
+          </div>
+          <div class="info-panel">
+            <h4>Fin de las Prolongaciones Arbitrarias</h4>
+            <p>Suspender la terapia al alcanzar la resolución clínica y citológica evita la presión selectiva innecesaria sobre la microbiota comensal mucocutánea y entérica, reduciendo la emergencia de cepas BLEE y MRSP.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- MÓDULO 09: PRONÓSTICO Y CUADRO INTEGRAL -->
+      <section id="mod-09" class="module-card">
+        <div class="module-header">
+          <div>
+            <span class="module-tag">Módulo 09 · Desenlaces Clínicos</span>
+            <h2 class="module-title">Pronóstico, Secuelas y Cuadro Comparativo Interespecífico Integral</h2>
+          </div>
+        </div>
+        <div class="species-grid" style="margin-bottom:1.25rem;">
+          <div class="info-panel">
+            <h4>Indicadores Pronósticos</h4>
+            <p><strong>Favorable:</strong> Respuesta precoz a betalactámicos de 1.ª línea, normovolemia, lactato sérico <strong>&lt; 2,0 mmol/L</strong> y ausencia de comorbilidades. <strong>Fatal / Infausto:</strong> Conversión a fascitis necrotizante (mortalidad del <strong>100%</strong> sin desbridamiento y <strong>20–30%</strong> con terapia intensiva agresiva), CID con trombocitopenia de consumo, neutropenia degenerativa, lactato persistente <strong>&gt; 4,0 mmol/L</strong> e infecciones por MRSP panrresistentes o productores de carbapenemasas.</p>
+          </div>
+          <div class="info-panel">
+            <h4>Secuelas Críticas por Especie</h4>
+            <p><strong>Caninos y Felinos:</strong> Escaras masivas que requieren colgajos o injertos, amputación por gangrena isquémica y SDRA/ARDS séptico. <strong>Equinos:</strong> <strong>Laminitis de apoyo contralateral</strong> (<em>support limb laminitis</em>) con rotación/hundimiento de la 3.ª falange, trombosis digital, esfacelo del casco (<em>sloughing</em>) y fibroedema crónico. <strong>Rumiantes:</strong> Necrosis de ligamentos interdigitales y artritis séptica interfalángica distal (amputación de dígito). <strong>Aves y Conejos:</strong> Osteomielitis profunda y lisis cortical.</p>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="clinical-table">
+            <thead>
+              <tr>
+                <th>Especie</th>
+                <th>Agentes Etiológicos Dominantes</th>
+                <th>Mecanismos de Virulencia Primarios</th>
+                <th>Fenotipo Lesional y Signos Clínicos</th>
+                <th>Directriz Antimicrobiana Principal</th>
+                <th>Intervención Quirúrgica Requerida</th>
+                <th>Complicaciones y Pronóstico</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Caninos</strong></td>
+                <td><em>S. pseudintermedius</em> (MSSP/MRSP), <em>Streptococcus canis, E. coli, P. aeruginosa</em></td>
+                <td>Leucocidinas (LukS/F-I), estreptoquinasa, enterotoxinas, superantígenos pirógenos, β-lactamasas</td>
+                <td>Placa eritematosa empastada, necrosis cutánea rápida, fístulas serosanguinolentas, dolor exquisito</td>
+                <td>Amoxicilina-clavulánico o cefalexina empíricos; clindamicina o doxiciclina según CMI</td>
+                <td>Desbridamiento de tejidos necróticos, fasciotomía si hay síndrome compartimental, NPWT</td>
+                <td>Falla multiorgánica por choque séptico, fascitis necrotizante; Pronóstico: Favorable a Infausto</td>
+              </tr>
+              <tr>
+                <td><strong>Felinos</strong></td>
+                <td><em>Pasteurella multocida, Prevotella, Fusobacterium, Porphyromonas, Bacteroides</em></td>
+                <td>Cápsula de ácido hialurónico, endotoxinas LPS, enzimas líticas anaerobias degradadoras de colágeno</td>
+                <td>Flemón violáceo por mordeduras, flictenas hemorrágicas, esfacelo de colgajos dérmicos</td>
+                <td>Amoxicilina-clavulánico o ampicilina parenteral; pradofloxacina bajo antibiograma</td>
+                <td>Incisiones de descarga dependiente, legrado de tejido no viable, curas antisépticas abiertas</td>
+                <td>Necrosis isquémica extensa, bacteriemia sistémica; Pronóstico: Favorable a Reservado</td>
+              </tr>
+              <tr>
+                <td><strong>Equinos</strong></td>
+                <td><em>Streptococcus equi</em> subsp. <em>zooepidemicus, S. aureus, E. coli</em></td>
+                <td>Hialuronidasas tisulares, estreptolisina, proteasas de matriz, microtromboflebitis</td>
+                <td>Edema cilíndrico masivo («pata de elefante»), exudación serosa cutánea, claudicación 5/5</td>
+                <td>Penicilina G potásica IV + Gentamicina IV; desescalamiento oral con Trimetoprima-Sulfadiazina</td>
+                <td>Poco frecuente; contraaberturas mínimas guiadas por eco; crioterapia y vendajes elásticos</td>
+                <td>Laminitis de apoyo contralateral, linfedema fibrosante permanente; Pronóstico: Moderado a Grave</td>
+              </tr>
+              <tr>
+                <td><strong>Bovinos</strong></td>
+                <td><em>Trueperella pyogenes, Fusobacterium necrophorum, Clostridium</em> spp., <em>M. bovis</em></td>
+                <td>Piolisina citolítica (PLO), leucotoxinas necrosantes, coagulación intravascular local sinérgica</td>
+                <td>Panadizo interdigital con divergencia pezuñaria o flemón muscular profundo cervical fétido</td>
+                <td>Penicilina G procaína IM, Oxitetraciclina LA parenteral o Florfenicol</td>
+                <td>Curetaje agresivo interdigital, remoción de tejido desvitalizado, lavado antiséptico</td>
+                <td>Artritis séptica interfalángica distal, pérdida productiva; Pronóstico: Favorable a Reservado</td>
+              </tr>
+              <tr>
+                <td><strong>Porcinos</strong></td>
+                <td><em>Streptococcus suis, Erysipelothrix rhusiopathiae</em>, anaerobios comensales</td>
+                <td>Suilisina, proteína liberadora de muramidasa (MRP), endotoxinas inoculadas por canibalismo</td>
+                <td>Edema periorbitario difuso, tumefacciones cervicales deformantes posmordedura o castración</td>
+                <td>Amoxicilina trihidrato IM o Ceftiofur parenteral en esquemas individuales o metafilácticos</td>
+                <td>Rara; desbridamiento de bordes necróticos cutáneos abiertos exclusivamente</td>
+                <td>Endocarditis vegetativa séptica metastásica, postración irreversible; Pronóstico: Variable</td>
+              </tr>
+              <tr>
+                <td><strong>Conejos</strong></td>
+                <td><em>Pasteurella multocida, Staphylococcus aureus, Pseudomonas aeruginosa</em></td>
+                <td>Ausencia de lisis heterofílica por falta de mieloperoxidasa, producción de exudado caseoso</td>
+                <td>Flemón indurado e inmóvil orofacial o podal; contenido caseoso semisólido no drenable</td>
+                <td>Trimetoprima-Sulfametoxazol, Enrofloxacina o Azitromicina oral (β-lactámicos orales letales)</td>
+                <td>Escisión quirúrgica abierta indispensable, legrado meticuloso de la placa caseosa y apósitos tópicos</td>
+                <td>Osteomielitis maxilofacial, disbiosis cecal iatrogénica mortal; Pronóstico: Reservado a Desfavorable</td>
+              </tr>
+              <tr>
+                <td><strong>Aves</strong></td>
+                <td><em>Escherichia coli</em> patógena aviar (APEC), <em>Enterococcus</em> spp.</td>
+                <td>Cepas portadoras de ColV, aerobactina, fimbrias F11; heterófilos generan exudado fibrinocaseoso</td>
+                <td>Engrosamiento en placa del subcutáneo ventroabdominal; material sólido amarillento adherente</td>
+                <td>Amoxicilina-clavulánico o Enrofloxacina corregidos para cinética metabólica aviar</td>
+                <td>Remoción quirúrgica de la placa fibrinocaseosa subcutánea, lavado y cierre abierto</td>
+                <td>Decomiso sistemático en canal de carne; septicemia sistémica; Pronóstico: Variable según especie</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- MODELO 3D INTERACTIVO CON THREE.JS Y LÍNEAS GUÍA SIN SUPERPOSICIÓN -->
+      <section id="mod-3d" class="module-card">
+        <div class="module-header">
+          <div>
+            <span class="module-tag">Visualización Espacial Interactiva · Three.js ES Module</span>
+            <h2 class="module-title">Modelo 3D de Capas Cutáneas, Planos Fasciales, Colector Linfático y Linfonodo</h2>
+          </div>
+          <span class="mono-badge">Rotable 360° · Etiquetas con Líneas Guía</span>
+        </div>
+
+        <div class="viewer3d-wrapper">
+          <div class="canvas3d-box" id="canvas3dContainer">
+            <canvas id="skin3dCanvas"></canvas>
+            <svg id="labels3dSvg" aria-hidden="true"></svg>
+            <div class="labels3d-layer" id="labels3dLayer"></div>
+          </div>
+
+          <div class="controls3d-panel">
+            <div>
+              <label for="stageSlider" style="font-size:0.85rem;font-weight:700;color:var(--accent-cyan);display:block;margin-bottom:0.4rem;">
+                Progresión Fisiopatológica (Slider):
+              </label>
+              <input id="stageSlider" class="slider-Input" type="range" min="0" max="100" value="15" />
+              <div style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:0.7rem;color:var(--text-muted);margin-top:0.25rem;">
+                <span>0% Inoculación</span>
+                <span>50% Empedrado</span>
+                <span>100% Linfadenitis/Trombosis</span>
+              </div>
+            </div>
+
+            <div id="stage3dInfo" class="info-panel" style="flex:1;">
+              <h4 id="stage3dTitle">Fase 1: Inoculación Traumática y Adhesión</h4>
+              <p id="stage3dDesc">Disrupción de la barrera epidérmica y llegada de cocos/bacilos a la dermis reticular. Adhesión mediante MSCRAMMs al colágeno I/III.</p>
+            </div>
+
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+              <button id="toggleLabels3dBtn" class="btn-action" type="button">Mostrar/Ocultar Etiquetas</button>
+              <button id="resetCam3dBtn" class="btn-action" type="button">Restablecer Cámara</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MINI JUEGOS -->
+      <section id="mod-juegos" class="module-card">
+        <div class="module-header">
+          <div>
+            <span class="module-tag">Entrenamiento Clínico Gamificado</span>
+            <h2 class="module-title">Mini Juegos: Simulador de Caso Clínico con Tiempo y Emparejamiento Microbiológico</h2>
+          </div>
+        </div>
+
+        <div class="games-grid">
+          <!-- JUEGO 1: SIMULADOR -->
+          <div class="sim-box" id="simBoxContainer">
+            <div class="sim-hud">
+              <div><strong>Juego 1:</strong> Simulador de Decisiones Clínicas en Urgencias</div>
+              <div>Tiempo Etapa: <span id="simTimer" style="color:var(--accent-amber);font-weight:700;">45s</span></div>
+              <div>Puntaje Clínico: <span id="simScore" style="color:var(--accent-emerald);font-weight:700;">0 / 400</span></div>
+              <button id="simRestartBtn" class="btn-action" type="button">Reiniciar Caso</button>
+            </div>
+            <div id="simStageBody"></div>
+          </div>
+
+          <!-- JUEGO 2: DRAG AND DROP -->
+          <div class="sim-box">
+            <div class="sim-hud">
+              <div><strong>Juego 2:</strong> Emparejar Patógeno / Especie con Antimicrobiano o Mecanismo (Arrastra o Toca en Móvil)</div>
+              <div>Aciertos: <span id="ddScore" style="color:var(--accent-cyan);font-weight:700;">0 / 6</span></div>
+              <button id="ddResetBtn" class="btn-action" type="button">Reiniciar Tablero</button>
+            </div>
+            <div class="dd-container">
+              <div class="dd-column" id="ddDraggables"></div>
+              <div class="dd-column" id="ddDropzones"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AUTOEVALUACIÓN FINAL (12 PREGUNTAS) Y CERTIFICADO PNG -->
+      <section id="mod-quiz" class="module-card">
+        <div class="module-header">
+          <div>
+            <span class="module-tag">Evaluación de Competencias · 12 Preguntas</span>
+            <h2 class="module-title">Autoevaluación Final, Repaso de Errores e Insignia Descargable en PNG</h2>
+          </div>
+        </div>
+
+        <div id="quizContainer"></div>
+
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+          <button id="submitQuizBtn" class="btn-action" style="border-color:var(--accent-cyan);background:rgba(6,182,212,0.2);" type="button">Calificar Evaluación</button>
+          <button id="filterErrorsBtn" class="btn-action" style="display:none;" type="button">Ver Solo Errores para Repaso</button>
+          <button id="resetQuizBtn" class="btn-action" type="button">Reiniciar Evaluación</button>
+        </div>
+
+        <div id="quizResultBox" style="display:none;margin-top:1.5rem;" class="info-panel">
+          <h4 id="quizScoreHeading">Resultado</h4>
+          <p id="quizScoreSummary"></p>
+          <div class="cert-preview-wrap">
+            <div style="display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;justify-content:center;">
+              <label for="certNameInput" style="font-size:0.84rem;">Nombre para el Certificado:</label>
+              <input id="certNameInput" type="text" placeholder="Ej. Dr. / Dra. Nombre Apellido" value="Profesional Veterinario" style="padding:0.45rem 0.75rem;border-radius:6px;border:1px solid var(--border-highlight);background:var(--bg-base);color:var(--text-primary);font-size:0.85rem;" />
+              <button id="renderCertBtn" class="btn-action" type="button">Actualizar Insignia</button>
+              <button id="downloadCertBtn" class="btn-action active-sound" type="button">Descargar Certificado PNG</button>
+            </div>
+            <canvas id="certCanvas" width="900" height="540"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- GALERÍA DE IMÁGENES CON DATA-COMMONS -->
+      <section id="mod-galeria" class="module-card">
+        <div class="module-header">
+          <div>
+            <span class="module-tag">Repositorio Visual Clínico</span>
+            <h2 class="module-title">Galería de Referencia Anatomopatológica y Diagnóstica</h2>
+          </div>
+          <span class="mono-badge">Imágenes reales · Wikimedia Commons</span>
+        </div>
+
+        <div class="gallery-grid">
+          <figure class="gallery-card">
+            <img data-commons="Pus_in_Gram_stain_showing_Gram_positive_cocci_in_singles,_pairs_and_clusters.jpg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Pus_in_Gram_stain_showing_Gram_positive_cocci_in_singles%2C_pairs_and_clusters.jpg/960px-Pus_in_Gram_stain_showing_Gram_positive_cocci_in_singles%2C_pairs_and_clusters.jpg" alt="Tinción de Gram de pus con cocos Gram positivos" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+            <figcaption class="gallery-caption">
+              <div>
+                <strong style="color:var(--text-primary);display:block;margin-bottom:0.25rem;">1. Pus con cocos Gram positivos (Staphylococcus)</strong>
+                Cocos Gram positivos aislados, en pares y en racimos sobre un fondo de pus: el patrón de Staphylococcus, el agente más frecuente del flemón canino (S. pseudintermedius).
+              </div>
+              <div class="credit-slot">Autor: Ajay Kumar Chaurasiya · Licencia: <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Pus_in_Gram_stain_showing_Gram_positive_cocci_in_singles,_pairs_and_clusters.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-card">
+            <img data-commons="Beta-hemoltic_streptococci_in_Gram_stain.jpg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Beta-hemoltic_streptococci_in_Gram_stain.jpg/960px-Beta-hemoltic_streptococci_in_Gram_stain.jpg" alt="Tinción de Gram de estreptococos beta-hemolíticos en cadenas" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+            <figcaption class="gallery-caption">
+              <div>
+                <strong style="color:var(--text-primary);display:block;margin-bottom:0.25rem;">2. Estreptococos β-hemolíticos</strong>
+                Cocos Gram positivos en cadenas, como S. canis en el perro o S. equi subsp. zooepidemicus en el caballo; sus exoenzimas favorecen la diseminación sin cápsula.
+              </div>
+              <div class="credit-slot">Autor: Ajay Kumar Chaurasiya · Licencia: <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Beta-hemoltic_streptococci_in_Gram_stain.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-card">
+            <img data-commons="Epidermis,_papillary_dermis_and_reticular_dermis.png" src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Epidermis%2C_papillary_dermis_and_reticular_dermis.png" alt="Corte histológico de piel normal con epidermis, dermis papilar y dermis reticular" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+            <figcaption class="gallery-caption">
+              <div>
+                <strong style="color:var(--text-primary);display:block;margin-bottom:0.25rem;">3. Capas de la piel (H&amp;E)</strong>
+                Epidermis, dermis papilar y dermis reticular en piel normal (referencia histológica). El flemón avanza por la dermis reticular, la hipodermis y los planos fasciales.
+              </div>
+              <div class="credit-slot">Autor: Kilbad; derivado de Mikael Häggström, M.D. · Licencia: <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank" rel="noopener">CC0</a> · <a href="https://commons.wikimedia.org/wiki/File:Epidermis,_papillary_dermis_and_reticular_dermis.png" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-card">
+            <img data-commons="Horse_undergoing_ulcerated_cellulitis_treatment_(Reeve_033955),_National_Museum_of_Health_and_Medicine_(3457553296).jpg" src="https://upload.wikimedia.org/wikipedia/commons/5/52/Horse_undergoing_ulcerated_cellulitis_treatment_%28Reeve_033955%29%2C_National_Museum_of_Health_and_Medicine_%283457553296%29.jpg" alt="Caballo en tratamiento por celulitis ulcerada avanzada" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+            <figcaption class="gallery-caption">
+              <div>
+                <strong style="color:var(--text-primary);display:block;margin-bottom:0.25rem;">4. Celulitis ulcerada en un caballo</strong>
+                Fotografía histórica (Hospital Veterinario de Guerra de St. Omer, hacia la Primera Guerra Mundial) de un caballo tratado por celulitis ulcerada avanzada.
+              </div>
+              <div class="credit-slot">Autor: National Museum of Health and Medicine · Licencia: <a href="https://creativecommons.org/licenses/by/2.0" target="_blank" rel="noopener">CC BY 2.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Horse_undergoing_ulcerated_cellulitis_treatment_(Reeve_033955),_National_Museum_of_Health_and_Medicine_(3457553296).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-card">
+            <img data-commons="Cattle_Dog_with_injured_leg.jpg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Cattle_Dog_with_injured_leg.jpg/960px-Cattle_Dog_with_injured_leg.jpg" alt="Perro con vendaje en el miembro pelviano tras una herida" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+            <figcaption class="gallery-caption">
+              <div>
+                <strong style="color:var(--text-primary);display:block;margin-bottom:0.25rem;">5. Herida en miembro pelviano de un perro</strong>
+                La inoculación traumática en extremidades es una puerta de entrada típica del flemón en caninos; el vendaje y evitar el lamido forman parte del manejo.
+              </div>
+              <div class="credit-slot">Autor: Mdk572 · Licencia: <a href="https://creativecommons.org/licenses/by-sa/3.0" target="_blank" rel="noopener">CC BY-SA 3.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Cattle_Dog_with_injured_leg.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-card">
+            <img data-commons="Cat_wounded_in_a_fight.jpg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Cat_wounded_in_a_fight.jpg/960px-Cat_wounded_in_a_fight.jpg" alt="Gato con heridas por pelea en la oreja" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+            <figcaption class="gallery-caption">
+              <div>
+                <strong style="color:var(--text-primary);display:block;margin-bottom:0.25rem;">6. Heridas por pelea en un gato</strong>
+                En felinos, el flemón deriva casi siempre de mordeduras y arañazos profundos que inoculan Pasteurella multocida y anaerobios.
+              </div>
+              <div class="credit-slot">Autor: David Shankbone · Licencia: <a href="https://creativecommons.org/licenses/by/3.0" target="_blank" rel="noopener">CC BY 3.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Cat_wounded_in_a_fight.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- PIE DE PÁGINA CON SELLO, CRÉDITO DE AUTOR Y FUENTES DEL INFORME -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-bottom:1px solid var(--border-subtle);padding-bottom:1.25rem;">
+        <div class="brand-seal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/>
+            <path d="M12 8v8M8 12h8"/>
+          </svg>
+          <span>AMC VetAtlas · Animal Medical Center</span>
+        </div>
+        <div style="font-size:0.92rem;font-weight:600;color:var(--text-primary);">
+          Guía didáctica preparada por Andreé, médico veterinario.
+        </div>
+        <a href="../../" class="btn-action">Volver a VetAtlas (../../)</a>
+      </div>
+
+      <div>
+        <h3 style="font-size:0.88rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent-cyan);margin-bottom:0.75rem;font-family:var(--font-mono);">
+          Fuentes Documentales y Consensos (Extraídos Íntegramente del Informe)
+        </h3>
+        <ol class="sources-list">
+          <li><a href="https://www.iscaid.org/guidelines" target="_blank" rel="noopener">https://www.iscaid.org/guidelines</a></li>
+          <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3582090/" target="_blank" rel="noopener">https://pmc.ncbi.nlm.nih.gov/articles/PMC3582090/</a></li>
+          <li><a href="https://science.unimelb.edu.au/avpg/companion-animals/skin" target="_blank" rel="noopener">https://science.unimelb.edu.au/avpg/companion-animals/skin</a></li>
+          <li><a href="https://openjournals.ugent.be/vdt/article/75556/galley/199666/view/" target="_blank" rel="noopener">https://openjournals.ugent.be/vdt/article/75556/galley/199666/view/</a></li>
+          <li><a href="https://www.researchtrend.net/ijtas/pdf/6%20Surgical%20Management%20of%20Skin%20Abscesses%20in%20New%20Zealand%20White%20Rabbits%20%E2%80%93%20A%20Clinical%20Case%20Report%20Divisha%20R.%201280.pdf" target="_blank" rel="noopener">https://www.researchtrend.net/ijtas/pdf/6%20Surgical%20Management...1280.pdf</a></li>
+          <li><a href="https://open.lib.umn.edu/animaldermatology3/chapter/juvenile-cellulitis-canine/" target="_blank" rel="noopener">https://open.lib.umn.edu/animaldermatology3/chapter/juvenile-cellulitis-canine/</a></li>
+          <li><a href="https://veteducation.com/canine-necrotising-fasciitis/" target="_blank" rel="noopener">https://veteducation.com/canine-necrotising-fasciitis/</a></li>
+          <li><a href="https://todaysveterinarypractice.com/emergency-medicine-critical-care/necrotizing-fasciitis-in-dogs/" target="_blank" rel="noopener">https://todaysveterinarypractice.com/emergency-medicine-critical-care/necrotizing-fasciitis-in-dogs/</a></li>
+          <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12197406/" target="_blank" rel="noopener">https://pmc.ncbi.nlm.nih.gov/articles/PMC12197406/</a></li>
+          <li><a href="https://www.askjpc.org/wsco/wsc/wsc12/12WSC10.pdf" target="_blank" rel="noopener">https://www.askjpc.org/wsco/wsc/wsc12/12WSC10.pdf</a></li>
+          <li><a href="https://ufl.pb.unizin.org/app/uploads/sites/51/2021/03/ISCAID-Guidelines-for-Antimicrobial-Therapy-of-Skin-Infections.pdf" target="_blank" rel="noopener">https://ufl.pb.unizin.org/app/uploads/sites/51/2021/03/ISCAID-Guidelines-for-Antimicrobial-Therapy-of-Skin-Infections.pdf</a></li>
+          <li><a href="https://avmajournals.avma.org/view/journals/javma/244/12/javma.244.12.1389.xml" target="_blank" rel="noopener">https://avmajournals.avma.org/view/journals/javma/244/12/javma.244.12.1389.xml</a></li>
+          <li><a href="https://ecommons.cornell.edu/server/api/core/bitstreams/3b734571-a287-4c59-9627-45e64683dcae/content" target="_blank" rel="noopener">https://ecommons.cornell.edu/server/api/core/bitstreams/3b734571-a287-4c59-9627-45e64683dcae/content</a></li>
+          <li><a href="https://www.researchgate.net/publication/270817808_Necrotizing_Fasciitis_in_a_Dog" target="_blank" rel="noopener">https://www.researchgate.net/publication/270817808_Necrotizing_Fasciitis_in_a_Dog</a></li>
+          <li><a href="https://www.researchgate.net/publication/332965741_Ultrasound_Images_Associated_with_Snakebites_in_a_Japanese_Black_Calf" target="_blank" rel="noopener">https://www.researchgate.net/publication/332965741_Ultrasound_Images_Associated_with_Snakebites_in_a_Japanese_Black_Calf</a></li>
+          <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7895312/" target="_blank" rel="noopener">https://pmc.ncbi.nlm.nih.gov/articles/PMC7895312/</a></li>
+          <li><a href="https://www.intechopen.com/chapters/1219981" target="_blank" rel="noopener">https://www.intechopen.com/chapters/1219981</a></li>
+          <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9300479/" target="_blank" rel="noopener">https://pmc.ncbi.nlm.nih.gov/articles/PMC9300479/</a></li>
+          <li><a href="https://research-portal.uu.nl/ws/files/277798396/Vet_Record_Case_Reports_-_2025_-_Dijkxhoorn_-_Vasculitis_associated_with_Ehrlichia_canis_and_Babesia_canis_in_a_dog_in_the.pdf" target="_blank" rel="noopener">https://research-portal.uu.nl/ws/files/277798396/Vet_Record_Case_Reports_-_2025_-_Dijkxhoorn...pdf</a></li>
+          <li><a href="https://www.researchgate.net/publication/261601412" target="_blank" rel="noopener">https://www.researchgate.net/publication/261601412 (ISCAID guidelines superficial bacterial folliculitis)</a></li>
+          <li><a href="https://todaysveterinarypractice.com/dermatology/bacterial-and-parasitic-dermatologic-emergencies-in-dogs/" target="_blank" rel="noopener">https://todaysveterinarypractice.com/dermatology/bacterial-and-parasitic-dermatologic-emergencies-in-dogs/</a></li>
+          <li><a href="https://academic.oup.com/jvim/article/34/3/1214/8448310" target="_blank" rel="noopener">https://academic.oup.com/jvim/article/34/3/1214/8448310</a></li>
+          <li><a href="https://ejournals.epublishing.ekt.gr/index.php/jhvms/article/view/15422" target="_blank" rel="noopener">https://ejournals.epublishing.ekt.gr/index.php/jhvms/article/view/15422</a></li>
+          <li><a href="https://journal.ugm.ac.id/ijvs/article/download/89766/41283" target="_blank" rel="noopener">https://journal.ugm.ac.id/ijvs/article/download/89766/41283</a></li>
+          <li><a href="https://www.researchgate.net/publication/359839958_Immunophenotypical_and_pathological_changes_in_dogs_experimentally_infected_with_Ehrlichia_canis" target="_blank" rel="noopener">https://www.researchgate.net/publication/359839958_Immunophenotypical_and_pathological_changes_in_dogs...</a></li>
+          <li><a href="https://pubmed.ncbi.nlm.nih.gov/40338805/" target="_blank" rel="noopener">https://pubmed.ncbi.nlm.nih.gov/40338805/</a></li>
+          <li><a href="https://www.amrvetcollective.com/assets/guidelines/ISCAID_canine_skin_disease_2025.pdf" target="_blank" rel="noopener">https://www.amrvetcollective.com/assets/guidelines/ISCAID_canine_skin_disease_2025.pdf</a></li>
+          <li><a href="https://veterinarypartner.vin.com/doc/?id=11604956&pid=19239" target="_blank" rel="noopener">https://veterinarypartner.vin.com/doc/?id=11604956&amp;pid=19239</a></li>
+          <li><a href="https://pubmed.ncbi.nlm.nih.gov/8578573/" target="_blank" rel="noopener">https://pubmed.ncbi.nlm.nih.gov/8578573/</a></li>
+          <li><a href="https://veteriankey.com/immunodeficiencies-and-infectious-diseases/" target="_blank" rel="noopener">https://veteriankey.com/immunodeficiencies-and-infectious-diseases/</a></li>
+          <li><a href="https://www.frontiersin.org/journals/veterinary-science/articles/10.3389/fvets.2024.1451299/full" target="_blank" rel="noopener">https://www.frontiersin.org/journals/veterinary-science/articles/10.3389/fvets.2024.1451299/full</a></li>
+          <li><a href="https://pubmed.ncbi.nlm.nih.gov/8870738/" target="_blank" rel="noopener">https://pubmed.ncbi.nlm.nih.gov/8870738/</a></li>
+          <li><a href="https://www.rcvsknowledge.org/resource/antimicrobial-use-guidelines-for-canine-pyoderma-by-the-international-society-for-companion-animal-infectious-diseases-iscaid/" target="_blank" rel="noopener">https://www.rcvsknowledge.org/resource/antimicrobial-use-guidelines-for-canine-pyoderma...</a></li>
+          <li><a href="https://rvc-repository.worktribe.com/output/2228709/antimicrobial-use-guidelines-for-canine-pyoderma-by-the-international-society-for-companion-animal-infectious-diseases-iscaid" target="_blank" rel="noopener">https://rvc-repository.worktribe.com/output/2228709/antimicrobial-use-guidelines-for-canine-pyoderma...</a></li>
+          <li><a href="https://www.askjpc.org/wsco/POLA/2007/POLA2007.pdf" target="_blank" rel="noopener">https://www.askjpc.org/wsco/POLA/2007/POLA2007.pdf</a></li>
+          <li><a href="https://www.esvp-ecvp-estp-congress.eu/resources/media/ESVP_ECVP/ESVP-ECVP-ESVCP-ECVCP_Proceedingsbook_Lissabon_2023_FINAL_V4.pdf" target="_blank" rel="noopener">https://www.esvp-ecvp-estp-congress.eu/resources/media/ESVP_ECVP/...2023_FINAL_V4.pdf</a></li>
+        </ol>
+      </div>
+    </div>
+  </footer><script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    /* =========================================================================
+       1. SISTEMA DE SONIDO SINTETIZADO (WEB AUDIO API)
+          - Encendido por defecto desde la primera interacción.
+          - Si el primer clic es en el botón de sonido, ENCIENDE el audio en vez de silenciarlo.
+       ========================================================================= */
+    const SoundEngine = {
+      ctx: null,
+      enabled: true,
+      unlocked: false,
+      ambientOsc: null,
+      ambientGain: null,
+
+      initAndUnlock() {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        if (!this.ctx) {
+          this.ctx = new AudioCtx();
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+        this.unlocked = true;
+        if (this.enabled) {
+          this.startAmbient();
+        }
+      },
+
+      startAmbient() {
+        if (!this.ctx || !this.enabled || this.ambientOsc) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(64, this.ctx.currentTime);
+          gain.gain.setValueAtTime(0.015, this.ctx.currentTime);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          this.ambientOsc = osc;
+          this.ambientGain = gain;
+        } catch (e) {}
+      },
+
+      stopAmbient() {
+        if (this.ambientOsc) {
+          try { this.ambientOsc.stop(); } catch (e) {}
+          this.ambientOsc = null;
+        }
+      },
+
+      playTone(freq = 520, duration = 0.08, type = 'sine', vol = 0.06) {
+        if (!this.enabled) return;
+        if (!this.unlocked) this.initAndUnlock();
+        if (!this.ctx) return;
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(vol, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + duration);
+      },
+
+      click() { this.playTone(620, 0.05, 'triangle', 0.05); },
+      success() {
+        this.playTone(523.25, 0.1, 'sine', 0.08);
+        setTimeout(() => this.playTone(659.25, 0.12, 'sine', 0.08), 90);
+        setTimeout(() => this.playTone(783.99, 0.18, 'sine', 0.08), 180);
+      },
+      error() {
+        this.playTone(220, 0.14, 'sawtooth', 0.07);
+        setTimeout(() => this.playTone(175, 0.2, 'sawtooth', 0.07), 120);
+      }
+    };
+
+    const audioToggleBtn = document.getElementById('audioToggleBtn');
+    const audioLabel = document.getElementById('audioLabel');
+
+    // Desbloqueo general en la primera interacción fuera del botón de audio
+    function handleFirstInteraction(e) {
+      if (e.target && e.target.closest && e.target.closest('#audioToggleBtn')) {
+        return;
+      }
+      SoundEngine.initAndUnlock();
+      window.removeEventListener('pointerdown', handleFirstInteraction);
+      window.removeEventListener('keydown', handleFirstInteraction);
+    }
+    window.addEventListener('pointerdown', handleFirstInteraction);
+    window.addEventListener('keydown', handleFirstInteraction);
+
+    // Si el primer clic es sobre el botón de sonido, enciende/activa el audio en lugar de silenciarlo
+    audioToggleBtn.addEventListener('click', () => {
+      if (!SoundEngine.unlocked) {
+        SoundEngine.enabled = true;
+        SoundEngine.initAndUnlock();
+        audioToggleBtn.classList.add('active-sound');
+        audioLabel.textContent = 'Audio: ON';
+        SoundEngine.click();
+        window.removeEventListener('pointerdown', handleFirstInteraction);
+        window.removeEventListener('keydown', handleFirstInteraction);
+        return;
+      }
+
+      SoundEngine.enabled = !SoundEngine.enabled;
+      if (SoundEngine.enabled) {
+        audioToggleBtn.classList.add('active-sound');
+        audioLabel.textContent = 'Audio: ON';
+        SoundEngine.startAmbient();
+        SoundEngine.click();
+      } else {
+        audioToggleBtn.classList.remove('active-sound');
+        audioLabel.textContent = 'Audio: MUTE';
+        SoundEngine.stopAmbient();
+      }
+    });
+
+    /* =========================================================================
+       2. HERO CANVAS 2D: DISEMINACIÓN BACTERIANA POR PLANOS FASCIALES
+       ========================================================================= */
+    const heroCanvas = document.getElementById('heroCanvas');
+    const hCtx = heroCanvas.getContext('2d');
+    let hW = 0, hH = 0;
+    const bacteriaList = [];
+    const leukocytes = [];
+    const collagenStrands = [];
+
+    function resizeHero() {
+      const rect = heroCanvas.parentElement.getBoundingClientRect();
+      hW = heroCanvas.width = rect.width;
+      hH = heroCanvas.height = rect.height;
+      collagenStrands.length = 0;
+      for (let i = 0; i < 9; i++) {
+        collagenStrands.push({
+          y: (hH / 10) * (i + 1),
+          amp: 8 + Math.random() * 10,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+    }
+    window.addEventListener('resize', resizeHero);
+    resizeHero();
+
+    for (let i = 0; i < 48; i++) {
+      bacteriaList.push({
+        x: Math.random() * hW,
+        y: Math.random() * hH,
+        vx: (Math.random() - 0.35) * 1.3,
+        vy: (Math.random() - 0.5) * 0.6,
+        r: 3.5 + Math.random() * 2.5,
+        halo: 14 + Math.random() * 12
+      });
+    }
+    for (let i = 0; i < 18; i++) {
+      leukocytes.push({
+        x: Math.random() * hW,
+        y: Math.random() * hH,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
+        r: 7 + Math.random() * 3
+      });
+    }
+
+    heroCanvas.addEventListener('pointermove', (e) => {
+      const rect = heroCanvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+      if (bacteriaList.length < 95 && Math.random() < 0.35) {
+        bacteriaList.push({
+          x: mx + (Math.random() - 0.5) * 20,
+          y: my + (Math.random() - 0.5) * 20,
+          vx: (Math.random() - 0.2) * 1.6,
+          vy: (Math.random() - 0.5) * 0.8,
+          r: 4,
+          halo: 18
+        });
+      }
+    });
+
+    function animateHero(time) {
+      hCtx.clearRect(0, 0, hW, hH);
+
+      collagenStrands.forEach((s, idx) => {
+        hCtx.beginPath();
+        hCtx.strokeStyle = idx % 2 === 0 ? 'rgba(71, 85, 105, 0.38)' : 'rgba(51, 65, 85, 0.25)';
+        hCtx.lineWidth = idx % 2 === 0 ? 2 : 1;
+        for (let x = 0; x <= hW; x += 25) {
+          const yOffset = Math.sin(x * 0.012 + s.phase + time * 0.001) * s.amp;
+          if (x === 0) hCtx.moveTo(x, s.y + yOffset);
+          else hCtx.lineTo(x, s.y + yOffset);
+        }
+        hCtx.stroke();
+      });
+
+      bacteriaList.forEach((b) => {
+        b.x += b.vx;
+        b.y += b.vy;
+        if (b.x > hW + 20) b.x = -10;
+        if (b.x < -20) b.x = hW + 10;
+        if (b.y > hH - 10 || b.y < 10) b.vy *= -1;
+
+        const grad = hCtx.createRadialGradient(b.x, b.y, 1, b.x, b.y, b.halo);
+        grad.addColorStop(0, 'rgba(245, 158, 11, 0.28)');
+        grad.addColorStop(1, 'rgba(245, 158, 11, 0)');
+        hCtx.fillStyle = grad;
+        hCtx.beginPath();
+        hCtx.arc(b.x, b.y, b.halo, 0, Math.PI * 2);
+        hCtx.fill();
+
+        hCtx.fillStyle = '#ef4444';
+        hCtx.beginPath();
+        hCtx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        hCtx.fill();
+      });
+
+      leukocytes.forEach((l) => {
+        l.x += l.vx;
+        l.y += l.vy;
+        if (l.x > hW || l.x < 0) l.vx *= -1;
+        if (l.y > hH || l.y < 0) l.vy *= -1;
+
+        hCtx.strokeStyle = 'rgba(56, 189, 248, 0.65)';
+        hCtx.fillStyle = 'rgba(6, 182, 212, 0.2)';
+        hCtx.lineWidth = 1.5;
+        hCtx.beginPath();
+        hCtx.arc(l.x, l.y, l.r, 0, Math.PI * 2);
+        hCtx.fill();
+        hCtx.stroke();
+      });
+
+      requestAnimationFrame(animateHero);
+    }
+    requestAnimationFrame(animateHero);
+
+    /* =========================================================================
+       3. DATOS Y RENDERIZADO DE LAS 7 PESTAÑAS POR ESPECIE
+          (Caninos, Felinos, Equinos, Porcinos, Rumiantes, Aves, Conejos)
+       ========================================================================= */
+    const speciesData = {
+      caninos: {
+        title: 'Caninos (Foco Principal en Pequeños Animales)',
+        differences: [
+          'Predomina la inoculación oportunista o postraumática con diseminación rápida en sábana por exoenzimas líticas que superan la capacidad del hospedador para confinar la infección.',
+          'Exige diferenciación estricta frente a la celulitis juvenil canina (linfadenitis vesicular y paniculitis estéril juvenil o puppy strangles), la cual es una dermatosis idiopática e inmunomediada estéril que requiere glucocorticoides sistémicos inmediatos en monoterapia inicial.',
+          'Biomarcador de fase aguda específico: la Proteína C Reactiva (PCR) aumenta marcadamente en las primeras 24 horas; el lactato sérico alerta de hipoperfusión cuando supera los 2,5 mmol/L (severo > 4,0 mmol/L).',
+          'Permite analgesia multimodal mediante infusión continua MLK (morfina-lidocaína-ketamina) y reanimación hemodinámica con bolos de cristaloides isotónicos balanceados de 10–20 mL/kg en 15–20 minutos.'
+        ],
+        etiology: [
+          'Staphylococcus pseudintermedius (agente más frecuente): coagulasa libre, termonucleasa, proteasas serínicas, hialuronidasa y leucocidinas bicomponentes (LukS-I y LukF-I) líticas para neutrófilos. Las cepas MRSP portan el casete cromosómico SCCmec con el gen mecA, expresando PBP2a con resistencia cruzada absoluta a todos los betalactámicos convencionales.',
+          'Streptococcus canis (estreptococo β-hemolítico del Grupo G de Lancefield, segundo agente): estreptoquinasa (activa plasminógeno a plasmina y degrada redes de fibrina), hialuronidasa tisular, estreptolisina O (citotóxica para leucocitos y cardiomiocitos), proteínas M (bloquean opsonización por C3b) y profagos con superantígenos pirógenos causantes de síndrome de choque tóxico estreptocócico (STSS).',
+          'Bacilos Gram negativos oportunistas en flemones postraumáticos o iatrogénicos: Escherichia coli y Pseudomonas aeruginosa (despliega elastasas LasA y LasB y exotoxina A que inactiva el factor de elongación eucariota 2 [eEF-2], provocando disfunción vascular y necrosis hipodérmica).',
+          'Predisponentes: Hiperadrenocorticismo (hipofisario, adrenal o iatrogénico), diabetes mellitus descompensada y coinfección por Ehrlichia canis (pancitopenia/neutropenia por mielosupresión, agotamiento Th1, vasculitis inmunomediada por inmunocomplejos y estado proinflamatorio basal con agotamiento de IL-10).'
+        ],
+        presentation: [
+          'Debuta con tumefacción difusa de márgenes indistintos, induración empastada no fluctuante a la palpación digital, calor local notable y eritema marcado.',
+          'Dolor agudo urente que motiva vocalización, postración y claudicación funcional sin apoyo si asienta en extremidades.',
+          'Entre las 24 y 48 horas postinoculación aumenta la tensión cutánea, la dermis se torna brillante y aparecen múltiples fístulas que drenan exudado serosanguinolento o fibrinopurulento turbio sin colección central evacuable; crepitación enfisematosa si median bacterias formadoras de gas.'
+        ],
+        doses: [
+          'Amoxicilina + Ácido Clavulánico: 12,5–25 mg/kg PO o IV c/12h (Primera elección empírica; activo frente a MSSP, Streptococcus, Pasteurella y bacterias productoras de betalactamasas).',
+          'Cefalexina: 22–30 mg/kg PO c/12h (Cefalosporina de primera generación; óptima biodisponibilidad y potencia anti-estafilocócica convencional).',
+          'Clindamicina: 11 mg/kg PO o SC c/12h (Lincosamida; elevada penetración tisular y ósea, potente efecto contra cocos Gram positivos y anaerobios, e inhibición de la síntesis de exotoxinas).',
+          'Doxiciclina Hiclato / Monohidrato: 10 mg/kg PO c/24h o 5 mg/kg PO c/12h (Primera elección en sospecha o confirmación de coinfección por Ehrlichia canis y cepas de MRSP sensibles según CMI).',
+          'Enrofloxacina: 5–10 mg/kg PO, SC o IV lenta c/24h (Fluoroquinolona de reserva; limitada a infecciones profundas por bacilos Gram negativos como Pseudomonas o E. coli bajo antibiograma).',
+          'Analgesia y Soporte: Metadona 0,2–0,4 mg/kg IV o IM c/4–6h o Fentanilo CRI 2–5 μg/kg/h; CRI multimodal MLK (Morfina 0,1–0,2 mg/kg/h + Lidocaína 1–2 mg/kg/h + Ketamina 0,1–0,3 mg/kg/h). AINEs contraindicados en hipotensión/azotemia. Cristaloides: bolos de 10–20 mL/kg en 15–20 min; Noradrenalina 0,1–1 μg/kg/min y Dobutamina 2,5–10 μg/kg/min si hay compromiso contráctil miocárdico, en choque séptico refractario.'
+        ],
+        sourceNote: 'Fuente: Directrices ISCAID (Guidelines for Canine Pyoderma), estándares CLSI VET-series y manuales de farmacología de posgrado citados en el informe.'
+      },
+      felinos: {
+        title: 'Felinos (Foco Principal en Pequeños Animales)',
+        differences: [
+          'Deriva casi invariablemente de agresiones interespecíficas o conespecíficas mediante mordeduras y arañazos profundos que inoculan la microbiota comensal orofaríngea felina, configurando un ecosistema lesional polimicrobiano sinérgico marcadamente hipóxico y ácido.',
+          'Biomarcador de fase aguda específico: el Amiloide A Sérico (SAA) se eleva marcadamente en las primeras 24 horas; el lactato sérico alerta de hipoperfusión por encima de 2,5 mmol/L (severo > 4,0 mmol/L).',
+          'Diferencia farmacológica crítica en analgesia: la infusión intravenosa de lidocaína está rigurosamente CONTRAINDICADA en felinos debido a cardiodepresión y neurotoxicidad.',
+          'Diferencia crítica en fluidoterapia de reanimación: los bolos de cristaloides isotónicos balanceados se ajustan a 5–10 mL/kg en 20–30 minutos para resguardar la complacencia miocárdica de la especie.'
+        ],
+        etiology: [
+          'Pasteurella multocida (subespecies multocida y septica): patógeno predominante dotado de cápsula de mucopolisacáridos rica en ácido hialurónico que inhibe la fagocitosis y endotoxinas lipopolisacarídicas dermonecróticas.',
+          'Sinergia con bacterias anaerobias estrictas: Bacteroides fragilis, Prevotella bivia, Porphyromonas spp., Peptostreptococcus spp. y Fusobacterium nucleatum (consumen el oxígeno tisular remanente y liberan enzimas proteolíticas de matriz, facilitando la replicación acelerada de Pasteurella y estreptococos comensales).',
+          'Predisponentes: Infecciones crónicas por retrovirus como el Virus de la Inmunodeficiencia Felina (FIV) y el Virus de la Leucemia Felina (FeLV), que reducen la subpoblación de linfocitos T CD4+, así como diabetes mellitus descompensada e hiperadrenocorticismo.'
+        ],
+        presentation: [
+          'Tumefacción difusa de márgenes indistintos, induración empastada no fluctuante, calor local, dolor agudo urente, vocalización, postración y claudicación sin apoyo.',
+          'Progresión en 24–48 horas hacia piel tensa y brillante con múltiples fístulas que drenan exudado serosanguinolento o fibrinopurulento turbio sin colección central evacuable.',
+          'En heridas por mordedura felina, la piel adyacente suele tornarse de color violáceo marmóreo o grisáceo, esfacelándose en grandes placas desvitalizadas producto de la trombosis del plexo subdérmico inducida por P. multocida y anaerobios (con crepitación enfisematosa si participan bacterias formadoras de gas).'
+        ],
+        doses: [
+          'Amoxicilina + Ácido Clavulánico: 12,5–20 mg/kg PO c/12h (Terapia empírica primordial en celulitis por agresión; excelente eficacia frente a Pasteurella multocida y microbiota anaerobia oral).',
+          'Ampicilina Sódica: 20 mg/kg IV o SC c/8h (Alternativa parenteral hospitalaria en felinos cursando con náuseas o intolerancia gástrica aguda).',
+          'Pradofloxacina: 3–5 mg/kg PO c/24h (Fluoroquinolona veterinaria de tercera generación; cobertura de Gram negativos y anaerobios sin riesgo de degeneración retiniana idiopática felina; de uso restringido bajo antibiograma).',
+          'Cefovecina Sódica: 8 mg/kg SC dosis única, repetible a los 14 días (Cefalosporina de tercera generación; reservada de manera exclusiva para escenarios con imposibilidad documentada de administración oral diaria).',
+          'Analgesia y Soporte: Metadona 0,2–0,4 mg/kg IV o IM c/4–6h o Fentanilo CRI 2–5 μg/kg/h (Lidocaína IV rigurosamente contraindicada; AINEs contraindicados en reanimación, hipotensión o azotemia). Cristaloides: bolos de 5–10 mL/kg en 20–30 min; Noradrenalina 0,1–1 μg/kg/min y Dobutamina 2,5–10 μg/kg/min si hay compromiso contráctil miocárdico, en choque séptico refractario.'
+        ],
+        sourceNote: 'Fuente: Directrices ISCAID, estándares CLSI VET-series y manuales de farmacología de posgrado citados en el informe. Nota: El informe cita también a la clindamicina como elección prioritaria en pequeños animales ante anaerobios en mordeduras felinas, especificando su dosis numérica en la fila de caninos (11 mg/kg c/12h).'
+      },
+      equinos: {
+        title: 'Equinos',
+        differences: [
+          'Presentación hiperaguda en extremidades (predominantemente pelvianas) denominada coloquialmente «pata de elefante», con alto riesgo de síndrome compartimental (> 30 mmHg) y laminitis de apoyo en el miembro sano contralateral.',
+          'Biomarcador inflamatorio principal: Amiloide A Sérico (SAA) y punto de corte de alerta de lactato sérico > 2,0 mmol/L (severo > 4,0 mmol/L).',
+          'El manejo integra hidroterapia fría a presión (20 min, 2–3 veces/día) y vendajes compresivos elásticos multicapa (Robert Jones modificado) una vez amortiguado el dolor.'
+        ],
+        etiology: [
+          'Streptococcus equi subsp. zooepidemicus (β-hemolítico del grupo C de Lancefield) y Staphylococcus aureus.',
+          'Secundario a laceraciones del casco, traumatismos de cuartilla o inyecciones contaminadas: Escherichia coli, Klebsiella pneumoniae, Pseudomonas aeruginosa y Fusobacterium necrophorum (microtromboflebitis séptica de plexos digitales).',
+          'Predisponentes: Síndrome Metabólico Equino (EMS) y Disfunción de la Pars Intermedia de la Hipófisis (PPID).'
+        ],
+        presentation: [
+          'Edema masivo, circunferencial y cilíndrico desde la corona o menudillo hasta el corvejón e ingle.',
+          'Claudicación severa grado 4/5 a 5/5, exudación transcutánea de suero ámbar («sudoración de suero») que aglutina el pelo, necrosis epidérmica laminar, hipertermia > 39,5 °C, taquicardia y anorexia.'
+        ],
+        doses: [
+          'Penicilina G Potásica o Sódica: 22.000–44.000 UI/kg IV c/6h (Elección frente a S. equi subsp. zooepidemicus).',
+          'Gentamicina Sulfato: 6,6 mg/kg IV o IM c/24h (Sinergismo bactericida con penicilina frente a Gram negativos entéricos).',
+          'Trimetoprima + Sulfadiazina (TMS): 15–30 mg/kg PO c/12h (Desescalamiento oral ambulatorio tras estabilización parenteral).',
+          'Enrofloxacina: 5–7,5 mg/kg IV diluida c/24h (Segunda línea en équidos adultos frente a Pseudomonas o enterobacterias resistentes en cultivo).',
+          'Fluidoterapia de reanimación: Infusión continua de 60–100 mL/kg/día (duplicando o triplicando mantenimiento).'
+        ],
+        sourceNote: 'Fuente: Manuales de farmacología de posgrado y consensos referenciados en el informe. Nota de evidencia: El informe menciona amortiguar la fase álgica aguda con analgésicos antes de la crioterapia, pero no especifica dosis miligramadas de analgésicos para equinos.'
+      },
+      porcinos: {
+        title: 'Porcinos',
+        differences: [
+          'Los flemones se asocian estrechamente a lesiones por caudofagia/canibalismo, agresiones o heridas de castración, evolucionando con lentitud hacia la fibrosis.',
+          'La Proteína C Reactiva (PCR) actúa como marcador de fase aguda en las primeras 24 horas.',
+          'La intervención quirúrgica es rara y se limita exclusivamente al desbridamiento de bordes necróticos cutáneos abiertos.'
+        ],
+        etiology: [
+          'Streptococcus suis (factores de virulencia: citolisina suilisina y proteína liberadora de muramidasa MRP).',
+          'Erysipelothrix rhusiopathiae y bacterias anaerobias bucales oportunistas inoculadas por mordeduras/caudofagia.'
+        ],
+        presentation: [
+          'Flemones retrofaríngeos, faciales, periorbitarios, cervicales o del periné y locomotores.',
+          'Edema deformante y tumefacción caliente que tiende a la induración fibrosa; riesgo de endocarditis vegetativa séptica metastásica y postración irreversible.'
+        ],
+        doses: [
+          'Amoxicilina Trihidrato: 15 mg/kg IM profunda c/24h (Betalactámico parenteral de primera opción frente a S. suis).',
+          'Ceftiofur Sódico o Clorhidrato: 3–5 mg/kg IM c/24h (Cefalosporina aprobada en porcinos para cuadros sistémicos con compromiso locomotor y fascial).'
+        ],
+        sourceNote: 'Fuente: Informe adjunto. Nota de evidencia: El informe no detalla dosis específicas de fluidoterapia ni de fármacos analgésicos para la especie porcina.'
+      },
+      rumiantes: {
+        title: 'Rumiantes (Bovinos)',
+        differences: [
+          'Predilección anatómica por el espacio interdigital (panadizo interdigital o flemón de la pezuña) tras pérdida de continuidad cutánea por suelos abrasivos o maceración húmeda, así como planos musculares de cuello o anca posinyección.',
+          'Riesgo crítico de necrosis de ligamentos interdigitales y artritis séptica irreversible de la articulación interfalángica distal, lo que obliga a la amputación del dígito.'
+        ],
+        etiology: [
+          'Acción sinérgica de Fusobacterium necrophorum subsp. necrophorum (secreta leucotoxina que lisa neutrófilos e induce coagulación intravascular local) y Trueperella pyogenes (productora de piolisina PLO dependiente de colesterol), además de Clostridium spp.',
+          'En ganado bovino de ceba y lechero: Mycoplasma bovis causa celulitis necrosupurativa difusa y tenosinovitis de miembros y prepucio.'
+        ],
+        presentation: [
+          'Tumefacción asimétrica de corona y cuartilla que fuerza la divergencia mecánica de los dedos pezuñarios.',
+          'Fisuras necróticas con olor pútrido penetrante, dolor intenso que suprime la ingesta voluntaria y caída productiva.'
+        ],
+        doses: [
+          'Bovino · Penicilina G Procaína: 20.000–22.000 UI/kg IM profunda c/24h (Primera línea en celulitis profunda y flemones musculares por anaerobios Gram+ y T. pyogenes).',
+          'Bovino · Oxitetraciclina Larga Acción (LA): 20 mg/kg IM o SC c/48–72h (Adecuada distribución dérmica e interdigital en panadizo difuso por F. necrophorum).',
+          'Bovino · Florfenicol: 20 mg/kg IM c/48h o 40 mg/kg SC dosis única (Alta penetración en tejido subcutáneo necrosado y lecho podal).'
+        ],
+        sourceNote: 'Fuente: Informe adjunto. Nota de evidencia: El informe documenta la posología antimicrobiana específicamente para bovinos; no incluye tablas posológicas diferenciadas para pequeños rumiantes (ovinos/caprinos) ni dosis numéricas de analgesia sistémica en rumiantes.'
+      },
+      aves: {
+        title: 'Aves (Producción y Ornato)',
+        differences: [
+          'Modificación fenotípica por el heterófilo aviar (Gallus gallus, psitácidos, paseriformes): carece funcionalmente de mieloperoxidasa activa cuantificable y posee mínimas enzimas proteolíticas hidrosolubles.',
+          'No ocurre licuefacción purulenta líquida; el exudado se deseca e inspisa formando placas fibrinocaseosas sólidas o semisólidas que hacen ineficaces los drenajes pasivos o de succión.',
+          'La posología antimicrobiana requiere corrección al alza para compensar la elevada tasa metabólica basal y el rápido aclaramiento renal aviar.'
+        ],
+        etiology: [
+          'Cepas patógenas aviares de Escherichia coli (APEC) portadoras del plásmido ColV, aerobactina (quelación de hierro férrico) y adhesinas fimbriales F11.',
+          'También se identifica participación de Enterococcus spp.'
+        ],
+        presentation: [
+          'Engrosamiento en placa o masa nodular indurada del subcutáneo (frecuentemente ventroabdominal), firme, adherida a planos profundos, fría y sin eritema perceptible.',
+          'Riesgo de confusión diagnóstica con granulomas micóticos, esteatonecrosis o neoplasias; proximidad a cortezas óseas delgadas precipita osteomielitis profunda.'
+        ],
+        doses: [
+          'Amoxicilina + Ácido Clavulánico: 125–150 mg/kg PO c/12h (Posología corregida para cinética metabólica y aclaramiento renal aviar; activa frente a coliformes).',
+          'Enrofloxacina: 15–30 mg/kg PO o IM c/12–24h (Amplio espectro frente a cepas de E. coli APEC).',
+          'Abordaje quirúrgico: Incisión amplia, remoción quirúrgica manual de la placa fibrinocaseosa, resección de pseudocápsula, lavado a presión y cicatrización por segunda intención / apósitos.'
+        ],
+        sourceNote: 'Fuente: Informe adjunto. Nota de evidencia: El informe no reporta dosis miligramadas específicas de analgésicos o fluidoterapia para aves.'
+      },
+      conejos: {
+        title: 'Conejos (Oryctolagus cuniculus)',
+        differences: [
+          'Al igual que en las aves, los heterófilos leporinos carecen funcionalmente de mieloperoxidasa activa cuantificable, originando un exudado caseoso espeso, laminado y no drenable mediante tubos convencionales.',
+          'ADVERTENCIA VITAL: Los betalactámicos orales (penicilinas, cefalosporinas) y la clindamicina oral están formalmente CONTRAINDICADOS por inducir disbiosis cecal y enterotoxemia letal por sobrecrecimiento de Clostridium spiroforme.'
+        ],
+        etiology: [
+          'Pasteurella multocida, Staphylococcus aureus y Pseudomonas aeruginosa.',
+          'Asociados principalmente a flemones orofaciales de origen odontogénico y cuadros pododermatíticos.'
+        ],
+        presentation: [
+          'Masa nodular o placa difusa indurada e inmóvil en región orofacial/mandibular o podal, fría y sin fluctuación líquida.',
+          'Alta propensión a osteomielitis maxilofacial profunda y lisis cortical que exige resecciones óseas complejas.'
+        ],
+        doses: [
+          'Trimetoprima + Sulfametoxazol: 30 mg/kg PO o SC c/12h (Fármaco seguro en lagomorfos; no induce disbiosis cecal clostridial).',
+          'Enrofloxacina: 10–20 mg/kg PO o SC c/12–24h (Elección preferencial en flemones orofaciales por Pseudomonas o Pasteurella).',
+          'Azitromicina: 15–30 mg/kg PO c/24h (Macrólido azálido con acumulación en el compartimento heterofílico caseoso hipodérmico).',
+          'Betalactámicos orales y clindamicina oral: CONTRAINDICADOS (enterotoxemia letal por Clostridium spiroforme).',
+          'Abordaje quirúrgico: Escisión quirúrgica abierta indispensable, curetaje del material caseoso, resección de pseudocápsula, lavado a presión, miel médica de Manuka, apósitos hidrocoloides o marsupialización.'
+        ],
+        sourceNote: 'Fuente: Informe adjunto. Nota de evidencia: El informe no incluye dosis numéricas específicas de analgésicos ni tasas de fluidoterapia para conejos.'
+      }
+    };
+
+    const speciesTabContent = document.getElementById('speciesTabContent');
+    function renderSpeciesTab(key) {
+      const data = speciesData[key];
+      if (!data) return;
+      speciesTabContent.innerHTML = `
+        <h3 style="font-size:1.15rem;color:var(--text-primary);margin-bottom:0.9rem;">${data.title}</h3>
+        <div class="species-grid">
+          <div class="info-panel">
+            <h4>Diferencias Clave y Particularidades</h4>
+            <ul>${data.differences.map(d => `<li>${d}</li>`).join('')}</ul>
+          </div>
+          <div class="info-panel">
+            <h4>Etiología y Factores de Virulencia</h4>
+            <ul>${data.etiology.map(e => `<li>${e}</li>`).join('')}</ul>
+          </div>
+          <div class="info-panel">
+            <h4>Presentación Clínica y Lesional</h4>
+            <ul>${data.presentation.map(p => `<li>${p}</li>`).join('')}</ul>
+          </div>
+          <div class="info-panel">
+            <h4>Tratamiento y Posología con Fuente</h4>
+            <ul>${data.doses.map(ds => `<li>${ds}</li>`).join('')}</ul>
+          </div>
+        </div>
+        <div class="${key === 'conejos' ? 'contra-alert' : 'evidence-alert'}">
+          <strong>Respaldo Documental y Alcance de Evidencia:</strong> ${data.sourceNote}
+        </div>
+      `;
+    }
+
+    document.querySelectorAll('#speciesTabButtons .tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        SoundEngine.click();
+        document.querySelectorAll('#speciesTabButtons .tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderSpeciesTab(btn.dataset.species);
+      });
+    });
+    renderSpeciesTab('caninos');
+
+    /* =========================================================================
+       4. MODELO 3D INTERACTIVO CON THREE.JS + ETIQUETAS CON LÍNEAS GUÍA SVG
+          (Sin superposición y sin cortes en pantallas móviles de 390 px)
+       ========================================================================= */
+    const canvas3d = document.getElementById('skin3dCanvas');
+    const labelsLayer = document.getElementById('labels3dLayer');
+    const labelsSvg = document.getElementById('labels3dSvg');
+    const stageSlider = document.getElementById('stageSlider');
+    const stage3dTitle = document.getElementById('stage3dTitle');
+    const stage3dDesc = document.getElementById('stage3dDesc');
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+    camera.position.set(5.8, 3.6, 6.8);
+
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.target.set(0, -0.3, 0);
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.75));
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1.15);
+    dirLight.position.set(6, 10, 7);
+    scene.add(dirLight);
+
+    const rootGroup = new THREE.Group();
+    scene.add(rootGroup);
+
+    // 1. Epidermis
+    const epiGeo = new THREE.BoxGeometry(4.2, 0.28, 3.0);
+    const epiMat = new THREE.MeshStandardMaterial({ color: 0xe2b897, roughness: 0.5 });
+    const epiMesh = new THREE.Mesh(epiGeo, epiMat);
+    epiMesh.position.y = 1.65;
+    rootGroup.add(epiMesh);
+
+    // 2. Dermis Reticular
+    const dermGeo = new THREE.BoxGeometry(4.2, 0.75, 3.0);
+    const dermMat = new THREE.MeshStandardMaterial({ color: 0xd9777f, roughness: 0.6, transparent: true, opacity: 0.92 });
+    const dermMesh = new THREE.Mesh(dermGeo, dermMat);
+    dermMesh.position.y = 1.1;
+    rootGroup.add(dermMesh);
+
+    // 3. Hipodermis (Lobulillos adiposos para el "signo del empedrado" + exudado)
+    const hypoGroup = new THREE.Group();
+    hypoGroup.position.y = 0.1;
+    rootGroup.add(hypoGroup);
+
+    const fatLobules = [];
+    const lobGeo = new THREE.SphereGeometry(0.28, 16, 12);
+    for (let x = -1.5; x <= 1.5; x += 0.6) {
+      for (let z = -1.0; z <= 1.0; z += 0.65) {
+        const lobMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.4 });
+        const lob = new THREE.Mesh(lobGeo, lobMat);
+        lob.scale.set(1.1, 0.75, 1.1);
+        lob.position.set(x + (Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.18, z);
+        lob.userData = { basePos: lob.position.clone() };
+        hypoGroup.add(lob);
+        fatLobules.push(lob);
+      }
+    }
+
+    // Exudado flemonoso difuso en sábana (se expande con el slider)
+    const phlegmonGeo = new THREE.BoxGeometry(4.15, 0.95, 2.95);
+    const phlegmonMat = new THREE.MeshStandardMaterial({
+      color: 0xef4444,
+      emissive: 0x7f1d1d,
+      transparent: true,
+      opacity: 0.12,
+      roughness: 0.3
+    });
+    const phlegmonMesh = new THREE.Mesh(phlegmonGeo, phlegmonMat);
+    phlegmonMesh.position.y = 0.08;
+    phlegmonMesh.scale.set(0.2, 0.3, 0.2);
+    rootGroup.add(phlegmonMesh);
+
+    // 4. Fascia Profunda / Aponeurosis
+    const fasciaGeo = new THREE.BoxGeometry(4.2, 0.16, 3.0);
+    const fasciaMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.4 });
+    const fasciaMesh = new THREE.Mesh(fasciaGeo, fasciaMat);
+    fasciaMesh.position.y = -0.52;
+    rootGroup.add(fasciaMesh);
+
+    // 5. Plano Muscular
+    const muscGeo = new THREE.BoxGeometry(4.2, 0.75, 3.0);
+    const muscMat = new THREE.MeshStandardMaterial({ color: 0x881337, roughness: 0.65 });
+    const muscMesh = new THREE.Mesh(muscGeo, muscMat);
+    muscMesh.position.y = -1.02;
+    rootGroup.add(muscMesh);
+
+    // 6. Vaso Colector Linfático y Linfonodo Regional Satélite
+    const curve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(-1.4, 0.05, 1.55),
+      new THREE.Vector3(-0.2, -0.1, 1.75),
+      new THREE.Vector3(1.1, -0.2, 1.85),
+      new THREE.Vector3(2.35, -0.25, 1.6)
+    ]);
+    const lymphTubeGeo = new THREE.TubeGeometry(curve, 32, 0.08, 12, false);
+    const lymphTubeMat = new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x064e3b, roughness: 0.35 });
+    const lymphTube = new THREE.Mesh(lymphTubeGeo, lymphTubeMat);
+    rootGroup.add(lymphTube);
+
+    const nodeGeo = new THREE.SphereGeometry(0.42, 24, 20);
+    const nodeMat = new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x065f46, roughness: 0.4 });
+    const lymphNode = new THREE.Mesh(nodeGeo, nodeMat);
+    lymphNode.scale.set(1.3, 0.9, 1.0);
+    lymphNode.position.set(2.55, -0.25, 1.55);
+    rootGroup.add(lymphNode);
+
+    // Etiquetas distribuidas en rieles escalonados (izquierda y derecha) + líneas guía SVG
+    const labelAnchors = [
+      { text: '1. Epidermis (Inoculación)', pos: new THREE.Vector3(-0.6, 1.75, 0.4), side: 'left', topPct: 8, color: '#06b6d4' },
+      { text: '2. Dermis Reticular', pos: new THREE.Vector3(-1.3, 1.1, 0.9), side: 'left', topPct: 40, color: '#06b6d4' },
+      { text: '3. Fascia Profunda y Músculo', pos: new THREE.Vector3(-1.2, -0.8, 0.9), side: 'left', topPct: 74, color: '#06b6d4' },
+      { text: '4. Hipodermis (Flemón / Empedrado)', pos: new THREE.Vector3(0.5, 0.15, 1.1), side: 'right', topPct: 18, color: '#10b981' },
+      { text: '5. Colector Linfático', pos: new THREE.Vector3(0.6, -0.15, 1.8), side: 'right', topPct: 50, color: '#10b981' },
+      { text: '6. Linfonodo Regional Satélite', pos: new THREE.Vector3(2.55, -0.25, 1.55), side: 'right', topPct: 82, color: '#10b981' }
+    ];
+
+    let showLabels3d = true;
+    const labelEls = labelAnchors.map(a => {
+      const el = document.createElement('div');
+      el.className = `label3d-pin side-${a.side}`;
+      el.style.top = `${a.topPct}%`;
+      el.textContent = a.text;
+      labelsLayer.appendChild(el);
+
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('stroke', a.color);
+      line.setAttribute('stroke-width', '1.4');
+      line.setAttribute('stroke-dasharray', '3 3');
+      line.setAttribute('opacity', '0.8');
+      labelsSvg.appendChild(line);
+
+      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      dot.setAttribute('r', '3.5');
+      dot.setAttribute('fill', a.color);
+      labelsSvg.appendChild(dot);
+
+      return { el, line, dot, pos: a.pos, side: a.side };
+    });
+
+    function updateStageFromSlider(val) {
+      const t = val / 100;
+      phlegmonMesh.scale.set(0.25 + t * 0.78, 0.35 + t * 0.7, 0.25 + t * 0.78);
+      phlegmonMat.opacity = 0.18 + t * 0.55;
+
+      fatLobules.forEach((lob, i) => {
+        const dir = i % 2 === 0 ? 1 : -1;
+        lob.position.y = lob.userData.basePos.y + dir * t * 0.12;
+        lob.material.color.setHSL(0.12 - t * 0.04, 0.9, 0.55 + t * 0.12);
+      });
+
+      const nodeScale = 1 + t * 0.55;
+      lymphNode.scale.set(1.3 * nodeScale, 0.9 * nodeScale, 1.0 * nodeScale);
+      if (t > 0.65) {
+        nodeMat.color.setHex(0xef4444);
+        nodeMat.emissive.setHex(0x7f1d1d);
+        lymphTubeMat.color.setHex(0xf59e0b);
+        epiMat.color.setHex(0x6b4c7a);
+      } else {
+        nodeMat.color.setHex(0x10b981);
+        nodeMat.emissive.setHex(0x065f46);
+        lymphTubeMat.color.setHex(0x10b981);
+        epiMat.color.setHex(0xe2b897);
+      }
+
+      if (val < 25) {
+        stage3dTitle.textContent = 'Estadio 1: Inoculación Traumática y Adhesión MSCRAMMs';
+        stage3dDesc.textContent = 'Disrupción de la barrera córnea epidérmica. Los microorganismos se fijan al colágeno I/III y laminina sin ser arrastrados por el flujo intersticial.';
+      } else if (val < 55) {
+        stage3dTitle.textContent = 'Estadio 2: Lisis Exoenzimática y Signo del Empedrado';
+        stage3dDesc.textContent = 'Hialuronidasas, estreptoquinasas y colagenasas impiden la cápsula de fibrina. El exudado diseca en sábana los lobulillos grasos hipodérmicos (patrón ecográfico en empedrado).';
+      } else if (val < 82) {
+        stage3dTitle.textContent = 'Estadio 3: Drenaje Linfático y Linfadenitis Reactiva Satélite';
+        stage3dDesc.textContent = 'La presión hidrostática colapsa capilares terminales; los colectores permeables transportan bacterias y citocinas al linfonodo regional, causando linfadenomegalia y trombosis sinusal.';
+      } else {
+        stage3dTitle.textContent = 'Estadio 4: Trombosis Microvascular, Necrosis Fascial y Sepsis';
+        stage3dDesc.textContent = 'Microtrombos de plaquetas y fibrina ocluyen arteriolas y vénulas dérmicas (piel violácea/escaras). Riesgo de síndrome compartimental (>30 mmHg) y choque séptico por superantígenos.';
+      }
+    }
+
+    stageSlider.addEventListener('input', (e) => {
+      updateStageFromSlider(Number(e.target.value));
+    });
+    updateStageFromSlider(15);
+
+    document.getElementById('toggleLabels3dBtn').addEventListener('click', () => {
+      SoundEngine.click();
+      showLabels3d = !showLabels3d;
+      labelsLayer.style.display = showLabels3d ? 'block' : 'none';
+      labelsSvg.style.display = showLabels3d ? 'block' : 'none';
+    });
+    document.getElementById('resetCam3dBtn').addEventListener('click', () => {
+      SoundEngine.click();
+      camera.position.set(5.8, 3.6, 6.8);
+      controls.target.set(0, -0.3, 0);
+      controls.update();
+    });
+
+    function resize3D() {
+      const container = document.getElementById('canvas3dContainer');
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+      labelsSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    }
+    window.addEventListener('resize', resize3D);
+    resize3D();
+
+    function animate3D() {
+      requestAnimationFrame(animate3D);
+      rootGroup.rotation.y += 0.0015;
+      controls.update();
+      renderer.render(scene, camera);
+
+      if (showLabels3d) {
+        const w = canvas3d.clientWidth;
+        const h = canvas3d.clientHeight;
+        labelEls.forEach(item => {
+          const worldPos = item.pos.clone().applyMatrix4(rootGroup.matrixWorld);
+          worldPos.project(camera);
+          const tx = Math.max(12, Math.min(w - 12, (worldPos.x * 0.5 + 0.5) * w));
+          const ty = Math.max(12, Math.min(h - 12, (-worldPos.y * 0.5 + 0.5) * h));
+
+          const rect = item.el.getBoundingClientRect();
+          const parentRect = labelsLayer.getBoundingClientRect();
+          const boxX = item.side === 'left'
+            ? (rect.right - parentRect.left)
+            : (rect.left - parentRect.left);
+          const boxY = (rect.top - parentRect.top) + rect.height / 2;
+
+          item.line.setAttribute('x1', boxX);
+          item.line.setAttribute('y1', boxY);
+          item.line.setAttribute('x2', tx);
+          item.line.setAttribute('y2', ty);
+
+          item.dot.setAttribute('cx', tx);
+          item.dot.setAttribute('cy', ty);
+        });
+      }
+    }
+    animate3D();
+
+    /* =========================================================================
+       5. MINI JUEGO 1: SIMULADOR DE CASO CLÍNICO POR DECISIONES CON TIEMPO
+          (El temporizador arranca cuando la sección entra en pantalla)
+       ========================================================================= */
+    const simStages = [
+      {
+        title: 'Etapa 1/4 · Admisión y Confirmación Diagnóstica Inicial',
+        caseText: 'Ingresa un paciente canino con tumefacción difusa y empastada en miembro torácico, calor marcado, piel a tensión sin fluctuación central y dolor urente severo (36 h de evolución). Lactato sérico basal: 3,1 mmol/L. ¿Cuál es la conducta diagnóstica inicial mandatoria según el informe?',
+        options: [
+          { text: 'Realizar hisopado superficial de la piel eritematosa e iniciar enrofloxacina empírica inmediata.', ok: false, fb: 'Incorrecto. El hisopado superficial está formalmente desaconsejado por aislar colonizadores saprófitos, y las fluoroquinolonas están proscritas como terapia empírica indiscriminada.' },
+          { text: 'Ejecutar PAAF profunda estéril (aguja 21–23G) en márgenes activos para citología Romanowsky, tomar muestra profunda para cultivo cuantitativo con CMI (incluyendo cefoxitina/oxacilina) y realizar POCUS.', ok: true, fb: '¡Correcto! La PAAF profunda (21–23G) confirma >85–90% de neutrófilos degenerados con bacterias intracelulares, el cultivo profundo determina la CMI y el POCUS evalúa el signo del empedrado.' },
+          { text: 'Diferir cualquier toma de muestra o antibiótico durante 48 horas hasta que el flemón se encapsule en un absceso.', ok: false, fb: 'Incorrecto. En el flemón las hialuronidasas y quinasas impiden la cápsula de fibrina; demorar el abordaje amenaza la integridad fascial y la vida.' }
+        ]
+      },
+      {
+        title: 'Etapa 2/4 · Reanimación Hemodinámica y Selección Antimicrobiana Empírica',
+        caseText: 'La citología PAAF muestra abundantes neutrófilos degenerados con cocos en racimos intracitoplasmáticos. El paciente presenta taquicardia e hipoperfusión (lactato 3,1 mmol/L). ¿Qué esquema de fluidoterapia y antimicrobiano empírico indicas mientras aguardas la CMI?',
+        options: [
+          { text: 'Bolo de cristaloide isotónico balanceado (Ringer Lactato) a 10–20 mL/kg en 15–20 min + Amoxicilina-Ácido Clavulánico (12,5–25 mg/kg IV c/12h) en el rango superior de la ventana.', ok: true, fb: '¡Excelente decisión! Los bolos en caninos son de 10–20 mL/kg en 15–20 min buscando depurar ≥50% del lactato en 4–6 h, y la amoxicilina-clavulánico es primera línea empírica.' },
+          { text: 'Cefovecina sódica 8 mg/kg SC dosis única + restricción hídrica estricta.', ok: false, fb: 'Incorrecto. La cefovecina es una cefalosporina de 3.ª generación restringida y el paciente hipoperfundido requiere reposición guiada por objetivos.' },
+          { text: 'Administrar únicamente glucocorticoides sistémicos a dosis inmunosupresoras asumiendo celulitis juvenil estéril.', ok: false, fb: 'Incorrecto. La presencia de bacterias intracitoplasmáticas en neutrófilos degenerados confirma etiología infecciosa activa, no paniculitis estéril.' }
+        ]
+      },
+      {
+        title: 'Etapa 3/4 · Manejo de Analgesia Multimodal Segura',
+        caseText: 'El paciente presenta dolor severo por distensión fascial y aún cursa con azotemia prerrenal leve en fase de estabilización. ¿Qué protocolo analgésico eliges?',
+        options: [
+          { text: 'Administrar un AINE parenteral a dosis altas para bloquear rápidamente PGE2 y PGI2.', ok: false, fb: '¡Peligro! Los AINEs están estrictamente contraindicados en reanimación, hipotensión o azotemia porque precipitan necrosis tubular renal aguda y enmascaran la progresión a fascitis necrotizante.' },
+          { text: 'Instaurar agonista opioide μ puro (Metadona 0,2–0,4 mg/kg IV c/4–6h o Fentanilo CRI 2–5 μg/kg/h) o infusión continua MLK (Morfina 0,1–0,2 + Lidocaína 1–2 + Ketamina 0,1–0,3 mg/kg/h).', ok: true, fb: '¡Correcto! Los opioides μ puros y la infusión MLK en caninos (con bloqueo NMDA por ketamina) brindan analgesia profunda sin comprometer la perfusión renal.' }
+        ]
+      },
+      {
+        title: 'Etapa 4/4 · Criterio Quirúrgico y Duración según ISCAID',
+        caseText: 'La presión intracompartimental del miembro asciende a 34 mmHg y aparecen máculas violáceas frías focales. El cultivo reporta S. pseudintermedius sensible (MSSP). ¿Cuál es el manejo quirúrgico y cuándo suspenderás el antimicrobiano?',
+        options: [
+          { text: 'Fasciotomía descompresiva inmediata (>30 mmHg) con desbridamiento del tejido necrótico, y mantener el antibiótico estrictamente hasta la resolución clínica y normalización citológica (sin agregar 2–3 semanas extra).', ok: true, fb: '¡Perfecto! Presiones >30 mmHg exigen fasciotomía inmediata, y el consenso ISCAID actual suprime las 2–3 semanas arbitrarias post-curación.' },
+          { text: 'Colocar solo un drenaje Penrose no dependiente sin apósito y prolongar el antibiótico 3 semanas después de que desaparezcan los signos.', ok: false, fb: 'Incorrecto. El Penrose no descomprime un síndrome compartimental y promueve infección ascendente; además, ISCAID eliminó la prolongación profiláctica de 2–3 semanas.' }
+        ]
+      }
+    ];
+
+    let simIdx = 0;
+    let simPoints = 0;
+    let simTimeLeft = 45;
+    let simInterval = null;
+    let simHasEnteredViewport = false;
+    let simStageAnswered = false;
+
+    const simStageBody = document.getElementById('simStageBody');
+    const simTimerEl = document.getElementById('simTimer');
+    const simScoreEl = document.getElementById('simScore');
+    const simBoxContainer = document.getElementById('simBoxContainer');
+
+    function startSimTimer() {
+      clearInterval(simInterval);
+      simTimeLeft = 45;
+      simTimerEl.textContent = `${simTimeLeft}s`;
+      if (!simHasEnteredViewport) return;
+
+      simInterval = setInterval(() => {
+        simTimeLeft--;
+        simTimerEl.textContent = `${simTimeLeft}s`;
+        if (simTimeLeft <= 0) {
+          clearInterval(simInterval);
+          simStageAnswered = true;
+          SoundEngine.error();
+          const fbEl = document.getElementById('simFeedback');
+          if (fbEl) {
+            fbEl.style.display = 'block';
+            fbEl.className = 'contra-alert';
+            fbEl.innerHTML = '<strong>Tiempo agotado en esta etapa.</strong> Avanza a la siguiente decisión.';
+            document.querySelectorAll('.sim-opt-btn').forEach(b => b.disabled = true);
+            document.getElementById('simNextBtn').style.display = 'inline-flex';
+          }
+        }
+      }, 1000);
+    }
+
+    function renderSimStage() {
+      simStageAnswered = false;
+      if (simIdx >= simStages.length) {
+        clearInterval(simInterval);
+        simStageBody.innerHTML = `
+          <div class="info-panel" style="border-color:var(--accent-emerald);">
+            <h4>Caso Clínico Finalizado · Puntaje Total: ${simPoints} / 400</h4>
+            <p>Has completado el protocolo integral basado en citología PAAF, ecografía POCUS, reanimación guiada por lactato, analgesia multimodal segura y directrices ISCAID.</p>
+          </div>
+        `;
+        return;
+      }
+      const st = simStages[simIdx];
+      simStageBody.innerHTML = `
+        <h4 style="color:var(--accent-cyan);margin-bottom:0.4rem;">${st.title}</h4>
+        <p style="font-size:0.9rem;color:var(--text-secondary);">${st.caseText}</p>
+        <div class="sim-options">
+          ${st.options.map((o, i) => `<button class="sim-opt-btn" data-idx="${i}" type="button">${o.text}</button>`).join('')}
+        </div>
+        <div id="simFeedback" style="display:none;margin-top:0.85rem;"></div>
+        <button id="simNextBtn" class="btn-action" style="display:none;margin-top:0.85rem;" type="button">Siguiente Etapa</button>
+      `;
+
+      if (simHasEnteredViewport) {
+        startSimTimer();
+      } else {
+        simTimerEl.textContent = '45s (En espera)';
+      }
+
+      simStageBody.querySelectorAll('.sim-opt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          clearInterval(simInterval);
+          simStageAnswered = true;
+          const chosen = st.options[Number(btn.dataset.idx)];
+          simStageBody.querySelectorAll('.sim-opt-btn').forEach(b => b.disabled = true);
+          const fbEl = document.getElementById('simFeedback');
+          fbEl.style.display = 'block';
+          if (chosen.ok) {
+            SoundEngine.success();
+            simPoints += 100;
+            simScoreEl.textContent = `${simPoints} / 400`;
+            fbEl.className = 'info-panel';
+            fbEl.style.borderColor = 'var(--accent-emerald)';
+          } else {
+            SoundEngine.error();
+            fbEl.className = 'contra-alert';
+          }
+          fbEl.innerHTML = chosen.fb;
+          document.getElementById('simNextBtn').style.display = 'inline-flex';
+        });
+      });
+
+      document.getElementById('simNextBtn').addEventListener('click', () => {
+        SoundEngine.click();
+        simIdx++;
+        renderSimStage();
+      });
+    }
+
+    // IntersectionObserver para arrancar el temporizador cuando el simulador entra en pantalla
+    const simObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !simHasEnteredViewport) {
+          simHasEnteredViewport = true;
+          if (!simStageAnswered && simIdx < simStages.length) {
+            startSimTimer();
+          }
+        }
+      });
+    }, { threshold: 0.25 });
+    simObserver.observe(simBoxContainer);
+
+    document.getElementById('simRestartBtn').addEventListener('click', () => {
+      SoundEngine.click();
+      simIdx = 0;
+      simPoints = 0;
+      simHasEnteredViewport = true;
+      simScoreEl.textContent = '0 / 400';
+      renderSimStage();
+    });
+    renderSimStage();
+
+    /* =========================================================================
+       6. MINI JUEGO 2: EMPAREJAR PATÓGENO / ESPECIE CON ANTIMICROBIANO (DRAG & TOUCH)
+       ========================================================================= */
+    const ddPairs = [
+      { id: 'p1', drag: 'Canino con coinfección E. canis o MRSP sensible', drop: 'Doxiciclina 10 mg/kg PO c/24h (o 5 mg/kg c/12h)' },
+      { id: 'p2', drag: 'Equino con S. equi subsp. zooepidemicus (choque)', drop: 'Penicilina G Potásica/Sódica 22.000–44.000 UI/kg IV c/6h + Gentamicina 6,6 mg/kg c/24h' },
+      { id: 'p3', drag: 'Felino con flemón por mordedura (P. multocida + anaerobios)', drop: 'Amoxicilina + Ácido Clavulánico 12,5–20 mg/kg PO c/12h' },
+      { id: 'p4', drag: 'Bovino con panadizo difuso (F. necrophorum / T. pyogenes)', drop: 'Florfenicol 20 mg/kg IM c/48h (o 40 mg/kg SC dosis única) / Oxitetraciclina LA' },
+      { id: 'p5', drag: 'Conejo con flemón caseoso (evitando disbiosis por C. spiroforme)', drop: 'Trimetoprima-Sulfametoxazol 30 mg/kg c/12h, Enrofloxacina o Azitromicina (β-lactámicos PO contraindicados)' },
+      { id: 'p6', drag: 'Aves con flemón subcutáneo por E. coli APEC (cinética rápida)', drop: 'Amoxicilina + Ácido Clavulánico 125–150 mg/kg PO c/12h o Enrofloxacina 15–30 mg/kg' }
+    ];
+
+    let ddSelectedId = null;
+    let ddMatches = 0;
+    const ddDraggablesEl = document.getElementById('ddDraggables');
+    const ddDropzonesEl = document.getElementById('ddDropzones');
+    const ddScoreEl = document.getElementById('ddScore');
+
+    function initDragDrop() {
+      ddMatches = 0;
+      ddSelectedId = null;
+      ddScoreEl.textContent = `0 / ${ddPairs.length}`;
+      const shuffledDrag = [...ddPairs].sort(() => Math.random() - 0.5);
+      const shuffledDrop = [...ddPairs].sort(() => Math.random() - 0.5);
+
+      ddDraggablesEl.innerHTML = shuffledDrag.map(p => `
+        <div class="draggable-item" draggable="true" data-id="${p.id}">${p.drag}</div>
+      `).join('');
+
+      ddDropzonesEl.innerHTML = shuffledDrop.map(p => `
+        <div class="dropzone-item" data-target="${p.id}">
+          <span>${p.drop}</span>
+          <small class="mono-badge" style="align-self:flex-start;display:none;"></small>
+        </div>
+      `).join('');
+
+      ddDraggablesEl.querySelectorAll('.draggable-item').forEach(el => {
+        el.addEventListener('dragstart', (e) => {
+          if (el.classList.contains('matched')) { e.preventDefault(); return; }
+          ddSelectedId = el.dataset.id;
+          e.dataTransfer.setData('text/plain', el.dataset.id);
+        });
+        el.addEventListener('click', () => {
+          if (el.classList.contains('matched')) return;
+          SoundEngine.click();
+          ddDraggablesEl.querySelectorAll('.draggable-item').forEach(d => d.classList.remove('selected-touch'));
+          ddSelectedId = el.dataset.id;
+          el.classList.add('selected-touch');
+        });
+      });
+
+      ddDropzonesEl.querySelectorAll('.dropzone-item').forEach(zone => {
+        zone.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          if (!zone.classList.contains('correct')) zone.classList.add('dragover');
+        });
+        zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+        zone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          zone.classList.remove('dragover');
+          const id = e.dataTransfer.getData('text/plain') || ddSelectedId;
+          verifyMatch(id, zone);
+        });
+        zone.addEventListener('click', () => {
+          if (ddSelectedId) verifyMatch(ddSelectedId, zone);
+        });
+      });
+    }
+
+    function verifyMatch(id, zone) {
+      if (!id || zone.classList.contains('correct')) return;
+      if (zone.dataset.target === id) {
+        SoundEngine.success();
+        zone.classList.add('correct');
+        const dragEl = ddDraggablesEl.querySelector(`.draggable-item[data-id="${id}"]`);
+        if (dragEl) {
+          dragEl.classList.add('matched');
+          dragEl.classList.remove('selected-touch');
+          const badge = zone.querySelector('small');
+          badge.style.display = 'inline-block';
+          badge.textContent = `Emparejado: ${dragEl.textContent}`;
+        }
+        ddSelectedId = null;
+        ddMatches++;
+        ddScoreEl.textContent = `${ddMatches} / ${ddPairs.length}`;
+      } else {
+        SoundEngine.error();
+      }
+    }
+
+    document.getElementById('ddResetBtn').addEventListener('click', () => {
+      SoundEngine.click();
+      initDragDrop();
+    });
+    initDragDrop();
+
+    /* =========================================================================
+       7. AUTOEVALUACIÓN FINAL (12 PREGUNTAS) + CERTIFICADO DESCARGABLE EN PNG
+       ========================================================================= */
+    const quizQuestions = [
+      {
+        q: '1. ¿Qué característica anatomopatológica diferencia de manera cardinal a la celulitis flemonosa bacteriana frente a un absceso subcutáneo?',
+        opts: [
+          'La presencia de una cápsula colagenosa gruesa sintetizada por miofibroblastos.',
+          'La ausencia de una membrana limitante o neocápsula fibrovascular, permitiendo la disección ilimitada por planos de menor resistencia.',
+          'Su origen exclusivamente autoinmune y estéril centrado en el folículo piloso.',
+          'Su localización exclusiva dentro de la luz endotelial de los vasos linfáticos colectores.'
+        ],
+        ans: 1,
+        exp: 'El flemón carece de neocápsula conectiva porque las exoenzimas bacterianas (hialuronidasa, estreptoquinasa/estafiloquinasa) degradan el ácido hialurónico y la fibrina.'
+      },
+      {
+        q: '2. ¿Cuál es el abordaje terapéutico cardinal de la celulitis juvenil canina (puppy strangles)?',
+        opts: [
+          'Enrofloxacina parenteral en monoterapia durante 4 semanas.',
+          'Inmunosupresión sistémica inmediata con glucocorticoides, al tratarse de una paniculitis y dermatitis piogranulomatosa estéril.',
+          'Fasciotomía descompresiva de urgencia en los cuatro miembros.',
+          'Cefovecina subcutánea combinada con AINEs.'
+        ],
+        ans: 1,
+        exp: 'La celulitis juvenil canina es un proceso idiopático e inmunomediado estéril; el tratamiento antimicrobiano exclusivo resulta ineficaz y exige glucocorticoides sistémicos.'
+      },
+      {
+        q: '3. ¿Qué mecanismo confiere a las cepas de Staphylococcus pseudintermedius resistentes a meticilina (MRSP) resistencia cruzada absoluta a todos los betalactámicos?',
+        opts: [
+          'La adquisición del casete SCCmec con el gen mecA, que codifica la proteína fijadora de penicilina PBP2a.',
+          'La producción exclusiva de piolisina dependiente de colesterol (PLO).',
+          'La carencia funcional de mieloperoxidasa en su pared celular.',
+          'El plásmido ColV productor de aerobactina.'
+        ],
+        ans: 0,
+        exp: 'El gen mecA dentro del casete SCCmec expresa PBP2a, invalidando a todos los betalactámicos (penicilinas, cefalosporinas de cualquier generación y carbapenémicos).'
+      },
+      {
+        q: '4. ¿Cómo desencadenan los superantígenos de Streptococcus canis o Streptococcus equi el síndrome de choque tóxico estreptocócico?',
+        opts: [
+          'Inhibiendo selectivamente la síntesis de óxido nítrico endotelial.',
+          'Uniéndose lateralmente al MHC-II en células dendríticas y a la región Vβ del TCR, activando policlonalmente hasta el 20% de los linfocitos T sistémicos.',
+          'Bloqueando la cascada del complemento en la vía de las lectinas sin activar linfocitos.',
+          'Estimulando a los miofibroblastos para encapsular el exudado en menos de 2 horas.'
+        ],
+        ans: 1,
+        exp: 'Esta unión puente MHC-II / TCR Vβ activa hasta el 20% de los linfocitos T, liberando IFN-γ, TNF-α e IL-2 e induciendo iNOS con vasoplejía refractaria.'
+      },
+      {
+        q: '5. ¿Por qué el flemón bacteriano en aves y conejos adopta un fenotipo sólido o semisólido («caseoso») que no drena por tubos convencionales?',
+        opts: [
+          'Porque sus bacterias carecen de adhesinas de matriz extracelular.',
+          'Porque los heterófilos carecen funcionalmente de mieloperoxidasa activa cuantificable y tienen mínimas enzimas proteolíticas hidrosolubles.',
+          'Por exceso de estreptoquinasa plasmática endógena del hospedador.',
+          'Porque solo sufren infecciones por virus retrovirales.'
+        ],
+        ans: 1,
+        exp: 'Al no ocurrir la digestión licuefactiva propia del neutrófilo mamífero, la acumulación de heterófilos se deseca e inspisa en una masa caseosa firme.'
+      },
+      {
+        q: '6. ¿En qué consiste el «signo del empedrado» (cobblestone sign) en la ecografía POCUS (7,5–15 MHz) de un flemón agudo?',
+        opts: [
+          'Una cavidad única anecoica rodeada por una cápsula fibrosa hiperecogénica de 1 cm.',
+          'Calcificaciones distróficas lineales dentro del periostio diafisario.',
+          'Lobulillos grasos hipodérmicos aumentados de volumen e hiperecoicos, disecados por bandas anecoicas o hipoecoicas ramificadas de edema inflamatorio intersticial.',
+          'Trombos calcificados dentro de la arteria femoral.'
+        ],
+        ans: 2,
+        exp: 'El edema inflamatorio intersticial diseca los septos entre los lobulillos adiposos hiperecoicos subcutáneos, generando el patrón en empedrado.'
+      },
+      {
+        q: '7. Según las directrices actualizadas de la ISCAID para infecciones profundas, ¿cuál es la duración correcta de la terapia antimicrobiana sistémica?',
+        opts: [
+          'Debe extenderse obligatoriamente 2 a 3 semanas después de la curación clínica aparente.',
+          'Debe mantenerse estrictamente hasta la desaparición de los signos clínicos de infección respaldada por la normalización citológica.',
+          'Se suspende a las 48 horas aunque persistan fístulas exudativas.',
+          'Debe mantenerse de por vida en todos los pacientes caninos.'
+        ],
+        ans: 1,
+        exp: 'ISCAID suprimió la regla tradicional de agregar 2 a 3 semanas post-resolución por carecer de evidencia y seleccionar bacterias multirresistentes.'
+      },
+      {
+        q: '8. ¿Por qué están formalmente contraindicados los betalactámicos orales (penicilinas, cefalosporinas) y la clindamicina oral en conejos?',
+        opts: [
+          'Porque producen degeneración retiniana idiopática aguda.',
+          'Porque provocan disbiosis cecal y enterotoxemia fatal por sobrecrecimiento de Clostridium spiroforme.',
+          'Porque se inactivan en el pH alcalino de la saliva del conejo sin absorberse.',
+          'Porque inducen laminitis de apoyo inmediata.'
+        ],
+        ans: 1,
+        exp: 'En lagomorfos, los betalactámicos y lincosamidas por vía oral destruyen la microbiota cecal normal y desencadenan enterotoxemia letal por Clostridium spiroforme.'
+      },
+      {
+        q: '9. ¿A partir de qué presión intracompartimental está indicada una fasciotomía descompresiva longitudinal inmediata en miembros distales?',
+        opts: [
+          'Por encima de 5 mmHg.',
+          'Por encima de 12 mmHg.',
+          'Por encima de 30 mmHg.',
+          'Únicamente cuando supera los 120 mmHg.'
+        ],
+        ans: 2,
+        exp: 'Cuando la presión intracompartimental supera los 30 mmHg colapsa la microcirculación arteriolar y los troncos nerviosos, exigiendo fasciotomía inmediata.'
+      },
+      {
+        q: '10. ¿Qué precaución farmacológica es crítica respecto a la analgesia multimodal en felinos frente a caninos?',
+        opts: [
+          'La lidocaína en infusión intravenosa (parte del protocolo MLK canino) está rigurosamente contraindicada en felinos por cardiodepresión y neurotoxicidad.',
+          'Los felinos no poseen receptores opioides μ y no responden a metadona ni fentanilo.',
+          'En felinos hipovolémicos y azotémicos es obligatorio administrar AINEs en bolo.',
+          'La ketamina aumenta la alodinia al estimular los receptores NMDA.'
+        ],
+        ans: 0,
+        exp: 'Mientras que la infusión MLK es eficaz en caninos, la lidocaína IV está contraindicada en gatos. Además, los AINEs están contraindicados en hipotensión o azotemia.'
+      },
+      {
+        q: '11. ¿Cuáles son las metas hemodinámicas y el vasopresor de primera elección en el choque séptico vasodilatador refractario a cristaloides?',
+        opts: [
+          'PAM > 40 mmHg, diuresis > 0,1 mL/kg/h y atropina en infusión.',
+          'PAM > 65–70 mmHg, diuresis > 1–2 mL/kg/h, depuración de lactato ≥ 50% en 4–6 h, y Noradrenalina (0,1–1 μg/kg/min) como vasopresor de elección.',
+          'PAM > 140 mmHg mediante bolos exclusivos de coloides sintéticos sin vasopresores.',
+          'Mantener el lactato sérico por encima de 4,0 mmol/L como sustrato energético.'
+        ],
+        ans: 1,
+        exp: 'Las metas son PAM > 65–70 mmHg, diuresis > 1–2 mL/kg/h y aclaramiento de lactato ≥ 50% en 4–6 h; la noradrenalina (0,1–1 μg/kg/min) recupera el tono vascular α1.'
+      },
+      {
+        q: '12. ¿Cuál es la complicación biomecánica contralateral más devastadora del flemón grave de extremidades en equinos?',
+        opts: [
+          'La celulitis juvenil facial bilateral.',
+          'La laminitis de apoyo (support limb laminitis) en el miembro sano contralateral, con rotación o hundimiento de la tercera falange.',
+          'La formación de placas caseosas heterofílicas por falta de mieloperoxidasa.',
+          'La enterotoxemia por Clostridium spiroforme.'
+        ],
+        ans: 1,
+        exp: 'La sobrecarga continua sobre la extremidad sana contralateral induce hipoperfusión isquémica de las láminas dérmicas y rotación/hundimiento de la falange distal.'
+      }
+    ];
+
+    const userAnswers = new Array(quizQuestions.length).fill(null);
+    let quizSubmitted = false;
+    let showingOnlyErrors = false;
+    const quizContainer = document.getElementById('quizContainer');
+
+    function renderQuiz() {
+      quizContainer.innerHTML = quizQuestions.map((item, qIdx) => {
+        const userAns = userAnswers[qIdx];
+        const isCorrect = userAns === item.ans;
+        if (quizSubmitted && showingOnlyErrors && isCorrect) return '';
+
+        return `
+          <div class="quiz-q-card" data-qidx="${qIdx}">
+            <div style="font-weight:700;font-size:0.94rem;color:var(--text-primary);">${item.q}</div>
+            <div>
+              ${item.opts.map((opt, oIdx) => {
+                let cls = 'quiz-choice';
+                if (!quizSubmitted && userAns === oIdx) cls += ' selected';
+                if (quizSubmitted) {
+                  if (oIdx === item.ans) cls += ' correct-ans';
+                  else if (userAns === oIdx && userAns !== item.ans) cls += ' wrong-ans';
+                }
+                return `<button type="button" class="${cls}" data-q="${qIdx}" data-o="${oIdx}" ${quizSubmitted ? 'disabled' : ''}>${opt}</button>`;
+              }).join('')}
+            </div>
+            ${quizSubmitted ? `
+              <div style="margin-top:0.75rem;font-size:0.83rem;padding:0.65rem 0.85rem;border-radius:6px;background:rgba(15,23,42,0.9);border-left:3px solid ${isCorrect ? 'var(--accent-emerald)' : 'var(--accent-crimson)'};">
+                <strong>${isCorrect ? 'Correcto:' : 'Incorrecto:'}</strong> ${item.exp}
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+
+      if (!quizSubmitted) {
+        quizContainer.querySelectorAll('.quiz-choice').forEach(btn => {
+          btn.addEventListener('click', () => {
+            SoundEngine.click();
+            const q = Number(btn.dataset.q);
+            const o = Number(btn.dataset.o);
+            userAnswers[q] = o;
+            renderQuiz();
+          });
+        });
+      }
+    }
+    renderQuiz();
+
+    function drawCertificate(score, total) {
+      const c = document.getElementById('certCanvas');
+      const ctx = c.getContext('2d');
+      const name = document.getElementById('certNameInput').value.trim() || 'Profesional Veterinario';
+      const pct = Math.round((score / total) * 100);
+
+      const grad = ctx.createLinearGradient(0, 0, c.width, c.height);
+      grad.addColorStop(0, '#070b14');
+      grad.addColorStop(0.5, '#0f172a');
+      grad.addColorStop(1, '#111c38');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, c.width, c.height);
+
+      ctx.strokeStyle = '#06b6d4';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(22, 22, c.width - 44, c.height - 44);
+      ctx.strokeStyle = 'rgba(245, 158, 11, 0.6)';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(32, 32, c.width - 64, c.height - 64);
+
+      ctx.fillStyle = '#06b6d4';
+      ctx.font = 'bold 18px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('AMC VETATLAS · ANIMAL MEDICAL CENTER', c.width / 2, 85);
+
+      ctx.fillStyle = '#f8fafc';
+      ctx.font = 'bold 32px Inter, sans-serif';
+      ctx.fillText('CERTIFICADO DE COMPETENCIA CLÍNICA', c.width / 2, 135);
+
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '16px Inter, sans-serif';
+      ctx.fillText('Se otorga la presente insignia académica a:', c.width / 2, 180);
+
+      ctx.fillStyle = '#fde68a';
+      ctx.font = 'bold 30px Inter, sans-serif';
+      ctx.fillText(name, c.width / 2, 225);
+
+      ctx.fillStyle = '#cbd5e1';
+      ctx.font = '17px Inter, sans-serif';
+      ctx.fillText('Por completar el módulo avanzado de actualización médica y quirúrgica:', c.width / 2, 270);
+
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 22px Inter, sans-serif';
+      ctx.fillText('«Celulitis Flemonosa Bacteriana en Medicina Veterinaria»', c.width / 2, 308);
+
+      ctx.fillStyle = 'rgba(16, 185, 129, 0.16)';
+      ctx.strokeStyle = '#10b981';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.roundRect(c.width / 2 - 170, 338, 340, 64, 12);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#6ee7b7';
+      ctx.font = 'bold 22px JetBrains Mono, monospace';
+      ctx.fillText(`PUNTAJE: ${score}/${total} (${pct}%)`, c.width / 2, 378);
+
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '14px Inter, sans-serif';
+      ctx.fillText('Directrices ISCAID · Estándares CLSI VET-series · Diagnóstico POCUS y PAAF', c.width / 2, 445);
+
+      ctx.fillStyle = '#f8fafc';
+      ctx.font = 'bold 15px Inter, sans-serif';
+      ctx.fillText('Guía didáctica preparada por Andreé, médico veterinario.', c.width / 2, 482);
+    }
+
+    document.getElementById('submitQuizBtn').addEventListener('click', () => {
+      quizSubmitted = true;
+      showingOnlyErrors = false;
+      let score = 0;
+      quizQuestions.forEach((q, idx) => {
+        if (userAnswers[idx] === q.ans) score++;
+      });
+      if (score >= 8) SoundEngine.success();
+      else SoundEngine.error();
+
+      renderQuiz();
+      const resBox = document.getElementById('quizResultBox');
+      resBox.style.display = 'block';
+      document.getElementById('filterErrorsBtn').style.display = score < quizQuestions.length ? 'inline-flex' : 'none';
+      document.getElementById('quizScoreHeading').textContent = `Puntaje Obtenido: ${score} de ${quizQuestions.length} (${Math.round((score / quizQuestions.length) * 100)}%)`;
+      document.getElementById('quizScoreSummary').textContent = score === quizQuestions.length
+        ? '¡Dominio sobresaliente de todos los módulos fisiopatológicos, diagnósticos y terapéuticos!'
+        : 'Revisa las explicaciones detalladas en cada pregunta o usa el botón de repaso de errores.';
+      drawCertificate(score, quizQuestions.length);
+    });
+
+    document.getElementById('filterErrorsBtn').addEventListener('click', (e) => {
+      SoundEngine.click();
+      showingOnlyErrors = !showingOnlyErrors;
+      e.currentTarget.textContent = showingOnlyErrors ? 'Mostrar Todas las Preguntas' : 'Ver Solo Errores para Repaso';
+      renderQuiz();
+    });
+
+    document.getElementById('resetQuizBtn').addEventListener('click', () => {
+      SoundEngine.click();
+      userAnswers.fill(null);
+      quizSubmitted = false;
+      showingOnlyErrors = false;
+      document.getElementById('quizResultBox').style.display = 'none';
+      document.getElementById('filterErrorsBtn').style.display = 'none';
+      renderQuiz();
+    });
+
+    document.getElementById('renderCertBtn').addEventListener('click', () => {
+      SoundEngine.click();
+      let score = 0;
+      quizQuestions.forEach((q, idx) => { if (userAnswers[idx] === q.ans) score++; });
+      drawCertificate(score, quizQuestions.length);
+    });
+
+    document.getElementById('downloadCertBtn').addEventListener('click', () => {
+      SoundEngine.success();
+      const c = document.getElementById('certCanvas');
+      const link = document.createElement('a');
+      link.download = 'Certificado_Celulitis_Flemonosa_AMC_VetAtlas.png';
+      link.href = c.toDataURL('image/png');
+      link.click();
+    });
+
+    /* =========================================================================
+       8. GALERÍA DATA-COMMONS (PLACEHOLDER SVG ELEGANTES HASTA PONER URL REAL)
+       ========================================================================= */
+    document.querySelectorAll('img[data-commons]').forEach((img, idx) => {
+      const fileName = img.getAttribute('data-commons');
+      if (!img.getAttribute('src')) {
+        const colors = ['#ef4444', '#06b6d4', '#f59e0b', '#10b981'];
+        const col = colors[idx % colors.length];
+        const svgPlaceholder = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="360" viewBox="0 0 600 360">
+          <rect width="600" height="360" fill="#09101f"/>
+          <circle cx="300" cy="145" r="54" fill="none" stroke="${col}" stroke-width="3" stroke-dasharray="8 6"/>
+          <circle cx="300" cy="145" r="22" fill="${col}" fill-opacity="0.25"/>
+          <text x="300" y="245" fill="#f8fafc" font-family="monospace" font-size="15" text-anchor="middle" font-weight="bold">${fileName}</text>
+          <text x="300" y="275" fill="#94a3b8" font-family="sans-serif" font-size="13" text-anchor="middle">Imagen no disponible</text>
+        </svg>`;
+        img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svgPlaceholder);
+      }
+    });
+
+    /* =========================================================================
+       9. MENÚ LATERAL RESPONSIVE Y SCROLL-SPY
+       ========================================================================= */
+    const mobileNavBtn = document.getElementById('mobileNavBtn');
+    const sidebarNav = document.getElementById('sidebarNav');
+    mobileNavBtn.addEventListener('click', () => {
+      SoundEngine.click();
+      sidebarNav.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.sidebar-nav .nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        SoundEngine.click();
+        sidebarNav.classList.remove('open');
+      });
+    });
+
+    const sections = document.querySelectorAll('main.main-content > section');
+    const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
+    window.addEventListener('scroll', () => {
+      let currentId = 'especies-tabs';
+      sections.forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        if (top <= 140) currentId = sec.id;
+      });
+      navLinks.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === `#${currentId}`);
+      });
+    }, { passive: true });
+  </script>
+</body>
+</html>
