@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>AMC VetAtlas · Animal Medical Center | Atlas de Enfermedades Veterinarias Difíciles</title>
+  <meta name="description" content="Atlas didáctico interactivo de enfermedades veterinarias complejas. Fisiopatología, modelos 3D, simuladores clínicos y protocolos terapéuticos." />
+  <meta name="theme-color" content="#050811" />
+
+  <!-- Tipografías Clínicas y Técnicas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Importmap para Three.js por CDN ES Module -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-deep: #050811;
+      --bg-surface: #0b1120;
+      --bg-card: rgba(15, 23, 42, 0.72);
+      --bg-card-hover: rgba(22, 33, 58, 0.88);
+      --bg-glass: rgba(9, 14, 26, 0.78);
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-highlight: rgba(56, 189, 248, 0.42);
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #64748b;
+      --accent-cyan: #38bdf8;
+      --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
+      --accent-amber: #f59e0b;
+      --accent-violet: #a855f7;
+      --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 9999px;
+      --shadow-glow: 0 20px 50px -15px rgba(2, 6, 23, 0.85), 0 0 35px -10px rgba(56, 189, 248, 0.18);
+      --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.07) 0%, transparent 40%),
+        radial-gradient(circle at 85% 25%, rgba(16, 185, 129, 0.05) 0%, transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(244, 63, 94, 0.05) 0%, transparent 45%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    /* Retícula clínica de fondo */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(148, 163, 184, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Contenedor global */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ==================== CABECERA / NAVBAR ==================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--bg-glass);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .site-header.scrolled {
+      border-bottom-color: rgba(56, 189, 248, 0.25);
+      box-shadow: 0 10px 30px -10px rgba(2, 6, 23, 0.85);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding: 0.5rem 0;
+    }
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .brand-seal {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(16, 185, 129, 0.12));
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+      transition: transform 0.35s var(--transition-smooth), border-color 0.35s ease;
+    }
+
+    .brand-link:hover .brand-seal {
+      transform: scale(1.05) rotate(-2deg);
+      border-color: var(--accent-cyan);
+    }
+
+    .brand-seal img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 4px;
+    }
+
+    .brand-seal svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .brand-title span.dot {
+      color: var(--accent-cyan);
+    }
+
+    .brand-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 0.5rem 0.85rem;
+      border-radius: var(--radius-pill);
+      transition: color 0.25s ease, background 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+      background: rgba(148, 163, 184, 0.1);
+    }
+
+    /* Botón de Audio Web */
+    .audio-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--text-primary);
+      padding: 0.48rem 0.9rem;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s var(--transition-smooth);
+      user-select: none;
+    }
+
+    .audio-btn:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .audio-btn.muted {
+      border-color: var(--border-subtle);
+      color: var(--text-muted);
+    }
+
+    .audio-btn .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 10px var(--accent-emerald);
+      animation: pulseGlow 2s infinite;
+    }
+
+    .audio-btn.muted .pulse-dot {
+      background: var(--text-muted);
+      box-shadow: none;
+      animation: none;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.65; }
+    }
+
+    /* ==================== HERO INMERSIVO 3D ==================== */
+    .hero {
+      position: relative;
+      min-height: calc(92vh - 76px);
+      display: flex;
+      align-items: center;
+      padding: 4.5rem 0 5rem;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    #hero-canvas-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    #hero-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Viñeta radial para legibilidad sobre el 3D */
+    .hero-vignette {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 28% 50%, rgba(5, 8, 17, 0.82) 0%, rgba(5, 8, 17, 0.45) 55%, rgba(5, 8, 17, 0.75) 100%),
+        linear-gradient(to top, var(--bg-deep) 0%, transparent 18%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      z-index: 3;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 0.95rem;
+      border-radius: var(--radius-pill);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent-cyan);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-badge svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.35rem, 5vw, 4.15rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.35rem;
+      color: var(--text-primary);
+    }
+
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, #38bdf8 0%, #34d399 52%, #f43f5e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-lead {
+      font-size: clamp(1rem, 1.6vw, 1.18rem);
+      color: var(--text-secondary);
+      max-width: 640px;
+      margin-bottom: 2.25rem;
+      font-weight: 400;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.75rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 50%, #10b981 100%);
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.96rem;
+      padding: 0.9rem 1.65rem;
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 12px 30px -8px rgba(14, 165, 233, 0.55);
+      transition: transform 0.25s var(--transition-smooth), box-shadow 0.25s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px -6px rgba(14, 165, 233, 0.75);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(15, 23, 42, 0.75);
+      color: var(--text-primary);
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.9rem 1.5rem;
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+      border: 1px solid var(--border-subtle);
+      transition: all 0.25s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Telemetría del Hero */
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      max-width: 580px;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .metric-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .metric-val {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: baseline;
+      gap: 0.3rem;
+    }
+
+    .metric-val span {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-cyan);
+    }
+
+    .metric-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-family: var(--font-mono);
+    }
+
+    /* Tarjeta flotante de telemetría 3D en columna derecha */
+    .hero-hud-card {
+      justify-self: end;
+      width: 100%;
+      max-width: 390px;
+      background: rgba(11, 17, 32, 0.68);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(56, 189, 248, 0.24);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-hud-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-emerald), var(--accent-rose));
+    }
+
+    .hud-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .hud-title {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .hud-tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .hud-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .hud-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      padding: 0.55rem 0.7rem;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(148, 163, 184, 0.08);
+    }
+
+    .hud-list svg {
+      width: 18px;
+      height: 18px;
+      color: var(--accent-cyan);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ==================== SECCIONES Y ENCABEZADOS ==================== */
+    .section {
+      padding: 5rem 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-cyan);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .section-desc {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: 720px;
+    }
+
+    /* ==================== PANEL DE BÚSQUEDA Y FILTROS ==================== */
+    .filter-console {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .search-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input-wrap {
+      position: relative;
+      flex: 1 1 320px;
+    }
+
+    .search-input-wrap svg.search-icon {
+      position: absolute;
+      left: 1.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      color: var(--text-muted);
+      pointer-events: none;
+      transition: color 0.25s ease;
+    }
+
+    .search-input {
+      width: 100%;
+      background: rgba(5, 8, 17, 0.8);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.95rem 3.2rem 0.95rem 3rem;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 0.98rem;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+
+    .search-input:focus + svg.search-icon {
+      color: var(--accent-cyan);
+    }
+
+    .search-clear-btn {
+      position: absolute;
+      right: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(148, 163, 184, 0.15);
+      border: none;
+      color: var(--text-secondary);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .search-clear-btn.visible {
+      display: inline-flex;
+    }
+
+    .search-clear-btn:hover {
+      background: rgba(244, 63, 94, 0.25);
+      color: #fff;
+    }
+
+    .filter-status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .reset-filters-btn {
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      color: #fda4af;
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+
+    .reset-filters-btn.visible {
+      display: inline-flex;
+    }
+
+    .reset-filters-btn:hover {
+      background: rgba(244, 63, 94, 0.24);
+      transform: translateY(-1px);
+    }
+
+    .filter-block {
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .filter-block-label {
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .chips-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.48rem;
+      padding: 0.48rem 0.92rem;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 0.84rem;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.25s var(--transition-smooth), background 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .filter-chip svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      opacity: 0.85;
+      transition: transform 0.25s var(--transition-smooth);
+    }
+
+    .filter-chip:hover {
+      transform: translateY(-2px);
+      border-color: rgba(56, 189, 248, 0.45);
+      color: var(--text-primary);
+      background: rgba(30, 41, 59, 0.85);
+    }
+
+    .filter-chip:hover svg {
+      transform: scale(1.12);
+    }
+
+    .filter-chip.active {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.24), rgba(16, 185, 129, 0.18));
+      border-color: var(--accent-cyan);
+      color: #ffffff;
+      box-shadow: 0 6px 20px -6px rgba(56, 189, 248, 0.45);
+    }
+
+    .filter-chip .chip-count {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 0.08rem 0.42rem;
+      border-radius: var(--radius-pill);
+      background: rgba(148, 163, 184, 0.14);
+      color: var(--text-secondary);
+    }
+
+    .filter-chip.active .chip-count {
+      background: rgba(56, 189, 248, 0.3);
+      color: #fff;
+    }
+
+    /* ==================== GRILLA DE TARJETAS DE ENFERMEDADES ==================== */
+    .diseases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
+      gap: 1.5rem;
+    }
+
+    .disease-card {
+      --card-accent: var(--accent-cyan);
+      background: var(--bg-card);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s var(--transition-smooth), border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+    }
+
+    .disease-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--card-accent);
+      opacity: 0.9;
+    }
+
+    .disease-card::after {
+      content: "";
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: var(--card-accent);
+      opacity: 0.06;
+      filter: blur(30px);
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .disease-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--card-accent);
+      background: var(--bg-card-hover);
+      box-shadow: 0 22px 45px -15px rgba(2, 6, 23, 0.9), 0 0 28px -8px var(--card-accent);
+    }
+
+    .disease-card:hover::after {
+      opacity: 0.16;
+      transform: scale(1.25);
+    }
+
+    .card-top-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 1.1rem;
+      flex-wrap: wrap;
+    }
+
+    .card-area-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.32rem 0.75rem;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--card-accent);
+      color: var(--text-primary);
+    }
+
+    .card-area-badge svg {
+      width: 14px;
+      height: 14px;
+      color: var(--card-accent);
+    }
+
+    .card-date {
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      color: var(--text-muted);
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+      transition: color 0.25s ease;
+    }
+
+    .disease-card:hover .card-title {
+      color: #ffffff;
+    }
+
+    .card-summary {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.4rem;
+      flex-grow: 1;
+    }
+
+    .card-species-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .species-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.24rem 0.62rem;
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      color: var(--text-secondary);
+    }
+
+    .species-pill svg {
+      width: 13px;
+      height: 13px;
+      color: var(--card-accent);
+    }
+
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0.85rem 1.15rem;
+      border-radius: var(--radius-md);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      color: var(--text-primary);
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.25s ease;
+    }
+
+    .card-cta svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.25s var(--transition-smooth);
+      color: var(--card-accent);
+    }
+
+    .disease-card:hover .card-cta {
+      background: var(--card-accent);
+      border-color: var(--card-accent);
+      color: #050811;
+    }
+
+    .disease-card:hover .card-cta svg {
+      transform: translateX(4px);
+      color: #050811;
+    }
+
+    /* Tarjetas de Áreas "Próximamente" dentro del catálogo */
+    .disease-card.coming-soon-card {
+      --card-accent: #475569;
+      background: rgba(11, 17, 32, 0.45);
+      border-style: dashed;
+      opacity: 0.86;
+    }
+
+    .disease-card.coming-soon-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(148, 163, 184, 0.4);
+      box-shadow: none;
+    }
+
+    .coming-soon-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.7rem;
+      border-radius: var(--radius-pill);
+      background: rgba(148, 163, 184, 0.12);
+      color: var(--text-secondary);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+    }
+
+    /* ==================== SECCIÓN POR ÁREAS CON CONTADORES ==================== */
+    .areas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+      gap: 1.25rem;
+    }
+
+    .area-tile {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.45rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .area-tile:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, 0.45);
+      background: var(--bg-card-hover);
+    }
+
+    .area-tile.has-content {
+      border-color: rgba(56, 189, 248, 0.28);
+    }
+
+    .area-tile-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .area-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-cyan);
+      flex-shrink: 0;
+    }
+
+    .area-tile:not(.has-content) .area-icon-box {
+      background: rgba(148, 163, 184, 0.07);
+      border-color: rgba(148, 163, 184, 0.16);
+      color: var(--text-muted);
+    }
+
+    .area-icon-box svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .area-counter-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-pill);
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .area-tile:not(.has-content) .area-counter-badge {
+      background: rgba(148, 163, 184, 0.1);
+      color: var(--text-muted);
+      border-color: rgba(148, 163, 184, 0.2);
+    }
+
+    .area-name {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.3rem;
+    }
+
+    .area-status-text {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+    }
+
+    .area-tile:not(.has-content) .area-status-text {
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    /* ==================== TRANSICIONES AL HACER SCROLL ==================== */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s var(--transition-smooth), transform 0.65s var(--transition-smooth);
+    }
+
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==================== PIE DE PÁGINA ==================== */
+    .site-footer {
+      margin-top: 3rem;
+      padding: 3rem 0;
+      background: rgba(5, 8, 17, 0.95);
+      border-top: 1px solid var(--border-subtle);
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
+    }
+
+    .footer-legal {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      max-width: 820px;
+      line-height: 1.65;
+    }
+
+    /* ==================== RESPONSIVE MÓVIL SIN SCROLL HORIZONTAL ==================== */
+    @media (max-width: 960px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-hud-card {
+        justify-self: start;
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 1rem;
+      }
+      .nav-links {
+        display: none;
+      }
+      .brand-title {
+        flex-wrap: wrap;
+        row-gap: 0;
+        font-size: 1.02rem;
+        line-height: 1.25;
+      }
+      .hero {
+        padding: 2.75rem 0 3.5rem;
+        min-height: auto;
+      }
+      .hero-metrics {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+      .filter-console {
+        padding: 1.2rem;
+      }
+      .section {
+        padding: 3.5rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== CABECERA ==================== -->
+  <header class="site-header" id="top-header">
+    <div class="container nav-inner">
+      <a href="#" class="brand-link" aria-label="AMC VetAtlas · Animal Medical Center">
+        <div class="brand-seal" id="brand-seal-box">
+          <img 
+            src="assets/amc-logo.png" 
+            alt="AMC VetAtlas Logo" 
+            onerror="this.style.display='none'; document.getElementById('amc-fallback-svg').style.display='block';" 
+          />
+          <!-- Sello SVG propio de respaldo automático si assets/amc-logo.png no existe -->
+          <svg id="amc-fallback-svg" style="display:none;" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M18 3L31 10.5V25.5L18 33L5 25.5V10.5L18 3Z" stroke="#38bdf8" stroke-width="2" fill="rgba(56,189,248,0.08)"/>
+            <path d="M18 9V27M12 15H24" stroke="#10b981" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="18" cy="18" r="3.2" fill="#f43f5e"/>
+            <circle cx="18" cy="9" r="2" fill="#38bdf8"/>
+            <circle cx="18" cy="27" r="2" fill="#38bdf8"/>
+            <circle cx="12" cy="15" r="2" fill="#10b981"/>
+            <circle cx="24" cy="15" r="2" fill="#10b981"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">AMC VetAtlas <span class="dot">·</span> Animal Medical Center</span>
+          <span class="brand-subtitle">Atlas de Patología y Fisiopatología Veterinaria</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <ul class="nav-links">
+          <li><a href="#catalogo-clinico">Catálogo Clínico</a></li>
+          <li><a href="#mapa-areas">Áreas Médicas</a></li>
+        </ul>
+
+        <button type="button" id="audio-toggle-btn" class="audio-btn" aria-pressed="true" title="Alternar respuesta sonora sutil Web Audio">
+          <span class="pulse-dot"></span>
+          <svg id="audio-icon-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path id="audio-waves" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+          <span id="audio-status-label">Sonido: Activo</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO 3D INMERSIVO ==================== -->
+  <section class="hero">
+    <div id="hero-canvas-wrap" aria-hidden="true">
+      <canvas id="hero-canvas"></canvas>
+    </div>
+    <div class="hero-vignette" aria-hidden="true"></div>
+
+    <div class="container hero-grid">
+      <div class="hero-content reveal-on-scroll is-visible">
+        <div class="hero-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+          </svg>
+          <span>Plataforma de Medicina Veterinaria Basada en Evidencia</span>
+        </div>
+
+        <h1 class="hero-title">
+          Fisiopatología profunda y <span class="gradient-text">simulación clínica 3D</span> para patologías complejas.
+        </h1>
+
+        <p class="hero-lead">
+          Explora guías interactivas diseñadas desde los mecanismos celulares y moleculares hasta la toma de decisiones críticas en urgencias, terapia antimicrobiana racional y autoevaluación clínica.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#catalogo-clinico" class="btn-primary">
+            <span>Explorar Atlas Clínico</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a href="#mapa-areas" class="btn-secondary">
+            <span>Ver Especialidades</span>
+          </a>
+        </div>
+
+        <div class="hero-metrics">
+          <div class="metric-item">
+            <div class="metric-val"><strong id="hero-stat-diseases">2</strong> <span>Módulos</span></div>
+            <div class="metric-label">Guías Interactivas</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-val"><strong>9</strong> <span>Áreas</span></div>
+            <div class="metric-label">Especialidades Clínicas</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-val"><strong>7</strong> <span>Taxones</span></div>
+            <div class="metric-label">Especies Diana</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-hud-card reveal-on-scroll is-visible" aria-label="Arquitectura de cada guía">
+        <div class="hud-header">
+          <span class="hud-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+            Arquitectura Didáctica
+          </span>
+          <span class="hud-tag">3D + Simulador</span>
+        </div>
+        <ul class="hud-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"></path>
+              <path d="M9 21h6"></path>
+            </svg>
+            <div>
+              <strong>Cascadas Fisiopatológicas</strong>
+              <p>Desde receptores sinápticos y citocinas proinflamatorias hasta el daño tisular.</p>
+            </div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            <div>
+              <strong>Visualización Molecular y Tisular 3D</strong>
+              <p>Modelos tridimensionales interactivos en tiempo real integrados en cada patología.</p>
+            </div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+            <div>
+              <strong>Consensos Terapéuticos y Simulación</strong>
+              <p>Protocolos escalonados (ISCAID, ACVIM), casos gamificados y autoevaluación.</p>
+            </div>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ==================== BUSCADOR EN VIVO Y CATÁLOGO DE ENFERMEDADES ==================== -->
+  <main>
+    <section class="section" id="catalogo-clinico">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-eyebrow">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            Explorador Clínico Interactivo
+          </span>
+          <h2 class="section-title">Catálogo de Enfermedades y Módulos Didácticos</h2>
+          <p class="section-desc">
+            Filtra en tiempo real por especialidad médica, especie animal o términos fisiopatológicos. Las áreas aún sin módulos publicados muestran su estado como <strong>Próximamente</strong>.
+          </p>
+        </div>
+
+        <!-- Consola de Búsqueda y Filtros -->
+        <div class="filter-console reveal-on-scroll">
+          <div class="search-row">
+            <div class="search-input-wrap">
+              <input 
+                type="search" 
+                id="live-search-input" 
+                class="search-input" 
+                placeholder="Buscar por patología, fisiopatología, consenso (ej. convulsiones, sepsis, ISCAID)..." 
+                aria-label="Buscar enfermedades en el atlas"
+                autocomplete="off"
+              />
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <button type="button" id="clear-search-btn" class="search-clear-btn" aria-label="Limpiar texto de búsqueda">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-status-bar">
+            <span id="results-counter-text">Mostrando el catálogo clínico completo</span>
+            <button type="button" id="reset-all-btn" class="reset-filters-btn">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                <path d="M3 3v5h5"></path>
+              </svg>
+              Restablecer filtros
+            </button>
+          </div>
+
+          <!-- Chips por ÁREA -->
+          <div class="filter-block">
+            <div class="filter-block-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+              Filtrar por Área Clínica
+            </div>
+            <div class="chips-container" id="area-chips-container" role="group" aria-label="Filtros por área clínica"></div>
+          </div>
+
+          <!-- Chips por ESPECIE -->
+          <div class="filter-block">
+            <div class="filter-block-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                <line x1="15" y1="9" x2="15.01" y2="9"></line>
+              </svg>
+              Filtrar por Especie Diana
+            </div>
+            <div class="chips-container" id="species-chips-container" role="group" aria-label="Filtros por especie"></div>
+          </div>
+        </div>
+
+        <!-- Contenedor Dinámico de Tarjetas -->
+        <div class="diseases-grid" id="diseases-grid-container" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ==================== SECCIÓN POR ÁREAS CON CONTADORES ==================== -->
+    <section class="section" id="mapa-areas">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-eyebrow">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+            Estructura Departamental
+          </span>
+          <h2 class="section-title">Especialidades Médicas y Contadores por Área</h2>
+          <p class="section-desc">
+            Selecciona cualquier área clínica para filtrar automáticamente el atlas superior. Las especialidades en fase de producción editorial muestran el estado <strong>Próximamente</strong>.
+          </p>
+        </div>
+
+        <div class="areas-grid" id="areas-summary-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== PIE DE PÁGINA ==================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-legal">
+        AMC VetAtlas · Animal Medical Center, Santa Rosa (Ecuador). Guías didácticas preparadas por Andreé, médico veterinario. Contenido educativo, no sustituye la consulta clínica.
+      </p>
+    </div>
+  </footer>
+  <script type="module">
+    import * as THREE from 'three';
+
+    /* =========================================================================
+       1. CATÁLOGO DE ENFERMEDADES (FÁCIL DE AMPLIAR)
+       Campos: titulo, area, especies[], resumen, url, color, fecha
+    ========================================================================= */
+    const DISEASES = [
+      {
+        titulo: 'Convulsiones y estatus epiléptico',
+        area: 'Neurología',
+        especies: ['Caninos', 'Felinos'],
+        resumen: 'Fisiopatología, muerte neuronal, terapia del estatus refractario, juego, 3D y autoevaluación.',
+        url: 'neurologia/convulsiones/',
+        color: '#38bdf8',
+        fecha: '2026-10'
+      },
+      {
+        titulo: 'Celulitis flemonosa bacteriana',
+        area: 'Infecciosas',
+        especies: ['Caninos', 'Felinos', 'Equinos', 'Porcinos', 'Rumiantes', 'Aves', 'Conejos'],
+        resumen: 'Del flemón a la sepsis: etiología, diagnóstico, tratamiento ISCAID, simulador y 3D.',
+        url: 'infecciosas/celulitis-flemonosa/',
+        color: '#f43f5e',
+        fecha: '2026-10'
+      }
+    ];
+
+    /* Taxonomía Oficial de Áreas y Especies */
+    const AREAS = [
+      'Neurología',
+      'Infecciosas',
+      'Metabólicas/Endocrinas',
+      'Dermatología',
+      'Cardiorrespiratorio',
+      'Gastroenterología',
+      'Nefro-urología',
+      'Oncología',
+      'Toxicología'
+    ];
+
+    const SPECIES = [
+      'Caninos',
+      'Felinos',
+      'Equinos',
+      'Porcinos',
+      'Rumiantes',
+      'Aves',
+      'Conejos'
+    ];
+
+    /* =========================================================================
+       2. ICONOGRAFÍA VECTORIAL SVG (CERO EMOJIS)
+    ========================================================================= */
+    const AREA_ICONS = {
+      'Todas': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>`,
+      'Neurología': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04Z"/></svg>`,
+      'Infecciosas': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5M4.93 4.93l3.54 3.54M15.54 15.54l3.54 3.54M19.07 4.93l-3.54 3.54M8.46 15.54l-3.54 3.54"/></svg>`,
+      'Metabólicas/Endocrinas': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 19 6 19 14 12 18 5 14 5 6 12 2"/><path d="M12 18v4M5 10h14"/></svg>`,
+      'Dermatología': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12c3-2 6-2 9 0s6 2 9 0"/><path d="M2 17c3-2 6-2 9 0s6 2 9 0"/><path d="M12 3c0 4-3 6-3 9"/></svg>`,
+      'Cardiorrespiratorio': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+      'Gastroenterología': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3v5a4 4 0 0 0 4 4h2a4 4 0 0 1 4 4v5"/><path d="M15 3a4 4 0 0 1 4 4v2a4 4 0 0 1-4 4H9a4 4 0 0 0-4 4v4"/></svg>`,
+      'Nefro-urología': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 4c-3 0-5 2.5-5 6 0 4.5 2.5 9 6 9 2 0 3-1.5 3-3.5S10.5 12 10.5 10c0-2 1.5-3 1.5-4.5S10 4 8 4z"/><path d="M16 4c3 0 5 2.5 5 6 0 4.5-2.5 9-6 9-2 0-3-1.5-3-3.5s1.5-3.5 1.5-5.5c0-2-1.5-3-1.5-4.5S14 4 16 4z"/></svg>`,
+      'Oncología': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="6"/><circle cx="15" cy="15" r="5"/><circle cx="10" cy="10" r="2"/></svg>`,
+      'Toxicología': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.31L4.72 18.55A2 2 0 0 0 6.45 21.5h11.1a2 2 0 0 0 1.73-2.95L14 9.31V2"/><path d="M8.5 2h7M7 15h10"/></svg>`
+    };
+
+    const SPECIES_ICONS = {
+      'Todas': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8"/></svg>`,
+      'Caninos': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309"/></svg>`,
+      'Felinos': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5M16 14v.5M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>`,
+      'Equinos': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3l-5 3-5 6 3 3 4-2 1 8h5V9l-3-6z"/><circle cx="14.5" cy="8.5" r="1"/></svg>`,
+      'Porcinos': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="13" rx="8" ry="6"/><ellipse cx="12" cy="14.5" rx="3.2" ry="2.2"/><path d="M6 8L4 4l4 2M18 8l2-4-4 2"/><line x1="11" y1="14.5" x2="11.01" y2="14.5"/><line x1="13" y1="14.5" x2="13.01" y2="14.5"/></svg>`,
+      'Rumiantes': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5c0 4 3 6 5 6h6c2 0 5-2 5-6"/><path d="M7 11l1 9h8l1-9"/><path d="M3 9h4M17 9h4"/></svg>`,
+      'Aves': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 7h.01"/><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/><path d="m20 7 2 .5-2 .5"/></svg>`,
+      'Conejos': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 10V4a2 2 0 0 1 4 0v6"/><path d="M13 10V5a2 2 0 0 1 4 0v6"/><circle cx="12" cy="15" r="5"/><circle cx="10.5" cy="14" r="0.8"/></svg>`
+    };
+
+    /* =========================================================================
+       3. SINTETIZADOR WEB AUDIO API (ENCENDIDO POR DEFECTO DESDE 1ª INTERACCIÓN)
+    ========================================================================= */
+    class ClinicalSoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.enabled = true; // Encendido por defecto
+        this.unlocked = false;
+        this.lastHoverTime = 0;
+        this.setupFirstInteractionUnlock();
+      }
+
+      setupFirstInteractionUnlock() {
+        const unlock = () => {
+          if (!this.ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) {
+              this.ctx = new AudioCtx();
+            }
+          }
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+          if (!this.unlocked && this.enabled) {
+            this.unlocked = true;
+            this.playHarmonicChime(528, 660, 0.025);
+          }
+          window.removeEventListener('pointerdown', unlock);
+          window.removeEventListener('keydown', unlock);
+        };
+
+        window.addEventListener('pointerdown', unlock, { passive: true });
+        window.addEventListener('keydown', unlock, { passive: true });
+      }
+
+      ensureContext() {
+        if (!this.enabled) return false;
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return false;
+          this.ctx = new AudioCtx();
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+        return true;
+      }
+
+      playHover() {
+        const now = performance.now();
+        if (now - this.lastHoverTime < 65) return;
+        this.lastHoverTime = now;
+
+        if (!this.ensureContext()) return;
+        const t = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, t);
+        osc.frequency.exponentialRampToValueAtTime(1180, t + 0.028);
+
+        gain.gain.setValueAtTime(0.0001, t);
+        gain.gain.linearRampToValueAtTime(0.014, t + 0.005);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.032);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.035);
+      }
+
+      playHarmonicChime(f1 = 587.33, f2 = 880, peakGain = 0.032) {
+        if (!this.ensureContext()) return;
+        const t = this.ctx.currentTime;
+
+        [f1, f2].forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = idx === 0 ? 'triangle' : 'sine';
+          osc.frequency.setValueAtTime(freq, t + idx * 0.035);
+
+          gain.gain.setValueAtTime(0.0001, t + idx * 0.035);
+          gain.gain.linearRampToValueAtTime(peakGain, t + idx * 0.035 + 0.012);
+          gain.gain.exponentialRampToValueAtTime(0.0001, t + idx * 0.035 + 0.14);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(t + idx * 0.035);
+          osc.stop(t + idx * 0.035 + 0.15);
+        });
+      }
+
+      toggle() {
+        this.enabled = !this.enabled;
+        if (this.enabled) {
+          this.unlocked = true;
+          this.playHarmonicChime(523.25, 783.99, 0.035);
+        }
+        return this.enabled;
+      }
+    }
+
+
+    /* Respaldo del sello: si assets/amc-logo.png no carga, mostrar el SVG */
+    (function ensureSealFallback(){
+      const img = document.querySelector('#brand-seal-box img');
+      const svg = document.getElementById('amc-fallback-svg');
+      if (!img || !svg) return;
+      const showSvg = () => { img.style.display = 'none'; svg.style.display = 'block'; };
+      if (img.complete && img.naturalWidth === 0) showSvg();
+      img.addEventListener('error', showSvg);
+    })();
+
+    const sound = new ClinicalSoundEngine();
+
+    /* Control del botón de sonido en la barra superior */
+    const audioBtn = document.getElementById('audio-toggle-btn');
+    const audioStatusLabel = document.getElementById('audio-status-label');
+    const audioWavesPath = document.getElementById('audio-waves');
+
+    audioBtn.addEventListener('click', () => {
+      const active = sound.toggle();
+      audioBtn.classList.toggle('muted', !active);
+      audioBtn.setAttribute('aria-pressed', String(active));
+      audioStatusLabel.textContent = active ? 'Sonido: Activo' : 'Silenciado';
+      audioWavesPath.style.display = active ? 'block' : 'none';
+    });
+
+    /* =========================================================================
+       4. ESTADO REACTIVO, FILTROS Y RENDERIZADO DEL CATÁLOGO
+    ========================================================================= */
+    const state = {
+      selectedArea: 'Todas',
+      selectedSpecies: 'Todas',
+      searchQuery: ''
+    };
+
+    const areaChipsContainer = document.getElementById('area-chips-container');
+    const speciesChipsContainer = document.getElementById('species-chips-container');
+    const diseasesGridContainer = document.getElementById('diseases-grid-container');
+    const areasSummaryGrid = document.getElementById('areas-summary-grid');
+    const searchInput = document.getElementById('live-search-input');
+    const clearSearchBtn = document.getElementById('clear-search-btn');
+    const resetAllBtn = document.getElementById('reset-all-btn');
+    const resultsCounterText = document.getElementById('results-counter-text');
+    const heroStatDiseases = document.getElementById('hero-stat-diseases');
+
+    heroStatDiseases.textContent = String(DISEASES.length);
+
+    function normalizeText(str) {
+      return str
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function getAreaCount(areaName) {
+      if (areaName === 'Todas') return DISEASES.length;
+      return DISEASES.filter(d => d.area === areaName).length;
+    }
+
+    function getSpeciesCount(speciesName) {
+      if (speciesName === 'Todas') return DISEASES.length;
+      return DISEASES.filter(d => Array.isArray(d.especies) && d.especies.includes(speciesName)).length;
+    }
+
+    function renderFilterChips() {
+      /* Chips de Área */
+      const allAreasList = ['Todas', ...AREAS];
+      areaChipsContainer.innerHTML = allAreasList.map(area => {
+        const count = getAreaCount(area);
+        const isActive = state.selectedArea === area;
+        const icon = AREA_ICONS[area] || AREA_ICONS['Todas'];
+        return `
+          <button
+            type="button"
+            class="filter-chip ${isActive ? 'active' : ''}"
+            data-area="${area}"
+            aria-pressed="${isActive}"
+          >
+            ${icon}
+            <span>${area}</span>
+            <span class="chip-count">${count}</span>
+          </button>
+        `;
+      }).join('');
+
+      /* Chips de Especie */
+      const allSpeciesList = ['Todas', ...SPECIES];
+      speciesChipsContainer.innerHTML = allSpeciesList.map(sp => {
+        const count = getSpeciesCount(sp);
+        const isActive = state.selectedSpecies === sp;
+        const icon = SPECIES_ICONS[sp] || SPECIES_ICONS['Todas'];
+        return `
+          <button
+            type="button"
+            class="filter-chip ${isActive ? 'active' : ''}"
+            data-species="${sp}"
+            aria-pressed="${isActive}"
+          >
+            ${icon}
+            <span>${sp}</span>
+            <span class="chip-count">${count}</span>
+          </button>
+        `;
+      }).join('');
+
+      /* Eventos de Chips de Área */
+      areaChipsContainer.querySelectorAll('.filter-chip').forEach(btn => {
+        btn.addEventListener('mouseenter', () => sound.playHover());
+        btn.addEventListener('click', () => {
+          sound.playHarmonicChime(587.33, 880, 0.03);
+          state.selectedArea = btn.getAttribute('data-area');
+          updateUI();
+        });
+      });
+
+      /* Eventos de Chips de Especie */
+      speciesChipsContainer.querySelectorAll('.filter-chip').forEach(btn => {
+        btn.addEventListener('mouseenter', () => sound.playHover());
+        btn.addEventListener('click', () => {
+          sound.playHarmonicChime(659.25, 987.77, 0.03);
+          state.selectedSpecies = btn.getAttribute('data-species');
+          updateUI();
+        });
+      });
+    }
+
+    function createDiseaseCardHTML(disease) {
+      const accent = disease.color || '#38bdf8';
+      const fechaLabel = disease.fecha || 'Edición 2026';
+      const areaIcon = AREA_ICONS[disease.area] || AREA_ICONS['Todas'];
+      const speciesPills = (disease.especies || []).map(sp => `
+        <span class="species-pill">
+          ${SPECIES_ICONS[sp] || ''}
+          <span>${sp}</span>
+        </span>
+      `).join('');
+
+      return `
+        <article class="disease-card reveal-on-scroll is-visible" style="--card-accent: ${accent};">
+          <div>
+            <div class="card-top-meta">
+              <span class="card-area-badge">
+                ${areaIcon}
+                <span>${disease.area}</span>
+              </span>
+              <span class="card-date">${fechaLabel}</span>
+            </div>
+            <h3 class="card-title">${disease.titulo}</h3>
+            <p class="card-summary">${disease.resumen}</p>
+          </div>
+          <div>
+            <div class="card-species-list" aria-label="Especies afectadas">
+              ${speciesPills}
+            </div>
+            <a href="${disease.url}" class="card-cta">
+              <span>Abrir módulo interactivo</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </article>
+      `;
+    }
+
+    function createComingSoonCardHTML(areaName) {
+      const areaIcon = AREA_ICONS[areaName] || AREA_ICONS['Todas'];
+      return `
+        <article class="disease-card coming-soon-card reveal-on-scroll is-visible">
+          <div>
+            <div class="card-top-meta">
+              <span class="card-area-badge">
+                ${areaIcon}
+                <span>${areaName}</span>
+              </span>
+              <span class="coming-soon-pill">Próximamente</span>
+            </div>
+            <h3 class="card-title">Módulos de ${areaName}</h3>
+            <p class="card-summary">
+              Próximamente: guías interactivas de fisiopatología, algoritmos diagnósticos, modelos tridimensionales y simuladores clínicos en preparación para el área de ${areaName}.
+            </p>
+          </div>
+          <div>
+            <div class="card-species-list">
+              <span class="species-pill">En desarrollo editorial y modelado 3D</span>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderCatalog() {
+      const q = normalizeText(state.searchQuery.trim());
+      const hasActiveFilters = state.selectedArea !== 'Todas' || state.selectedSpecies !== 'Todas' || q.length > 0;
+      resetAllBtn.classList.toggle('visible', hasActiveFilters);
+      clearSearchBtn.classList.toggle('visible', q.length > 0);
+
+      /* Filtrar arreglo DISEASES */
+      const filteredDiseases = DISEASES.filter(d => {
+        const matchArea = state.selectedArea === 'Todas' || d.area === state.selectedArea;
+        const matchSpecies = state.selectedSpecies === 'Todas' || (Array.isArray(d.especies) && d.especies.includes(state.selectedSpecies));
+        const searchableText = normalizeText(`${d.titulo} ${d.area} ${(d.especies || []).join(' ')} ${d.resumen}`);
+        const matchSearch = q.length === 0 || searchableText.includes(q);
+        return matchArea && matchSpecies && matchSearch;
+      });
+
+      let htmlContent = '';
+
+      if (state.selectedArea !== 'Todas') {
+        /* Si se seleccionó un área específica y no tiene enfermedades, mostrar tarjeta "Próximamente" */
+        if (filteredDiseases.length > 0) {
+          htmlContent = filteredDiseases.map(createDiseaseCardHTML).join('');
+          resultsCounterText.textContent = `Área ${state.selectedArea}: ${filteredDiseases.length} guía(s) disponible(s)`;
+        } else {
+          htmlContent = createComingSoonCardHTML(state.selectedArea);
+          resultsCounterText.textContent = `Área ${state.selectedArea}: Próximamente`;
+        }
+      } else {
+        /* Vista de Todas las áreas */
+        htmlContent = filteredDiseases.map(createDiseaseCardHTML).join('');
+
+        /* Si no hay búsqueda de texto ni filtro de especie restrictivo, mostrar también las áreas sin enfermedades como "Próximamente" */
+        if (q.length === 0 && state.selectedSpecies === 'Todas') {
+          const emptyAreas = AREAS.filter(a => getAreaCount(a) === 0);
+          htmlContent += emptyAreas.map(createComingSoonCardHTML).join('');
+          resultsCounterText.textContent = `Mostrando ${filteredDiseases.length} guías activas y ${emptyAreas.length} especialidades próximamente`;
+        } else if (filteredDiseases.length === 0) {
+          htmlContent = `
+            <article class="disease-card coming-soon-card reveal-on-scroll is-visible" style="grid-column: 1 / -1;">
+              <div>
+                <div class="card-top-meta">
+                  <span class="coming-soon-pill">Sin coincidencias</span>
+                </div>
+                <h3 class="card-title">Próximamente nuevos módulos para esta combinación</h3>
+                <p class="card-summary">
+                  No se encontraron guías publicadas que coincidan exactamente con "${state.searchQuery || state.selectedSpecies}". Restablece los filtros para explorar el catálogo activo.
+                </p>
+              </div>
+            </article>
+          `;
+          resultsCounterText.textContent = `0 coincidencias para los filtros seleccionados`;
+        } else {
+          resultsCounterText.textContent = `Mostrando ${filteredDiseases.length} guía(s) filtrada(s)`;
+        }
+      }
+
+      diseasesGridContainer.innerHTML = htmlContent;
+
+      /* Sonido sutil en las tarjetas generadas */
+      diseasesGridContainer.querySelectorAll('.disease-card').forEach(card => {
+        card.addEventListener('mouseenter', () => sound.playHover());
+      });
+    }
+
+    /* =========================================================================
+       5. SECCIÓN POR ÁREAS CON CONTADORES
+    ========================================================================= */
+    function renderAreasSection() {
+      areasSummaryGrid.innerHTML = AREAS.map(areaName => {
+        const count = getAreaCount(areaName);
+        const hasContent = count > 0;
+        const icon = AREA_ICONS[areaName] || AREA_ICONS['Todas'];
+        const areaDiseases = DISEASES.filter(d => d.area === areaName);
+
+        const statusDescription = hasContent
+          ? areaDiseases.map(d => d.titulo).join(' · ')
+          : 'Próximamente';
+
+        return `
+          <div 
+            class="area-tile ${hasContent ? 'has-content' : ''} reveal-on-scroll is-visible" 
+            data-select-area="${areaName}"
+            role="button"
+            tabindex="0"
+            aria-label="Filtrar catálogo por ${areaName}"
+          >
+            <div class="area-tile-top">
+              <div class="area-icon-box">${icon}</div>
+              <span class="area-counter-badge">
+                ${hasContent ? `${count} ${count === 1 ? 'guía' : 'guías'}` : '0 · Próximamente'}
+              </span>
+            </div>
+            <div>
+              <h3 class="area-name">${areaName}</h3>
+              <p class="area-status-text">${statusDescription}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      areasSummaryGrid.querySelectorAll('.area-tile').forEach(tile => {
+        tile.addEventListener('mouseenter', () => sound.playHover());
+        const triggerSelect = () => {
+          const area = tile.getAttribute('data-select-area');
+          sound.playHarmonicChime(523.25, 783.99, 0.032);
+          state.selectedArea = area;
+          updateUI();
+          document.getElementById('catalogo-clinico').scrollIntoView({ behavior: 'smooth' });
+        };
+        tile.addEventListener('click', triggerSelect);
+        tile.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            triggerSelect();
+          }
+        });
+      });
+    }
+
+    function updateUI() {
+      renderFilterChips();
+      renderCatalog();
+    }
+
+    /* Eventos del Buscador en Vivo y Botón Reset */
+    searchInput.addEventListener('input', (e) => {
+      state.searchQuery = e.target.value;
+      renderCatalog();
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+      sound.playHarmonicChime(440, 660, 0.025);
+      state.searchQuery = '';
+      searchInput.value = '';
+      searchInput.focus();
+      renderCatalog();
+    });
+
+    resetAllBtn.addEventListener('click', () => {
+      sound.playHarmonicChime(440, 880, 0.03);
+      state.selectedArea = 'Todas';
+      state.selectedSpecies = 'Todas';
+      state.searchQuery = '';
+      searchInput.value = '';
+      updateUI();
+    });
+
+    /* Inicializar Catálogo y Sección de Áreas */
+    updateUI();
+    renderAreasSection();
+
+    /* =========================================================================
+       6. TRANSICIONES AL HACER SCROLL Y SOMBRA DEL HEADER
+    ========================================================================= */
+    const headerEl = document.getElementById('top-header');
+    window.addEventListener('scroll', () => {
+      headerEl.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => scrollObserver.observe(el));
+
+    /* =========================================================================
+       7. ESCENA 3D EN THREE.JS (RED SINÁPTICA / MOLECULAR INTERACTIVA)
+    ========================================================================= */
+    function initHero3D() {
+      const canvas = document.getElementById('hero-canvas');
+      const wrap = document.getElementById('hero-canvas-wrap');
+      if (!canvas || !wrap) return;
+
+      let renderer;
+      try {
+        renderer = new THREE.WebGLRenderer({
+          canvas,
+          alpha: true,
+          antialias: true,
+          powerPreference: 'high-performance'
+        });
+      } catch (err) {
+        return; // Respaldo limpio si WebGL no está disponible
+      }
+
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(52, wrap.clientWidth / wrap.clientHeight, 0.1, 100);
+      camera.position.set(0, 0, 17);
+
+      const rootGroup = new THREE.Group();
+      /* Desplazar ligeramente hacia la derecha en pantallas anchas para equilibrar el texto */
+      rootGroup.position.x = window.innerWidth > 960 ? 3.2 : 0;
+      scene.add(rootGroup);
+
+      /* Núcleo Icosaédrico Molecular */
+      const coreGeo = new THREE.IcosahedronGeometry(3.4, 1);
+      const coreMat = new THREE.MeshBasicMaterial({
+        color: 0x38bdf8,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.18
+      });
+      const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+      rootGroup.add(coreMesh);
+
+      /* Segundo Anillo Bio-Estructural Interno */
+      const innerGeo = new THREE.DodecahedronGeometry(2.0, 0);
+      const innerMat = new THREE.MeshBasicMaterial({
+        color: 0x10b981,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.25
+      });
+      const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+      rootGroup.add(innerMesh);
+
+      /* Red de Nodos Sinápticos / Moleculares */
+      const NODE_COUNT = 135;
+      const positions = new Float32Array(NODE_COUNT * 3);
+      const colors = new Float32Array(NODE_COUNT * 3);
+      const velocities = [];
+
+      const palette = [
+        new THREE.Color('#38bdf8'),
+        new THREE.Color('#10b981'),
+        new THREE.Color('#f43f5e'),
+        new THREE.Color('#a855f7')
+      ];
+
+      for (let i = 0; i < NODE_COUNT; i++) {
+        const radius = 3.2 + Math.random() * 5.2;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+
+        positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+        positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+        positions[i * 3 + 2] = radius * Math.cos(phi);
+
+        velocities.push({
+          vx: (Math.random() - 0.5) * 0.008,
+          vy: (Math.random() - 0.5) * 0.008,
+          vz: (Math.random() - 0.5) * 0.008
+        });
+
+        const c = palette[i % palette.length];
+        colors[i * 3] = c.r;
+        colors[i * 3 + 1] = c.g;
+        colors[i * 3 + 2] = c.b;
+      }
+
+      const nodesGeo = new THREE.BufferGeometry();
+      nodesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      nodesGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+      const nodesMat = new THREE.PointsMaterial({
+        size: 0.16,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.9
+      });
+
+      const nodesPoints = new THREE.Points(nodesGeo, nodesMat);
+      rootGroup.add(nodesPoints);
+
+      /* Filamentos de Conexión Sináptica */
+      const maxLines = NODE_COUNT * 6;
+      const linePositions = new Float32Array(maxLines * 6);
+      const linesGeo = new THREE.BufferGeometry();
+      linesGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+
+      const linesMat = new THREE.LineBasicMaterial({
+        color: 0x38bdf8,
+        transparent: true,
+        opacity: 0.14
+      });
+
+      const lineSegments = new THREE.LineSegments(linesGeo, linesMat);
+      rootGroup.add(lineSegments);
+
+      /* Interacción con puntero (Parallax suave) */
+      let targetRotX = 0;
+      let targetRotY = 0;
+
+      window.addEventListener('pointermove', (e) => {
+        const nx = (e.clientX / window.innerWidth) * 2 - 1;
+        const ny = (e.clientY / window.innerHeight) * 2 - 1;
+        targetRotY = nx * 0.35;
+        targetRotX = ny * 0.25;
+      }, { passive: true });
+
+      window.addEventListener('resize', () => {
+        if (!wrap) return;
+        const w = wrap.clientWidth;
+        const h = wrap.clientHeight;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+        rootGroup.position.x = window.innerWidth > 960 ? 3.2 : 0;
+      });
+
+      const clock = new THREE.Clock();
+
+      function animate() {
+        requestAnimationFrame(animate);
+        const elapsed = clock.getElapsedTime();
+
+        /* Rotación orgánica de los núcleos */
+        coreMesh.rotation.y = elapsed * 0.14;
+        coreMesh.rotation.x = elapsed * 0.09;
+        innerMesh.rotation.y = -elapsed * 0.22;
+        innerMesh.rotation.z = elapsed * 0.15;
+
+        const pulse = 1 + Math.sin(elapsed * 1.8) * 0.04;
+        coreMesh.scale.set(pulse, pulse, pulse);
+
+        /* Actualizar posiciones de partículas y enlaces cercanos */
+        const posArr = nodesGeo.attributes.position.array;
+        for (let i = 0; i < NODE_COUNT; i++) {
+          const ix = i * 3;
+          posArr[ix] += velocities[i].vx;
+          posArr[ix + 1] += velocities[i].vy;
+          posArr[ix + 2] += velocities[i].vz;
+
+          const dist = Math.hypot(posArr[ix], posArr[ix + 1], posArr[ix + 2]);
+          if (dist > 8.6 || dist < 2.8) {
+            velocities[i].vx *= -1;
+            velocities[i].vy *= -1;
+            velocities[i].vz *= -1;
+          }
+        }
+        nodesGeo.attributes.position.needsUpdate = true;
+
+        /* Construir filamentos entre nodos cercanos */
+        let lineIdx = 0;
+        const threshold = 2.55;
+        for (let i = 0; i < NODE_COUNT; i++) {
+          for (let j = i + 1; j < NODE_COUNT; j++) {
+            if (lineIdx >= maxLines) break;
+            const dx = posArr[i * 3] - posArr[j * 3];
+            const dy = posArr[i * 3 + 1] - posArr[j * 3 + 1];
+            const dz = posArr[i * 3 + 2] - posArr[j * 3 + 2];
+            const d2 = dx * dx + dy * dy + dz * dz;
+
+            if (d2 < threshold * threshold) {
+              const base = lineIdx * 6;
+              linePositions[base] = posArr[i * 3];
+              linePositions[base + 1] = posArr[i * 3 + 1];
+              linePositions[base + 2] = posArr[i * 3 + 2];
+              linePositions[base + 3] = posArr[j * 3];
+              linePositions[base + 4] = posArr[j * 3 + 1];
+              linePositions[base + 5] = posArr[j * 3 + 2];
+              lineIdx++;
+            }
+          }
+        }
+        linesGeo.setDrawRange(0, lineIdx * 2);
+        linesGeo.attributes.position.needsUpdate = true;
+
+        /* Interpolación suave con el cursor */
+        rootGroup.rotation.y += (targetRotY + elapsed * 0.08 - rootGroup.rotation.y) * 0.05;
+        rootGroup.rotation.x += (targetRotX - rootGroup.rotation.x) * 0.05;
+
+        renderer.render(scene, camera);
+      }
+
+      animate();
+    }
+
+    initHero3D();
+  </script>
+</body>
+</html>
