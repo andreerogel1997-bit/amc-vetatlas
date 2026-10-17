@@ -3763,11 +3763,19 @@
       }
 
       const st = simStages[simIdx];
+
+      // Barajado Fisher-Yates sobre una copia de las opciones de la etapa actual
+      const shuffledOptions = [...st.options];
+      for (let i = shuffledOptions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
+      }
+
       simStageBody.innerHTML = `
         <h4 style="color:var(--accent-cyan);margin-bottom:0.35rem;">${st.title}</h4>
         <p style="font-size:0.88rem;color:var(--text-secondary);">${st.caseText}</p>
         <div class="sim-options">
-          ${st.options.map((o, i) => `<button class="sim-opt-btn" data-idx="${i}" type="button">${o.text}</button>`).join('')}
+          ${shuffledOptions.map((o, i) => `<button class="sim-opt-btn" data-idx="${i}" type="button">${o.text}</button>`).join('')}
         </div>
         <div id="simFeedback" style="display:none;margin-top:0.85rem;"></div>
         <button id="simNextBtn" class="btn-action" style="display:none;margin-top:0.85rem;" type="button">Siguiente Etapa</button>
@@ -3779,7 +3787,7 @@
         btn.addEventListener('click', () => {
           clearInterval(simInterval);
           simAnswered = true;
-          const opt = st.options[Number(btn.dataset.idx)];
+          const opt = shuffledOptions[Number(btn.dataset.idx)];
           simStageBody.querySelectorAll('.sim-opt-btn').forEach(b => b.disabled = true);
           const fb = document.getElementById('simFeedback');
           fb.style.display = 'block';
