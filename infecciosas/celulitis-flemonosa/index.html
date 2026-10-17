@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +7,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('vetatlas-theme');
+        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = saved ? saved : (prefersLight ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
   <script type="importmap">
     {
       "imports": {
@@ -20,9 +30,12 @@
       --bg-base: #070b14;
       --bg-surface: #0f172a;
       --bg-elevated: #1e293b;
-      --bg-card: rgba(15, 23, 42, 0.85);
-      --border-subtle: rgba(148, 163, 184, 0.16);
-      --border-highlight: rgba(56, 189, 248, 0.4);
+      --bg-card: rgba(15, 23, 42, 0.88);
+      --bg-panel: rgba(15, 23, 42, 0.68);
+      --bg-header: rgba(7, 11, 20, 0.9);
+      --bg-footer: #04070d;
+      --border-subtle: rgba(148, 163, 184, 0.18);
+      --border-highlight: rgba(56, 189, 248, 0.45);
       --text-primary: #f8fafc;
       --text-secondary: #cbd5e1;
       --text-muted: #94a3b8;
@@ -32,12 +45,54 @@
       --accent-amber: #f59e0b;
       --accent-emerald: #10b981;
       --accent-violet: #8b5cf6;
+      --badge-mono-bg: rgba(6, 182, 212, 0.15);
+      --badge-mono-text: #67e8f9;
+      --alert-warn-bg: rgba(245, 158, 11, 0.14);
+      --alert-warn-text: #fde68a;
+      --alert-danger-bg: rgba(239, 68, 68, 0.15);
+      --alert-danger-text: #fecaca;
+      --hero-overlay-grad: linear-gradient(90deg, rgba(7,11,20,0.94) 0%, rgba(7,11,20,0.78) 62%, rgba(7,11,20,0.42) 100%);
+      --viewer3d-bg: radial-gradient(circle at center, #111c33 0%, #060a12 100%);
+      --label3d-bg: rgba(7, 11, 20, 0.92);
+      --svg-bg: #09101f;
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 18px;
       --shadow-lg: 0 20px 45px -15px rgba(0, 0, 0, 0.7);
+    }
+
+    html[data-theme="light"] {
+      --bg-base: #f1f5f9;
+      --bg-surface: #ffffff;
+      --bg-elevated: #e2e8f0;
+      --bg-card: rgba(255, 255, 255, 0.96);
+      --bg-panel: #f8fafc;
+      --bg-header: rgba(255, 255, 255, 0.92);
+      --bg-footer: #e2e8f0;
+      --border-subtle: rgba(15, 23, 42, 0.14);
+      --border-highlight: rgba(2, 132, 199, 0.45);
+      --text-primary: #0f172a;
+      --text-secondary: #1e293b;
+      --text-muted: #475569;
+      --accent-cyan: #0284c7;
+      --accent-blue: #2563eb;
+      --accent-crimson: #dc2626;
+      --accent-amber: #d97706;
+      --accent-emerald: #059669;
+      --accent-violet: #7c3aed;
+      --badge-mono-bg: rgba(2, 132, 199, 0.12);
+      --badge-mono-text: #0369a1;
+      --alert-warn-bg: rgba(245, 158, 11, 0.15);
+      --alert-warn-text: #92400e;
+      --alert-danger-bg: rgba(220, 38, 38, 0.12);
+      --alert-danger-text: #991b1b;
+      --hero-overlay-grad: linear-gradient(90deg, rgba(241,245,249,0.96) 0%, rgba(241,245,249,0.86) 65%, rgba(241,245,249,0.58) 100%);
+      --viewer3d-bg: radial-gradient(circle at center, #e0f2fe 0%, #cbd5e1 100%);
+      --label3d-bg: rgba(255, 255, 255, 0.95);
+      --svg-bg: #0f172a;
+      --shadow-lg: 0 18px 36px -12px rgba(15, 23, 42, 0.12);
     }
 
     *, *::before, *::after {
@@ -53,6 +108,7 @@
       color: var(--text-primary);
       font-family: var(--font-sans);
       line-height: 1.6;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     body {
@@ -69,7 +125,7 @@
       transition: color 0.2s ease;
     }
     a:hover {
-      color: #67e8f9;
+      text-decoration: underline;
     }
 
     /* Top Header */
@@ -77,10 +133,10 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(7, 11, 20, 0.88);
+      background: var(--bg-header);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border-subtle);
-      padding: 0.75rem 1rem;
+      padding: 0.6rem 1rem;
     }
     .header-inner {
       max-width: 1440px;
@@ -88,13 +144,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.75rem;
+      gap: 0.65rem;
       flex-wrap: wrap;
     }
     .brand-group {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.65rem;
     }
     .brand-seal {
       display: inline-flex;
@@ -102,7 +158,8 @@
       gap: 0.5rem;
       background: linear-gradient(135deg, rgba(6, 182, 212, 0.16), rgba(59, 130, 246, 0.12));
       border: 1px solid var(--border-highlight);
-      padding: 0.4rem 0.8rem;
+      padding: 0.45rem 0.85rem;
+      min-height: 44px;
       border-radius: 999px;
       font-size: 0.8rem;
       font-weight: 700;
@@ -118,35 +175,39 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 0.55rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
     }
     .btn-action {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.45rem;
-      padding: 0.45rem 0.85rem;
+      min-height: 44px;
+      padding: 0.5rem 0.9rem;
       border-radius: var(--radius-sm);
-      font-size: 0.8rem;
+      font-size: 0.81rem;
       font-weight: 600;
       border: 1px solid var(--border-subtle);
       background: var(--bg-surface);
       color: var(--text-primary);
       cursor: pointer;
       transition: all 0.2s ease;
+      touch-action: manipulation;
     }
     .btn-action:hover {
       border-color: var(--accent-cyan);
-      background: rgba(6, 182, 212, 0.12);
+      background: var(--badge-mono-bg);
+      text-decoration: none;
     }
     .btn-action.active-sound {
       border-color: var(--accent-emerald);
-      color: #6ee7b7;
+      color: var(--accent-emerald);
       background: rgba(16, 185, 129, 0.12);
     }
     .btn-action svg {
-      width: 16px;
-      height: 16px;
+      width: 17px;
+      height: 17px;
       flex-shrink: 0;
     }
     .mobile-menu-btn {
@@ -176,12 +237,12 @@
       max-width: 1440px;
       width: 100%;
       margin: 0 auto;
-      padding: 3rem 1.25rem;
+      padding: 2.75rem 1.25rem;
       display: grid;
       grid-template-columns: 1.25fr 0.75fr;
       gap: 2rem;
       align-items: center;
-      background: linear-gradient(90deg, rgba(7,11,20,0.92) 0%, rgba(7,11,20,0.75) 60%, rgba(7,11,20,0.35) 100%);
+      background: var(--hero-overlay-grad);
     }
     .hero-badge {
       display: inline-flex;
@@ -189,21 +250,25 @@
       gap: 0.5rem;
       font-family: var(--font-mono);
       font-size: 0.74rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.07em;
-      color: #fca5a5;
-      background: rgba(239, 68, 68, 0.15);
+      color: var(--alert-danger-text);
+      background: var(--alert-danger-bg);
       border: 1px solid rgba(239, 68, 68, 0.4);
-      padding: 0.3rem 0.75rem;
+      padding: 0.35rem 0.8rem;
       border-radius: 999px;
       margin-bottom: 1rem;
     }
     .hero-title {
-      font-size: clamp(1.75rem, 3.8vw, 3.1rem);
+      font-size: clamp(1.7rem, 3.8vw, 3.05rem);
       font-weight: 800;
       line-height: 1.15;
       letter-spacing: -0.02em;
       margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+    html[data-theme="dark"] .hero-title {
       background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 65%, #38bdf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -220,7 +285,7 @@
       gap: 0.75rem;
     }
     .kpi-box {
-      background: rgba(15, 23, 42, 0.82);
+      background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-left: 3px solid var(--accent-cyan);
       padding: 0.75rem 0.85rem;
@@ -244,7 +309,7 @@
       margin-top: 0.15rem;
     }
     .hero-canvas-legend {
-      background: rgba(15, 23, 42, 0.88);
+      background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 1.1rem;
@@ -320,6 +385,7 @@
       display: flex;
       align-items: center;
       gap: 0.6rem;
+      min-height: 44px;
       padding: 0.5rem 0.65rem;
       border-radius: var(--radius-sm);
       font-size: 0.82rem;
@@ -327,14 +393,15 @@
       transition: all 0.18s ease;
     }
     .nav-link:hover, .nav-link.active {
-      background: rgba(6, 182, 212, 0.14);
+      background: var(--badge-mono-bg);
       color: var(--text-primary);
+      text-decoration: none;
     }
     .nav-num {
       font-family: var(--font-mono);
       font-size: 0.72rem;
       font-weight: 700;
-      padding: 0.12rem 0.4rem;
+      padding: 0.14rem 0.42rem;
       border-radius: 4px;
       background: var(--bg-elevated);
       color: var(--accent-cyan);
@@ -342,7 +409,7 @@
     }
     .nav-link.active .nav-num {
       background: var(--accent-cyan);
-      color: #031525;
+      color: #ffffff;
     }
 
     /* Content Modules */
@@ -387,10 +454,10 @@
       color: var(--text-primary);
     }
 
-    /* Species Tabs (7 Tabs) */
+    /* Species Tabs (7 Tabs - Horizontal scroll on mobile) */
     .tabs-bar {
       display: flex;
-      gap: 0.45rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
       margin-bottom: 1.25rem;
       border-bottom: 1px solid var(--border-subtle);
@@ -399,34 +466,38 @@
     .tab-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.4rem;
-      padding: 0.5rem 0.9rem;
+      min-height: 44px;
+      padding: 0.55rem 1rem;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border-subtle);
       background: var(--bg-surface);
       color: var(--text-secondary);
-      font-size: 0.82rem;
+      font-size: 0.83rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
+      white-space: nowrap;
+      touch-action: manipulation;
     }
     .tab-btn:hover {
       border-color: var(--accent-cyan);
       color: var(--text-primary);
     }
     .tab-btn.active {
-      background: linear-gradient(135deg, rgba(6, 182, 212, 0.24), rgba(59, 130, 246, 0.22));
-      border-color: var(--accent-cyan);
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      border-color: transparent;
       color: #ffffff;
-      box-shadow: 0 0 18px rgba(6, 182, 212, 0.2);
+      box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
     }
     .species-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1rem;
     }
     .info-panel {
-      background: rgba(15, 23, 42, 0.65);
+      background: var(--bg-panel);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 1.1rem;
@@ -456,19 +527,19 @@
       margin-top: 0.85rem;
       padding: 0.75rem 1rem;
       border-radius: var(--radius-sm);
-      background: rgba(245, 158, 11, 0.12);
+      background: var(--alert-warn-bg);
       border-left: 3px solid var(--accent-amber);
       font-size: 0.82rem;
-      color: #fde68a;
+      color: var(--alert-warn-text);
     }
     .contra-alert {
       margin-top: 0.85rem;
       padding: 0.75rem 1rem;
       border-radius: var(--radius-sm);
-      background: rgba(239, 68, 68, 0.14);
+      background: var(--alert-danger-bg);
       border-left: 3px solid var(--accent-crimson);
       font-size: 0.82rem;
-      color: #fecaca;
+      color: var(--alert-danger-text);
     }
 
     /* Tables */
@@ -507,24 +578,25 @@
       border-bottom: none;
     }
     table.clinical-table tr:hover td {
-      background: rgba(30, 41, 59, 0.45);
+      background: var(--badge-mono-bg);
     }
     .mono-badge {
       font-family: var(--font-mono);
       font-size: 0.75rem;
-      background: rgba(6, 182, 212, 0.14);
-      color: #67e8f9;
+      background: var(--badge-mono-bg);
+      color: var(--badge-mono-text);
       padding: 0.15rem 0.45rem;
       border-radius: 4px;
       display: inline-block;
       max-width: 100%;
       overflow-wrap: break-word;
+      font-weight: 600;
     }
 
     /* Pathophysiology Stepper & SVGs */
     .patho-steps {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
       gap: 1.1rem;
       margin-top: 1.25rem;
     }
@@ -547,9 +619,9 @@
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: rgba(239, 68, 68, 0.2);
+      background: var(--alert-danger-bg);
       border: 1px solid var(--accent-crimson);
-      color: #fca5a5;
+      color: var(--accent-crimson);
       font-family: var(--font-mono);
       font-size: 0.8rem;
       font-weight: 700;
@@ -560,7 +632,7 @@
     }
     .step-svg-wrap {
       width: 100%;
-      background: rgba(7, 11, 20, 0.75);
+      background: var(--svg-bg);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
       padding: 0.5rem;
@@ -584,7 +656,7 @@
       position: relative;
       width: 100%;
       height: 460px;
-      background: radial-gradient(circle at center, #111c33 0%, #060a12 100%);
+      background: var(--viewer3d-bg);
       border: 1px solid var(--border-highlight);
       border-radius: var(--radius-md);
       overflow: hidden;
@@ -611,7 +683,7 @@
     }
     .label3d-pin {
       position: absolute;
-      background: rgba(7, 11, 20, 0.92);
+      background: var(--label3d-bg);
       border: 1px solid var(--accent-cyan);
       color: var(--text-primary);
       font-family: var(--font-mono);
@@ -623,7 +695,7 @@
       white-space: normal;
       overflow-wrap: break-word;
       pointer-events: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.65);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.28);
     }
     .label3d-pin.side-left {
       left: 8px;
@@ -646,6 +718,7 @@
     }
     .slider-Input {
       width: 100%;
+      height: 28px;
       accent-color: var(--accent-crimson);
       cursor: pointer;
     }
@@ -669,10 +742,24 @@
       flex-wrap: wrap;
       gap: 0.65rem;
       padding-bottom: 0.85rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       border-bottom: 1px solid var(--border-subtle);
       font-family: var(--font-mono);
       font-size: 0.82rem;
+    }
+    .sim-timer-bar-wrap {
+      width: 100%;
+      height: 6px;
+      background: var(--bg-elevated);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .sim-timer-bar {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, var(--accent-emerald), var(--accent-amber), var(--accent-crimson));
+      transition: width 0.35s linear;
     }
     .sim-options {
       display: grid;
@@ -682,7 +769,8 @@
     }
     .sim-opt-btn {
       text-align: left;
-      padding: 0.8rem 0.95rem;
+      min-height: 48px;
+      padding: 0.85rem 1rem;
       background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
@@ -690,13 +778,14 @@
       font-size: 0.86rem;
       cursor: pointer;
       transition: all 0.18s ease;
+      touch-action: manipulation;
     }
     .sim-opt-btn:hover:not(:disabled) {
       border-color: var(--accent-cyan);
-      background: rgba(6, 182, 212, 0.14);
+      background: var(--badge-mono-bg);
     }
     .sim-opt-btn:disabled {
-      opacity: 0.7;
+      opacity: 0.75;
       cursor: default;
     }
 
@@ -710,22 +799,29 @@
     .dd-column {
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: 0.65rem;
     }
     .draggable-item {
-      padding: 0.7rem 0.85rem;
+      min-height: 48px;
+      padding: 0.75rem 0.9rem;
       background: var(--bg-elevated);
       border: 1px solid var(--accent-cyan);
       border-radius: var(--radius-sm);
       font-size: 0.82rem;
       font-weight: 600;
+      color: var(--text-primary);
       cursor: grab;
       user-select: none;
-      transition: transform 0.15s ease, background 0.15s ease;
+      display: flex;
+      align-items: center;
+      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+      touch-action: manipulation;
     }
     .draggable-item.selected-touch {
       outline: 2px solid var(--accent-amber);
-      background: rgba(245, 158, 11, 0.2);
+      background: var(--alert-warn-bg);
+      transform: scale(1.01);
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
     }
     .draggable-item.matched {
       opacity: 0.45;
@@ -733,28 +829,29 @@
       border-color: var(--accent-emerald);
     }
     .dropzone-item {
-      padding: 0.7rem 0.85rem;
-      background: rgba(7, 11, 20, 0.65);
-      border: 1px dashed var(--text-muted);
+      padding: 0.75rem 0.9rem;
+      background: var(--bg-panel);
+      border: 1.5px dashed var(--text-muted);
       border-radius: var(--radius-sm);
       font-size: 0.81rem;
       color: var(--text-secondary);
-      min-height: 62px;
+      min-height: 64px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 0.35rem;
       transition: all 0.2s ease;
       cursor: pointer;
+      touch-action: manipulation;
     }
     .dropzone-item.dragover {
       border-color: var(--accent-cyan);
-      background: rgba(6, 182, 212, 0.14);
+      background: var(--badge-mono-bg);
     }
     .dropzone-item.correct {
       border-style: solid;
       border-color: var(--accent-emerald);
-      background: rgba(16, 185, 129, 0.12);
+      background: rgba(16, 185, 129, 0.14);
     }
 
     /* Quiz & Certificate */
@@ -768,8 +865,9 @@
     .quiz-choice {
       display: block;
       width: 100%;
+      min-height: 44px;
       text-align: left;
-      padding: 0.7rem 0.9rem;
+      padding: 0.75rem 0.95rem;
       margin-top: 0.5rem;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border-subtle);
@@ -777,21 +875,24 @@
       color: var(--text-secondary);
       font-size: 0.85rem;
       cursor: pointer;
+      touch-action: manipulation;
     }
     .quiz-choice.selected {
       border-color: var(--accent-cyan);
-      background: rgba(6, 182, 212, 0.18);
+      background: var(--badge-mono-bg);
       color: var(--text-primary);
+      font-weight: 600;
     }
     .quiz-choice.correct-ans {
       border-color: var(--accent-emerald);
       background: rgba(16, 185, 129, 0.2);
-      color: #a7f3d0;
+      color: var(--text-primary);
+      font-weight: 600;
     }
     .quiz-choice.wrong-ans {
       border-color: var(--accent-crimson);
-      background: rgba(239, 68, 68, 0.2);
-      color: #fecaca;
+      background: var(--alert-danger-bg);
+      color: var(--alert-danger-text);
     }
     .cert-preview-wrap {
       margin-top: 1.25rem;
@@ -811,7 +912,7 @@
     /* Commons Gallery */
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1.1rem;
       margin-top: 1rem;
     }
@@ -825,7 +926,7 @@
     }
     .gallery-card img {
       width: 100%;
-      height: 185px;
+      height: 195px;
       object-fit: cover;
       background: #080d1a;
       border-bottom: 1px solid var(--border-subtle);
@@ -851,7 +952,7 @@
 
     /* Footer */
     .site-footer {
-      background: #04070d;
+      background: var(--bg-footer);
       border-top: 1px solid var(--border-subtle);
       padding: 2.75rem 1rem;
       margin-top: 3rem;
@@ -876,7 +977,7 @@
       word-break: break-all;
     }
 
-    /* Responsive adjustments including 390px viewports */
+    /* Responsive adjustments including 360px - 430px viewports */
     @media (max-width: 1024px) {
       .atlas-layout {
         grid-template-columns: 1fr;
@@ -884,7 +985,7 @@
       .sidebar-nav {
         display: none;
         position: fixed;
-        top: 64px;
+        top: 68px;
         left: 0.75rem;
         right: 0.75rem;
         z-index: 999;
@@ -905,6 +1006,29 @@
       }
     }
     @media (max-width: 680px) {
+      .site-header {
+        padding: 0.5rem 0.65rem;
+      }
+      .brand-seal {
+        font-size: 0.74rem;
+        padding: 0.35rem 0.65rem;
+      }
+      .btn-action {
+        padding: 0.45rem 0.65rem;
+        font-size: 0.76rem;
+      }
+      .tabs-bar {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 0.65rem;
+        scrollbar-width: thin;
+      }
+      .tab-btn {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+      }
       .dd-container {
         grid-template-columns: 1fr;
       }
@@ -912,21 +1036,21 @@
         columns: 1;
       }
       .module-card {
-        padding: 1.05rem;
+        padding: 1rem;
       }
       .canvas3d-box {
-        height: 410px;
+        height: 400px;
       }
       .label3d-pin {
-        font-size: 0.62rem;
-        padding: 0.22rem 0.38rem;
+        font-size: 0.61rem;
+        padding: 0.2rem 0.36rem;
         max-width: 45%;
       }
       .label3d-pin.side-left {
-        left: 5px;
+        left: 4px;
       }
       .label3d-pin.side-right {
-        right: 5px;
+        right: 4px;
       }
     }
   </style>
@@ -952,7 +1076,14 @@
           </svg>
           <span>Módulos</span>
         </button>
-        <button id="audioToggleBtn" class="btn-action active-sound" type="button">
+        <button id="themeToggleBtn" class="btn-action" type="button" aria-label="Cambiar entre modo claro y oscuro">
+          <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+          <span id="themeLabel">Tema</span>
+        </button>
+        <button id="audioToggleBtn" class="btn-action active-sound" type="button" aria-label="Alternar sonido arcade futurista">
           <svg id="audioIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M11 5L6 9H2v6h4l5 4V5z"/>
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
@@ -1351,7 +1482,7 @@
             </div>
             <div class="step-svg-wrap">
               <svg viewBox="0 0 320 130" fill="none">
-                <rect width="320" height="130" rx="8" fill="#09101f"/>
+                <rect class="svg-bg" width="320" height="130" rx="8" fill="#09101f"/>
                 <rect x="18" y="25" width="90" height="36" rx="6" fill="#1e293b" stroke="#8b5cf6"/>
                 <text x="26" y="47" fill="#ddd6fe" font-size="9.5" font-family="monospace">APC (MHC-II)</text>
                 <rect x="140" y="25" width="95" height="36" rx="6" fill="#1e293b" stroke="#ec4899"/>
@@ -1394,8 +1525,8 @@
           </div>
         </div>
 
-        <div style="background:linear-gradient(135deg, rgba(239,68,68,0.12), rgba(15,23,42,0.9));border:1px solid rgba(239,68,68,0.4);border-radius:var(--radius-md);padding:1.35rem;">
-          <h3 style="font-size:1.15rem;color:#fca5a5;margin-bottom:0.65rem;">Fisiopatología de la Coinfección con Ehrlichia canis</h3>
+        <div class="ehrlichia-highlight-box" style="background:linear-gradient(135deg, rgba(239,68,68,0.12), rgba(15,23,42,0.9));border:1px solid rgba(239,68,68,0.4);border-radius:var(--radius-md);padding:1.35rem;">
+          <h3 class="ehrlichia-title" style="font-size:1.15rem;color:#fca5a5;margin-bottom:0.65rem;">Fisiopatología de la Coinfección con Ehrlichia canis</h3>
           <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:1rem;">
             La rickettsia intracelular obligada <em>Ehrlichia canis</em>, transmitida por la garrapata café del perro (<em>Rhipicephalus sanguineus</em>), compromete la competencia inmune y la microvasculatura del paciente canino mediante cuatro mecanismos sinérgicos:
           </p>
@@ -1446,7 +1577,9 @@
             <p>En aves (<em>Gallus gallus</em>, psitácidos, paseriformes) y conejos (<em>Oryctolagus cuniculus</em>), los <strong>heterófilos carecen funcionalmente de mieloperoxidasa activa cuantificable</strong> y tienen mínimas enzimas proteolíticas hidrosolubles. Sin digestión licuefactiva, el exudado se deseca e inspisa en un material sólido o semisólido laminado blanquecino-amarillento («caseoso»). Se palpa como placa o masa firme, indurada, adherida, fría y no fluctuante, simulando granulomas micóticos, esteatonecrosis o neoplasias.</p>
           </div>
         </div>
-      </section><!-- MÓDULO 06: DIAGNÓSTICO MULTIMODAL -->
+      </section>
+
+      <!-- MÓDULO 06: DIAGNÓSTICO MULTIMODAL -->
       <section id="mod-06" class="module-card">
         <div class="module-header">
           <div>
@@ -1733,7 +1866,7 @@
             <ul>
               <li><strong>Cristaloides isotónicos balanceados (Ringer Lactato / Plasmalyte-A):</strong> Bolos de <span class="mono-badge">10–20 mL/kg en 15–20 min</span> en caninos; <span class="mono-badge">5–10 mL/kg en 20–30 min</span> en felinos (cuidando complacencia miocárdica); e infusión continua de <span class="mono-badge">60–100 mL/kg/día</span> en equinos.</li>
               <li><strong>Metas fisiológicas:</strong> PAM <strong>&gt; 65–70 mmHg</strong>, diuresis en sistema cerrado <strong>&gt; 1–2 mL/kg/h</strong> y depuración de lactato sérico <strong>≥ 50% en 4–6 h</strong>.</li>
-              <li><strong>Soporte vasopresor e inotrópico:</strong> En choque vasodilatador refractario a volumen, <strong>Noradrenalina</strong> <span class="mono-badge">0,1–1 μg/kg/min IV CRI</span> (agonista α<sub>1</sub>) + <strong>Dobutamina</strong> <span class="mono-badge">2,5–10 μg/kg/min</span> si hay depresión contráctil miocárdica.</li>
+              <li><strong>Soporte vasopresor e inotrópico:</strong> En choque vasodilatador refractario a volumen, <strong>Noradrenalina</strong> <span class="mono-badge">0,1–1 μg/kg/min IV CRI</span> (agonista α<sub>1</sub>) + <strong>Dobutamina</strong> <span class="mono-badge">2,5–10 μg/kg/min</span> si hay compromiso contráctil miocárdico.</li>
               <li><strong>Terapia física equina:</strong> Crioterapia con manguera fría a presión (<strong>20 min, 2–3 veces/día</strong>) tras controlar el dolor + vendaje compresivo elástico multicapa (<strong>Robert Jones modificado</strong>).</li>
             </ul>
           </div>
@@ -1872,7 +2005,7 @@
             <span class="module-tag">Visualización Espacial Interactiva · Three.js ES Module</span>
             <h2 class="module-title">Modelo 3D de Capas Cutáneas, Planos Fasciales, Colector Linfático y Linfonodo</h2>
           </div>
-          <span class="mono-badge">Rotable 360° · Etiquetas con Líneas Guía</span>
+          <span class="mono-badge">Rotable 360° · Corte Anatómico · Telemetría</span>
         </div>
 
         <div class="viewer3d-wrapper">
@@ -1880,12 +2013,16 @@
             <canvas id="skin3dCanvas"></canvas>
             <svg id="labels3dSvg" aria-hidden="true"></svg>
             <div class="labels3d-layer" id="labels3dLayer"></div>
+            <div id="hud3dTelemetry" style="position:absolute;bottom:10px;left:10px;right:10px;display:flex;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;pointer-events:none;z-index:4;font-family:var(--font-mono);font-size:0.7rem;">
+              <span class="mono-badge" id="hud3dPressure">Presión ilustrativa: 14 mmHg</span>
+              <span class="mono-badge" id="hud3dDoppler">Doppler microvascular: Hiperemia activa</span>
+            </div>
           </div>
 
           <div class="controls3d-panel">
             <div>
               <label for="stageSlider" style="font-size:0.85rem;font-weight:700;color:var(--accent-cyan);display:block;margin-bottom:0.4rem;">
-                Progresión Fisiopatológica (Slider):
+                Progresión Fisiopatológica (Slider): <span id="stageSliderVal" class="mono-badge">15%</span>
               </label>
               <input id="stageSlider" class="slider-Input" type="range" min="0" max="100" value="15" />
               <div style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:0.7rem;color:var(--text-muted);margin-top:0.25rem;">
@@ -1901,7 +2038,8 @@
             </div>
 
             <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-              <button id="toggleLabels3dBtn" class="btn-action" type="button">Mostrar/Ocultar Etiquetas</button>
+              <button id="explode3dBtn" class="btn-action" type="button">Vista Expandida Capas</button>
+              <button id="toggleLabels3dBtn" class="btn-action" type="button">Etiquetas ON/OFF</button>
               <button id="resetCam3dBtn" class="btn-action" type="button">Restablecer Cámara</button>
             </div>
           </div>
@@ -1923,8 +2061,12 @@
             <div class="sim-hud">
               <div><strong>Juego 1:</strong> Simulador de Decisiones Clínicas en Urgencias</div>
               <div>Tiempo Etapa: <span id="simTimer" style="color:var(--accent-amber);font-weight:700;">45s</span></div>
+              <div>Racha: <span id="simStreak" class="mono-badge">x0</span></div>
               <div>Puntaje Clínico: <span id="simScore" style="color:var(--accent-emerald);font-weight:700;">0 / 400</span></div>
               <button id="simRestartBtn" class="btn-action" type="button">Reiniciar Caso</button>
+            </div>
+            <div style="width:100%;height:6px;background:var(--bg-elevated);border-radius:999px;overflow:hidden;margin-bottom:1rem;">
+              <div id="simTimerBar" style="width:100%;height:100%;background:linear-gradient(90deg,var(--accent-emerald),var(--accent-cyan));transition:width 0.3s linear;"></div>
             </div>
             <div id="simStageBody"></div>
           </div>
@@ -1932,10 +2074,13 @@
           <!-- JUEGO 2: DRAG AND DROP -->
           <div class="sim-box">
             <div class="sim-hud">
-              <div><strong>Juego 2:</strong> Emparejar Patógeno / Especie con Antimicrobiano o Mecanismo (Arrastra o Toca en Móvil)</div>
+              <div><strong>Juego 2:</strong> Emparejar Patógeno / Especie con Antimicrobiano o Mecanismo (Pulsa o Arrastra con el Pulgar)</div>
               <div>Aciertos: <span id="ddScore" style="color:var(--accent-cyan);font-weight:700;">0 / 6</span></div>
               <button id="ddResetBtn" class="btn-action" type="button">Reiniciar Tablero</button>
             </div>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.75rem;">
+              Modo táctil rápido: toca una tarjeta de la primera columna para iluminarla y luego toca su pareja en la segunda columna (o arrástrala directamente).
+            </p>
             <div class="dd-container">
               <div class="dd-column" id="ddDraggables"></div>
               <div class="dd-column" id="ddDropzones"></div>
@@ -1967,7 +2112,7 @@
           <div class="cert-preview-wrap">
             <div style="display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;justify-content:center;">
               <label for="certNameInput" style="font-size:0.84rem;">Nombre para el Certificado:</label>
-              <input id="certNameInput" type="text" placeholder="Ej. Dr. / Dra. Nombre Apellido" value="Profesional Veterinario" style="padding:0.45rem 0.75rem;border-radius:6px;border:1px solid var(--border-highlight);background:var(--bg-base);color:var(--text-primary);font-size:0.85rem;" />
+              <input id="certNameInput" type="text" placeholder="Ej. Dr. / Dra. Nombre Apellido" value="Profesional Veterinario" style="min-height:44px;padding:0.45rem 0.75rem;border-radius:6px;border:1px solid var(--border-highlight);background:var(--bg-base);color:var(--text-primary);font-size:0.85rem;" />
               <button id="renderCertBtn" class="btn-action" type="button">Actualizar Insignia</button>
               <button id="downloadCertBtn" class="btn-action active-sound" type="button">Descargar Certificado PNG</button>
             </div>
@@ -1976,7 +2121,7 @@
         </div>
       </section>
 
-      <!-- GALERÍA DE IMÁGENES CON DATA-COMMONS -->
+      <!-- GALERÍA DE IMÁGENES CON DATA-COMMONS (CONSERVADA TAL CUAL CON CRÉDITOS) -->
       <section id="mod-galeria" class="module-card">
         <div class="module-header">
           <div>
@@ -2119,23 +2264,220 @@
         </ol>
       </div>
     </div>
-  </footer><script type="module">
+  </footer>
+
+  <!-- ESTILOS ADICIONALES PARA MODO CLARO (vetatlas-theme), ACCESIBILIDAD AA Y MÓVIL 360-430 PX -->
+  <style>
+    html[data-theme="light"] {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-elevated: #f1f5f9;
+      --bg-card: rgba(255, 255, 255, 0.96);
+      --border-subtle: rgba(15, 23, 42, 0.14);
+      --border-highlight: rgba(2, 132, 199, 0.45);
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #475569;
+      --accent-cyan: #0284c7;
+      --accent-blue: #2563eb;
+      --accent-crimson: #dc2626;
+      --accent-amber: #d97706;
+      --accent-emerald: #059669;
+      --accent-violet: #7c3aed;
+      --shadow-lg: 0 14px 34px -10px rgba(15, 23, 42, 0.12);
+    }
+    html[data-theme="light"] body {
+      background: radial-gradient(circle at 15% 10%, rgba(2, 132, 199, 0.08), transparent 38%),
+                  radial-gradient(circle at 85% 25%, rgba(220, 38, 38, 0.06), transparent 42%),
+                  var(--bg-base);
+    }
+    html[data-theme="light"] .site-header {
+      background: rgba(248, 250, 252, 0.92);
+    }
+    html[data-theme="light"] .hero-overlay {
+      background: linear-gradient(90deg, rgba(248, 250, 252, 0.95) 0%, rgba(248, 250, 252, 0.86) 62%, rgba(248, 250, 252, 0.58) 100%);
+    }
+    html[data-theme="light"] .hero-title {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #0284c7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    html[data-theme="light"] .hero-badge {
+      color: #991b1b;
+      background: rgba(220, 38, 38, 0.12);
+      border-color: rgba(220, 38, 38, 0.35);
+    }
+    html[data-theme="light"] .kpi-box,
+    html[data-theme="light"] .hero-canvas-legend,
+    html[data-theme="light"] .info-panel {
+      background: rgba(255, 255, 255, 0.92);
+    }
+    html[data-theme="light"] .mono-badge {
+      background: rgba(2, 132, 199, 0.12);
+      color: #0369a1;
+    }
+    html[data-theme="light"] .tab-btn.active {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #ffffff;
+    }
+    html[data-theme="light"] .evidence-alert {
+      background: rgba(217, 119, 6, 0.12);
+      color: #92400e;
+    }
+    html[data-theme="light"] .contra-alert {
+      background: rgba(220, 38, 38, 0.12);
+      color: #991b1b;
+    }
+    html[data-theme="light"] .ehrlichia-highlight-box {
+      background: linear-gradient(135deg, rgba(220, 38, 38, 0.08), rgba(255, 255, 255, 0.96)) !important;
+    }
+    html[data-theme="light"] .ehrlichia-title {
+      color: #b91c1c !important;
+    }
+    html[data-theme="light"] .canvas3d-box {
+      background: radial-gradient(circle at center, #e2e8f0 0%, #cbd5e1 100%);
+    }
+    html[data-theme="light"] .label3d-pin {
+      background: rgba(255, 255, 255, 0.94);
+      color: #0f172a;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
+    html[data-theme="light"] .dropzone-item {
+      background: rgba(241, 245, 249, 0.85);
+    }
+    html[data-theme="light"] .quiz-choice.correct-ans {
+      background: rgba(5, 150, 105, 0.16);
+      color: #065f46;
+    }
+    html[data-theme="light"] .quiz-choice.wrong-ans {
+      background: rgba(220, 38, 38, 0.15);
+      color: #991b1b;
+    }
+    html[data-theme="light"] .site-footer {
+      background: #f1f5f9;
+    }
+    html[data-theme="light"] .btn-action.active-sound {
+      color: #047857;
+      background: rgba(5, 150, 105, 0.14);
+    }
+    html[data-theme="light"] .step-svg-wrap {
+      background: #f8fafc;
+    }
+    html[data-theme="light"] .step-svg-wrap svg {
+      filter: invert(0.92) hue-rotate(180deg) saturate(1.25);
+    }
+
+    /* Botones táctiles de al menos 44px y mejoras móviles 360-430px */
+    .btn-action, .tab-btn, .sim-opt-btn, .draggable-item, .dropzone-item, .quiz-choice, .nav-link {
+      min-height: 44px;
+    }
+    @media (max-width: 768px) {
+      .tabs-bar {
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 0.65rem;
+        scrollbar-width: thin;
+      }
+      .tabs-bar .tab-btn {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        white-space: nowrap;
+      }
+      .header-inner {
+        padding: 0.15rem 0;
+      }
+      .brand-seal span {
+        font-size: 0.74rem;
+      }
+    }
+  </style>
+
+  <script type="module">
     import * as THREE from 'three';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     /* =========================================================================
-       1. SISTEMA DE SONIDO SINTETIZADO (WEB AUDIO API)
-          - Encendido por defecto desde la primera interacción.
-          - Si el primer clic es en el botón de sonido, ENCIENDE el audio en vez de silenciarlo.
+       0. GESTIÓN DE TEMA CLARO / OSCURO (localStorage 'vetatlas-theme')
        ========================================================================= */
+    const THEME_KEY = 'vetatlas-theme';
+    const headerActions = document.querySelector('.header-actions');
+    let themeToggleBtn = document.getElementById('themeToggleBtn');
+
+    if (!themeToggleBtn && headerActions) {
+      themeToggleBtn = document.createElement('button');
+      themeToggleBtn.id = 'themeToggleBtn';
+      themeToggleBtn.type = 'button';
+      themeToggleBtn.className = 'btn-action';
+      themeToggleBtn.setAttribute('aria-label', 'Cambiar entre modo claro y oscuro');
+      const audioBtnRef = document.getElementById('audioToggleBtn');
+      headerActions.insertBefore(themeToggleBtn, audioBtnRef || headerActions.firstChild);
+    }
+
+    function getInitialTheme() {
+      const saved = localStorage.getItem(THEME_KEY);
+      if (saved === 'light' || saved === 'dark') return saved;
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+
+    let currentTheme = getInitialTheme();
+
+    function applyTheme(theme) {
+      currentTheme = theme;
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem(THEME_KEY, theme);
+      if (themeToggleBtn) {
+        if (theme === 'light') {
+          themeToggleBtn.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+            <span>Modo: Claro</span>
+          `;
+        } else {
+          themeToggleBtn.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"/>
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+            <span>Modo: Oscuro</span>
+          `;
+        }
+      }
+      if (typeof window.__updateCertTheme === 'function') window.__updateCertTheme();
+    }
+
+    applyTheme(currentTheme);
+
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+      if (!localStorage.getItem(THEME_KEY)) {
+        applyTheme(e.matches ? 'light' : 'dark');
+      }
+    });
+
+    /* =========================================================================
+       1. MOTOR DE SONIDO ARCADE ESPACIAL RETRO-FUTURISTA (100% WEB AUDIO API)
+          - Fanfarria sintética original al primer toque.
+          - Bucle synthwave espacial suave en segundo plano.
+          - Efectos láser/blip en botones, pestañas y controles.
+          - Power-up al acertar, Game Over suave al fallar y Jingle de Victoria en el examen.
+          - Encendido por defecto desde la primera interacción y recordado en localStorage.
+       ========================================================================= */
+    const AUDIO_MUTE_KEY = 'vetatlas-audio-muted';
+    const savedMuted = localStorage.getItem(AUDIO_MUTE_KEY) === 'true';
+
     const SoundEngine = {
       ctx: null,
-      enabled: true,
+      enabled: !savedMuted,
       unlocked: false,
-      ambientOsc: null,
-      ambientGain: null,
+      fanfarePlayed: false,
+      loopTimer: null,
+      stepNote: 0,
 
-      initAndUnlock() {
+      initAndUnlock(triggerFanfare = true) {
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
         if (!AudioCtx) return;
         if (!this.ctx) {
@@ -2146,106 +2488,201 @@
         }
         this.unlocked = true;
         if (this.enabled) {
+          if (triggerFanfare && !this.fanfarePlayed) {
+            this.fanfarePlayed = true;
+            this.playIntroFanfare();
+          }
           this.startAmbient();
         }
       },
 
+      // Fanfarria sintética heroica espacial al primer toque
+      playIntroFanfare() {
+        if (!this.ctx || !this.enabled) return;
+        const notes = [
+          { f: 261.63, d: 0.11, t: 0.00 }, // C4
+          { f: 329.63, d: 0.11, t: 0.10 }, // E4
+          { f: 392.00, d: 0.11, t: 0.20 }, // G4
+          { f: 523.25, d: 0.22, t: 0.31 }, // C5
+          { f: 392.00, d: 0.10, t: 0.55 }, // G4
+          { f: 523.25, d: 0.36, t: 0.67 }  // C5
+        ];
+        notes.forEach(n => {
+          setTimeout(() => {
+            if (!this.enabled) return;
+            this.synthVoice(n.f, n.d, 'sawtooth', 0.045, n.f * 1.005);
+          }, n.t * 1000);
+        });
+      },
+
+      synthVoice(freq, duration, type = 'sawtooth', vol = 0.04, detuneFreq = null) {
+        if (!this.ctx || !this.enabled) return;
+        const now = this.ctx.currentTime;
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(freq * 4.5, now);
+        filter.frequency.exponentialRampToValueAtTime(freq * 1.2, now + duration);
+
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(vol, now + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+        const osc1 = this.ctx.createOscillator();
+        osc1.type = type;
+        osc1.frequency.setValueAtTime(freq, now);
+        osc1.connect(filter);
+
+        if (detuneFreq) {
+          const osc2 = this.ctx.createOscillator();
+          osc2.type = 'triangle';
+          osc2.frequency.setValueAtTime(detuneFreq, now);
+          osc2.connect(filter);
+          osc2.start(now);
+          osc2.stop(now + duration);
+        }
+
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc1.start(now);
+        osc1.stop(now + duration);
+      },
+
+      // Bucle synthwave espacial suave
       startAmbient() {
-        if (!this.ctx || !this.enabled || this.ambientOsc) return;
-        try {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(64, this.ctx.currentTime);
-          gain.gain.setValueAtTime(0.015, this.ctx.currentTime);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start();
-          this.ambientOsc = osc;
-          this.ambientGain = gain;
-        } catch (e) {}
+        if (!this.ctx || !this.enabled || this.loopTimer) return;
+        const arpNotes = [110.0, 130.81, 164.81, 196.0, 220.0, 196.0, 164.81, 130.81]; // A2-C3-E3-G3-A3
+        this.loopTimer = setInterval(() => {
+          if (!this.enabled || !this.ctx || document.hidden) return;
+          const freq = arpNotes[this.stepNote % arpNotes.length];
+          this.stepNote++;
+          this.synthVoice(freq, 0.32, 'triangle', 0.011, freq * 0.5);
+        }, 380);
       },
 
       stopAmbient() {
-        if (this.ambientOsc) {
-          try { this.ambientOsc.stop(); } catch (e) {}
-          this.ambientOsc = null;
+        if (this.loopTimer) {
+          clearInterval(this.loopTimer);
+          this.loopTimer = null;
         }
       },
 
-      playTone(freq = 520, duration = 0.08, type = 'sine', vol = 0.06) {
+      // Blip / Láser futurista para botones y pestañas
+      click() {
         if (!this.enabled) return;
-        if (!this.unlocked) this.initAndUnlock();
+        if (!this.unlocked) this.initAndUnlock(false);
         if (!this.ctx) return;
         if (this.ctx.state === 'suspended') this.ctx.resume();
         const now = this.ctx.currentTime;
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, now);
-        gain.gain.setValueAtTime(vol, now);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(920, now);
+        osc.frequency.exponentialRampToValueAtTime(340, now + 0.065);
+        gain.gain.setValueAtTime(0.045, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.065);
         osc.connect(gain);
         gain.connect(this.ctx.destination);
         osc.start(now);
-        osc.stop(now + duration);
+        osc.stop(now + 0.065);
       },
 
-      click() { this.playTone(620, 0.05, 'triangle', 0.05); },
+      // Power-up espacial al acertar
       success() {
-        this.playTone(523.25, 0.1, 'sine', 0.08);
-        setTimeout(() => this.playTone(659.25, 0.12, 'sine', 0.08), 90);
-        setTimeout(() => this.playTone(783.99, 0.18, 'sine', 0.08), 180);
+        if (!this.enabled) return;
+        if (!this.unlocked) this.initAndUnlock(false);
+        const seq = [523.25, 659.25, 783.99, 1046.50]; // C5 - E5 - G5 - C6
+        seq.forEach((f, i) => {
+          setTimeout(() => this.synthVoice(f, 0.13, 'sawtooth', 0.05, f * 1.004), i * 65);
+        });
       },
+
+      // Game Over suave al fallar
       error() {
-        this.playTone(220, 0.14, 'sawtooth', 0.07);
-        setTimeout(() => this.playTone(175, 0.2, 'sawtooth', 0.07), 120);
+        if (!this.enabled) return;
+        if (!this.unlocked) this.initAndUnlock(false);
+        const seq = [311.13, 277.18, 246.94, 207.65]; // Eb4 - C#4 - B3 - G#3
+        seq.forEach((f, i) => {
+          setTimeout(() => this.synthVoice(f, 0.16, 'sawtooth', 0.045, f * 0.5), i * 95);
+        });
+      },
+
+      // Jingle de victoria al terminar examen
+      victory() {
+        if (!this.enabled) return;
+        if (!this.unlocked) this.initAndUnlock(false);
+        const notes = [
+          { f: 440.00, d: 0.12, t: 0.00 },
+          { f: 554.37, d: 0.12, t: 0.11 },
+          { f: 659.25, d: 0.12, t: 0.22 },
+          { f: 880.00, d: 0.22, t: 0.34 },
+          { f: 659.25, d: 0.12, t: 0.58 },
+          { f: 880.00, d: 0.45, t: 0.72 }
+        ];
+        notes.forEach(n => {
+          setTimeout(() => this.synthVoice(n.f, n.d, 'sawtooth', 0.055, n.f * 1.003), n.t * 1000);
+        });
       }
     };
 
     const audioToggleBtn = document.getElementById('audioToggleBtn');
     const audioLabel = document.getElementById('audioLabel');
 
-    // Desbloqueo general en la primera interacción fuera del botón de audio
+    function syncAudioButtonUI() {
+      if (!audioToggleBtn || !audioLabel) return;
+      if (SoundEngine.enabled) {
+        audioToggleBtn.classList.add('active-sound');
+        audioLabel.textContent = 'Audio: ON';
+      } else {
+        audioToggleBtn.classList.remove('active-sound');
+        audioLabel.textContent = 'Audio: MUTE';
+      }
+    }
+    syncAudioButtonUI();
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        SoundEngine.click();
+        applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+      });
+    }
+
     function handleFirstInteraction(e) {
       if (e.target && e.target.closest && e.target.closest('#audioToggleBtn')) {
         return;
       }
-      SoundEngine.initAndUnlock();
+      SoundEngine.initAndUnlock(true);
       window.removeEventListener('pointerdown', handleFirstInteraction);
       window.removeEventListener('keydown', handleFirstInteraction);
     }
     window.addEventListener('pointerdown', handleFirstInteraction);
     window.addEventListener('keydown', handleFirstInteraction);
 
-    // Si el primer clic es sobre el botón de sonido, enciende/activa el audio en lugar de silenciarlo
+    // Si es el primer clic sobre el botón de sonido, enciende/desbloquea el audio en vez de silenciarlo
     audioToggleBtn.addEventListener('click', () => {
       if (!SoundEngine.unlocked) {
         SoundEngine.enabled = true;
-        SoundEngine.initAndUnlock();
-        audioToggleBtn.classList.add('active-sound');
-        audioLabel.textContent = 'Audio: ON';
-        SoundEngine.click();
+        localStorage.setItem(AUDIO_MUTE_KEY, 'false');
+        SoundEngine.initAndUnlock(true);
+        syncAudioButtonUI();
         window.removeEventListener('pointerdown', handleFirstInteraction);
         window.removeEventListener('keydown', handleFirstInteraction);
         return;
       }
 
       SoundEngine.enabled = !SoundEngine.enabled;
+      localStorage.setItem(AUDIO_MUTE_KEY, SoundEngine.enabled ? 'false' : 'true');
+      syncAudioButtonUI();
       if (SoundEngine.enabled) {
-        audioToggleBtn.classList.add('active-sound');
-        audioLabel.textContent = 'Audio: ON';
         SoundEngine.startAmbient();
         SoundEngine.click();
       } else {
-        audioToggleBtn.classList.remove('active-sound');
-        audioLabel.textContent = 'Audio: MUTE';
         SoundEngine.stopAmbient();
       }
     });
 
     /* =========================================================================
-       2. HERO CANVAS 2D: DISEMINACIÓN BACTERIANA POR PLANOS FASCIALES
+       2. HERO CANVAS 2D: DISEMINACIÓN BACTERIANA (ADAPTADO A MÓVIL Y TEMA)
        ========================================================================= */
     const heroCanvas = document.getElementById('heroCanvas');
     const hCtx = heroCanvas.getContext('2d');
@@ -2254,51 +2691,62 @@
     const leukocytes = [];
     const collagenStrands = [];
 
+    function initHeroParticles() {
+      const isMobile = window.innerWidth < 768;
+      const bactCount = isMobile ? 22 : 46;
+      const leukCount = isMobile ? 9 : 18;
+      bacteriaList.length = 0;
+      leukocytes.length = 0;
+
+      for (let i = 0; i < bactCount; i++) {
+        bacteriaList.push({
+          x: Math.random() * hW,
+          y: Math.random() * hH,
+          vx: (Math.random() - 0.35) * (prefersReducedMotion ? 0.2 : 1.25),
+          vy: (Math.random() - 0.5) * (prefersReducedMotion ? 0.1 : 0.6),
+          r: 3.5 + Math.random() * 2.5,
+          halo: 14 + Math.random() * 12
+        });
+      }
+      for (let i = 0; i < leukCount; i++) {
+        leukocytes.push({
+          x: Math.random() * hW,
+          y: Math.random() * hH,
+          vx: (Math.random() - 0.5) * (prefersReducedMotion ? 0.15 : 0.8),
+          vy: (Math.random() - 0.5) * (prefersReducedMotion ? 0.15 : 0.8),
+          r: 7 + Math.random() * 3
+        });
+      }
+    }
+
     function resizeHero() {
       const rect = heroCanvas.parentElement.getBoundingClientRect();
       hW = heroCanvas.width = rect.width;
       hH = heroCanvas.height = rect.height;
       collagenStrands.length = 0;
-      for (let i = 0; i < 9; i++) {
+      for (let i = 0; i < 8; i++) {
         collagenStrands.push({
-          y: (hH / 10) * (i + 1),
-          amp: 8 + Math.random() * 10,
+          y: (hH / 9) * (i + 1),
+          amp: 7 + Math.random() * 9,
           phase: Math.random() * Math.PI * 2
         });
       }
+      if (bacteriaList.length === 0) initHeroParticles();
     }
     window.addEventListener('resize', resizeHero);
     resizeHero();
 
-    for (let i = 0; i < 48; i++) {
-      bacteriaList.push({
-        x: Math.random() * hW,
-        y: Math.random() * hH,
-        vx: (Math.random() - 0.35) * 1.3,
-        vy: (Math.random() - 0.5) * 0.6,
-        r: 3.5 + Math.random() * 2.5,
-        halo: 14 + Math.random() * 12
-      });
-    }
-    for (let i = 0; i < 18; i++) {
-      leukocytes.push({
-        x: Math.random() * hW,
-        y: Math.random() * hH,
-        vx: (Math.random() - 0.5) * 0.8,
-        vy: (Math.random() - 0.5) * 0.8,
-        r: 7 + Math.random() * 3
-      });
-    }
-
     heroCanvas.addEventListener('pointermove', (e) => {
+      if (prefersReducedMotion) return;
       const rect = heroCanvas.getBoundingClientRect();
       const mx = e.clientX - rect.left;
       const my = e.clientY - rect.top;
-      if (bacteriaList.length < 95 && Math.random() < 0.35) {
+      const maxCap = window.innerWidth < 768 ? 36 : 85;
+      if (bacteriaList.length < maxCap && Math.random() < 0.3) {
         bacteriaList.push({
           x: mx + (Math.random() - 0.5) * 20,
           y: my + (Math.random() - 0.5) * 20,
-          vx: (Math.random() - 0.2) * 1.6,
+          vx: (Math.random() - 0.2) * 1.5,
           vy: (Math.random() - 0.5) * 0.8,
           r: 4,
           halo: 18
@@ -2308,13 +2756,16 @@
 
     function animateHero(time) {
       hCtx.clearRect(0, 0, hW, hH);
+      const isLight = currentTheme === 'light';
 
       collagenStrands.forEach((s, idx) => {
         hCtx.beginPath();
-        hCtx.strokeStyle = idx % 2 === 0 ? 'rgba(71, 85, 105, 0.38)' : 'rgba(51, 65, 85, 0.25)';
+        hCtx.strokeStyle = isLight
+          ? (idx % 2 === 0 ? 'rgba(100, 116, 139, 0.32)' : 'rgba(148, 163, 184, 0.24)')
+          : (idx % 2 === 0 ? 'rgba(71, 85, 105, 0.38)' : 'rgba(51, 65, 85, 0.25)');
         hCtx.lineWidth = idx % 2 === 0 ? 2 : 1;
-        for (let x = 0; x <= hW; x += 25) {
-          const yOffset = Math.sin(x * 0.012 + s.phase + time * 0.001) * s.amp;
+        for (let x = 0; x <= hW; x += 28) {
+          const yOffset = Math.sin(x * 0.012 + s.phase + (prefersReducedMotion ? 0 : time * 0.001)) * s.amp;
           if (x === 0) hCtx.moveTo(x, s.y + yOffset);
           else hCtx.lineTo(x, s.y + yOffset);
         }
@@ -2329,14 +2780,14 @@
         if (b.y > hH - 10 || b.y < 10) b.vy *= -1;
 
         const grad = hCtx.createRadialGradient(b.x, b.y, 1, b.x, b.y, b.halo);
-        grad.addColorStop(0, 'rgba(245, 158, 11, 0.28)');
+        grad.addColorStop(0, isLight ? 'rgba(217, 119, 6, 0.26)' : 'rgba(245, 158, 11, 0.28)');
         grad.addColorStop(1, 'rgba(245, 158, 11, 0)');
         hCtx.fillStyle = grad;
         hCtx.beginPath();
         hCtx.arc(b.x, b.y, b.halo, 0, Math.PI * 2);
         hCtx.fill();
 
-        hCtx.fillStyle = '#ef4444';
+        hCtx.fillStyle = isLight ? '#dc2626' : '#ef4444';
         hCtx.beginPath();
         hCtx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
         hCtx.fill();
@@ -2348,8 +2799,8 @@
         if (l.x > hW || l.x < 0) l.vx *= -1;
         if (l.y > hH || l.y < 0) l.vy *= -1;
 
-        hCtx.strokeStyle = 'rgba(56, 189, 248, 0.65)';
-        hCtx.fillStyle = 'rgba(6, 182, 212, 0.2)';
+        hCtx.strokeStyle = isLight ? 'rgba(2, 132, 199, 0.7)' : 'rgba(56, 189, 248, 0.65)';
+        hCtx.fillStyle = isLight ? 'rgba(2, 132, 199, 0.18)' : 'rgba(6, 182, 212, 0.2)';
         hCtx.lineWidth = 1.5;
         hCtx.beginPath();
         hCtx.arc(l.x, l.y, l.r, 0, Math.PI * 2);
@@ -2362,8 +2813,7 @@
     requestAnimationFrame(animateHero);
 
     /* =========================================================================
-       3. DATOS Y RENDERIZADO DE LAS 7 PESTAÑAS POR ESPECIE
-          (Caninos, Felinos, Equinos, Porcinos, Rumiantes, Aves, Conejos)
+       3. DATOS Y RENDERIZADO DE LAS 7 PESTAÑAS POR ESPECIE (INTACTO)
        ========================================================================= */
     const speciesData = {
       caninos: {
@@ -2571,21 +3021,24 @@
         SoundEngine.click();
         document.querySelectorAll('#speciesTabButtons .tab-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
+        btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
         renderSpeciesTab(btn.dataset.species);
       });
     });
     renderSpeciesTab('caninos');
 
     /* =========================================================================
-       4. MODELO 3D INTERACTIVO CON THREE.JS + ETIQUETAS CON LÍNEAS GUÍA SVG
-          (Sin superposición y sin cortes en pantallas móviles de 390 px)
+       4. MODELO 3D INTERACTIVO CON THREE.JS + PARTÍCULAS LINFÁTICAS + CORTE EXPANDIDO
        ========================================================================= */
     const canvas3d = document.getElementById('skin3dCanvas');
     const labelsLayer = document.getElementById('labels3dLayer');
     const labelsSvg = document.getElementById('labels3dSvg');
     const stageSlider = document.getElementById('stageSlider');
+    const stageSliderVal = document.getElementById('stageSliderVal');
     const stage3dTitle = document.getElementById('stage3dTitle');
     const stage3dDesc = document.getElementById('stage3dDesc');
+    const hud3dPressure = document.getElementById('hud3dPressure');
+    const hud3dDoppler = document.getElementById('hud3dDoppler');
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
@@ -2598,8 +3051,8 @@
     controls.enableDamping = true;
     controls.target.set(0, -0.3, 0);
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.75));
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1.15);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1.25);
     dirLight.position.set(6, 10, 7);
     scene.add(dirLight);
 
@@ -2608,14 +3061,14 @@
 
     // 1. Epidermis
     const epiGeo = new THREE.BoxGeometry(4.2, 0.28, 3.0);
-    const epiMat = new THREE.MeshStandardMaterial({ color: 0xe2b897, roughness: 0.5 });
+    const epiMat = new THREE.MeshStandardMaterial({ color: 0xe2b897, roughness: 0.45 });
     const epiMesh = new THREE.Mesh(epiGeo, epiMat);
     epiMesh.position.y = 1.65;
     rootGroup.add(epiMesh);
 
     // 2. Dermis Reticular
     const dermGeo = new THREE.BoxGeometry(4.2, 0.75, 3.0);
-    const dermMat = new THREE.MeshStandardMaterial({ color: 0xd9777f, roughness: 0.6, transparent: true, opacity: 0.92 });
+    const dermMat = new THREE.MeshStandardMaterial({ color: 0xd9777f, roughness: 0.55, transparent: true, opacity: 0.92 });
     const dermMesh = new THREE.Mesh(dermGeo, dermMat);
     dermMesh.position.y = 1.1;
     rootGroup.add(dermMesh);
@@ -2629,7 +3082,7 @@
     const lobGeo = new THREE.SphereGeometry(0.28, 16, 12);
     for (let x = -1.5; x <= 1.5; x += 0.6) {
       for (let z = -1.0; z <= 1.0; z += 0.65) {
-        const lobMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.4 });
+        const lobMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.38 });
         const lob = new THREE.Mesh(lobGeo, lobMat);
         lob.scale.set(1.1, 0.75, 1.1);
         lob.position.set(x + (Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.18, z);
@@ -2639,14 +3092,14 @@
       }
     }
 
-    // Exudado flemonoso difuso en sábana (se expande con el slider)
+    // Exudado flemonoso difuso en sábana
     const phlegmonGeo = new THREE.BoxGeometry(4.15, 0.95, 2.95);
     const phlegmonMat = new THREE.MeshStandardMaterial({
       color: 0xef4444,
       emissive: 0x7f1d1d,
       transparent: true,
-      opacity: 0.12,
-      roughness: 0.3
+      opacity: 0.15,
+      roughness: 0.25
     });
     const phlegmonMesh = new THREE.Mesh(phlegmonGeo, phlegmonMat);
     phlegmonMesh.position.y = 0.08;
@@ -2667,17 +3120,28 @@
     muscMesh.position.y = -1.02;
     rootGroup.add(muscMesh);
 
-    // 6. Vaso Colector Linfático y Linfonodo Regional Satélite
-    const curve = new THREE.CatmullRomCurve3([
+    // 6. Vaso Colector Linfático, Partículas de Drenaje y Linfonodo Regional Satélite
+    const lymphCurve = new THREE.CatmullRomCurve3([
       new THREE.Vector3(-1.4, 0.05, 1.55),
       new THREE.Vector3(-0.2, -0.1, 1.75),
       new THREE.Vector3(1.1, -0.2, 1.85),
       new THREE.Vector3(2.35, -0.25, 1.6)
     ]);
-    const lymphTubeGeo = new THREE.TubeGeometry(curve, 32, 0.08, 12, false);
+    const lymphTubeGeo = new THREE.TubeGeometry(lymphCurve, 32, 0.08, 12, false);
     const lymphTubeMat = new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x064e3b, roughness: 0.35 });
     const lymphTube = new THREE.Mesh(lymphTubeGeo, lymphTubeMat);
     rootGroup.add(lymphTube);
+
+    // Partículas bacterianas/antigénicas viajando hacia el linfonodo
+    const lymphParticles = [];
+    const pGeo = new THREE.SphereGeometry(0.055, 8, 8);
+    const pMat = new THREE.MeshBasicMaterial({ color: 0xfef08a });
+    for (let i = 0; i < 6; i++) {
+      const pm = new THREE.Mesh(pGeo, pMat);
+      pm.userData = { u: i / 6 };
+      rootGroup.add(pm);
+      lymphParticles.push(pm);
+    }
 
     const nodeGeo = new THREE.SphereGeometry(0.42, 24, 20);
     const nodeMat = new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x065f46, roughness: 0.4 });
@@ -2686,7 +3150,6 @@
     lymphNode.position.set(2.55, -0.25, 1.55);
     rootGroup.add(lymphNode);
 
-    // Etiquetas distribuidas en rieles escalonados (izquierda y derecha) + líneas guía SVG
     const labelAnchors = [
       { text: '1. Epidermis (Inoculación)', pos: new THREE.Vector3(-0.6, 1.75, 0.4), side: 'left', topPct: 8, color: '#06b6d4' },
       { text: '2. Dermis Reticular', pos: new THREE.Vector3(-1.3, 1.1, 0.9), side: 'left', topPct: 40, color: '#06b6d4' },
@@ -2697,6 +3160,7 @@
     ];
 
     let showLabels3d = true;
+    let isExploded3d = false;
     const labelEls = labelAnchors.map(a => {
       const el = document.createElement('div');
       el.className = `label3d-pin side-${a.side}`;
@@ -2706,9 +3170,9 @@
 
       const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
       line.setAttribute('stroke', a.color);
-      line.setAttribute('stroke-width', '1.4');
+      line.setAttribute('stroke-width', '1.5');
       line.setAttribute('stroke-dasharray', '3 3');
-      line.setAttribute('opacity', '0.8');
+      line.setAttribute('opacity', '0.85');
       labelsSvg.appendChild(line);
 
       const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
@@ -2721,6 +3185,8 @@
 
     function updateStageFromSlider(val) {
       const t = val / 100;
+      if (stageSliderVal) stageSliderVal.textContent = `${val}%`;
+
       phlegmonMesh.scale.set(0.25 + t * 0.78, 0.35 + t * 0.7, 0.25 + t * 0.78);
       phlegmonMat.opacity = 0.18 + t * 0.55;
 
@@ -2744,6 +3210,17 @@
         epiMat.color.setHex(0xe2b897);
       }
 
+      const estMmHg = Math.round(10 + t * 28);
+      if (hud3dPressure) {
+        hud3dPressure.textContent = `Presión ilustrativa: ${estMmHg} mmHg${estMmHg > 30 ? ' (¡ALERTA >30 mmHg: Fasciotomía!)' : ''}`;
+        hud3dPressure.style.color = estMmHg > 30 ? '#fca5a5' : '';
+      }
+      if (hud3dDoppler) {
+        hud3dDoppler.textContent = t > 0.72
+          ? 'Doppler microvascular: Hipoperfusión / Trombosis'
+          : 'Doppler microvascular: Hiperemia periférica';
+      }
+
       if (val < 25) {
         stage3dTitle.textContent = 'Estadio 1: Inoculación Traumática y Adhesión MSCRAMMs';
         stage3dDesc.textContent = 'Disrupción de la barrera córnea epidérmica. Los microorganismos se fijan al colágeno I/III y laminina sin ser arrastrados por el flujo intersticial.';
@@ -2762,7 +3239,21 @@
     stageSlider.addEventListener('input', (e) => {
       updateStageFromSlider(Number(e.target.value));
     });
+    stageSlider.addEventListener('change', () => SoundEngine.click());
     updateStageFromSlider(15);
+
+    const explode3dBtn = document.getElementById('explode3dBtn');
+    if (explode3dBtn) {
+      explode3dBtn.addEventListener('click', () => {
+        SoundEngine.click();
+        isExploded3d = !isExploded3d;
+        epiMesh.position.y = isExploded3d ? 2.15 : 1.65;
+        dermMesh.position.y = isExploded3d ? 1.3 : 1.1;
+        fasciaMesh.position.y = isExploded3d ? -0.75 : -0.52;
+        muscMesh.position.y = isExploded3d ? -1.45 : -1.02;
+        explode3dBtn.textContent = isExploded3d ? 'Unir Capas Anatómicas' : 'Vista Expandida Capas';
+      });
+    }
 
     document.getElementById('toggleLabels3dBtn').addEventListener('click', () => {
       SoundEngine.click();
@@ -2789,9 +3280,17 @@
     window.addEventListener('resize', resize3D);
     resize3D();
 
-    function animate3D() {
+    function animate3D(now) {
       requestAnimationFrame(animate3D);
-      rootGroup.rotation.y += 0.0015;
+      if (!prefersReducedMotion) {
+        rootGroup.rotation.y += 0.0014;
+        const speed = 0.002 + (Number(stageSlider.value) / 100) * 0.004;
+        lymphParticles.forEach(p => {
+          p.userData.u = (p.userData.u + speed) % 1;
+          const pt = lymphCurve.getPointAt(p.userData.u);
+          p.position.copy(pt);
+        });
+      }
       controls.update();
       renderer.render(scene, camera);
 
@@ -2821,7 +3320,7 @@
         });
       }
     }
-    animate3D();
+    requestAnimationFrame(animate3D);
 
     /* =========================================================================
        5. MINI JUEGO 1: SIMULADOR DE CASO CLÍNICO POR DECISIONES CON TIEMPO
@@ -2866,6 +3365,7 @@
 
     let simIdx = 0;
     let simPoints = 0;
+    let simStreakCount = 0;
     let simTimeLeft = 45;
     let simInterval = null;
     let simHasEnteredViewport = false;
@@ -2873,21 +3373,27 @@
 
     const simStageBody = document.getElementById('simStageBody');
     const simTimerEl = document.getElementById('simTimer');
+    const simTimerBar = document.getElementById('simTimerBar');
     const simScoreEl = document.getElementById('simScore');
+    const simStreakEl = document.getElementById('simStreak');
     const simBoxContainer = document.getElementById('simBoxContainer');
 
     function startSimTimer() {
       clearInterval(simInterval);
       simTimeLeft = 45;
       simTimerEl.textContent = `${simTimeLeft}s`;
+      if (simTimerBar) simTimerBar.style.width = '100%';
       if (!simHasEnteredViewport) return;
 
       simInterval = setInterval(() => {
         simTimeLeft--;
         simTimerEl.textContent = `${simTimeLeft}s`;
+        if (simTimerBar) simTimerBar.style.width = `${Math.max(0, (simTimeLeft / 45) * 100)}%`;
         if (simTimeLeft <= 0) {
           clearInterval(simInterval);
           simStageAnswered = true;
+          simStreakCount = 0;
+          if (simStreakEl) simStreakEl.textContent = `x${simStreakCount}`;
           SoundEngine.error();
           const fbEl = document.getElementById('simFeedback');
           if (fbEl) {
@@ -2905,6 +3411,7 @@
       simStageAnswered = false;
       if (simIdx >= simStages.length) {
         clearInterval(simInterval);
+        if (simPoints >= 300) SoundEngine.victory();
         simStageBody.innerHTML = `
           <div class="info-panel" style="border-color:var(--accent-emerald);">
             <h4>Caso Clínico Finalizado · Puntaje Total: ${simPoints} / 400</h4>
@@ -2928,6 +3435,7 @@
         startSimTimer();
       } else {
         simTimerEl.textContent = '45s (En espera)';
+        if (simTimerBar) simTimerBar.style.width = '100%';
       }
 
       simStageBody.querySelectorAll('.sim-opt-btn').forEach(btn => {
@@ -2941,11 +3449,15 @@
           if (chosen.ok) {
             SoundEngine.success();
             simPoints += 100;
+            simStreakCount++;
             simScoreEl.textContent = `${simPoints} / 400`;
+            if (simStreakEl) simStreakEl.textContent = `x${simStreakCount}`;
             fbEl.className = 'info-panel';
             fbEl.style.borderColor = 'var(--accent-emerald)';
           } else {
             SoundEngine.error();
+            simStreakCount = 0;
+            if (simStreakEl) simStreakEl.textContent = `x0`;
             fbEl.className = 'contra-alert';
           }
           fbEl.innerHTML = chosen.fb;
@@ -2960,7 +3472,6 @@
       });
     }
 
-    // IntersectionObserver para arrancar el temporizador cuando el simulador entra en pantalla
     const simObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !simHasEnteredViewport) {
@@ -2977,14 +3488,16 @@
       SoundEngine.click();
       simIdx = 0;
       simPoints = 0;
+      simStreakCount = 0;
       simHasEnteredViewport = true;
       simScoreEl.textContent = '0 / 400';
+      if (simStreakEl) simStreakEl.textContent = 'x0';
       renderSimStage();
     });
     renderSimStage();
 
     /* =========================================================================
-       6. MINI JUEGO 2: EMPAREJAR PATÓGENO / ESPECIE CON ANTIMICROBIANO (DRAG & TOUCH)
+       6. MINI JUEGO 2: EMPAREJAR PATÓGENO / ESPECIE CON ANTIMICROBIANO (TAP & DRAG)
        ========================================================================= */
     const ddPairs = [
       { id: 'p1', drag: 'Canino con coinfección E. canis o MRSP sensible', drop: 'Doxiciclina 10 mg/kg PO c/24h (o 5 mg/kg c/12h)' },
@@ -3009,11 +3522,11 @@
       const shuffledDrop = [...ddPairs].sort(() => Math.random() - 0.5);
 
       ddDraggablesEl.innerHTML = shuffledDrag.map(p => `
-        <div class="draggable-item" draggable="true" data-id="${p.id}">${p.drag}</div>
+        <div class="draggable-item" role="button" tabindex="0" draggable="true" data-id="${p.id}">${p.drag}</div>
       `).join('');
 
       ddDropzonesEl.innerHTML = shuffledDrop.map(p => `
-        <div class="dropzone-item" data-target="${p.id}">
+        <div class="dropzone-item" role="button" tabindex="0" data-target="${p.id}">
           <span>${p.drop}</span>
           <small class="mono-badge" style="align-self:flex-start;display:none;"></small>
         </div>
@@ -3055,7 +3568,6 @@
     function verifyMatch(id, zone) {
       if (!id || zone.classList.contains('correct')) return;
       if (zone.dataset.target === id) {
-        SoundEngine.success();
         zone.classList.add('correct');
         const dragEl = ddDraggablesEl.querySelector(`.draggable-item[data-id="${id}"]`);
         if (dragEl) {
@@ -3068,6 +3580,11 @@
         ddSelectedId = null;
         ddMatches++;
         ddScoreEl.textContent = `${ddMatches} / ${ddPairs.length}`;
+        if (ddMatches === ddPairs.length) {
+          SoundEngine.victory();
+        } else {
+          SoundEngine.success();
+        }
       } else {
         SoundEngine.error();
       }
@@ -3243,7 +3760,7 @@
               }).join('')}
             </div>
             ${quizSubmitted ? `
-              <div style="margin-top:0.75rem;font-size:0.83rem;padding:0.65rem 0.85rem;border-radius:6px;background:rgba(15,23,42,0.9);border-left:3px solid ${isCorrect ? 'var(--accent-emerald)' : 'var(--accent-crimson)'};">
+              <div style="margin-top:0.75rem;font-size:0.83rem;padding:0.65rem 0.85rem;border-radius:6px;background:var(--bg-elevated);border-left:3px solid ${isCorrect ? 'var(--accent-emerald)' : 'var(--accent-crimson)'};">
                 <strong>${isCorrect ? 'Correcto:' : 'Incorrecto:'}</strong> ${item.exp}
               </div>
             ` : ''}
@@ -3270,66 +3787,81 @@
       const ctx = c.getContext('2d');
       const name = document.getElementById('certNameInput').value.trim() || 'Profesional Veterinario';
       const pct = Math.round((score / total) * 100);
+      const isLight = currentTheme === 'light';
 
       const grad = ctx.createLinearGradient(0, 0, c.width, c.height);
-      grad.addColorStop(0, '#070b14');
-      grad.addColorStop(0.5, '#0f172a');
-      grad.addColorStop(1, '#111c38');
+      if (isLight) {
+        grad.addColorStop(0, '#f8fafc');
+        grad.addColorStop(0.5, '#ffffff');
+        grad.addColorStop(1, '#e2e8f0');
+      } else {
+        grad.addColorStop(0, '#070b14');
+        grad.addColorStop(0.5, '#0f172a');
+        grad.addColorStop(1, '#111c38');
+      }
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, c.width, c.height);
 
-      ctx.strokeStyle = '#06b6d4';
+      ctx.strokeStyle = isLight ? '#0284c7' : '#06b6d4';
       ctx.lineWidth = 4;
       ctx.strokeRect(22, 22, c.width - 44, c.height - 44);
-      ctx.strokeStyle = 'rgba(245, 158, 11, 0.6)';
+      ctx.strokeStyle = isLight ? 'rgba(217, 119, 6, 0.7)' : 'rgba(245, 158, 11, 0.6)';
       ctx.lineWidth = 1.5;
       ctx.strokeRect(32, 32, c.width - 64, c.height - 64);
 
-      ctx.fillStyle = '#06b6d4';
+      ctx.fillStyle = isLight ? '#0284c7' : '#06b6d4';
       ctx.font = 'bold 18px Inter, sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText('AMC VETATLAS · ANIMAL MEDICAL CENTER', c.width / 2, 85);
 
-      ctx.fillStyle = '#f8fafc';
+      ctx.fillStyle = isLight ? '#0f172a' : '#f8fafc';
       ctx.font = 'bold 32px Inter, sans-serif';
       ctx.fillText('CERTIFICADO DE COMPETENCIA CLÍNICA', c.width / 2, 135);
 
-      ctx.fillStyle = '#94a3b8';
+      ctx.fillStyle = isLight ? '#475569' : '#94a3b8';
       ctx.font = '16px Inter, sans-serif';
       ctx.fillText('Se otorga la presente insignia académica a:', c.width / 2, 180);
 
-      ctx.fillStyle = '#fde68a';
+      ctx.fillStyle = isLight ? '#b45309' : '#fde68a';
       ctx.font = 'bold 30px Inter, sans-serif';
       ctx.fillText(name, c.width / 2, 225);
 
-      ctx.fillStyle = '#cbd5e1';
+      ctx.fillStyle = isLight ? '#334155' : '#cbd5e1';
       ctx.font = '17px Inter, sans-serif';
       ctx.fillText('Por completar el módulo avanzado de actualización médica y quirúrgica:', c.width / 2, 270);
 
-      ctx.fillStyle = '#38bdf8';
+      ctx.fillStyle = isLight ? '#0369a1' : '#38bdf8';
       ctx.font = 'bold 22px Inter, sans-serif';
       ctx.fillText('«Celulitis Flemonosa Bacteriana en Medicina Veterinaria»', c.width / 2, 308);
 
-      ctx.fillStyle = 'rgba(16, 185, 129, 0.16)';
-      ctx.strokeStyle = '#10b981';
+      ctx.fillStyle = isLight ? 'rgba(5, 150, 105, 0.14)' : 'rgba(16, 185, 129, 0.16)';
+      ctx.strokeStyle = isLight ? '#059669' : '#10b981';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.roundRect(c.width / 2 - 170, 338, 340, 64, 12);
       ctx.fill();
       ctx.stroke();
 
-      ctx.fillStyle = '#6ee7b7';
+      ctx.fillStyle = isLight ? '#065f46' : '#6ee7b7';
       ctx.font = 'bold 22px JetBrains Mono, monospace';
       ctx.fillText(`PUNTAJE: ${score}/${total} (${pct}%)`, c.width / 2, 378);
 
-      ctx.fillStyle = '#94a3b8';
+      ctx.fillStyle = isLight ? '#475569' : '#94a3b8';
       ctx.font = '14px Inter, sans-serif';
       ctx.fillText('Directrices ISCAID · Estándares CLSI VET-series · Diagnóstico POCUS y PAAF', c.width / 2, 445);
 
-      ctx.fillStyle = '#f8fafc';
+      ctx.fillStyle = isLight ? '#0f172a' : '#f8fafc';
       ctx.font = 'bold 15px Inter, sans-serif';
       ctx.fillText('Guía didáctica preparada por Andreé, médico veterinario.', c.width / 2, 482);
     }
+
+    window.__updateCertTheme = () => {
+      if (quizSubmitted) {
+        let score = 0;
+        quizQuestions.forEach((q, idx) => { if (userAnswers[idx] === q.ans) score++; });
+        drawCertificate(score, quizQuestions.length);
+      }
+    };
 
     document.getElementById('submitQuizBtn').addEventListener('click', () => {
       quizSubmitted = true;
@@ -3338,7 +3870,7 @@
       quizQuestions.forEach((q, idx) => {
         if (userAnswers[idx] === q.ans) score++;
       });
-      if (score >= 8) SoundEngine.success();
+      if (score >= 8) SoundEngine.victory();
       else SoundEngine.error();
 
       renderQuiz();
@@ -3377,7 +3909,7 @@
     });
 
     document.getElementById('downloadCertBtn').addEventListener('click', () => {
-      SoundEngine.success();
+      SoundEngine.victory();
       const c = document.getElementById('certCanvas');
       const link = document.createElement('a');
       link.download = 'Certificado_Celulitis_Flemonosa_AMC_VetAtlas.png';
@@ -3386,22 +3918,24 @@
     });
 
     /* =========================================================================
-       8. GALERÍA DATA-COMMONS (PLACEHOLDER SVG ELEGANTES HASTA PONER URL REAL)
+       8. GALERÍA DATA-COMMONS (FALLBACK ELEGANTE SI ALGUNA IMAGEN NO CARGA)
        ========================================================================= */
     document.querySelectorAll('img[data-commons]').forEach((img, idx) => {
       const fileName = img.getAttribute('data-commons');
-      if (!img.getAttribute('src')) {
+      const applyFallback = () => {
         const colors = ['#ef4444', '#06b6d4', '#f59e0b', '#10b981'];
         const col = colors[idx % colors.length];
         const svgPlaceholder = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="360" viewBox="0 0 600 360">
           <rect width="600" height="360" fill="#09101f"/>
           <circle cx="300" cy="145" r="54" fill="none" stroke="${col}" stroke-width="3" stroke-dasharray="8 6"/>
           <circle cx="300" cy="145" r="22" fill="${col}" fill-opacity="0.25"/>
-          <text x="300" y="245" fill="#f8fafc" font-family="monospace" font-size="15" text-anchor="middle" font-weight="bold">${fileName}</text>
-          <text x="300" y="275" fill="#94a3b8" font-family="sans-serif" font-size="13" text-anchor="middle">Imagen no disponible</text>
+          <text x="300" y="245" fill="#f8fafc" font-family="monospace" font-size="14" text-anchor="middle" font-weight="bold">${fileName}</text>
+          <text x="300" y="275" fill="#94a3b8" font-family="sans-serif" font-size="13" text-anchor="middle">Wikimedia Commons · AMC VetAtlas</text>
         </svg>`;
         img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(svgPlaceholder);
-      }
+      };
+      if (!img.getAttribute('src')) applyFallback();
+      img.addEventListener('error', applyFallback, { once: true });
     });
 
     /* =========================================================================
@@ -3434,5 +3968,28 @@
       });
     }, { passive: true });
   </script>
+
+  <!-- QA: parche de contraste AA (claro y oscuro) -->
+  <style>
+    html[data-theme="light"] {
+      --accent-cyan: #0369a1;
+      --accent-amber: #b45309;
+      --accent-emerald: #047857;
+      --accent-crimson: #b91c1c;
+    }
+    html[data-theme="light"] .tab-btn.active { background: linear-gradient(135deg, #0369a1, #1d4ed8); color: #ffffff; }
+    html[data-theme="light"] .mono-badge[style*="#fecaca"] { color: #991b1b !important; background: rgba(220, 38, 38, 0.12) !important; }
+    html[data-theme="light"] .btn-action.active-sound { color: #065f46; }
+    html[data-theme="dark"] .step-badge { color: #fca5a5; }
+    html[data-theme="dark"] .nav-link.active .nav-num { color: #04131c; }
+    /* 3D: the telemetry badges (new in v3) sat under labels 3 and 6; keep the label rails above them. */
+    .labels3d-layer { bottom: 52px; }
+    /* 360 px: the 3D box and its control panel were 6 px wider than the screen (grid min-content). */
+    .viewer3d-wrapper > * { min-width: 0; }
+    .controls3d-panel div[style*="justify-content:space-between"] { flex-wrap: wrap; gap: 0.25rem 0.5rem; }
+    @media (max-width: 640px) { .labels3d-layer { bottom: 100px; } }
+    #hud3dTelemetry .mono-badge { background: var(--label3d-bg, rgba(7, 11, 20, 0.92)) !important; opacity: 1 !important; }
+    html[data-theme="light"] #hud3dPressure[style*="color"] { color: #991b1b !important; }
+  </style>
 </body>
 </html>
