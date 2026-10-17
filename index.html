@@ -5,7 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>AMC VetAtlas · Animal Medical Center | Atlas de Enfermedades Veterinarias Difíciles</title>
   <meta name="description" content="Atlas didáctico interactivo de enfermedades veterinarias complejas. Fisiopatología, modelos 3D, simuladores clínicos y protocolos terapéuticos." />
-  <meta name="theme-color" content="#050811" />
+  <meta name="theme-color" content="#050811" id="meta-theme-color" />
+
+  <!-- Inicialización temprana del tema para evitar parpadeo (FOUC) -->
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem('vetatlas-theme');
+        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = savedTheme ? savedTheme : (prefersLight ? 'light' : 'dark');
+        document.documentElement.classList.remove('dark', 'light');
+        document.documentElement.classList.add(theme);
+        var metaTheme = document.getElementById('meta-theme-color');
+        if (metaTheme) metaTheme.setAttribute('content', theme === 'light' ? '#f4f7fb' : '#050811');
+      } catch (e) {}
+    })();
+  </script>
 
   <!-- Tipografías Clínicas y Técnicas -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,30 +37,82 @@
   </script>
 
   <style>
-    :root {
+    /* ==================== VARIABLES DE TEMA (OSCURO POR DEFECTO) ==================== */
+    :root,
+    html.dark {
       --bg-deep: #050811;
       --bg-surface: #0b1120;
-      --bg-card: rgba(15, 23, 42, 0.72);
-      --bg-card-hover: rgba(22, 33, 58, 0.88);
-      --bg-glass: rgba(9, 14, 26, 0.78);
-      --border-subtle: rgba(148, 163, 184, 0.14);
-      --border-highlight: rgba(56, 189, 248, 0.42);
+      --bg-elevated: rgba(15, 23, 42, 0.85);
+      --bg-input: rgba(5, 8, 17, 0.85);
+      --bg-card: rgba(15, 23, 42, 0.74);
+      --bg-card-hover: rgba(22, 33, 58, 0.92);
+      --bg-coming-soon: rgba(11, 17, 32, 0.48);
+      --bg-glass: rgba(9, 14, 26, 0.82);
+      --bg-hud: rgba(11, 17, 32, 0.72);
+      --bg-hud-item: rgba(15, 23, 42, 0.68);
+      --bg-chip: rgba(15, 23, 42, 0.82);
+      --bg-chip-hover: rgba(30, 41, 59, 0.92);
+      --bg-footer: rgba(5, 8, 17, 0.96);
+      --border-subtle: rgba(148, 163, 184, 0.16);
+      --border-strong: rgba(148, 163, 184, 0.28);
+      --border-highlight: rgba(56, 189, 248, 0.45);
       --text-primary: #f8fafc;
       --text-secondary: #cbd5e1;
-      --text-muted: #64748b;
+      --text-muted: #94a3b8;
       --accent-cyan: #38bdf8;
       --accent-emerald: #10b981;
       --accent-rose: #f43f5e;
       --accent-amber: #f59e0b;
       --accent-violet: #a855f7;
+      --grid-line: rgba(148, 163, 184, 0.035);
+      --vignette-center: rgba(5, 8, 17, 0.82);
+      --vignette-mid: rgba(5, 8, 17, 0.46);
+      --vignette-edge: rgba(5, 8, 17, 0.78);
+      --shadow-glow: 0 20px 50px -15px rgba(2, 6, 23, 0.85), 0 0 35px -10px rgba(56, 189, 248, 0.18);
+      --shadow-card-hover: 0 22px 45px -15px rgba(2, 6, 23, 0.92);
       --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
       --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       --radius-lg: 18px;
       --radius-md: 12px;
       --radius-pill: 9999px;
-      --shadow-glow: 0 20px 50px -15px rgba(2, 6, 23, 0.85), 0 0 35px -10px rgba(56, 189, 248, 0.18);
       --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+      color-scheme: dark;
+    }
+
+    /* ==================== MODO CLARO ELEGANTE (CONTRASTE AA+) ==================== */
+    html.light {
+      --bg-deep: #f4f7fb;
+      --bg-surface: #ffffff;
+      --bg-elevated: rgba(255, 255, 255, 0.95);
+      --bg-input: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-card-hover: #ffffff;
+      --bg-coming-soon: rgba(241, 245, 249, 0.85);
+      --bg-glass: rgba(244, 247, 251, 0.88);
+      --bg-hud: rgba(255, 255, 255, 0.88);
+      --bg-hud-item: rgba(241, 245, 249, 0.9);
+      --bg-chip: rgba(255, 255, 255, 0.92);
+      --bg-chip-hover: #e2e8f0;
+      --bg-footer: #e8eef6;
+      --border-subtle: rgba(15, 23, 42, 0.12);
+      --border-strong: rgba(15, 23, 42, 0.22);
+      --border-highlight: rgba(2, 132, 199, 0.48);
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #475569;
+      --accent-cyan: #0369a1;
+      --accent-emerald: #047857;
+      --accent-rose: #e11d48;
+      --accent-amber: #d97706;
+      --accent-violet: #7c3aed;
+      --grid-line: rgba(15, 23, 42, 0.04);
+      --vignette-center: rgba(244, 247, 251, 0.86);
+      --vignette-mid: rgba(244, 247, 251, 0.55);
+      --vignette-edge: rgba(244, 247, 251, 0.82);
+      --shadow-glow: 0 18px 40px -15px rgba(15, 23, 42, 0.1), 0 0 25px -8px rgba(2, 132, 199, 0.12);
+      --shadow-card-hover: 0 20px 38px -12px rgba(15, 23, 42, 0.16);
+      color-scheme: light;
     }
 
     *, *::before, *::after {
@@ -60,20 +127,24 @@
       color: var(--text-primary);
       font-family: var(--font-sans);
       overflow-x: hidden;
+      max-width: 100%;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.35s ease, color 0.35s ease;
     }
 
     body {
       background-color: var(--bg-deep);
       background-image: 
-        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.07) 0%, transparent 40%),
-        radial-gradient(circle at 85% 25%, rgba(16, 185, 129, 0.05) 0%, transparent 45%),
+        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 25%, rgba(16, 185, 129, 0.06) 0%, transparent 45%),
         radial-gradient(circle at 50% 85%, rgba(244, 63, 94, 0.05) 0%, transparent 45%);
       min-height: 100vh;
       overflow-x: hidden;
+      max-width: 100%;
       position: relative;
       line-height: 1.6;
+      transition: background-color 0.35s ease, color 0.35s ease;
     }
 
     /* Retícula clínica de fondo */
@@ -82,8 +153,8 @@
       position: fixed;
       inset: 0;
       background-image: 
-        linear-gradient(to right, rgba(148, 163, 184, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(148, 163, 184, 0.03) 1px, transparent 1px);
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
       background-size: 48px 48px;
       pointer-events: none;
       z-index: 0;
@@ -108,12 +179,12 @@
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border-subtle);
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      transition: background-color 0.35s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .site-header.scrolled {
-      border-bottom-color: rgba(56, 189, 248, 0.25);
-      box-shadow: 0 10px 30px -10px rgba(2, 6, 23, 0.85);
+      border-bottom-color: var(--border-highlight);
+      box-shadow: var(--shadow-glow);
     }
 
     .nav-inner {
@@ -121,7 +192,7 @@
       align-items: center;
       justify-content: space-between;
       min-height: 76px;
-      gap: 1rem;
+      gap: 0.75rem;
       flex-wrap: wrap;
       padding: 0.5rem 0;
     }
@@ -129,9 +200,11 @@
     .brand-link {
       display: flex;
       align-items: center;
-      gap: 0.875rem;
+      gap: 0.85rem;
       text-decoration: none;
       color: var(--text-primary);
+      min-height: 44px;
+      max-width: 100%;
     }
 
     .brand-seal {
@@ -139,7 +212,7 @@
       height: 46px;
       border-radius: 12px;
       background: linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(16, 185, 129, 0.12));
-      border: 1px solid rgba(56, 189, 248, 0.35);
+      border: 1px solid var(--border-highlight);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -169,17 +242,19 @@
     .brand-text {
       display: flex;
       flex-direction: column;
+      min-width: 0;
     }
 
     .brand-title {
       font-family: var(--font-display);
-      font-size: 1.15rem;
+      font-size: clamp(0.98rem, 2.2vw, 1.15rem);
       font-weight: 700;
       letter-spacing: -0.02em;
       color: var(--text-primary);
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.4rem;
+      flex-wrap: wrap;
     }
 
     .brand-title span.dot {
@@ -188,16 +263,19 @@
 
     .brand-subtitle {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--text-secondary);
       letter-spacing: 0.04em;
       text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.55rem;
       flex-wrap: wrap;
     }
 
@@ -209,41 +287,53 @@
     }
 
     .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
       text-decoration: none;
       color: var(--text-secondary);
       font-size: 0.88rem;
-      font-weight: 500;
-      padding: 0.5rem 0.85rem;
+      font-weight: 600;
+      padding: 0.5rem 0.9rem;
       border-radius: var(--radius-pill);
       transition: color 0.25s ease, background 0.25s ease;
     }
 
     .nav-links a:hover {
       color: var(--text-primary);
-      background: rgba(148, 163, 184, 0.1);
+      background: rgba(148, 163, 184, 0.14);
     }
 
-    /* Botón de Audio Web */
+    /* Botones de Tema (Sol/Luna) y Audio Arcade */
+    .icon-control-btn,
     .audio-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.5rem;
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(56, 189, 248, 0.35);
+      min-height: 44px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-highlight);
       color: var(--text-primary);
-      padding: 0.48rem 0.9rem;
+      padding: 0.5rem 0.95rem;
       border-radius: var(--radius-pill);
       font-family: var(--font-mono);
       font-size: 0.75rem;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.25s var(--transition-smooth);
       user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
+    .icon-control-btn {
+      padding: 0.5rem 0.8rem;
+    }
+
+    .icon-control-btn:hover,
     .audio-btn:hover {
       border-color: var(--accent-cyan);
-      background: rgba(56, 189, 248, 0.12);
+      background: rgba(56, 189, 248, 0.14);
       transform: translateY(-1px);
     }
 
@@ -259,6 +349,7 @@
       background: var(--accent-emerald);
       box-shadow: 0 0 10px var(--accent-emerald);
       animation: pulseGlow 2s infinite;
+      flex-shrink: 0;
     }
 
     .audio-btn.muted .pulse-dot {
@@ -270,6 +361,39 @@
     @keyframes pulseGlow {
       0%, 100% { transform: scale(1); opacity: 1; }
       50% { transform: scale(1.35); opacity: 0.65; }
+    }
+
+    /* Barra de navegación rápida móvil (oculta en escritorio) */
+    .mobile-quick-nav {
+      display: none;
+      width: 100%;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 0.45rem;
+      margin-top: 0.25rem;
+      gap: 0.5rem;
+    }
+
+    .mobile-quick-nav a {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--bg-chip);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      transition: all 0.2s ease;
+    }
+
+    .mobile-quick-nav a:active,
+    .mobile-quick-nav a:hover {
+      color: var(--text-primary);
+      border-color: var(--accent-cyan);
     }
 
     /* ==================== HERO INMERSIVO 3D ==================== */
@@ -297,15 +421,16 @@
       display: block;
     }
 
-    /* Viñeta radial para legibilidad sobre el 3D */
+    /* Viñeta radial adaptable al tema para legibilidad sobre el 3D */
     .hero-vignette {
       position: absolute;
       inset: 0;
       background: 
-        radial-gradient(circle at 28% 50%, rgba(5, 8, 17, 0.82) 0%, rgba(5, 8, 17, 0.45) 55%, rgba(5, 8, 17, 0.75) 100%),
+        radial-gradient(circle at 28% 50%, var(--vignette-center) 0%, var(--vignette-mid) 55%, var(--vignette-edge) 100%),
         linear-gradient(to top, var(--bg-deep) 0%, transparent 18%);
       z-index: 1;
       pointer-events: none;
+      transition: background 0.35s ease;
     }
 
     .hero-grid {
@@ -321,16 +446,18 @@
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      padding: 0.4rem 0.95rem;
+      padding: 0.45rem 0.95rem;
       border-radius: var(--radius-pill);
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid var(--border-highlight);
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: clamp(0.68rem, 1.8vw, 0.75rem);
+      font-weight: 600;
       color: var(--accent-cyan);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.4rem;
+      max-width: 100%;
     }
 
     .hero-badge svg {
@@ -341,47 +468,49 @@
 
     .hero-title {
       font-family: var(--font-display);
-      font-size: clamp(2.35rem, 5vw, 4.15rem);
+      font-size: clamp(2rem, 5vw, 4.15rem);
       font-weight: 700;
-      line-height: 1.08;
+      line-height: 1.09;
       letter-spacing: -0.03em;
       margin-bottom: 1.35rem;
       color: var(--text-primary);
     }
 
     .hero-title .gradient-text {
-      background: linear-gradient(135deg, #38bdf8 0%, #34d399 52%, #f43f5e 100%);
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-emerald) 52%, var(--accent-rose) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
     .hero-lead {
-      font-size: clamp(1rem, 1.6vw, 1.18rem);
+      font-size: clamp(0.98rem, 1.6vw, 1.18rem);
       color: var(--text-secondary);
       max-width: 640px;
-      margin-bottom: 2.25rem;
+      margin-bottom: 2.15rem;
       font-weight: 400;
     }
 
     .hero-cta-group {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.85rem;
       flex-wrap: wrap;
-      margin-bottom: 2.75rem;
+      margin-bottom: 2.5rem;
     }
 
     .btn-primary {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.65rem;
-      background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 50%, #10b981 100%);
+      min-height: 46px;
+      background: linear-gradient(135deg, #0369a1 0%, #0277b6 50%, #047857 100%);
       color: #ffffff;
       font-family: var(--font-display);
       font-weight: 600;
       font-size: 0.96rem;
-      padding: 0.9rem 1.65rem;
+      padding: 0.85rem 1.65rem;
       border-radius: var(--radius-pill);
       text-decoration: none;
       border: none;
@@ -398,22 +527,24 @@
     .btn-secondary {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.6rem;
-      background: rgba(15, 23, 42, 0.75);
+      min-height: 46px;
+      background: var(--bg-elevated);
       color: var(--text-primary);
       font-family: var(--font-display);
       font-weight: 600;
       font-size: 0.95rem;
-      padding: 0.9rem 1.5rem;
+      padding: 0.85rem 1.5rem;
       border-radius: var(--radius-pill);
       text-decoration: none;
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-strong);
       transition: all 0.25s ease;
     }
 
     .btn-secondary:hover {
       border-color: var(--accent-cyan);
-      background: rgba(56, 189, 248, 0.1);
+      background: rgba(56, 189, 248, 0.12);
       transform: translateY(-2px);
     }
 
@@ -435,7 +566,7 @@
 
     .metric-val {
       font-family: var(--font-display);
-      font-size: 1.55rem;
+      font-size: clamp(1.35rem, 2.5vw, 1.55rem);
       font-weight: 700;
       color: var(--text-primary);
       display: flex;
@@ -445,12 +576,12 @@
 
     .metric-val span {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--accent-cyan);
     }
 
     .metric-label {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.04em;
@@ -462,15 +593,16 @@
       justify-self: end;
       width: 100%;
       max-width: 390px;
-      background: rgba(11, 17, 32, 0.68);
+      background: var(--bg-hud);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(56, 189, 248, 0.24);
+      border: 1px solid var(--border-highlight);
       border-radius: var(--radius-lg);
       padding: 1.5rem;
       box-shadow: var(--shadow-glow);
       position: relative;
       overflow: hidden;
+      transition: background-color 0.35s ease, border-color 0.35s ease;
     }
 
     .hero-hud-card::before {
@@ -495,6 +627,7 @@
     .hud-title {
       font-family: var(--font-mono);
       font-size: 0.76rem;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--accent-cyan);
@@ -506,11 +639,12 @@
     .hud-tag {
       font-family: var(--font-mono);
       font-size: 0.68rem;
-      padding: 0.15rem 0.55rem;
+      font-weight: 600;
+      padding: 0.18rem 0.55rem;
       border-radius: 6px;
       background: rgba(16, 185, 129, 0.15);
       color: var(--accent-emerald);
-      border: 1px solid rgba(16, 185, 129, 0.3);
+      border: 1px solid rgba(16, 185, 129, 0.35);
     }
 
     .hud-list {
@@ -526,10 +660,16 @@
       display: flex;
       align-items: flex-start;
       gap: 0.65rem;
-      padding: 0.55rem 0.7rem;
+      padding: 0.6rem 0.75rem;
       border-radius: 10px;
-      background: rgba(15, 23, 42, 0.65);
-      border: 1px solid rgba(148, 163, 184, 0.08);
+      background: var(--bg-hud-item);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .hud-list li strong {
+      color: var(--text-primary);
+      display: block;
+      margin-bottom: 0.1rem;
     }
 
     .hud-list svg {
@@ -551,12 +691,13 @@
       display: flex;
       flex-direction: column;
       gap: 0.6rem;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2.25rem;
     }
 
     .section-eyebrow {
       font-family: var(--font-mono);
       font-size: 0.76rem;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--accent-cyan);
@@ -567,15 +708,16 @@
 
     .section-title {
       font-family: var(--font-display);
-      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-size: clamp(1.6rem, 3.2vw, 2.5rem);
       font-weight: 700;
       letter-spacing: -0.02em;
       color: var(--text-primary);
+      line-height: 1.2;
     }
 
     .section-desc {
       color: var(--text-secondary);
-      font-size: 1rem;
+      font-size: clamp(0.94rem, 1.5vw, 1rem);
       max-width: 720px;
     }
 
@@ -589,19 +731,20 @@
       padding: 1.75rem;
       margin-bottom: 2.5rem;
       box-shadow: var(--shadow-glow);
+      transition: background-color 0.35s ease, border-color 0.35s ease;
     }
 
     .search-row {
       display: flex;
       align-items: center;
       gap: 1rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
       flex-wrap: wrap;
     }
 
     .search-input-wrap {
       position: relative;
-      flex: 1 1 320px;
+      flex: 1 1 100%;
     }
 
     .search-input-wrap svg.search-icon {
@@ -618,15 +761,16 @@
 
     .search-input {
       width: 100%;
-      background: rgba(5, 8, 17, 0.8);
-      border: 1px solid var(--border-subtle);
+      min-height: 48px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-strong);
       border-radius: var(--radius-md);
-      padding: 0.95rem 3.2rem 0.95rem 3rem;
+      padding: 0.85rem 3.4rem 0.85rem 3rem;
       color: var(--text-primary);
       font-family: var(--font-sans);
-      font-size: 0.98rem;
+      font-size: 1rem;
       outline: none;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
     }
 
     .search-input::placeholder {
@@ -635,7 +779,7 @@
 
     .search-input:focus {
       border-color: var(--accent-cyan);
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
     }
 
     .search-input:focus + svg.search-icon {
@@ -644,14 +788,14 @@
 
     .search-clear-btn {
       position: absolute;
-      right: 0.85rem;
+      right: 0.4rem;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(148, 163, 184, 0.15);
+      background: transparent;
       border: none;
       color: var(--text-secondary);
-      width: 26px;
-      height: 26px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       cursor: pointer;
       display: none;
@@ -665,8 +809,8 @@
     }
 
     .search-clear-btn:hover {
-      background: rgba(244, 63, 94, 0.25);
-      color: #fff;
+      background: rgba(244, 63, 94, 0.18);
+      color: var(--accent-rose);
     }
 
     .filter-status-bar {
@@ -681,17 +825,19 @@
     }
 
     .reset-filters-btn {
+      min-height: 44px;
       background: rgba(244, 63, 94, 0.12);
-      border: 1px solid rgba(244, 63, 94, 0.35);
-      color: #fda4af;
-      padding: 0.45rem 0.9rem;
+      border: 1px solid rgba(244, 63, 94, 0.4);
+      color: var(--accent-rose);
+      padding: 0.5rem 1rem;
       border-radius: var(--radius-pill);
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.76rem;
+      font-weight: 600;
       cursor: pointer;
       display: none;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.45rem;
       transition: all 0.2s ease;
     }
 
@@ -700,7 +846,7 @@
     }
 
     .reset-filters-btn:hover {
-      background: rgba(244, 63, 94, 0.24);
+      background: rgba(244, 63, 94, 0.22);
       transform: translateY(-1px);
     }
 
@@ -712,14 +858,29 @@
 
     .filter-block-label {
       font-family: var(--font-mono);
-      font-size: 0.73rem;
+      font-size: 0.74rem;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.07em;
       color: var(--text-muted);
       margin-bottom: 0.75rem;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 0.45rem;
+    }
+
+    .filter-label-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .swipe-hint {
+      display: none;
+      font-size: 0.68rem;
+      color: var(--accent-cyan);
+      font-weight: 500;
     }
 
     .chips-container {
@@ -732,32 +893,34 @@
       display: inline-flex;
       align-items: center;
       gap: 0.48rem;
-      padding: 0.48rem 0.92rem;
+      min-height: 44px;
+      padding: 0.5rem 0.95rem;
       border-radius: var(--radius-pill);
-      background: rgba(15, 23, 42, 0.78);
+      background: var(--bg-chip);
       border: 1px solid var(--border-subtle);
       color: var(--text-secondary);
       font-family: var(--font-sans);
-      font-size: 0.84rem;
-      font-weight: 500;
+      font-size: 0.85rem;
+      font-weight: 600;
       cursor: pointer;
       user-select: none;
+      -webkit-tap-highlight-color: transparent;
       transition: transform 0.25s var(--transition-smooth), background 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
     }
 
     .filter-chip svg {
-      width: 15px;
-      height: 15px;
+      width: 16px;
+      height: 16px;
       flex-shrink: 0;
-      opacity: 0.85;
+      opacity: 0.88;
       transition: transform 0.25s var(--transition-smooth);
     }
 
     .filter-chip:hover {
       transform: translateY(-2px);
-      border-color: rgba(56, 189, 248, 0.45);
+      border-color: var(--border-highlight);
       color: var(--text-primary);
-      background: rgba(30, 41, 59, 0.85);
+      background: var(--bg-chip-hover);
     }
 
     .filter-chip:hover svg {
@@ -765,24 +928,24 @@
     }
 
     .filter-chip.active {
-      background: linear-gradient(135deg, rgba(14, 165, 233, 0.24), rgba(16, 185, 129, 0.18));
-      border-color: var(--accent-cyan);
+      background: linear-gradient(135deg, #0369a1, #047857);
+      border-color: transparent;
       color: #ffffff;
-      box-shadow: 0 6px 20px -6px rgba(56, 189, 248, 0.45);
+      box-shadow: 0 6px 20px -6px rgba(14, 165, 233, 0.55);
     }
 
     .filter-chip .chip-count {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
-      padding: 0.08rem 0.42rem;
+      font-size: 0.72rem;
+      padding: 0.1rem 0.45rem;
       border-radius: var(--radius-pill);
-      background: rgba(148, 163, 184, 0.14);
+      background: rgba(148, 163, 184, 0.18);
       color: var(--text-secondary);
     }
 
     .filter-chip.active .chip-count {
-      background: rgba(56, 189, 248, 0.3);
-      color: #fff;
+      background: rgba(255, 255, 255, 0.24);
+      color: #ffffff;
     }
 
     /* ==================== GRILLA DE TARJETAS DE ENFERMEDADES ==================== */
@@ -805,7 +968,7 @@
       justify-content: space-between;
       position: relative;
       overflow: hidden;
-      transition: transform 0.35s var(--transition-smooth), border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+      transition: transform 0.35s var(--transition-smooth), border-color 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease;
     }
 
     .disease-card::before {
@@ -816,7 +979,7 @@
       right: 0;
       height: 4px;
       background: var(--card-accent);
-      opacity: 0.9;
+      opacity: 0.95;
     }
 
     .disease-card::after {
@@ -828,7 +991,7 @@
       height: 160px;
       border-radius: 50%;
       background: var(--card-accent);
-      opacity: 0.06;
+      opacity: 0.07;
       filter: blur(30px);
       pointer-events: none;
       transition: opacity 0.35s ease, transform 0.35s ease;
@@ -838,7 +1001,7 @@
       transform: translateY(-6px);
       border-color: var(--card-accent);
       background: var(--bg-card-hover);
-      box-shadow: 0 22px 45px -15px rgba(2, 6, 23, 0.9), 0 0 28px -8px var(--card-accent);
+      box-shadow: var(--shadow-card-hover), 0 0 28px -8px var(--card-accent);
     }
 
     .disease-card:hover::after {
@@ -864,9 +1027,9 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      padding: 0.32rem 0.75rem;
+      padding: 0.34rem 0.78rem;
       border-radius: var(--radius-pill);
-      background: rgba(15, 23, 42, 0.9);
+      background: var(--bg-elevated);
       border: 1px solid var(--card-accent);
       color: var(--text-primary);
     }
@@ -879,22 +1042,17 @@
 
     .card-date {
       font-family: var(--font-mono);
-      font-size: 0.73rem;
+      font-size: 0.74rem;
       color: var(--text-muted);
     }
 
     .card-title {
       font-family: var(--font-display);
-      font-size: 1.4rem;
+      font-size: clamp(1.25rem, 2.2vw, 1.42rem);
       font-weight: 700;
       line-height: 1.25;
       color: var(--text-primary);
       margin-bottom: 0.75rem;
-      transition: color 0.25s ease;
-    }
-
-    .disease-card:hover .card-title {
-      color: #ffffff;
     }
 
     .card-summary {
@@ -910,7 +1068,7 @@
       gap: 0.4rem;
       margin-bottom: 1.5rem;
       padding-top: 1rem;
-      border-top: 1px solid rgba(148, 163, 184, 0.1);
+      border-top: 1px solid var(--border-subtle);
     }
 
     .species-pill {
@@ -919,10 +1077,11 @@
       gap: 0.35rem;
       font-family: var(--font-mono);
       font-size: 0.72rem;
-      padding: 0.24rem 0.62rem;
+      font-weight: 500;
+      padding: 0.26rem 0.64rem;
       border-radius: 8px;
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(148, 163, 184, 0.16);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
       color: var(--text-secondary);
     }
 
@@ -937,15 +1096,16 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
+      min-height: 46px;
       padding: 0.85rem 1.15rem;
       border-radius: var(--radius-md);
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
       color: var(--text-primary);
       text-decoration: none;
       font-family: var(--font-display);
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       transition: all 0.25s ease;
     }
 
@@ -969,15 +1129,15 @@
 
     /* Tarjetas de Áreas "Próximamente" dentro del catálogo */
     .disease-card.coming-soon-card {
-      --card-accent: #475569;
-      background: rgba(11, 17, 32, 0.45);
+      --card-accent: #64748b;
+      background: var(--bg-coming-soon);
       border-style: dashed;
-      opacity: 0.86;
+      opacity: 0.9;
     }
 
     .disease-card.coming-soon-card:hover {
       transform: translateY(-3px);
-      border-color: rgba(148, 163, 184, 0.4);
+      border-color: var(--border-strong);
       box-shadow: none;
     }
 
@@ -987,13 +1147,14 @@
       gap: 0.4rem;
       font-family: var(--font-mono);
       font-size: 0.72rem;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       padding: 0.3rem 0.7rem;
       border-radius: var(--radius-pill);
-      background: rgba(148, 163, 184, 0.12);
+      background: rgba(148, 163, 184, 0.16);
       color: var(--text-secondary);
-      border: 1px solid rgba(148, 163, 184, 0.22);
+      border: 1px solid var(--border-subtle);
     }
 
     /* ==================== SECCIÓN POR ÁREAS CON CONTADORES ==================== */
@@ -1016,16 +1177,18 @@
       transition: all 0.3s var(--transition-smooth);
       position: relative;
       overflow: hidden;
+      min-height: 148px;
     }
 
     .area-tile:hover {
       transform: translateY(-4px);
-      border-color: rgba(56, 189, 248, 0.45);
+      border-color: var(--border-highlight);
       background: var(--bg-card-hover);
+      box-shadow: var(--shadow-glow);
     }
 
     .area-tile.has-content {
-      border-color: rgba(56, 189, 248, 0.28);
+      border-color: var(--border-highlight);
     }
 
     .area-tile-top {
@@ -1039,8 +1202,8 @@
       width: 44px;
       height: 44px;
       border-radius: 12px;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.25);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid var(--border-highlight);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1049,8 +1212,8 @@
     }
 
     .area-tile:not(.has-content) .area-icon-box {
-      background: rgba(148, 163, 184, 0.07);
-      border-color: rgba(148, 163, 184, 0.16);
+      background: rgba(148, 163, 184, 0.1);
+      border-color: var(--border-subtle);
       color: var(--text-muted);
     }
 
@@ -1063,7 +1226,7 @@
       font-family: var(--font-mono);
       font-size: 0.72rem;
       font-weight: 600;
-      padding: 0.25rem 0.65rem;
+      padding: 0.28rem 0.68rem;
       border-radius: var(--radius-pill);
       background: rgba(16, 185, 129, 0.15);
       color: var(--accent-emerald);
@@ -1071,9 +1234,9 @@
     }
 
     .area-tile:not(.has-content) .area-counter-badge {
-      background: rgba(148, 163, 184, 0.1);
+      background: rgba(148, 163, 184, 0.12);
       color: var(--text-muted);
-      border-color: rgba(148, 163, 184, 0.2);
+      border-color: var(--border-subtle);
     }
 
     .area-name {
@@ -1085,7 +1248,7 @@
     }
 
     .area-status-text {
-      font-size: 0.84rem;
+      font-size: 0.85rem;
       color: var(--text-secondary);
     }
 
@@ -1111,10 +1274,11 @@
     .site-footer {
       margin-top: 3rem;
       padding: 3rem 0;
-      background: rgba(5, 8, 17, 0.95);
+      background: var(--bg-footer);
       border-top: 1px solid var(--border-subtle);
       position: relative;
       z-index: 2;
+      transition: background-color 0.35s ease;
     }
 
     .footer-inner {
@@ -1132,13 +1296,14 @@
       line-height: 1.65;
     }
 
-    /* ==================== RESPONSIVE MÓVIL SIN SCROLL HORIZONTAL ==================== */
+    /* ==================== RESPONSIVE Y MÓVIL 360-430 PX IMPECABLE ==================== */
     @media (max-width: 960px) {
       .hero-grid {
         grid-template-columns: 1fr;
+        gap: 2.25rem;
       }
       .hero-hud-card {
-        justify-self: start;
+        justify-self: stretch;
         max-width: 100%;
       }
     }
@@ -1147,28 +1312,110 @@
       .container {
         padding: 0 1rem;
       }
+      .nav-inner {
+        padding: 0.55rem 0;
+        gap: 0.5rem;
+      }
       .nav-links {
         display: none;
       }
+      .mobile-quick-nav {
+        display: flex;
+      }
+      .brand-link {
+        gap: 0.65rem;
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+      .brand-seal {
+        width: 42px;
+        height: 42px;
+      }
       .brand-title {
-        flex-wrap: wrap;
-        row-gap: 0;
-        font-size: 1.02rem;
-        line-height: 1.25;
+        font-size: 0.95rem;
+        line-height: 1.2;
+      }
+      .brand-subtitle {
+        font-size: 0.64rem;
+      }
+      .audio-btn {
+        padding: 0.45rem 0.75rem;
+        font-size: 0.72rem;
       }
       .hero {
-        padding: 2.75rem 0 3.5rem;
+        padding: 2.25rem 0 3rem;
         min-height: auto;
       }
+      .hero-cta-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+      }
       .hero-metrics {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+      }
+      .metric-val {
+        font-size: 1.2rem;
+        flex-direction: column;
+        gap: 0;
+      }
+      .metric-label {
+        font-size: 0.66rem;
       }
       .filter-console {
-        padding: 1.2rem;
+        padding: 1.15rem 1rem;
+      }
+      .swipe-hint {
+        display: inline-block;
+      }
+      /* Chips con scroll horizontal cómodo al pulgar en móvil */
+      .chips-container {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
+        padding-bottom: 0.35rem;
+        margin: 0 -0.25rem;
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+        scrollbar-width: none;
+      }
+      .chips-container::-webkit-scrollbar {
+        display: none;
+      }
+      .filter-chip {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+      }
+      /* Tarjetas a 1 columna estricta en móvil */
+      .diseases-grid,
+      .areas-grid {
+        grid-template-columns: 1fr;
+        gap: 1.15rem;
+      }
+      .disease-card {
+        padding: 1.35rem;
       }
       .section {
-        padding: 3.5rem 0;
+        padding: 3.25rem 0;
+      }
+    }
+
+    /* Respeto a prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-on-scroll {
+        opacity: 1 !important;
+        transform: none !important;
       }
     }
   </style>
@@ -1204,24 +1451,51 @@
 
       <div class="nav-actions">
         <ul class="nav-links">
-          <li><a href="#catalogo-clinico">Catálogo Clínico</a></li>
-          <li><a href="#mapa-areas">Áreas Médicas</a></li>
+          <li><a href="#catalogo-clinico" class="nav-anchor">Catálogo Clínico</a></li>
+          <li><a href="#mapa-areas" class="nav-anchor">Áreas Médicas</a></li>
         </ul>
 
-        <button type="button" id="audio-toggle-btn" class="audio-btn" aria-pressed="true" title="Alternar respuesta sonora sutil Web Audio">
+        <!-- Botón de Tema Sol / Luna -->
+        <button type="button" id="theme-toggle-btn" class="icon-control-btn" aria-label="Alternar tema claro u oscuro" title="Cambiar modo de color">
+          <!-- Icono Sol (visible en modo oscuro para pasar a claro) -->
+          <svg id="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <!-- Icono Luna (visible en modo claro para pasar a oscuro) -->
+          <svg id="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- Botón de Audio Arcade Espacial -->
+        <button type="button" id="audio-toggle-btn" class="audio-btn" aria-pressed="true" title="Alternar sintetizador espacial Web Audio">
           <span class="pulse-dot"></span>
-          <svg id="audio-icon-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg id="audio-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
             <path id="audio-waves" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"></path>
           </svg>
-          <span id="audio-status-label">Sonido: Activo</span>
+          <span id="audio-status-label">Audio: ON</span>
         </button>
       </div>
+
+      <!-- Barra de acceso rápido al pulgar en pantallas móviles -->
+      <nav class="mobile-quick-nav" aria-label="Navegación rápida móvil">
+        <a href="#catalogo-clinico" class="nav-anchor">Catálogo Clínico</a>
+        <a href="#mapa-areas" class="nav-anchor">Áreas Médicas</a>
+      </nav>
     </div>
   </header>
 
   <!-- ==================== HERO 3D INMERSIVO ==================== -->
-  <section class="hero">
+  <section class="hero" id="seccion-hero" data-section-spy="hero">
     <div id="hero-canvas-wrap" aria-hidden="true">
       <canvas id="hero-canvas"></canvas>
     </div>
@@ -1325,7 +1599,7 @@
 
   <!-- ==================== BUSCADOR EN VIVO Y CATÁLOGO DE ENFERMEDADES ==================== -->
   <main>
-    <section class="section" id="catalogo-clinico">
+    <section class="section" id="catalogo-clinico" data-section-spy="catalogo">
       <div class="container">
         <div class="section-header reveal-on-scroll">
           <span class="section-eyebrow">
@@ -1360,7 +1634,7 @@
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
               <button type="button" id="clear-search-btn" class="search-clear-btn" aria-label="Limpiar texto de búsqueda">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
                   <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
@@ -1371,7 +1645,7 @@
           <div class="filter-status-bar">
             <span id="results-counter-text">Mostrando el catálogo clínico completo</span>
             <button type="button" id="reset-all-btn" class="reset-filters-btn">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                 <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
                 <path d="M3 3v5h5"></path>
               </svg>
@@ -1382,10 +1656,13 @@
           <!-- Chips por ÁREA -->
           <div class="filter-block">
             <div class="filter-block-label">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-              </svg>
-              Filtrar por Área Clínica
+              <span class="filter-label-left">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+                Filtrar por Área Clínica
+              </span>
+              <span class="swipe-hint">Desliza &rarr;</span>
             </div>
             <div class="chips-container" id="area-chips-container" role="group" aria-label="Filtros por área clínica"></div>
           </div>
@@ -1393,13 +1670,16 @@
           <!-- Chips por ESPECIE -->
           <div class="filter-block">
             <div class="filter-block-label">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-                <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                <line x1="15" y1="9" x2="15.01" y2="9"></line>
-              </svg>
-              Filtrar por Especie Diana
+              <span class="filter-label-left">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                  <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                  <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                </svg>
+                Filtrar por Especie Diana
+              </span>
+              <span class="swipe-hint">Desliza &rarr;</span>
             </div>
             <div class="chips-container" id="species-chips-container" role="group" aria-label="Filtros por especie"></div>
           </div>
@@ -1411,7 +1691,7 @@
     </section>
 
     <!-- ==================== SECCIÓN POR ÁREAS CON CONTADORES ==================== -->
-    <section class="section" id="mapa-areas">
+    <section class="section" id="mapa-areas" data-section-spy="areas">
       <div class="container">
         <div class="section-header reveal-on-scroll">
           <span class="section-eyebrow">
@@ -1445,7 +1725,7 @@
     import * as THREE from 'three';
 
     /* =========================================================================
-       1. CATÁLOGO DE ENFERMEDADES (FÁCIL DE AMPLIAR)
+       1. CATÁLOGO DE ENFERMEDADES (INTACTO Y FÁCIL DE AMPLIAR)
        Campos: titulo, area, especies[], resumen, url, color, fecha
     ========================================================================= */
     const DISEASES = [
@@ -1519,112 +1799,8 @@
       'Conejos': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 10V4a2 2 0 0 1 4 0v6"/><path d="M13 10V5a2 2 0 0 1 4 0v6"/><circle cx="12" cy="15" r="5"/><circle cx="10.5" cy="14" r="0.8"/></svg>`
     };
 
-    /* =========================================================================
-       3. SINTETIZADOR WEB AUDIO API (ENCENDIDO POR DEFECTO DESDE 1ª INTERACCIÓN)
-    ========================================================================= */
-    class ClinicalSoundEngine {
-      constructor() {
-        this.ctx = null;
-        this.enabled = true; // Encendido por defecto
-        this.unlocked = false;
-        this.lastHoverTime = 0;
-        this.setupFirstInteractionUnlock();
-      }
-
-      setupFirstInteractionUnlock() {
-        const unlock = () => {
-          if (!this.ctx) {
-            const AudioCtx = window.AudioContext || window.webkitAudioContext;
-            if (AudioCtx) {
-              this.ctx = new AudioCtx();
-            }
-          }
-          if (this.ctx && this.ctx.state === 'suspended') {
-            this.ctx.resume();
-          }
-          if (!this.unlocked && this.enabled) {
-            this.unlocked = true;
-            this.playHarmonicChime(528, 660, 0.025);
-          }
-          window.removeEventListener('pointerdown', unlock);
-          window.removeEventListener('keydown', unlock);
-        };
-
-        window.addEventListener('pointerdown', unlock, { passive: true });
-        window.addEventListener('keydown', unlock, { passive: true });
-      }
-
-      ensureContext() {
-        if (!this.enabled) return false;
-        if (!this.ctx) {
-          const AudioCtx = window.AudioContext || window.webkitAudioContext;
-          if (!AudioCtx) return false;
-          this.ctx = new AudioCtx();
-        }
-        if (this.ctx.state === 'suspended') {
-          this.ctx.resume();
-        }
-        return true;
-      }
-
-      playHover() {
-        const now = performance.now();
-        if (now - this.lastHoverTime < 65) return;
-        this.lastHoverTime = now;
-
-        if (!this.ensureContext()) return;
-        const t = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(880, t);
-        osc.frequency.exponentialRampToValueAtTime(1180, t + 0.028);
-
-        gain.gain.setValueAtTime(0.0001, t);
-        gain.gain.linearRampToValueAtTime(0.014, t + 0.005);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.032);
-
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(t);
-        osc.stop(t + 0.035);
-      }
-
-      playHarmonicChime(f1 = 587.33, f2 = 880, peakGain = 0.032) {
-        if (!this.ensureContext()) return;
-        const t = this.ctx.currentTime;
-
-        [f1, f2].forEach((freq, idx) => {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = idx === 0 ? 'triangle' : 'sine';
-          osc.frequency.setValueAtTime(freq, t + idx * 0.035);
-
-          gain.gain.setValueAtTime(0.0001, t + idx * 0.035);
-          gain.gain.linearRampToValueAtTime(peakGain, t + idx * 0.035 + 0.012);
-          gain.gain.exponentialRampToValueAtTime(0.0001, t + idx * 0.035 + 0.14);
-
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(t + idx * 0.035);
-          osc.stop(t + idx * 0.035 + 0.15);
-        });
-      }
-
-      toggle() {
-        this.enabled = !this.enabled;
-        if (this.enabled) {
-          this.unlocked = true;
-          this.playHarmonicChime(523.25, 783.99, 0.035);
-        }
-        return this.enabled;
-      }
-    }
-
-
     /* Respaldo del sello: si assets/amc-logo.png no carga, mostrar el SVG */
-    (function ensureSealFallback(){
+    (function ensureSealFallback() {
       const img = document.querySelector('#brand-seal-box img');
       const svg = document.getElementById('amc-fallback-svg');
       if (!img || !svg) return;
@@ -1633,23 +1809,508 @@
       img.addEventListener('error', showSvg);
     })();
 
-    const sound = new ClinicalSoundEngine();
+    /* =========================================================================
+       3. SINTETIZADOR ARCADE ESPACIAL RETRO-FUTURISTA (100% WEB AUDIO API)
+       - Fanfarria sintética corta al primer toque
+       - Bucle synthwave (bajo + arpegio espacial) equilibrado de fondo
+       - Efectos láser/blip al pasar y hacer clic en tarjetas y chips
+       - Efecto whoosh espacial al hacer scroll entre secciones
+       - Encendido por defecto, recordado en localStorage ('vetatlas-audio-muted')
+    ========================================================================= */
+    class ArcadeSpaceSoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.masterGain = null;
+        this.compressor = null;
+        this.noiseBuffer = null;
+
+        /* Encendido por defecto salvo que el usuario haya silenciado antes */
+        let savedMute = null;
+        try {
+          savedMute = localStorage.getItem('vetatlas-audio-muted');
+        } catch (e) {}
+        this.enabled = savedMute === 'true' ? false : true;
+
+        this.unlocked = false;
+        this.fanfarePlayed = false;
+        this.loopTimer = null;
+        this.stepIndex = 0;
+        this.nextNoteTime = 0;
+        this.lastHoverTime = 0;
+        this.lastWhooshTime = 0;
+
+        /* Progresión espacial retro-futurista en Re menor (Dm -> Bb -> F -> C) */
+        this.bassSequence = [
+          73.42, 73.42, 146.83, 73.42,  73.42, 73.42, 146.83, 73.42,
+          58.27, 58.27, 116.54, 58.27,  58.27, 58.27, 116.54, 58.27,
+          87.31, 87.31, 174.61, 87.31,  87.31, 87.31, 174.61, 87.31,
+          65.41, 65.41, 130.81, 65.41,  65.41, 73.42, 87.31,  110.00
+        ];
+
+        this.arpSequence = [
+          293.66, 349.23, 440.00, 587.33, 440.00, 349.23, 587.33, 659.25,
+          233.08, 293.66, 349.23, 466.16, 349.23, 293.66, 466.16, 587.33,
+          261.63, 349.23, 440.00, 523.25, 440.00, 349.23, 523.25, 659.25,
+          261.63, 329.63, 392.00, 523.25, 392.00, 440.00, 523.25, 659.25
+        ];
+
+        this.setupFirstInteractionUnlock();
+        this.setupVisibilityHandler();
+      }
+
+      initContext() {
+        if (this.ctx) return true;
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return false;
+
+        this.ctx = new AudioCtx();
+        this.compressor = this.ctx.createDynamicsCompressor();
+        this.compressor.threshold.setValueAtTime(-18, this.ctx.currentTime);
+        this.compressor.knee.setValueAtTime(12, this.ctx.currentTime);
+        this.compressor.ratio.setValueAtTime(4, this.ctx.currentTime);
+        this.compressor.attack.setValueAtTime(0.005, this.ctx.currentTime);
+        this.compressor.release.setValueAtTime(0.15, this.ctx.currentTime);
+
+        this.masterGain = this.ctx.createGain();
+        this.masterGain.gain.setValueAtTime(this.enabled ? 0.85 : 0.0001, this.ctx.currentTime);
+
+        this.masterGain.connect(this.compressor);
+        this.compressor.connect(this.ctx.destination);
+
+        this.createNoiseBuffer();
+        return true;
+      }
+
+      createNoiseBuffer() {
+        if (!this.ctx) return;
+        const bufferSize = this.ctx.sampleRate * 1.0;
+        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          b0 = 0.99886 * b0 + white * 0.0555179;
+          b1 = 0.99332 * b1 + white * 0.0750759;
+          b2 = 0.96900 * b2 + white * 0.1538520;
+          b3 = 0.86650 * b3 + white * 0.3104856;
+          b4 = 0.55000 * b4 + white * 0.5329522;
+          b5 = -0.7616 * b5 - white * 0.0168980;
+          data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.04;
+          b6 = white * 0.115926;
+        }
+        this.noiseBuffer = buffer;
+      }
+
+      setupFirstInteractionUnlock() {
+        const unlock = () => {
+          if (!this.initContext()) return;
+          if (this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+          this.unlocked = true;
+          if (this.enabled) {
+            if (!this.fanfarePlayed) {
+              this.fanfarePlayed = true;
+              this.playIntroFanfare();
+            } else {
+              this.startSynthLoop();
+            }
+          }
+          window.removeEventListener('pointerdown', unlock);
+          window.removeEventListener('keydown', unlock);
+          window.removeEventListener('touchstart', unlock);
+        };
+
+        window.addEventListener('pointerdown', unlock, { passive: true });
+        window.addEventListener('keydown', unlock, { passive: true });
+        window.addEventListener('touchstart', unlock, { passive: true });
+      }
+
+      setupVisibilityHandler() {
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            this.stopSynthLoop();
+          } else if (this.enabled && this.unlocked) {
+            this.startSynthLoop();
+          }
+        });
+      }
+
+      ensureReady() {
+        if (!this.enabled) return false;
+        if (!this.initContext()) return false;
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+        return true;
+      }
+
+      /* (1.a) Fanfarria heroica sintética corta al primer toque */
+      playIntroFanfare() {
+        if (!this.ensureReady()) return;
+        const now = this.ctx.currentTime + 0.02;
+
+        /* Motivo heroico espacial original (D4 -> A4 -> D5 -> C5 -> Bb4 -> A4 -> G4 -> A4 -> D5) */
+        const notes = [
+          { f: 293.66, t: 0.00, d: 0.13 },
+          { f: 440.00, t: 0.14, d: 0.13 },
+          { f: 587.33, t: 0.28, d: 0.26 },
+          { f: 523.25, t: 0.56, d: 0.12 },
+          { f: 466.16, t: 0.70, d: 0.12 },
+          { f: 440.00, t: 0.84, d: 0.22 },
+          { f: 392.00, t: 1.08, d: 0.12 },
+          { f: 440.00, t: 1.22, d: 0.12 },
+          { f: 587.33, t: 1.36, d: 0.55 }
+        ];
+
+        /* Pedal sub-grave espacial en D2 (73.42 Hz) */
+        const subOsc = this.ctx.createOscillator();
+        const subGain = this.ctx.createGain();
+        subOsc.type = 'sawtooth';
+        subOsc.frequency.setValueAtTime(73.42, now);
+        const subFilter = this.ctx.createBiquadFilter();
+        subFilter.type = 'lowpass';
+        subFilter.frequency.setValueAtTime(220, now);
+
+        subGain.gain.setValueAtTime(0.0001, now);
+        subGain.gain.linearRampToValueAtTime(0.06, now + 0.05);
+        subGain.gain.exponentialRampToValueAtTime(0.0001, now + 1.95);
+
+        subOsc.connect(subFilter);
+        subFilter.connect(subGain);
+        subGain.connect(this.masterGain);
+        subOsc.start(now);
+        subOsc.stop(now + 2.0);
+
+        /* Voces de bronce sintético (Sawtooth + Triangle desafinadas) */
+        notes.forEach(n => {
+          const start = now + n.t;
+          const stop = start + n.d;
+
+          [-4, 4].forEach(detuneCents => {
+            const osc = this.ctx.createOscillator();
+            const filter = this.ctx.createBiquadFilter();
+            const gain = this.ctx.createGain();
+
+            osc.type = detuneCents < 0 ? 'sawtooth' : 'triangle';
+            osc.frequency.setValueAtTime(n.f, start);
+            osc.detune.setValueAtTime(detuneCents, start);
+
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(450, start);
+            filter.frequency.exponentialRampToValueAtTime(2600, start + 0.04);
+            filter.frequency.exponentialRampToValueAtTime(1100, stop);
+
+            gain.gain.setValueAtTime(0.0001, start);
+            gain.gain.linearRampToValueAtTime(0.038, start + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.0001, stop);
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(this.masterGain);
+
+            osc.start(start);
+            osc.stop(stop + 0.02);
+          });
+        });
+
+        /* Iniciar el bucle synthwave de fondo tras la fanfarria */
+        setTimeout(() => {
+          if (this.enabled && !document.hidden) {
+            this.startSynthLoop();
+          }
+        }, 1900);
+      }
+
+      /* (1.b) Bucle Synthwave (Arpegio + Bajo) en segundo plano */
+      startSynthLoop() {
+        if (this.loopTimer || !this.ensureReady()) return;
+        const stepDuration = 60 / 112 / 4; // Semicorcheas a 112 BPM (~0.134s)
+        this.nextNoteTime = this.ctx.currentTime + 0.05;
+
+        const scheduler = () => {
+          if (!this.enabled || !this.ctx) return;
+          while (this.nextNoteTime < this.ctx.currentTime + 0.25) {
+            this.scheduleSynthStep(this.stepIndex, this.nextNoteTime, stepDuration);
+            this.nextNoteTime += stepDuration;
+            this.stepIndex = (this.stepIndex + 1) % 32;
+          }
+        };
+
+        this.loopTimer = setInterval(scheduler, 100);
+      }
+
+      stopSynthLoop() {
+        if (this.loopTimer) {
+          clearInterval(this.loopTimer);
+          this.loopTimer = null;
+        }
+      }
+
+      scheduleSynthStep(step, time, duration) {
+        /* Bajo Synthwave pulsante */
+        const bassFreq = this.bassSequence[step];
+        if (bassFreq) {
+          const bOsc = this.ctx.createOscillator();
+          const bFilter = this.ctx.createBiquadFilter();
+          const bGain = this.ctx.createGain();
+
+          bOsc.type = 'sawtooth';
+          bOsc.frequency.setValueAtTime(bassFreq, time);
+
+          bFilter.type = 'lowpass';
+          bFilter.Q.setValueAtTime(3.0, time);
+          bFilter.frequency.setValueAtTime(520, time);
+          bFilter.frequency.exponentialRampToValueAtTime(140, time + duration * 0.9);
+
+          bGain.gain.setValueAtTime(0.0001, time);
+          bGain.gain.linearRampToValueAtTime(0.018, time + 0.01);
+          bGain.gain.exponentialRampToValueAtTime(0.0001, time + duration * 0.92);
+
+          bOsc.connect(bFilter);
+          bFilter.connect(bGain);
+          bGain.connect(this.masterGain);
+
+          bOsc.start(time);
+          bOsc.stop(time + duration);
+        }
+
+        /* Arpegio espacial cristalino */
+        const arpFreq = this.arpSequence[step];
+        if (arpFreq) {
+          const aOsc = this.ctx.createOscillator();
+          const aGain = this.ctx.createGain();
+
+          aOsc.type = 'triangle';
+          aOsc.frequency.setValueAtTime(arpFreq, time);
+
+          aGain.gain.setValueAtTime(0.0001, time);
+          aGain.gain.linearRampToValueAtTime(0.012, time + 0.008);
+          aGain.gain.exponentialRampToValueAtTime(0.0001, time + duration * 0.85);
+
+          aOsc.connect(aGain);
+          aGain.connect(this.masterGain);
+
+          aOsc.start(time);
+          aOsc.stop(time + duration);
+        }
+      }
+
+      /* (1.c) Blip de alta precisión al pasar el cursor */
+      playHover() {
+        const nowMs = performance.now();
+        if (nowMs - this.lastHoverTime < 65) return;
+        this.lastHoverTime = nowMs;
+
+        if (!this.ensureReady()) return;
+        const t = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1180, t);
+        osc.frequency.exponentialRampToValueAtTime(1760, t + 0.032);
+
+        gain.gain.setValueAtTime(0.0001, t);
+        gain.gain.linearRampToValueAtTime(0.018, t + 0.005);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.036);
+
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(t);
+        osc.stop(t + 0.04);
+      }
+
+      /* (1.d) Disparo Láser / Plasma Arcade al hacer clic en chips, tarjetas o botones */
+      playLaserClick(pitchBase = 1480, endPitch = 210) {
+        if (!this.ensureReady()) return;
+        const t = this.ctx.currentTime;
+
+        const osc = this.ctx.createOscillator();
+        const filter = this.ctx.createBiquadFilter();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(pitchBase, t);
+        osc.frequency.exponentialRampToValueAtTime(endPitch, t + 0.095);
+
+        filter.type = 'lowpass';
+        filter.Q.setValueAtTime(5, t);
+        filter.frequency.setValueAtTime(3200, t);
+        filter.frequency.exponentialRampToValueAtTime(400, t + 0.095);
+
+        gain.gain.setValueAtTime(0.0001, t);
+        gain.gain.linearRampToValueAtTime(0.045, t + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.1);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.masterGain);
+
+        osc.start(t);
+        osc.stop(t + 0.105);
+
+        /* Destello armónico superior */
+        const chime = this.ctx.createOscillator();
+        const chimeGain = this.ctx.createGain();
+        chime.type = 'sine';
+        chime.frequency.setValueAtTime(pitchBase * 0.5, t + 0.02);
+        chime.frequency.exponentialRampToValueAtTime(pitchBase * 0.75, t + 0.11);
+
+        chimeGain.gain.setValueAtTime(0.0001, t + 0.02);
+        chimeGain.gain.linearRampToValueAtTime(0.022, t + 0.03);
+        chimeGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+
+        chime.connect(chimeGain);
+        chimeGain.connect(this.masterGain);
+        chime.start(t + 0.02);
+        chime.stop(t + 0.125);
+      }
+
+      /* (1.e) Efecto Whoosh Espacial al hacer scroll entre secciones */
+      playScrollWhoosh() {
+        const nowMs = performance.now();
+        if (nowMs - this.lastWhooshTime < 950) return;
+        this.lastWhooshTime = nowMs;
+
+        if (!this.ensureReady() || !this.noiseBuffer) return;
+        const t = this.ctx.currentTime;
+
+        const noiseSource = this.ctx.createBufferSource();
+        noiseSource.buffer = this.noiseBuffer;
+
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.Q.setValueAtTime(3.2, t);
+        filter.frequency.setValueAtTime(220, t);
+        filter.frequency.exponentialRampToValueAtTime(1150, t + 0.16);
+        filter.frequency.exponentialRampToValueAtTime(260, t + 0.34);
+
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.0001, t);
+        gain.gain.linearRampToValueAtTime(0.048, t + 0.12);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.35);
+
+        noiseSource.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.masterGain);
+
+        noiseSource.start(t);
+        noiseSource.stop(t + 0.36);
+      }
+
+      toggle() {
+        this.enabled = !this.enabled;
+        try {
+          localStorage.setItem('vetatlas-audio-muted', String(!this.enabled));
+        } catch (e) {}
+
+        if (this.enabled) {
+          this.initContext();
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+          this.unlocked = true;
+          if (this.masterGain) {
+            this.masterGain.gain.setValueAtTime(0.85, this.ctx.currentTime);
+          }
+          if (!this.fanfarePlayed) {
+            this.fanfarePlayed = true;
+            this.playIntroFanfare();
+          } else {
+            this.playLaserClick(1320, 440);
+            this.startSynthLoop();
+          }
+        } else {
+          this.stopSynthLoop();
+          if (this.masterGain && this.ctx) {
+            this.masterGain.gain.setValueAtTime(0.0001, this.ctx.currentTime);
+          }
+        }
+        return this.enabled;
+      }
+    }
+
+    const sound = new ArcadeSpaceSoundEngine();
 
     /* Control del botón de sonido en la barra superior */
     const audioBtn = document.getElementById('audio-toggle-btn');
     const audioStatusLabel = document.getElementById('audio-status-label');
     const audioWavesPath = document.getElementById('audio-waves');
 
-    audioBtn.addEventListener('click', () => {
-      const active = sound.toggle();
+    function syncAudioButtonUI(active) {
       audioBtn.classList.toggle('muted', !active);
       audioBtn.setAttribute('aria-pressed', String(active));
-      audioStatusLabel.textContent = active ? 'Sonido: Activo' : 'Silenciado';
+      audioStatusLabel.textContent = active ? 'Audio: ON' : 'Silenciado';
       audioWavesPath.style.display = active ? 'block' : 'none';
+    }
+
+    syncAudioButtonUI(sound.enabled);
+
+    audioBtn.addEventListener('click', () => {
+      const active = sound.toggle();
+      syncAudioButtonUI(active);
     });
 
     /* =========================================================================
-       4. ESTADO REACTIVO, FILTROS Y RENDERIZADO DEL CATÁLOGO
+       4. GESTIÓN DE MODO CLARO / OSCURO ('vetatlas-theme')
+    ========================================================================= */
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    const sunIcon = document.getElementById('theme-icon-sun');
+    const moonIcon = document.getElementById('theme-icon-moon');
+    const metaThemeColor = document.getElementById('meta-theme-color');
+
+    function getCurrentTheme() {
+      return document.documentElement.classList.contains('light') ? 'light' : 'dark';
+    }
+
+    function applyTheme(theme, persist = false) {
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+
+      if (sunIcon && moonIcon) {
+        /* En modo oscuro mostramos el Sol; en modo claro mostramos la Luna */
+        sunIcon.style.display = theme === 'dark' ? 'block' : 'none';
+        moonIcon.style.display = theme === 'light' ? 'block' : 'none';
+      }
+
+      if (metaThemeColor) {
+        metaThemeColor.setAttribute('content', theme === 'light' ? '#f4f7fb' : '#050811');
+      }
+
+      if (persist) {
+        try {
+          localStorage.setItem('vetatlas-theme', theme);
+        } catch (e) {}
+      }
+
+      if (typeof window.updateHero3DTheme === 'function') {
+        window.updateHero3DTheme(theme);
+      }
+    }
+
+    applyTheme(getCurrentTheme(), false);
+
+    themeToggleBtn.addEventListener('mouseenter', () => sound.playHover());
+    themeToggleBtn.addEventListener('click', () => {
+      const nextTheme = getCurrentTheme() === 'dark' ? 'light' : 'dark';
+      sound.playLaserClick(nextTheme === 'light' ? 1680 : 980, nextTheme === 'light' ? 660 : 240);
+      applyTheme(nextTheme, true);
+    });
+
+    /* Escuchar cambios del sistema operativo si el usuario aún no fijó preferencia manual */
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+        try {
+          if (!localStorage.getItem('vetatlas-theme')) {
+            applyTheme(e.matches ? 'light' : 'dark', false);
+          }
+        } catch (err) {}
+      });
+    }
+
+    /* =========================================================================
+       5. ESTADO REACTIVO, FILTROS Y RENDERIZADO DEL CATÁLOGO
     ========================================================================= */
     const state = {
       selectedArea: 'Todas',
@@ -1731,7 +2392,7 @@
       areaChipsContainer.querySelectorAll('.filter-chip').forEach(btn => {
         btn.addEventListener('mouseenter', () => sound.playHover());
         btn.addEventListener('click', () => {
-          sound.playHarmonicChime(587.33, 880, 0.03);
+          sound.playLaserClick(1520, 260);
           state.selectedArea = btn.getAttribute('data-area');
           updateUI();
         });
@@ -1741,7 +2402,7 @@
       speciesChipsContainer.querySelectorAll('.filter-chip').forEach(btn => {
         btn.addEventListener('mouseenter', () => sound.playHover());
         btn.addEventListener('click', () => {
-          sound.playHarmonicChime(659.25, 987.77, 0.03);
+          sound.playLaserClick(1680, 310);
           state.selectedSpecies = btn.getAttribute('data-species');
           updateUI();
         });
@@ -1832,7 +2493,6 @@
       let htmlContent = '';
 
       if (state.selectedArea !== 'Todas') {
-        /* Si se seleccionó un área específica y no tiene enfermedades, mostrar tarjeta "Próximamente" */
         if (filteredDiseases.length > 0) {
           htmlContent = filteredDiseases.map(createDiseaseCardHTML).join('');
           resultsCounterText.textContent = `Área ${state.selectedArea}: ${filteredDiseases.length} guía(s) disponible(s)`;
@@ -1841,10 +2501,8 @@
           resultsCounterText.textContent = `Área ${state.selectedArea}: Próximamente`;
         }
       } else {
-        /* Vista de Todas las áreas */
         htmlContent = filteredDiseases.map(createDiseaseCardHTML).join('');
 
-        /* Si no hay búsqueda de texto ni filtro de especie restrictivo, mostrar también las áreas sin enfermedades como "Próximamente" */
         if (q.length === 0 && state.selectedSpecies === 'Todas') {
           const emptyAreas = AREAS.filter(a => getAreaCount(a) === 0);
           htmlContent += emptyAreas.map(createComingSoonCardHTML).join('');
@@ -1871,14 +2529,15 @@
 
       diseasesGridContainer.innerHTML = htmlContent;
 
-      /* Sonido sutil en las tarjetas generadas */
+      /* Efectos láser/blip en tarjetas generadas */
       diseasesGridContainer.querySelectorAll('.disease-card').forEach(card => {
         card.addEventListener('mouseenter', () => sound.playHover());
+        card.addEventListener('click', () => sound.playLaserClick(1380, 220));
       });
     }
 
     /* =========================================================================
-       5. SECCIÓN POR ÁREAS CON CONTADORES
+       6. SECCIÓN POR ÁREAS CON CONTADORES
     ========================================================================= */
     function renderAreasSection() {
       areasSummaryGrid.innerHTML = AREAS.map(areaName => {
@@ -1917,7 +2576,7 @@
         tile.addEventListener('mouseenter', () => sound.playHover());
         const triggerSelect = () => {
           const area = tile.getAttribute('data-select-area');
-          sound.playHarmonicChime(523.25, 783.99, 0.032);
+          sound.playLaserClick(1420, 240);
           state.selectedArea = area;
           updateUI();
           document.getElementById('catalogo-clinico').scrollIntoView({ behavior: 'smooth' });
@@ -1940,11 +2599,12 @@
     /* Eventos del Buscador en Vivo y Botón Reset */
     searchInput.addEventListener('input', (e) => {
       state.searchQuery = e.target.value;
+      sound.playHover();
       renderCatalog();
     });
 
     clearSearchBtn.addEventListener('click', () => {
-      sound.playHarmonicChime(440, 660, 0.025);
+      sound.playLaserClick(1100, 320);
       state.searchQuery = '';
       searchInput.value = '';
       searchInput.focus();
@@ -1952,7 +2612,7 @@
     });
 
     resetAllBtn.addEventListener('click', () => {
-      sound.playHarmonicChime(440, 880, 0.03);
+      sound.playLaserClick(1250, 280);
       state.selectedArea = 'Todas';
       state.selectedSpecies = 'Todas';
       state.searchQuery = '';
@@ -1960,15 +2620,25 @@
       updateUI();
     });
 
+    /* Sonido en botones del Hero y enlaces de navegación */
+    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-anchor').forEach(el => {
+      el.addEventListener('mouseenter', () => sound.playHover());
+      el.addEventListener('click', () => sound.playLaserClick(1560, 280));
+    });
+
     /* Inicializar Catálogo y Sección de Áreas */
     updateUI();
     renderAreasSection();
 
     /* =========================================================================
-       6. TRANSICIONES AL HACER SCROLL Y SOMBRA DEL HEADER
+       7. TRANSICIONES AL HACER SCROLL + WHOOSH ENTRE SECCIONES
     ========================================================================= */
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const headerEl = document.getElementById('top-header');
+    let userHasScrolled = false;
+
     window.addEventListener('scroll', () => {
+      userHasScrolled = true;
       headerEl.classList.toggle('scrolled', window.scrollY > 20);
     }, { passive: true });
 
@@ -1982,8 +2652,26 @@
 
     document.querySelectorAll('.reveal-on-scroll').forEach(el => scrollObserver.observe(el));
 
+    /* Detector de cambio de sección para disparar el efecto Whoosh espacial */
+    let activeSectionId = 'hero';
+    const sectionSpyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+          const secId = entry.target.getAttribute('data-section-spy');
+          if (secId && secId !== activeSectionId) {
+            activeSectionId = secId;
+            if (userHasScrolled && !prefersReducedMotion) {
+              sound.playScrollWhoosh();
+            }
+          }
+        }
+      });
+    }, { threshold: [0.25, 0.5] });
+
+    document.querySelectorAll('[data-section-spy]').forEach(sec => sectionSpyObserver.observe(sec));
+
     /* =========================================================================
-       7. ESCENA 3D EN THREE.JS (RED SINÁPTICA / MOLECULAR INTERACTIVA)
+       8. ESCENA 3D EN THREE.JS ADAPTATIVA AL TEMA Y OPTIMIZADA EN MÓVIL
     ========================================================================= */
     function initHero3D() {
       const canvas = document.getElementById('hero-canvas');
@@ -1995,14 +2683,15 @@
         renderer = new THREE.WebGLRenderer({
           canvas,
           alpha: true,
-          antialias: true,
+          antialias: window.innerWidth > 640,
           powerPreference: 'high-performance'
         });
       } catch (err) {
-        return; // Respaldo limpio si WebGL no está disponible
+        return;
       }
 
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      const isMobileViewport = window.innerWidth <= 640;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobileViewport ? 1.5 : 2));
       renderer.setSize(wrap.clientWidth, wrap.clientHeight);
 
       const scene = new THREE.Scene();
@@ -2010,7 +2699,6 @@
       camera.position.set(0, 0, 17);
 
       const rootGroup = new THREE.Group();
-      /* Desplazar ligeramente hacia la derecha en pantallas anchas para equilibrar el texto */
       rootGroup.position.x = window.innerWidth > 960 ? 3.2 : 0;
       scene.add(rootGroup);
 
@@ -2036,17 +2724,24 @@
       const innerMesh = new THREE.Mesh(innerGeo, innerMat);
       rootGroup.add(innerMesh);
 
-      /* Red de Nodos Sinápticos / Moleculares */
-      const NODE_COUNT = 135;
+      /* Reducción de partículas en móvil para fluidez de 60fps */
+      const NODE_COUNT = isMobileViewport ? 62 : 135;
       const positions = new Float32Array(NODE_COUNT * 3);
       const colors = new Float32Array(NODE_COUNT * 3);
       const velocities = [];
 
-      const palette = [
+      const darkPalette = [
         new THREE.Color('#38bdf8'),
         new THREE.Color('#10b981'),
         new THREE.Color('#f43f5e'),
         new THREE.Color('#a855f7')
+      ];
+
+      const lightPalette = [
+        new THREE.Color('#0284c7'),
+        new THREE.Color('#059669'),
+        new THREE.Color('#e11d48'),
+        new THREE.Color('#7c3aed')
       ];
 
       for (let i = 0; i < NODE_COUNT; i++) {
@@ -2063,11 +2758,6 @@
           vy: (Math.random() - 0.5) * 0.008,
           vz: (Math.random() - 0.5) * 0.008
         });
-
-        const c = palette[i % palette.length];
-        colors[i * 3] = c.r;
-        colors[i * 3 + 1] = c.g;
-        colors[i * 3 + 2] = c.b;
       }
 
       const nodesGeo = new THREE.BufferGeometry();
@@ -2075,7 +2765,7 @@
       nodesGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
       const nodesMat = new THREE.PointsMaterial({
-        size: 0.16,
+        size: isMobileViewport ? 0.2 : 0.16,
         vertexColors: true,
         transparent: true,
         opacity: 0.9
@@ -2099,11 +2789,40 @@
       const lineSegments = new THREE.LineSegments(linesGeo, linesMat);
       rootGroup.add(lineSegments);
 
+      /* Función para adaptar colores del 3D al tema activo (Claro / Oscuro) */
+      window.updateHero3DTheme = function(theme) {
+        const isLight = theme === 'light';
+        const palette = isLight ? lightPalette : darkPalette;
+
+        coreMat.color.set(isLight ? '#0284c7' : '#38bdf8');
+        coreMat.opacity = isLight ? 0.24 : 0.18;
+
+        innerMat.color.set(isLight ? '#059669' : '#10b981');
+        innerMat.opacity = isLight ? 0.32 : 0.25;
+
+        linesMat.color.set(isLight ? '#0284c7' : '#38bdf8');
+        linesMat.opacity = isLight ? 0.22 : 0.14;
+
+        const colorAttr = nodesGeo.attributes.color;
+        for (let i = 0; i < NODE_COUNT; i++) {
+          const c = palette[i % palette.length];
+          colorAttr.array[i * 3] = c.r;
+          colorAttr.array[i * 3 + 1] = c.g;
+          colorAttr.array[i * 3 + 2] = c.b;
+        }
+        colorAttr.needsUpdate = true;
+        renderer.render(scene, camera);
+      };
+
+      /* Aplicar el tema inicial al 3D */
+      window.updateHero3DTheme(getCurrentTheme());
+
       /* Interacción con puntero (Parallax suave) */
       let targetRotX = 0;
       let targetRotY = 0;
 
       window.addEventListener('pointermove', (e) => {
+        if (prefersReducedMotion) return;
         const nx = (e.clientX / window.innerWidth) * 2 - 1;
         const ny = (e.clientY / window.innerHeight) * 2 - 1;
         targetRotY = nx * 0.35;
@@ -2126,35 +2845,42 @@
         requestAnimationFrame(animate);
         const elapsed = clock.getElapsedTime();
 
-        /* Rotación orgánica de los núcleos */
-        coreMesh.rotation.y = elapsed * 0.14;
-        coreMesh.rotation.x = elapsed * 0.09;
-        innerMesh.rotation.y = -elapsed * 0.22;
-        innerMesh.rotation.z = elapsed * 0.15;
+        if (!prefersReducedMotion) {
+          /* Rotación orgánica de los núcleos */
+          coreMesh.rotation.y = elapsed * 0.14;
+          coreMesh.rotation.x = elapsed * 0.09;
+          innerMesh.rotation.y = -elapsed * 0.22;
+          innerMesh.rotation.z = elapsed * 0.15;
 
-        const pulse = 1 + Math.sin(elapsed * 1.8) * 0.04;
-        coreMesh.scale.set(pulse, pulse, pulse);
+          const pulse = 1 + Math.sin(elapsed * 1.8) * 0.04;
+          coreMesh.scale.set(pulse, pulse, pulse);
 
-        /* Actualizar posiciones de partículas y enlaces cercanos */
-        const posArr = nodesGeo.attributes.position.array;
-        for (let i = 0; i < NODE_COUNT; i++) {
-          const ix = i * 3;
-          posArr[ix] += velocities[i].vx;
-          posArr[ix + 1] += velocities[i].vy;
-          posArr[ix + 2] += velocities[i].vz;
+          /* Actualizar posiciones de partículas */
+          const posArr = nodesGeo.attributes.position.array;
+          for (let i = 0; i < NODE_COUNT; i++) {
+            const ix = i * 3;
+            posArr[ix] += velocities[i].vx;
+            posArr[ix + 1] += velocities[i].vy;
+            posArr[ix + 2] += velocities[i].vz;
 
-          const dist = Math.hypot(posArr[ix], posArr[ix + 1], posArr[ix + 2]);
-          if (dist > 8.6 || dist < 2.8) {
-            velocities[i].vx *= -1;
-            velocities[i].vy *= -1;
-            velocities[i].vz *= -1;
+            const dist = Math.hypot(posArr[ix], posArr[ix + 1], posArr[ix + 2]);
+            if (dist > 8.6 || dist < 2.8) {
+              velocities[i].vx *= -1;
+              velocities[i].vy *= -1;
+              velocities[i].vz *= -1;
+            }
           }
+          nodesGeo.attributes.position.needsUpdate = true;
+
+          /* Interpolación suave con el cursor */
+          rootGroup.rotation.y += (targetRotY + elapsed * 0.08 - rootGroup.rotation.y) * 0.05;
+          rootGroup.rotation.x += (targetRotX - rootGroup.rotation.x) * 0.05;
         }
-        nodesGeo.attributes.position.needsUpdate = true;
 
         /* Construir filamentos entre nodos cercanos */
+        const posArr = nodesGeo.attributes.position.array;
         let lineIdx = 0;
-        const threshold = 2.55;
+        const threshold = isMobileViewport ? 3.1 : 2.55;
         for (let i = 0; i < NODE_COUNT; i++) {
           for (let j = i + 1; j < NODE_COUNT; j++) {
             if (lineIdx >= maxLines) break;
@@ -2177,10 +2903,6 @@
         }
         linesGeo.setDrawRange(0, lineIdx * 2);
         linesGeo.attributes.position.needsUpdate = true;
-
-        /* Interpolación suave con el cursor */
-        rootGroup.rotation.y += (targetRotY + elapsed * 0.08 - rootGroup.rotation.y) * 0.05;
-        rootGroup.rotation.x += (targetRotX - rootGroup.rotation.x) * 0.05;
 
         renderer.render(scene, camera);
       }
