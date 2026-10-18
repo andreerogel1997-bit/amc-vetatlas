@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Celulitis Flemonosa Bacteriana | AMC VetAtlas · Animal Medical Center</title>
+  <link rel="icon" type="image/svg+xml" href="../../assets/amc-logo.svg" />
+  <link rel="icon" type="image/png" sizes="512x512" href="../../assets/amc-logo.png" />
+  <link rel="apple-touch-icon" href="../../assets/amc-logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -171,6 +174,13 @@
       height: 18px;
       color: var(--accent-cyan);
       flex-shrink: 0;
+    }
+    .brand-seal img.brand-seal-logo {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+      display: block;
+      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
     }
     .header-actions {
       display: flex;
@@ -1062,10 +1072,7 @@
     <div class="header-inner">
       <div class="brand-group">
         <div class="brand-seal">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/>
-            <path d="M12 8v8M8 12h8"/>
-          </svg>
+          <img class="brand-seal-logo" src="../../assets/amc-logo.svg" alt="" aria-hidden="true" width="30" height="30" />
           <span>AMC VetAtlas · Animal Medical Center</span>
         </div>
       </div>
@@ -2208,10 +2215,7 @@
     <div class="footer-inner">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-bottom:1px solid var(--border-subtle);padding-bottom:1.25rem;">
         <div class="brand-seal">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/>
-            <path d="M12 8v8M8 12h8"/>
-          </svg>
+          <img class="brand-seal-logo" src="../../assets/amc-logo.svg" alt="" aria-hidden="true" width="30" height="30" />
           <span>AMC VetAtlas · Animal Medical Center</span>
         </div>
         <div style="font-size:0.92rem;font-weight:600;color:var(--text-primary);">
@@ -3783,6 +3787,10 @@
     }
     renderQuiz();
 
+    const amcCertLogo = new Image();
+    amcCertLogo.onload = () => { if (typeof window.__updateCertTheme === 'function') window.__updateCertTheme(); };
+    amcCertLogo.src = '../../assets/amc-logo.png';
+
     function drawCertificate(score, total) {
       const c = document.getElementById('certCanvas');
       const ctx = c.getContext('2d');
@@ -3814,6 +3822,10 @@
       ctx.font = 'bold 18px Inter, sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText('AMC VETATLAS · ANIMAL MEDICAL CENTER', c.width / 2, 85);
+      if (amcCertLogo.complete && amcCertLogo.naturalWidth > 0) {
+        ctx.drawImage(amcCertLogo, 50, 44, 64, 64);
+        ctx.drawImage(amcCertLogo, c.width - 50 - 64, 44, 64, 64);
+      }
 
       ctx.fillStyle = isLight ? '#0f172a' : '#f8fafc';
       ctx.font = 'bold 32px Inter, sans-serif';
