@@ -2518,7 +2518,7 @@
        2. MOTOR DE SONIDO FUTURISTA ESTILO ARCADE ESPACIAL (WEB AUDIO API)
           Arranca en la primera interacción y guarda silencio en localStorage
        ========================================================================= */
-    const AUDIO_MUTE_KEY = 'vetatlas-epilepsy-muted';
+    const AUDIO_MUTE_KEY = 'vetatlas-audio-muted';
     let savedMute = false;
     try {
       savedMute = localStorage.getItem(AUDIO_MUTE_KEY) === 'true';
@@ -2599,6 +2599,7 @@
       },
 
       startSpacePad() {
+        return; /* Música de fondo ahora en assets/vetatlas-music.js (startSpacePad desactivado) */
         if (!this.ctx || !this.enabled || this.arpTimer) return;
         const notes = [110.0, 146.83, 164.81, 220.0, 196.0, 164.81, 130.81, 146.83];
         this.arpTimer = setInterval(() => {
@@ -4325,5 +4326,25 @@
     /* Dark mode: white text on the cyan->blue active tab was 2.4-3.7:1; darker gradient gives >=5.3:1. */
     html:not([data-theme="light"]) .tab-btn.active { background: linear-gradient(135deg, #0e7490, #1d4ed8); }
   </style>
+
+  <!-- Música de fondo arcade espacial original (AMC VetAtlas) -->
+  <script src="../../assets/vetatlas-music.js"></script>
+  <script>
+    /* Puente genérico: el botón de sonido de esta página también controla la música (API window.VetAtlasMusic). */
+    (function () {
+      var KEY = 'vetatlas-audio-muted';
+      function syncMusic() {
+        var m = window.VetAtlasMusic;
+        if (!m) return;
+        var muted = false;
+        try { muted = localStorage.getItem(KEY) === 'true'; } catch (e) {}
+        if (muted) { if (typeof m.stop === 'function') m.stop(); }
+        else if (typeof m.start === 'function') m.start();
+      }
+      document.addEventListener('click', function (e) {
+        if (e.target && e.target.closest && e.target.closest('#audioToggleBtn')) setTimeout(syncMusic, 0);
+      });
+    })();
+  </script>
 </body>
 </html>
