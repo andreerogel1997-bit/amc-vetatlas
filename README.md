@@ -42,6 +42,16 @@ Cada enfermedad es una página HTML autónoma en `area/slug/index.html`.
 
 Las áreas sin enfermedades aparecen solas como «Próximamente». Para crear un área nueva, agrégala a `AREAS` y su icono SVG a `AREA_ICONS`.
 
+## Certificado del examen final
+
+El certificado PNG lo dibuja el módulo compartido `assets/vetatlas-certificate.js` (script clásico). En cada página nueva:
+
+1. Carga `<script src="../../assets/vetatlas-certificate.js"></script>` **antes** del `<script type="module">`.
+2. Usa el mismo HTML del certificado (`#certNameInput`, `#renderCertBtn`, `#downloadCertBtn` y `#certCanvas` dentro de `.cert-stage`) y el CSS `.cert-controls` / `.cert-stage` / `#certCanvas` de las páginas existentes.
+3. Dibuja con `window.VetAtlasCert.draw(canvas, { nombre, curso, titulo, temas, puntaje, total, fecha, tema, logoSrc: '../../assets/amc-logo.png' })`, descarga con `window.VetAtlasCert.download(canvas, 'Certificado_X_AMC_VetAtlas.png')` y, al calificar, anima con `window.VetAtlasCert.celebrate(canvas, { confeti: aprobado })`. Redibuja en el hook de tema y en el `input` del nombre (con debounce).
+
+Vista previa: `cert-preview.html`.
+
 ## Logo
 
 Sube el logo como `assets/amc-logo.png` (cuadrado, fondo transparente). No hace falta tocar el código.
