@@ -2550,6 +2550,7 @@
 
       // Bucle synthwave espacial suave
       startAmbient() {
+        return; /* Música de fondo ahora en assets/vetatlas-music.js (startAmbient desactivado) */
         if (!this.ctx || !this.enabled || this.loopTimer) return;
         const arpNotes = [110.0, 130.81, 164.81, 196.0, 220.0, 196.0, 164.81, 130.81]; // A2-C3-E3-G3-A3
         this.loopTimer = setInterval(() => {
@@ -3991,5 +3992,25 @@
     #hud3dTelemetry .mono-badge { background: var(--label3d-bg, rgba(7, 11, 20, 0.92)) !important; opacity: 1 !important; }
     html[data-theme="light"] #hud3dPressure[style*="color"] { color: #991b1b !important; }
   </style>
+
+  <!-- Música de fondo arcade espacial original (AMC VetAtlas) -->
+  <script src="../../assets/vetatlas-music.js"></script>
+  <script>
+    /* Puente genérico: el botón de sonido de esta página también controla la música (API window.VetAtlasMusic). */
+    (function () {
+      var KEY = 'vetatlas-audio-muted';
+      function syncMusic() {
+        var m = window.VetAtlasMusic;
+        if (!m) return;
+        var muted = false;
+        try { muted = localStorage.getItem(KEY) === 'true'; } catch (e) {}
+        if (muted) { if (typeof m.stop === 'function') m.stop(); }
+        else if (typeof m.start === 'function') m.start();
+      }
+      document.addEventListener('click', function (e) {
+        if (e.target && e.target.closest && e.target.closest('#audioToggleBtn')) setTimeout(syncMusic, 0);
+      });
+    })();
+  </script>
 </body>
 </html>
