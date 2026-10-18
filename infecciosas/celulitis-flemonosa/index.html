@@ -911,12 +911,66 @@
       align-items: center;
       gap: 1rem;
     }
-    #certCanvas {
-      max-width: 100%;
-      height: auto;
+    .cert-controls {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    .cert-controls label {
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+    .cert-controls input {
+      min-height: 44px;
+      padding: 0.45rem 0.75rem;
+      border-radius: 6px;
       border: 1px solid var(--border-highlight);
+      background: var(--bg-base);
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      flex: 1 1 220px;
+      min-width: 220px;
+      max-width: 340px;
+    }
+    .cert-controls .btn-action {
+      min-height: 44px;
+    }
+    .cert-stage {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+    }
+    #certCanvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1600 / 1131;
       border-radius: var(--radius-md);
-      box-shadow: var(--shadow-lg);
+      background: #171009;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(199, 154, 62, 0.45);
+    }
+    [data-theme="light"] #certCanvas {
+      background: #fbf6ea;
+      box-shadow: 0 14px 40px rgba(110, 75, 20, 0.22), 0 0 0 1px rgba(154, 111, 40, 0.45);
+    }
+    @media (max-width: 600px) {
+      .cert-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .cert-controls input {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        flex: none;
+        font-size: 1rem;
+      }
+      .cert-controls .btn-action {
+        width: 100%;
+      }
     }
 
     /* Commons Gallery */
@@ -2117,13 +2171,15 @@
           <h4 id="quizScoreHeading">Resultado</h4>
           <p id="quizScoreSummary"></p>
           <div class="cert-preview-wrap">
-            <div style="display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;justify-content:center;">
-              <label for="certNameInput" style="font-size:0.84rem;">Nombre para el Certificado:</label>
-              <input id="certNameInput" type="text" placeholder="Ej. Dr. / Dra. Nombre Apellido" value="Profesional Veterinario" style="min-height:44px;padding:0.45rem 0.75rem;border-radius:6px;border:1px solid var(--border-highlight);background:var(--bg-base);color:var(--text-primary);font-size:0.85rem;" />
-              <button id="renderCertBtn" class="btn-action" type="button">Actualizar Insignia</button>
+            <div class="cert-controls">
+              <label for="certNameInput">Nombre para el Certificado:</label>
+              <input id="certNameInput" type="text" maxlength="80" autocomplete="name" placeholder="Ej. Dr. / Dra. Nombre Apellido" value="Profesional Veterinario" />
+              <button id="renderCertBtn" class="btn-action" type="button">Actualizar Certificado</button>
               <button id="downloadCertBtn" class="btn-action active-sound" type="button">Descargar Certificado PNG</button>
             </div>
-            <canvas id="certCanvas" width="900" height="540"></canvas>
+            <div class="cert-stage">
+              <canvas id="certCanvas" width="1600" height="1131" role="img" aria-label="Certificado de AMC VetAtlas"></canvas>
+            </div>
           </div>
         </div>
       </section>
@@ -2398,6 +2454,7 @@
     }
   </style>
 
+  <script src="../../assets/vetatlas-certificate.js"></script>
   <script type="module">
     import * as THREE from 'three';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -3787,93 +3844,43 @@
     }
     renderQuiz();
 
-    const amcCertLogo = new Image();
-    amcCertLogo.onload = () => { if (typeof window.__updateCertTheme === 'function') window.__updateCertTheme(); };
-    amcCertLogo.src = '../../assets/amc-logo.png';
+    /* Certificado PNG: lo dibuja el módulo compartido assets/vetatlas-certificate.js */
+    const CERT = {
+      titulo: 'Certificado de Competencia Clínica',
+      curso: 'Celulitis Flemonosa Bacteriana en Medicina Veterinaria',
+      temas: 'Directrices ISCAID · Estándares CLSI VET-series · Diagnóstico POCUS y PAAF',
+      archivo: 'Certificado_Celulitis_Flemonosa_AMC_VetAtlas.png',
+      logoSrc: '../../assets/amc-logo.png'
+    };
+    let certFecha = new Date();
+    let certNameTimer = null;
+
+    function getQuizScore() {
+      let score = 0;
+      quizQuestions.forEach((q, idx) => { if (userAnswers[idx] === q.ans) score++; });
+      return score;
+    }
 
     function drawCertificate(score, total) {
-      const c = document.getElementById('certCanvas');
-      const ctx = c.getContext('2d');
-      const name = document.getElementById('certNameInput').value.trim() || 'Profesional Veterinario';
-      const pct = Math.round((score / total) * 100);
-      const isLight = currentTheme === 'light';
-
-      const grad = ctx.createLinearGradient(0, 0, c.width, c.height);
-      if (isLight) {
-        grad.addColorStop(0, '#f8fafc');
-        grad.addColorStop(0.5, '#ffffff');
-        grad.addColorStop(1, '#e2e8f0');
-      } else {
-        grad.addColorStop(0, '#070b14');
-        grad.addColorStop(0.5, '#0f172a');
-        grad.addColorStop(1, '#111c38');
-      }
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, c.width, c.height);
-
-      ctx.strokeStyle = isLight ? '#0284c7' : '#06b6d4';
-      ctx.lineWidth = 4;
-      ctx.strokeRect(22, 22, c.width - 44, c.height - 44);
-      ctx.strokeStyle = isLight ? 'rgba(217, 119, 6, 0.7)' : 'rgba(245, 158, 11, 0.6)';
-      ctx.lineWidth = 1.5;
-      ctx.strokeRect(32, 32, c.width - 64, c.height - 64);
-
-      ctx.fillStyle = isLight ? '#0284c7' : '#06b6d4';
-      ctx.font = 'bold 18px Inter, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('AMC VETATLAS · ANIMAL MEDICAL CENTER', c.width / 2, 85);
-      if (amcCertLogo.complete && amcCertLogo.naturalWidth > 0) {
-        ctx.drawImage(amcCertLogo, 50, 44, 64, 64);
-        ctx.drawImage(amcCertLogo, c.width - 50 - 64, 44, 64, 64);
-      }
-
-      ctx.fillStyle = isLight ? '#0f172a' : '#f8fafc';
-      ctx.font = 'bold 32px Inter, sans-serif';
-      ctx.fillText('CERTIFICADO DE COMPETENCIA CLÍNICA', c.width / 2, 135);
-
-      ctx.fillStyle = isLight ? '#475569' : '#94a3b8';
-      ctx.font = '16px Inter, sans-serif';
-      ctx.fillText('Se otorga la presente insignia académica a:', c.width / 2, 180);
-
-      ctx.fillStyle = isLight ? '#b45309' : '#fde68a';
-      ctx.font = 'bold 30px Inter, sans-serif';
-      ctx.fillText(name, c.width / 2, 225);
-
-      ctx.fillStyle = isLight ? '#334155' : '#cbd5e1';
-      ctx.font = '17px Inter, sans-serif';
-      ctx.fillText('Por completar el módulo avanzado de actualización médica y quirúrgica:', c.width / 2, 270);
-
-      ctx.fillStyle = isLight ? '#0369a1' : '#38bdf8';
-      ctx.font = 'bold 22px Inter, sans-serif';
-      ctx.fillText('«Celulitis Flemonosa Bacteriana en Medicina Veterinaria»', c.width / 2, 308);
-
-      ctx.fillStyle = isLight ? 'rgba(5, 150, 105, 0.14)' : 'rgba(16, 185, 129, 0.16)';
-      ctx.strokeStyle = isLight ? '#059669' : '#10b981';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.roundRect(c.width / 2 - 170, 338, 340, 64, 12);
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.fillStyle = isLight ? '#065f46' : '#6ee7b7';
-      ctx.font = 'bold 22px JetBrains Mono, monospace';
-      ctx.fillText(`PUNTAJE: ${score}/${total} (${pct}%)`, c.width / 2, 378);
-
-      ctx.fillStyle = isLight ? '#475569' : '#94a3b8';
-      ctx.font = '14px Inter, sans-serif';
-      ctx.fillText('Directrices ISCAID · Estándares CLSI VET-series · Diagnóstico POCUS y PAAF', c.width / 2, 445);
-
-      ctx.fillStyle = isLight ? '#0f172a' : '#f8fafc';
-      ctx.font = 'bold 15px Inter, sans-serif';
-      ctx.fillText('Guía didáctica preparada por Andreé, médico veterinario.', c.width / 2, 482);
+      if (!window.VetAtlasCert) return Promise.resolve(null);
+      return window.VetAtlasCert.draw(document.getElementById('certCanvas'), {
+        nombre: document.getElementById('certNameInput').value.trim() || 'Profesional Veterinario',
+        curso: CERT.curso,
+        titulo: CERT.titulo,
+        temas: CERT.temas,
+        puntaje: score,
+        total: total,
+        fecha: certFecha,
+        tema: currentTheme,
+        logoSrc: CERT.logoSrc
+      }).catch((err) => {
+        console.warn('Certificado:', err);
+        return null;
+      });
     }
 
     window.__updateCertTheme = () => {
-      if (quizSubmitted) {
-        let score = 0;
-        quizQuestions.forEach((q, idx) => { if (userAnswers[idx] === q.ans) score++; });
-        drawCertificate(score, quizQuestions.length);
-      }
+      if (quizSubmitted) drawCertificate(getQuizScore(), quizQuestions.length);
     };
 
     document.getElementById('submitQuizBtn').addEventListener('click', () => {
@@ -3894,7 +3901,12 @@
       document.getElementById('quizScoreSummary').textContent = score === quizQuestions.length
         ? '¡Dominio sobresaliente de todos los módulos fisiopatológicos, diagnósticos y terapéuticos!'
         : 'Revisa las explicaciones detalladas en cada pregunta o usa el botón de repaso de errores.';
-      drawCertificate(score, quizQuestions.length);
+      certFecha = new Date();
+      drawCertificate(score, quizQuestions.length).then(() => {
+        if (window.VetAtlasCert) {
+          window.VetAtlasCert.celebrate(document.getElementById('certCanvas'), { confeti: score / quizQuestions.length >= 0.7 });
+        }
+      });
     });
 
     document.getElementById('filterErrorsBtn').addEventListener('click', (e) => {
@@ -3914,20 +3926,31 @@
       renderQuiz();
     });
 
+    document.getElementById('certNameInput').addEventListener('input', () => {
+      clearTimeout(certNameTimer);
+      certNameTimer = setTimeout(() => {
+        certNameTimer = null;
+        if (quizSubmitted) drawCertificate(getQuizScore(), quizQuestions.length);
+      }, 220);
+    });
+
     document.getElementById('renderCertBtn').addEventListener('click', () => {
       SoundEngine.click();
-      let score = 0;
-      quizQuestions.forEach((q, idx) => { if (userAnswers[idx] === q.ans) score++; });
-      drawCertificate(score, quizQuestions.length);
+      drawCertificate(getQuizScore(), quizQuestions.length);
     });
 
     document.getElementById('downloadCertBtn').addEventListener('click', () => {
       SoundEngine.victory();
+      if (!window.VetAtlasCert) return;
       const c = document.getElementById('certCanvas');
-      const link = document.createElement('a');
-      link.download = 'Certificado_Celulitis_Flemonosa_AMC_VetAtlas.png';
-      link.href = c.toDataURL('image/png');
-      link.click();
+      if (certNameTimer) {
+        // Hay un nombre recién escrito sin dibujar: se dibuja y luego se descarga
+        clearTimeout(certNameTimer);
+        certNameTimer = null;
+        drawCertificate(getQuizScore(), quizQuestions.length).then(() => window.VetAtlasCert.download(c, CERT.archivo));
+      } else {
+        window.VetAtlasCert.download(c, CERT.archivo);
+      }
     });
 
     /* =========================================================================

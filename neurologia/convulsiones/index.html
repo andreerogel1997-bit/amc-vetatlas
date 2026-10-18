@@ -1063,12 +1063,66 @@
       align-items: center;
       gap: 0.95rem;
     }
-    #certCanvas {
-      max-width: 100%;
-      height: auto;
+    .cert-controls {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    .cert-controls label {
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+    .cert-controls input {
+      min-height: 44px;
+      padding: 0.45rem 0.75rem;
+      border-radius: 6px;
       border: 1px solid var(--border-highlight);
+      background: var(--bg-base);
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      flex: 1 1 220px;
+      min-width: 220px;
+      max-width: 340px;
+    }
+    .cert-controls .btn-action {
+      min-height: 44px;
+    }
+    .cert-stage {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+    }
+    #certCanvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1600 / 1131;
       border-radius: var(--radius-md);
-      box-shadow: var(--shadow-lg);
+      background: #171009;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(199, 154, 62, 0.45);
+    }
+    [data-theme="light"] #certCanvas {
+      background: #fbf6ea;
+      box-shadow: 0 14px 40px rgba(110, 75, 20, 0.22), 0 0 0 1px rgba(154, 111, 40, 0.45);
+    }
+    @media (max-width: 600px) {
+      .cert-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .cert-controls input {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        flex: none;
+        font-size: 1rem;
+      }
+      .cert-controls .btn-action {
+        width: 100%;
+      }
     }
 
     /* Pie de Página y 67 Fuentes */
@@ -2303,13 +2357,15 @@
           <h4 id="quizScoreHeading">Resultado</h4>
           <p id="quizScoreSummary"></p>
           <div class="cert-preview-wrap">
-            <div style="display:flex;gap:0.55rem;flex-wrap:wrap;align-items:center;justify-content:center;width:100%;">
-              <label for="certNameInput" style="font-size:0.83rem;font-weight:600;">Nombre para el Certificado:</label>
-              <input id="certNameInput" type="text" placeholder="Ej. Dr. / Dra. Nombre Apellido" value="Profesional Veterinario" style="min-height:44px;padding:0.45rem 0.75rem;border-radius:6px;border:1px solid var(--border-highlight);background:var(--bg-base);color:var(--text-primary);font-size:0.84rem;min-width:220px;" />
-              <button id="renderCertBtn" class="btn-action" type="button">Actualizar Insignia</button>
+            <div class="cert-controls">
+              <label for="certNameInput">Nombre para el Certificado:</label>
+              <input id="certNameInput" type="text" maxlength="80" autocomplete="name" placeholder="Ej. Dr. / Dra. Nombre Apellido" value="Profesional Veterinario" />
+              <button id="renderCertBtn" class="btn-action" type="button">Actualizar Certificado</button>
               <button id="downloadCertBtn" class="btn-action active-sound" type="button">Descargar Certificado PNG</button>
             </div>
-            <canvas id="certCanvas" width="920" height="550"></canvas>
+            <div class="cert-stage">
+              <canvas id="certCanvas" width="1600" height="1131" role="img" aria-label="Certificado de AMC VetAtlas"></canvas>
+            </div>
           </div>
         </div>
       </section>
@@ -2479,6 +2535,7 @@
   </style>
 
   <!-- LÓGICA INTERACTIVA PRINCIPAL: AUDIO, HERO CANVAS, TABS, CEREBRO 3D, SIMULADOR TDM, MINI JUEGOS Y EXAMEN -->
+  <script src="../../assets/vetatlas-certificate.js"></script>
   <script type="module">
     import * as THREE from 'three';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -4132,100 +4189,45 @@
       return { title: 'INSIGNIA BRONCE · EN ENTRENAMIENTO NEUROCLÍNICO', color: '#94a3b8' };
     }
 
-    const amcCertLogo = new Image();
-    amcCertLogo.onload = () => { if (typeof window.__redrawCertificate === 'function') window.__redrawCertificate(); };
-    amcCertLogo.src = '../../assets/amc-logo.png';
+    /* Certificado PNG: lo dibuja el módulo compartido assets/vetatlas-certificate.js */
+    const CERT = {
+      titulo: 'Certificado de Competencia en Epileptología',
+      curso: 'Convulsiones y epilepsia en perros y gatos (Consensos IVETF / ACVIM)',
+      temas: 'Fisiopatología PDS · Niveles IVETF I–III · Status Epilepticus · TDM Canino y Felino',
+      archivo: 'Certificado_Epilepsia_Canina_Felina_AMC_VetAtlas.png',
+      logoSrc: '../../assets/amc-logo.png'
+    };
+    let certFecha = new Date();
+    let certNameTimer = null;
+
+    function getQuizScore() {
+      let score = 0;
+      quizQuestions.forEach((q, idx) => { if (userAnswers[idx] === q.ans) score++; });
+      return score;
+    }
 
     function drawCertificate(score, total) {
-      const c = document.getElementById('certCanvas');
-      const ctx = c.getContext('2d');
-      const name = document.getElementById('certNameInput').value.trim() || 'Profesional Veterinario';
-      const pct = Math.round((score / total) * 100);
-      const badge = getBadgeTier(pct);
-      const isLight = getActiveTheme() === 'light';
-
-      const grad = ctx.createLinearGradient(0, 0, c.width, c.height);
-      if (isLight) {
-        grad.addColorStop(0, '#f8fafc');
-        grad.addColorStop(0.5, '#ffffff');
-        grad.addColorStop(1, '#e2e8f0');
-      } else {
-        grad.addColorStop(0, '#060a14');
-        grad.addColorStop(0.5, '#0f172a');
-        grad.addColorStop(1, '#131c38');
-      }
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, c.width, c.height);
-
-      // Marco doble
-      ctx.strokeStyle = isLight ? '#0369a1' : '#06b6d4';
-      ctx.lineWidth = 4;
-      ctx.strokeRect(22, 22, c.width - 44, c.height - 44);
-      ctx.strokeStyle = badge.color;
-      ctx.lineWidth = 1.8;
-      ctx.strokeRect(32, 32, c.width - 64, c.height - 64);
-
-      // Sello superior
-      ctx.fillStyle = isLight ? '#0369a1' : '#38bdf8';
-      ctx.font = 'bold 17px Inter, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('AMC VETATLAS · ANIMAL MEDICAL CENTER', c.width / 2, 78);
-      if (amcCertLogo.complete && amcCertLogo.naturalWidth > 0) {
-        ctx.drawImage(amcCertLogo, 50, 42, 56, 56);
-        ctx.drawImage(amcCertLogo, c.width - 50 - 56, 42, 56, 56);
-      }
-
-      ctx.fillStyle = isLight ? '#0f172a' : '#f8fafc';
-      ctx.font = 'bold 30px Inter, sans-serif';
-      ctx.fillText('CERTIFICADO DE COMPETENCIA EN EPILEPTOLOGÍA', c.width / 2, 122);
-
-      ctx.fillStyle = isLight ? '#475569' : '#94a3b8';
-      ctx.font = '15px Inter, sans-serif';
-      ctx.fillText('Se otorga el presente reconocimiento académico y clínico a:', c.width / 2, 162);
-
-      ctx.fillStyle = isLight ? '#b45309' : '#fde68a';
-      ctx.font = 'bold 29px Inter, sans-serif';
-      ctx.fillText(name, c.width / 2, 206);
-
-      ctx.fillStyle = isLight ? '#334155' : '#cbd5e1';
-      ctx.font = '16px Inter, sans-serif';
-      ctx.fillText('Por acreditar el dominio diagnóstico y terapéutico del módulo:', c.width / 2, 246);
-
-      ctx.fillStyle = isLight ? '#1d4ed8' : '#67e8f9';
-      ctx.font = 'bold 21px Inter, sans-serif';
-      ctx.fillText('«Convulsiones y epilepsia en perros y gatos (Consensos IVETF / ACVIM)»', c.width / 2, 282);
-
-      // Medalla / Insignia central
-      ctx.fillStyle = isLight ? 'rgba(3, 105, 161, 0.1)' : 'rgba(15, 23, 42, 0.85)';
-      ctx.strokeStyle = badge.color;
-      ctx.lineWidth = 2.5;
-      ctx.beginPath();
-      ctx.roundRect(c.width / 2 - 235, 308, 470, 88, 12);
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.fillStyle = badge.color;
-      ctx.font = 'bold 16px JetBrains Mono, monospace';
-      ctx.fillText(badge.title, c.width / 2, 342);
-
-      ctx.fillStyle = isLight ? '#0f172a' : '#ffffff';
-      ctx.font = 'bold 22px JetBrains Mono, monospace';
-      ctx.fillText(`CALIFICACIÓN: ${score} / ${total} (${pct}%)`, c.width / 2, 376);
-
-      ctx.fillStyle = isLight ? '#475569' : '#94a3b8';
-      ctx.font = '13.5px Inter, sans-serif';
-      ctx.fillText('Fisiopatología PDS · Niveles IVETF I–III · Status Epilepticus · TDM Canino y Felino', c.width / 2, 442);
-
-      ctx.fillStyle = isLight ? '#0f172a' : '#f8fafc';
-      ctx.font = 'bold 15px Inter, sans-serif';
-      ctx.fillText('Guía didáctica preparada por Andreé, médico veterinario.', c.width / 2, 482);
+      if (!window.VetAtlasCert) return Promise.resolve(null);
+      return window.VetAtlasCert.draw(document.getElementById('certCanvas'), {
+        nombre: document.getElementById('certNameInput').value.trim() || 'Profesional Veterinario',
+        curso: CERT.curso,
+        titulo: CERT.titulo,
+        temas: CERT.temas,
+        insignia: getBadgeTier(Math.round((score / total) * 100)).title,
+        puntaje: score,
+        total: total,
+        fecha: certFecha,
+        tema: getActiveTheme(),
+        logoSrc: CERT.logoSrc
+      }).catch((err) => {
+        console.warn('Certificado:', err);
+        return null;
+      });
     }
 
     window.__redrawCertificate = () => {
       if (!quizSubmitted) return;
-      let s = 0;
-      quizQuestions.forEach((q, i) => { if (userAnswers[i] === q.ans) s++; });
-      drawCertificate(s, quizQuestions.length);
+      drawCertificate(getQuizScore(), quizQuestions.length);
     };
 
     document.getElementById('submitQuizBtn').addEventListener('click', () => {
@@ -4248,7 +4250,12 @@
       document.getElementById('quizScoreSummary').textContent = score === quizQuestions.length
         ? '¡Excelencia clínica! Has respondido correctamente las 12 preguntas basadas en los consensos IVETF y ACVIM.'
         : 'Revisa las explicaciones detalladas en cada reactivo o pulsa "Ver Solo Errores para Repaso" para reforzar conceptos.';
-      drawCertificate(score, quizQuestions.length);
+      certFecha = new Date();
+      drawCertificate(score, quizQuestions.length).then(() => {
+        if (window.VetAtlasCert) {
+          window.VetAtlasCert.celebrate(document.getElementById('certCanvas'), { confeti: score / quizQuestions.length >= 0.7 });
+        }
+      });
     });
 
     document.getElementById('filterErrorsBtn').addEventListener('click', (e) => {
@@ -4268,20 +4275,31 @@
       renderQuiz();
     });
 
+    document.getElementById('certNameInput').addEventListener('input', () => {
+      clearTimeout(certNameTimer);
+      certNameTimer = setTimeout(() => {
+        certNameTimer = null;
+        if (quizSubmitted) drawCertificate(getQuizScore(), quizQuestions.length);
+      }, 220);
+    });
+
     document.getElementById('renderCertBtn').addEventListener('click', () => {
       SoundEngine.blip();
-      let score = 0;
-      quizQuestions.forEach((q, idx) => { if (userAnswers[idx] === q.ans) score++; });
-      drawCertificate(score, quizQuestions.length);
+      drawCertificate(getQuizScore(), quizQuestions.length);
     });
 
     document.getElementById('downloadCertBtn').addEventListener('click', () => {
       SoundEngine.win();
+      if (!window.VetAtlasCert) return;
       const c = document.getElementById('certCanvas');
-      const link = document.createElement('a');
-      link.download = 'Certificado_Epilepsia_Canina_Felina_AMC_VetAtlas.png';
-      link.href = c.toDataURL('image/png');
-      link.click();
+      if (certNameTimer) {
+        // Hay un nombre recién escrito sin dibujar: se dibuja y luego se descarga
+        clearTimeout(certNameTimer);
+        certNameTimer = null;
+        drawCertificate(getQuizScore(), quizQuestions.length).then(() => window.VetAtlasCert.download(c, CERT.archivo));
+      } else {
+        window.VetAtlasCert.download(c, CERT.archivo);
+      }
     });
 
     /* =========================================================================
