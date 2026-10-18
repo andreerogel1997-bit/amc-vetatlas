@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Animal Medical Center">
+  <defs>
+    <radialGradient id="h-bg" cx="50%" cy="38%" r="75%">
+      <stop offset="0%" stop-color="#211a12"/>
+      <stop offset="100%" stop-color="#171009"/>
+    </radialGradient>
+    <linearGradient id="h-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e6c274"/>
+      <stop offset="55%" stop-color="#c79a3e"/>
+      <stop offset="100%" stop-color="#9a6f28"/>
+    </linearGradient>
+  </defs>
+  <path d="M60 7 L 105.6 33.5 L 105.6 86.5 L 60 113 L 14.4 86.5 L 14.4 33.5 Z" fill="url(#h-bg)"/>
+  <path d="M60 7 L 105.6 33.5 L 105.6 86.5 L 60 113 L 14.4 86.5 L 14.4 33.5 Z" fill="none" stroke="url(#h-gold)" stroke-width="2.4" stroke-linejoin="round"/>
+  <path d="M60 13.5 L 99.8 36.9 L 99.8 83.1 L 60 106.5 L 20.2 83.1 L 20.2 36.9 Z" fill="none" stroke="#c79a3e" stroke-opacity=".28" stroke-width="1" stroke-linejoin="round"/>
+  <g stroke="#c79a3e" stroke-opacity=".5" stroke-width="1.3" fill="none" stroke-linecap="round">
+    <path d="M39 52 L 39 60 L 50 60"/>
+    <path d="M52 44 L 52 56"/>
+    <path d="M68 44 L 68 56"/>
+    <path d="M81 52 L 81 60 L 70 60"/>
+  </g>
+  <g fill="#c79a3e" fill-opacity=".55">
+    <circle cx="50" cy="60" r="1.6"/>
+    <circle cx="70" cy="60" r="1.6"/>
+  </g>
+  <circle cx="39" cy="52" r="5.8" fill="url(#h-gold)"/>
+  <circle cx="52" cy="44" r="6.6" fill="url(#h-gold)"/>
+  <circle cx="68" cy="44" r="6.6" fill="url(#h-gold)"/>
+  <circle cx="81" cy="52" r="5.8" fill="url(#h-gold)"/>
+  <g fill="none" stroke="#e6c274" stroke-opacity=".35" stroke-width="1">
+    <circle cx="52" cy="44" r="9.2"/>
+    <circle cx="68" cy="44" r="9.2"/>
+  </g>
+  <circle cx="50" cy="41.8" r="1.6" fill="#f4ede0" fill-opacity=".55"/>
+  <path d="M60 62 C 52.8 62 47 67.2 47 73.6 C 47 79.8 52.8 83.8 60 86.6 C 67.2 83.8 73 79.8 73 73.6 C 73 67.2 67.2 62 60 62 Z" fill="url(#h-gold)"/>
+  <path d="M53.5 68 C 55 65.8 57.6 65 59.8 65.3" fill="none" stroke="#f4ede0" stroke-opacity=".5" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M30 92 L 44 92 L 48 86.5 L 53 96 L 56.5 89.5 L 58.5 92 L 60 92 L 60 109" fill="none" stroke="#e6c274" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="60" cy="111" r="2.4" fill="url(#h-gold)"/>
+</svg>
