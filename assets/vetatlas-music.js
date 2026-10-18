@@ -1,24 +1,26 @@
 /**
- * AMC VetAtlas - Original Space Arcade Background Music Engine (vetatlas-music.js)
- * 100% Web Audio API | Cero archivos externos | 32 compases @ 145 BPM
+ * AMC VetAtlas - 8-Bit Chiptune Background Music Engine (vetatlas-music.js)
+ * 100% Web Audio API | Ondas de pulso 12.5% / 25% / 50% + Bajo Triangular + Ruido 8-Bit
+ * Estructura A-A-B-A en Sol Mayor @ 160 BPM (24 compases = 36 s por bucle)
  */
 (function (window, document) {
   'use strict';
 
   const STORAGE_KEY = 'vetatlas-audio-muted';
-  const DEFAULT_VOLUME = 0.18;
-  const BPM = 145;
-  const STEP_DURATION = 60 / BPM / 4; // Duración de semicorchea (~0.1034s)
-  const LOOKAHEAD_MS = 25;            // Intervalo del reloj en ms
+  const DEFAULT_VOLUME = 0.20;
+  const BPM = 160;
+  const STEP_DURATION = 60 / BPM / 4; // Semicorchea (~0.09375 s)
+  const LOOKAHEAD_MS = 25;            // Reloj del scheduler en ms
   const SCHEDULE_AHEAD_SEC = 0.12;    // Ventana de programación anticipada en s
-  const TOTAL_BARS = 32;
+  const TOTAL_BARS = 24;              // Estructura A (6) + A' (6) + B (6) + A'' (6)
   const STEPS_PER_BAR = 16;
-  const TOTAL_STEPS = TOTAL_BARS * STEPS_PER_BAR; // 512 pasos (~53s por vuelta)
+  const TOTAL_STEPS = TOTAL_BARS * STEPS_PER_BAR; // 384 pasos (36.0 s)
 
   let ctx = null;
   let masterGain = null;
   let compressor = null;
   let noiseBuffer = null;
+  let pulseWaves = null; // { p125, p25, p50 }
 
   let currentVolume = DEFAULT_VOLUME;
   let userInteracted = false;
@@ -29,95 +31,252 @@
   let nextNoteTime = 0;
   let pendingToggleMuted = null;
 
-  // Conversión MIDI a Hz
+  // Conversión de nota MIDI a frecuencia (Hz)
   function mtof(midi) {
     return 440 * Math.pow(2, (midi - 69) / 12);
   }
 
   /* =========================================================================
-     COMPOSICIÓN ORIGINAL DE 32 COMPASES (E menor / C Lidio / G Mayor Espacial)
-     - Sección A (0-7):   Fanfarria de Lanzamiento Orbital
-     - Sección B (8-15):  Vuelo de Escuadrón (Tema Heroico Principal)
-     - Sección C (16-23): Sector Nebulosa (Puente Cósmico y Tensión)
-     - Sección D (24-31): Clímax de Flota Estelar y Retorno
+     COMPOSICIÓN CHIPTUNE 8-BIT ORIGINAL EN SOL MAYOR (ESTRUCTURA A - A' - B - A'')
+     - Sección A  (Compases 0-5):   Gancho de 2 compases + Variación alta + Cadencia
+     - Sección A' (Compases 6-11):  Repetición del gancho con resolución triunfal
+     - Sección B  (Compases 12-17): Puente aventurero con timbre 12.5% y llamada/respuesta
+     - Sección A''(Compases 18-23): Retorno climático con floreo final de 8 bits
   ========================================================================= */
 
-  // Mapa armónico por compás: [notaGraveBajo, [notasDelArpegio]]
-  const HARMONY_MAP = [
-    // Sección A (Compases 0-7)
-    [40, [64, 67, 71, 76]], [40, [64, 71, 76, 79]], // Em
-    [36, [60, 64, 67, 71]], [38, [62, 66, 69, 74]], // Cmaj7 -> D
-    [40, [64, 67, 71, 76]], [36, [60, 64, 67, 72]], // Em -> C
-    [33, [57, 60, 64, 69]], [35, [59, 63, 66, 71]], // Am7 -> B7
+  // Mapa de bajo triangular por compás: arreglo de 8 corcheas (pasos pares 0,2,4,6,8,10,12,14)
+  const BASS_MAP = [
+    // --- Sección A (0-5) ---
+    [43, 55, 50, 55, 40, 52, 47, 52], // G -> E7
+    [45, 57, 48, 57, 50, 62, 52, 54], // Am7 -> D7 (walking)
+    [43, 55, 50, 55, 43, 55, 47, 53], // G -> G7
+    [48, 60, 52, 60, 48, 60, 51, 55], // C -> Cm6
+    [43, 55, 47, 50, 40, 52, 44, 47], // G/B -> E7
+    [45, 49, 52, 57, 50, 54, 57, 50], // A7 -> D7
 
-    // Sección B (Compases 8-15)
-    [36, [60, 64, 67, 72]], [38, [62, 66, 69, 74]], // C -> D
-    [35, [59, 62, 66, 71]], [40, [64, 67, 71, 76]], // Bm7 -> Em
-    [36, [60, 64, 67, 72]], [38, [62, 66, 69, 74]], // C -> D
-    [43, [59, 62, 67, 71]], [35, [59, 63, 66, 71]], // G -> B7
+    // --- Sección A' (6-11) ---
+    [43, 55, 50, 55, 40, 52, 47, 52], // G -> E7
+    [45, 57, 48, 57, 50, 62, 54, 50], // Am7 -> D7
+    [43, 55, 50, 55, 43, 55, 47, 53], // G -> G7
+    [48, 60, 52, 60, 48, 60, 51, 55], // C -> Cm6
+    [43, 50, 55, 52, 45, 52, 50, 54], // G -> Am7 -> D7
+    [43, 50, 47, 50, 43, 55, 50, 43], // G resolución
 
-    // Sección C (Compases 16-23)
-    [33, [60, 64, 69, 72]], [35, [62, 66, 69, 74]], // Am7 -> Bm7
-    [36, [64, 67, 71, 76]], [38, [66, 69, 74, 78]], // Cmaj7 -> D6
-    [33, [60, 64, 69, 72]], [40, [64, 67, 71, 76]], // Am7 -> Em
-    [41, [60, 65, 69, 72]], [35, [59, 63, 66, 71]], // Fmaj7 -> B7
+    // --- Sección B (12-17) ---
+    [48, 60, 55, 60, 48, 60, 52, 55], // Cmaj7
+    [50, 62, 57, 62, 50, 54, 57, 60], // D7
+    [47, 59, 54, 59, 40, 52, 47, 52], // Bm7 -> Em7
+    [45, 57, 49, 52, 50, 62, 54, 57], // A7 -> D7
+    [48, 60, 52, 55, 49, 61, 52, 55], // C -> C#dim7
+    [50, 50, 52, 52, 54, 54, 50, 45], // D7 corte rítmico y subida
 
-    // Sección D (Compases 24-31)
-    [40, [64, 71, 76, 79]], [38, [62, 69, 74, 78]], // Em -> D
-    [36, [60, 67, 72, 76]], [35, [59, 66, 71, 75]], // C -> B7
-    [33, [57, 64, 69, 72]], [35, [59, 66, 71, 74]], // Am -> Bm
-    [36, [60, 67, 72, 76]], [35, [59, 63, 66, 71]]  // C -> B7
+    // --- Sección A'' (18-23) ---
+    [43, 55, 50, 55, 40, 52, 47, 52], // G -> E7
+    [45, 57, 48, 57, 50, 62, 52, 54], // Am7 -> D7
+    [43, 55, 50, 55, 43, 55, 47, 53], // G -> G7
+    [48, 60, 52, 60, 48, 60, 51, 55], // C -> Cm6
+    [43, 55, 47, 50, 40, 52, 44, 47], // G -> E7
+    [45, 52, 50, 54, 43, 50, 55, 43]  // Am7 -> D7 -> G final
   ];
 
-  // Patrones de orden de arpegio de 16 pasos para variar la textura
-  const ARP_PATTERNS = {
-    fastUp:     [0, 1, 2, 3, 0, 1, 2, 3, 1, 2, 3, 2, 0, 1, 2, 3],
-    cosmicWave: [0, 2, 1, 3, 2, 3, 1, 2, 0, 2, 1, 3, 3, 2, 1, 0],
-    nebulaBell: [0, null, 2, 3, null, 2, 1, null, 0, null, 3, 2, null, 1, 2, null],
-    climaxRun:  [0, 1, 2, 3, 3, 2, 1, 0, 0, 2, 1, 3, 1, 3, 2, 3]
-  };
-
-  // Melodía original por compás: arreglo de eventos { s: paso(0-15), n: midi, l: duraciónEnPasos, t: timbre }
+  // Melodía Protagonista (Canal Pulse 1):
+  // s: paso(0-15), n: nota MIDI, l: duración en pasos, w: duty('p25'|'p125'|'p50'), slide: adorno opcional
   const LEAD_MELODY = [
-    // --- SECCIÓN A: Fanfarria Orbital (0-7) ---
-    [ { s: 0, n: 64, l: 3, t: 'brass' }, { s: 3, n: 67, l: 3, t: 'brass' }, { s: 6, n: 71, l: 2, t: 'brass' }, { s: 8, n: 76, l: 6, t: 'brass' }, { s: 14, n: 74, l: 2, t: 'brass' } ],
-    [ { s: 0, n: 71, l: 4, t: 'brass' }, { s: 4, n: 67, l: 4, t: 'brass' }, { s: 8, n: 64, l: 4, t: 'brass' }, { s: 12, n: 71, l: 2, t: 'brass' }, { s: 14, n: 74, l: 2, t: 'brass' } ],
-    [ { s: 0, n: 72, l: 6, t: 'brass' }, { s: 6, n: 71, l: 2, t: 'brass' }, { s: 8, n: 67, l: 4, t: 'brass' }, { s: 12, n: 72, l: 4, t: 'brass' } ],
-    [ { s: 0, n: 74, l: 3, t: 'brass' }, { s: 3, n: 76, l: 3, t: 'brass' }, { s: 6, n: 74, l: 2, t: 'brass' }, { s: 8, n: 71, l: 8, t: 'brass' } ],
-    [ { s: 0, n: 64, l: 3, t: 'brass' }, { s: 3, n: 71, l: 3, t: 'brass' }, { s: 6, n: 74, l: 2, t: 'brass' }, { s: 8, n: 76, l: 4, t: 'brass' }, { s: 12, n: 79, l: 4, t: 'brass' } ],
-    [ { s: 0, n: 78, l: 3, t: 'brass' }, { s: 3, n: 76, l: 3, t: 'brass' }, { s: 6, n: 72, l: 2, t: 'brass' }, { s: 8, n: 74, l: 6, t: 'brass' }, { s: 14, n: 71, l: 2, t: 'brass' } ],
-    [ { s: 0, n: 72, l: 4, t: 'brass' }, { s: 4, n: 69, l: 4, t: 'brass' }, { s: 8, n: 64, l: 4, t: 'brass' }, { s: 12, n: 72, l: 4, t: 'brass' } ],
-    [ { s: 0, n: 71, l: 6, t: 'brass' }, { s: 6, n: 75, l: 6, t: 'brass' }, { s: 12, n: 78, l: 4, t: 'brass' } ],
+    // ================= SECCIÓN A (Compases 0-5) =================
+    // Compás 0-1: GANCHO PRINCIPAL DE 2 COMPASES (Sincopado y saltarín)
+    [
+      { s: 0, n: 74, l: 2, w: 'p25' }, { s: 2, n: 71, l: 1, w: 'p25' },
+      { s: 3, n: 74, l: 3, w: 'p25', slide: true }, { s: 6, n: 79, l: 2, w: 'p25' },
+      { s: 8, n: 76, l: 2, w: 'p25' }, { s: 10, n: 71, l: 1, w: 'p25' },
+      { s: 11, n: 74, l: 3, w: 'p25' }, { s: 14, n: 71, l: 2, w: 'p25' }
+    ],
+    [
+      { s: 0, n: 72, l: 2, w: 'p25' }, { s: 2, n: 69, l: 1, w: 'p25' },
+      { s: 3, n: 72, l: 3, w: 'p25', slide: true }, { s: 6, n: 76, l: 2, w: 'p25' },
+      { s: 8, n: 74, l: 3, w: 'p25' }, { s: 11, n: 71, l: 1, w: 'p25' },
+      { s: 12, n: 69, l: 2, w: 'p25' }, { s: 14, n: 71, l: 2, w: 'p25' }
+    ],
+    // Compás 2-3: VARIACIÓN DEL GANCHO (Salto al registro agudo A5/G5 y giro modal C -> Cm6)
+    [
+      { s: 0, n: 74, l: 2, w: 'p25' }, { s: 2, n: 71, l: 1, w: 'p25' },
+      { s: 3, n: 74, l: 3, w: 'p25', slide: true }, { s: 6, n: 81, l: 2, w: 'p125' },
+      { s: 8, n: 79, l: 2, w: 'p25' }, { s: 10, n: 74, l: 1, w: 'p25' },
+      { s: 11, n: 77, l: 3, w: 'p25' }, { s: 14, n: 74, l: 2, w: 'p25' }
+    ],
+    [
+      { s: 0, n: 76, l: 2, w: 'p25' }, { s: 2, n: 72, l: 1, w: 'p25' },
+      { s: 3, n: 76, l: 3, w: 'p25', slide: true }, { s: 6, n: 79, l: 2, w: 'p125' },
+      { s: 8, n: 78, l: 1, w: 'p125' }, { s: 9, n: 79, l: 2, w: 'p25' },
+      { s: 11, n: 75, l: 3, w: 'p25' }, { s: 14, n: 74, l: 2, w: 'p25' }
+    ],
+    // Compás 4-5: CADENCIA Y RETORNO (Ragtime chiptune bounce)
+    [
+      { s: 0, n: 71, l: 2, w: 'p25' }, { s: 2, n: 74, l: 2, w: 'p25' },
+      { s: 4, n: 79, l: 3, w: 'p125', slide: true }, { s: 7, n: 76, l: 1, w: 'p25' },
+      { s: 8, n: 74, l: 2, w: 'p25' }, { s: 10, n: 71, l: 2, w: 'p25' },
+      { s: 12, n: 68, l: 2, w: 'p25' }, { s: 14, n: 71, l: 2, w: 'p25' }
+    ],
+    [
+      { s: 0, n: 69, l: 2, w: 'p25' }, { s: 2, n: 73, l: 2, w: 'p25' },
+      { s: 4, n: 76, l: 2, w: 'p25' }, { s: 6, n: 79, l: 2, w: 'p125' },
+      { s: 8, n: 78, l: 3, w: 'p25', slide: true }, { s: 11, n: 76, l: 1, w: 'p25' },
+      { s: 12, n: 74, l: 2, w: 'p25' }, { s: 14, n: 71, l: 2, w: 'p25' }
+    ],
 
-    // --- SECCIÓN B: Escuadrón Hiperespacial (8-15) ---
-    [ { s: 0, n: 79, l: 6, t: 'hero' }, { s: 6, n: 76, l: 2, t: 'hero' }, { s: 8, n: 72, l: 4, t: 'hero' }, { s: 12, n: 76, l: 4, t: 'hero' } ],
-    [ { s: 0, n: 78, l: 6, t: 'hero' }, { s: 6, n: 74, l: 2, t: 'hero' }, { s: 8, n: 69, l: 4, t: 'hero' }, { s: 12, n: 74, l: 4, t: 'hero' } ],
-    [ { s: 0, n: 74, l: 3, t: 'hero' }, { s: 3, n: 76, l: 3, t: 'hero' }, { s: 6, n: 78, l: 2, t: 'hero' }, { s: 8, n: 79, l: 4, t: 'hero' }, { s: 12, n: 74, l: 4, t: 'hero' } ],
-    [ { s: 0, n: 76, l: 8, t: 'hero' }, { s: 8, n: 71, l: 4, t: 'hero' }, { s: 12, n: 74, l: 2, t: 'hero' }, { s: 14, n: 76, l: 2, t: 'hero' } ],
-    [ { s: 0, n: 79, l: 4, t: 'hero' }, { s: 4, n: 81, l: 4, t: 'hero' }, { s: 8, n: 83, l: 4, t: 'hero' }, { s: 12, n: 79, l: 4, t: 'hero' } ],
-    [ { s: 0, n: 78, l: 4, t: 'hero' }, { s: 4, n: 79, l: 4, t: 'hero' }, { s: 8, n: 81, l: 6, t: 'hero' }, { s: 14, n: 78, l: 2, t: 'hero' } ],
-    [ { s: 0, n: 79, l: 6, t: 'hero' }, { s: 6, n: 74, l: 2, t: 'hero' }, { s: 8, n: 71, l: 4, t: 'hero' }, { s: 12, n: 74, l: 4, t: 'hero' } ],
-    [ { s: 0, n: 75, l: 6, t: 'hero' }, { s: 6, n: 71, l: 2, t: 'hero' }, { s: 8, n: 78, l: 4, t: 'hero' }, { s: 12, n: 83, l: 4, t: 'hero' } ],
+    // ================= SECCIÓN A' (Compases 6-11) =================
+    // Compás 6-7: Gancho principal con articulación brillante
+    [
+      { s: 0, n: 74, l: 2, w: 'p25' }, { s: 2, n: 71, l: 1, w: 'p25' },
+      { s: 3, n: 74, l: 3, w: 'p25', slide: true }, { s: 6, n: 79, l: 2, w: 'p25' },
+      { s: 8, n: 76, l: 2, w: 'p25' }, { s: 10, n: 71, l: 1, w: 'p25' },
+      { s: 11, n: 74, l: 3, w: 'p25' }, { s: 14, n: 71, l: 2, w: 'p25' }
+    ],
+    [
+      { s: 0, n: 72, l: 2, w: 'p25' }, { s: 2, n: 69, l: 1, w: 'p25' },
+      { s: 3, n: 72, l: 3, w: 'p25', slide: true }, { s: 6, n: 76, l: 2, w: 'p25' },
+      { s: 8, n: 74, l: 3, w: 'p25' }, { s: 11, n: 76, l: 1, w: 'p25' },
+      { s: 12, n: 78, l: 2, w: 'p125' }, { s: 14, n: 79, l: 2, w: 'p125' }
+    ],
+    // Compás 8-9: Variación del gancho con floritura superior (B5)
+    [
+      { s: 0, n: 74, l: 2, w: 'p25' }, { s: 2, n: 71, l: 1, w: 'p25' },
+      { s: 3, n: 74, l: 3, w: 'p25', slide: true }, { s: 6, n: 83, l: 2, w: 'p125' },
+      { s: 8, n: 79, l: 2, w: 'p25' }, { s: 10, n: 77, l: 1, w: 'p25' },
+      { s: 11, n: 74, l: 3, w: 'p25' }, { s: 14, n: 71, l: 2, w: 'p25' }
+    ],
+    [
+      { s: 0, n: 76, l: 2, w: 'p25' }, { s: 2, n: 72, l: 1, w: 'p25' },
+      { s: 3, n: 76, l: 3, w: 'p25', slide: true }, { s: 6, n: 81, l: 2, w: 'p125' },
+      { s: 8, n: 79, l: 2, w: 'p25' }, { s: 10, n: 75, l: 2, w: 'p25' },
+      { s: 12, n: 74, l: 2, w: 'p25' }, { s: 14, n: 72, l: 2, w: 'p25' }
+    ],
+    // Compás 10-11: Cadencia conclusiva en Tónica (Sol Mayor)
+    [
+      { s: 0, n: 71, l: 2, w: 'p25' }, { s: 2, n: 74, l: 1, w: 'p25' },
+      { s: 3, n: 79, l: 3, w: 'p125', slide: true }, { s: 6, n: 76, l: 2, w: 'p25' },
+      { s: 8, n: 72, l: 2, w: 'p25' }, { s: 10, n: 74, l: 1, w: 'p25' },
+      { s: 11, n: 78, l: 3, w: 'p125' }, { s: 14, n: 74, l: 2, w: 'p25' }
+    ],
+    [
+      { s: 0, n: 79, l: 4, w: 'p25', slide: true }, { s: 4, n: 74, l: 2, w: 'p50' },
+      { s: 6, n: 71, l: 2, w: 'p50' }, { s: 8, n: 74, l: 2, w: 'p25' },
+      { s: 10, n: 76, l: 2, w: 'p25' }, { s: 12, n: 79, l: 4, w: 'p125' }
+    ],
 
-    // --- SECCIÓN C: Sector Nebulosa (16-23) ---
-    [ { s: 0, n: 76, l: 6, t: 'bell' }, { s: 8, n: 72, l: 4, t: 'bell' }, { s: 12, n: 69, l: 4, t: 'bell' } ],
-    [ { s: 0, n: 74, l: 6, t: 'bell' }, { s: 8, n: 71, l: 4, t: 'bell' }, { s: 12, n: 66, l: 4, t: 'bell' } ],
-    [ { s: 0, n: 79, l: 6, t: 'bell' }, { s: 8, n: 76, l: 4, t: 'bell' }, { s: 12, n: 71, l: 4, t: 'bell' } ],
-    [ { s: 0, n: 78, l: 8, t: 'bell' }, { s: 8, n: 81, l: 4, t: 'bell' }, { s: 12, n: 78, l: 4, t: 'bell' } ],
-    [ { s: 0, n: 76, l: 4, t: 'bell' }, { s: 4, n: 72, l: 4, t: 'bell' }, { s: 8, n: 69, l: 4, t: 'bell' }, { s: 12, n: 76, l: 4, t: 'bell' } ],
-    [ { s: 0, n: 74, l: 4, t: 'bell' }, { s: 4, n: 71, l: 4, t: 'bell' }, { s: 8, n: 67, l: 8, t: 'bell' } ],
-    [ { s: 0, n: 69, l: 4, t: 'brass' }, { s: 4, n: 72, l: 4, t: 'brass' }, { s: 8, n: 76, l: 4, t: 'brass' }, { s: 12, n: 81, l: 4, t: 'brass' } ],
-    [ { s: 0, n: 78, l: 3, t: 'brass' }, { s: 3, n: 75, l: 3, t: 'brass' }, { s: 6, n: 78, l: 2, t: 'brass' }, { s: 8, n: 83, l: 8, t: 'brass' } ],
+    // ================= SECCIÓN B: PUENTE AVENTURERO (Compases 12-17) =================
+    // Timbre 12.5% protagonista con síncopas de llamada y respuesta
+    [
+      { s: 0, n: 79, l: 3, w: 'p125', slide: true }, { s: 3, n: 76, l: 1, w: 'p125' },
+      { s: 4, n: 72, l: 2, w: 'p125' }, { s: 6, n: 76, l: 2, w: 'p125' },
+      { s: 8, n: 79, l: 3, w: 'p125' }, { s: 11, n: 81, l: 1, w: 'p125' },
+      { s: 12, n: 79, l: 2, w: 'p125' }, { s: 14, n: 76, l: 2, w: 'p125' }
+    ],
+    [
+      { s: 0, n: 78, l: 3, w: 'p125', slide: true }, { s: 3, n: 74, l: 1, w: 'p125' },
+      { s: 4, n: 69, l: 2, w: 'p125' }, { s: 6, n: 74, l: 2, w: 'p125' },
+      { s: 8, n: 78, l: 3, w: 'p125' }, { s: 11, n: 79, l: 1, w: 'p125' },
+      { s: 12, n: 81, l: 4, w: 'p125' }
+    ],
+    [
+      { s: 0, n: 83, l: 3, w: 'p125', slide: true }, { s: 3, n: 78, l: 1, w: 'p125' },
+      { s: 4, n: 74, l: 2, w: 'p125' }, { s: 6, n: 78, l: 2, w: 'p125' },
+      { s: 8, n: 79, l: 3, w: 'p125' }, { s: 11, n: 76, l: 1, w: 'p125' },
+      { s: 12, n: 71, l: 4, w: 'p125' }
+    ],
+    [
+      { s: 0, n: 76, l: 2, w: 'p125' }, { s: 2, n: 73, l: 1, w: 'p125' },
+      { s: 3, n: 76, l: 3, w: 'p125', slide: true }, { s: 6, n: 81, l: 2, w: 'p125' },
+      { s: 8, n: 78, l: 2, w: 'p125' }, { s: 10, n: 74, l: 2, w: 'p125' },
+      { s: 12, n: 76, l: 2, w: 'p125' }, { s: 14, n: 78, l: 2, w: 'p125' }
+    ],
+    [
+      { s: 0, n: 79, l: 2, w: 'p125' }, { s: 2, n: 76, l: 1, w: 'p125' },
+      { s: 3, n: 79, l: 3, w: 'p125', slide: true }, { s: 6, n: 81, l: 2, w: 'p125' },
+      { s: 8, n: 82, l: 2, w: 'p125' }, { s: 10, n: 79, l: 1, w: 'p125' },
+      { s: 11, n: 76, l: 3, w: 'p125' }, { s: 14, n: 73, l: 2, w: 'p125' }
+    ],
+    // Compás 17: Subida de tensión en D7 para relanzar el gancho A
+    [
+      { s: 0, n: 74, l: 2, w: 'p25' }, { s: 2, n: 76, l: 2, w: 'p25' },
+      { s: 4, n: 78, l: 2, w: 'p25' }, { s: 6, n: 79, l: 2, w: 'p125' },
+      { s: 8, n: 81, l: 3, w: 'p125', slide: true }, { s: 11, n: 78, l: 1, w: 'p125' },
+      { s: 12, n: 74, l: 2, w: 'p25' }, { s: 14, n: 71, l: 2, w: 'p25' }
+    ],
 
-    // --- SECCIÓN D: Clímax de Flota Estelar (24-31) ---
-    [ { s: 0, n: 83, l: 3, t: 'hero' }, { s: 3, n: 79, l: 3, t: 'hero' }, { s: 6, n: 76, l: 2, t: 'hero' }, { s: 8, n: 71, l: 4, t: 'hero' }, { s: 12, n: 76, l: 4, t: 'hero' } ],
-    [ { s: 0, n: 81, l: 3, t: 'hero' }, { s: 3, n: 78, l: 3, t: 'hero' }, { s: 6, n: 74, l: 2, t: 'hero' }, { s: 8, n: 69, l: 4, t: 'hero' }, { s: 12, n: 74, l: 4, t: 'hero' } ],
-    [ { s: 0, n: 79, l: 3, t: 'hero' }, { s: 3, n: 76, l: 3, t: 'hero' }, { s: 6, n: 72, l: 2, t: 'hero' }, { s: 8, n: 67, l: 4, t: 'hero' }, { s: 12, n: 79, l: 4, t: 'hero' } ],
-    [ { s: 0, n: 78, l: 4, t: 'hero' }, { s: 4, n: 75, l: 4, t: 'hero' }, { s: 8, n: 71, l: 4, t: 'hero' }, { s: 12, n: 75, l: 4, t: 'hero' } ],
-    [ { s: 0, n: 76, l: 3, t: 'brass' }, { s: 3, n: 79, l: 3, t: 'brass' }, { s: 6, n: 81, l: 2, t: 'brass' }, { s: 8, n: 76, l: 4, t: 'brass' }, { s: 12, n: 72, l: 4, t: 'brass' } ],
-    [ { s: 0, n: 74, l: 3, t: 'brass' }, { s: 3, n: 78, l: 3, t: 'brass' }, { s: 6, n: 79, l: 2, t: 'brass' }, { s: 8, n: 74, l: 4, t: 'brass' }, { s: 12, n: 71, l: 4, t: 'brass' } ],
-    [ { s: 0, n: 76, l: 3, t: 'hero' }, { s: 3, n: 79, l: 3, t: 'hero' }, { s: 6, n: 84, l: 4, t: 'hero' }, { s: 10, n: 83, l: 2, t: 'hero' }, { s: 12, n: 79, l: 4, t: 'hero' } ],
-    [ { s: 0, n: 78, l: 4, t: 'hero' }, { s: 4, n: 75, l: 4, t: 'hero' }, { s: 8, n: 71, l: 4, t: 'hero' }, { s: 12, n: 66, l: 4, t: 'hero' } ]
+    // ================= SECCIÓN A'': RETORNO CLIMÁTICO (Compases 18-23) =================
+    [
+      { s: 0, n: 74, l: 2, w: 'p25' }, { s: 2, n: 71, l: 1, w: 'p25' },
+      { s: 3, n: 74, l: 3, w: 'p25', slide: true }, { s: 6, n: 79, l: 2, w: 'p125' },
+      { s: 8, n: 76, l: 2, w: 'p25' }, { s: 10, n: 71, l: 1, w: 'p25' },
+      { s: 11, n: 74, l: 3, w: 'p25' }, { s: 14, n: 71, l: 2, w: 'p25' }
+    ],
+    [
+      { s: 0, n: 72, l: 2, w: 'p25' }, { s: 2, n: 69, l: 1, w: 'p25' },
+      { s: 3, n: 72, l: 3, w: 'p25', slide: true }, { s: 6, n: 76, l: 2, w: 'p125' },
+      { s: 8, n: 74, l: 3, w: 'p25' }, { s: 11, n: 71, l: 1, w: 'p25' },
+      { s: 12, n: 69, l: 2, w: 'p25' }, { s: 14, n: 71, l: 2, w: 'p25' }
+    ],
+    [
+      { s: 0, n: 74, l: 2, w: 'p25' }, { s: 2, n: 71, l: 1, w: 'p25' },
+      { s: 3, n: 74, l: 3, w: 'p25', slide: true }, { s: 6, n: 83, l: 2, w: 'p125' },
+      { s: 8, n: 81, l: 2, w: 'p125' }, { s: 10, n: 79, l: 1, w: 'p25' },
+      { s: 11, n: 77, l: 3, w: 'p25' }, { s: 14, n: 74, l: 2, w: 'p25' }
+    ],
+    [
+      { s: 0, n: 76, l: 2, w: 'p25' }, { s: 2, n: 72, l: 1, w: 'p25' },
+      { s: 3, n: 76, l: 3, w: 'p25', slide: true }, { s: 6, n: 84, l: 2, w: 'p125' },
+      { s: 8, n: 83, l: 2, w: 'p125' }, { s: 10, n: 79, l: 1, w: 'p25' },
+      { s: 11, n: 75, l: 3, w: 'p25' }, { s: 14, n: 74, l: 2, w: 'p25' }
+    ],
+    [
+      { s: 0, n: 71, l: 2, w: 'p25' }, { s: 2, n: 74, l: 2, w: 'p25' },
+      { s: 4, n: 79, l: 3, w: 'p125', slide: true }, { s: 7, n: 76, l: 1, w: 'p25' },
+      { s: 8, n: 74, l: 2, w: 'p25' }, { s: 10, n: 71, l: 2, w: 'p25' },
+      { s: 12, n: 68, l: 2, w: 'p25' }, { s: 14, n: 71, l: 2, w: 'p25' }
+    ],
+    // Compás 23: Gran cierre con arpegio rápido de 8 bits de vuelta al compás 0
+    [
+      { s: 0, n: 72, l: 2, w: 'p25' }, { s: 2, n: 76, l: 2, w: 'p25' },
+      { s: 4, n: 78, l: 2, w: 'p125' }, { s: 6, n: 81, l: 2, w: 'p125' },
+      { s: 8, n: 79, l: 4, w: 'p25', slide: true },
+      { s: 12, n: 67, l: 1, w: 'p125' }, { s: 13, n: 71, l: 1, w: 'p125' },
+      { s: 14, n: 74, l: 1, w: 'p125' }, { s: 15, n: 79, l: 1, w: 'p125' }
+    ]
+  ];
+
+  // Contracanto Sencillo y Armonía Rítmica (Canal Pulse 2 - 50% y 25% duty cycle)
+  const COUNTER_MELODY = [
+    // --- Sección A (0-5) ---
+    [ { s: 0, n: 67, l: 2, w: 'p50' }, { s: 4, n: 71, l: 2, w: 'p50' }, { s: 6, n: 74, l: 2, w: 'p50' }, { s: 8, n: 68, l: 2, w: 'p50' }, { s: 12, n: 71, l: 2, w: 'p50' }, { s: 14, n: 68, l: 2, w: 'p50' } ],
+    [ { s: 0, n: 64, l: 2, w: 'p50' }, { s: 4, n: 69, l: 2, w: 'p50' }, { s: 6, n: 72, l: 2, w: 'p50' }, { s: 8, n: 66, l: 3, w: 'p50' }, { s: 12, n: 66, l: 2, w: 'p50' }, { s: 14, n: 69, l: 2, w: 'p50' } ],
+    [ { s: 0, n: 67, l: 2, w: 'p50' }, { s: 4, n: 71, l: 2, w: 'p50' }, { s: 6, n: 74, l: 2, w: 'p50' }, { s: 8, n: 71, l: 2, w: 'p50' }, { s: 12, n: 71, l: 2, w: 'p50' }, { s: 14, n: 67, l: 2, w: 'p50' } ],
+    [ { s: 0, n: 67, l: 2, w: 'p50' }, { s: 4, n: 72, l: 2, w: 'p50' }, { s: 6, n: 76, l: 2, w: 'p50' }, { s: 8, n: 72, l: 3, w: 'p50' }, { s: 11, n: 69, l: 3, w: 'p50' }, { s: 14, n: 66, l: 2, w: 'p50' } ],
+    [ { s: 0, n: 67, l: 4, w: 'p50' }, { s: 4, n: 71, l: 4, w: 'p50' }, { s: 8, n: 68, l: 4, w: 'p50' }, { s: 12, n: 64, l: 4, w: 'p50' } ],
+    [ { s: 0, n: 64, l: 4, w: 'p50' }, { s: 4, n: 69, l: 4, w: 'p50' }, { s: 8, n: 66, l: 4, w: 'p50' }, { s: 12, n: 69, l: 2, w: 'p50' }, { s: 14, n: 66, l: 2, w: 'p50' } ],
+
+    // --- Sección A' (6-11) ---
+    [ { s: 0, n: 67, l: 2, w: 'p50' }, { s: 4, n: 71, l: 2, w: 'p50' }, { s: 6, n: 74, l: 2, w: 'p50' }, { s: 8, n: 68, l: 2, w: 'p50' }, { s: 12, n: 71, l: 2, w: 'p50' }, { s: 14, n: 68, l: 2, w: 'p50' } ],
+    [ { s: 0, n: 64, l: 2, w: 'p50' }, { s: 4, n: 69, l: 2, w: 'p50' }, { s: 6, n: 72, l: 2, w: 'p50' }, { s: 8, n: 66, l: 3, w: 'p50' }, { s: 12, n: 69, l: 2, w: 'p50' }, { s: 14, n: 72, l: 2, w: 'p50' } ],
+    [ { s: 0, n: 67, l: 2, w: 'p50' }, { s: 4, n: 71, l: 2, w: 'p50' }, { s: 6, n: 74, l: 2, w: 'p50' }, { s: 8, n: 71, l: 2, w: 'p50' }, { s: 12, n: 67, l: 2, w: 'p50' }, { s: 14, n: 65, l: 2, w: 'p50' } ],
+    [ { s: 0, n: 67, l: 2, w: 'p50' }, { s: 4, n: 72, l: 2, w: 'p50' }, { s: 6, n: 72, l: 2, w: 'p50' }, { s: 8, n: 72, l: 2, w: 'p50' }, { s: 10, n: 69, l: 2, w: 'p50' }, { s: 12, n: 66, l: 4, w: 'p50' } ],
+    [ { s: 0, n: 67, l: 3, w: 'p50' }, { s: 3, n: 71, l: 3, w: 'p50' }, { s: 6, n: 67, l: 2, w: 'p50' }, { s: 8, n: 64, l: 3, w: 'p50' }, { s: 11, n: 69, l: 3, w: 'p50' }, { s: 14, n: 66, l: 2, w: 'p50' } ],
+    [ { s: 0, n: 71, l: 4, w: 'p50' }, { s: 4, n: 67, l: 4, w: 'p50' }, { s: 8, n: 67, l: 2, w: 'p50' }, { s: 10, n: 69, l: 2, w: 'p50' }, { s: 12, n: 71, l: 4, w: 'p50' } ],
+
+    // --- Sección B: Contracanto activo en respuesta al Lead (12-17) ---
+    [ { s: 0, n: 64, l: 4, w: 'p50' }, { s: 4, n: 67, l: 2, w: 'p25' }, { s: 6, n: 71, l: 2, w: 'p25' }, { s: 8, n: 72, l: 4, w: 'p50' }, { s: 12, n: 71, l: 2, w: 'p25' }, { s: 14, n: 67, l: 2, w: 'p25' } ],
+    [ { s: 0, n: 66, l: 4, w: 'p50' }, { s: 4, n: 69, l: 2, w: 'p25' }, { s: 6, n: 72, l: 2, w: 'p25' }, { s: 8, n: 74, l: 4, w: 'p50' }, { s: 12, n: 72, l: 2, w: 'p25' }, { s: 14, n: 69, l: 2, w: 'p25' } ],
+    [ { s: 0, n: 71, l: 4, w: 'p50' }, { s: 4, n: 66, l: 4, w: 'p50' }, { s: 8, n: 67, l: 4, w: 'p50' }, { s: 12, n: 64, l: 2, w: 'p25' }, { s: 14, n: 67, l: 2, w: 'p25' } ],
+    [ { s: 0, n: 69, l: 3, w: 'p50' }, { s: 3, n: 69, l: 3, w: 'p50' }, { s: 6, n: 73, l: 2, w: 'p50' }, { s: 8, n: 69, l: 2, w: 'p50' }, { s: 10, n: 66, l: 2, w: 'p50' }, { s: 12, n: 69, l: 2, w: 'p50' }, { s: 14, n: 72, l: 2, w: 'p50' } ],
+    [ { s: 0, n: 72, l: 3, w: 'p50' }, { s: 3, n: 72, l: 3, w: 'p50' }, { s: 6, n: 72, l: 2, w: 'p50' }, { s: 8, n: 70, l: 3, w: 'p50' }, { s: 11, n: 70, l: 3, w: 'p50' }, { s: 14, n: 67, l: 2, w: 'p50' } ],
+    [ { s: 0, n: 66, l: 2, w: 'p25' }, { s: 2, n: 67, l: 2, w: 'p25' }, { s: 4, n: 69, l: 2, w: 'p25' }, { s: 6, n: 71, l: 2, w: 'p25' }, { s: 8, n: 72, l: 4, w: 'p25' }, { s: 12, n: 69, l: 2, w: 'p25' }, { s: 14, n: 66, l: 2, w: 'p25' } ],
+
+    // --- Sección A'' (18-23) ---
+    [ { s: 0, n: 67, l: 2, w: 'p50' }, { s: 4, n: 71, l: 2, w: 'p50' }, { s: 6, n: 74, l: 2, w: 'p50' }, { s: 8, n: 68, l: 2, w: 'p50' }, { s: 12, n: 71, l: 2, w: 'p50' }, { s: 14, n: 68, l: 2, w: 'p50' } ],
+    [ { s: 0, n: 64, l: 2, w: 'p50' }, { s: 4, n: 69, l: 2, w: 'p50' }, { s: 6, n: 72, l: 2, w: 'p50' }, { s: 8, n: 66, l: 3, w: 'p50' }, { s: 12, n: 66, l: 2, w: 'p50' }, { s: 14, n: 69, l: 2, w: 'p50' } ],
+    [ { s: 0, n: 67, l: 2, w: 'p50' }, { s: 4, n: 71, l: 2, w: 'p50' }, { s: 6, n: 74, l: 2, w: 'p50' }, { s: 8, n: 74, l: 2, w: 'p50' }, { s: 11, n: 71, l: 3, w: 'p50' }, { s: 14, n: 67, l: 2, w: 'p50' } ],
+    [ { s: 0, n: 67, l: 2, w: 'p50' }, { s: 4, n: 72, l: 2, w: 'p50' }, { s: 6, n: 76, l: 2, w: 'p50' }, { s: 8, n: 75, l: 2, w: 'p50' }, { s: 11, n: 72, l: 3, w: 'p50' }, { s: 14, n: 69, l: 2, w: 'p50' } ],
+    [ { s: 0, n: 67, l: 4, w: 'p50' }, { s: 4, n: 71, l: 4, w: 'p50' }, { s: 8, n: 68, l: 4, w: 'p50' }, { s: 12, n: 64, l: 4, w: 'p50' } ],
+    [ { s: 0, n: 64, l: 2, w: 'p50' }, { s: 2, n: 69, l: 2, w: 'p50' }, { s: 4, n: 69, l: 2, w: 'p50' }, { s: 6, n: 72, l: 2, w: 'p50' }, { s: 8, n: 71, l: 4, w: 'p50' }, { s: 12, n: 67, l: 4, w: 'p50' } ]
   ];
 
   /* =========================================================================
@@ -155,8 +314,22 @@
   }
 
   /* =========================================================================
-     INICIALIZACIÓN DE WEB AUDIO API Y GENERADOR DE RUIDO
+     INICIALIZACIÓN DE WEB AUDIO API Y TABLAS DE PULSO (12.5%, 25%, 50%)
   ========================================================================= */
+
+  function createPulseWave(audioCtx, duty) {
+    const harmonics = 48;
+    const real = new Float32Array(harmonics + 1);
+    const imag = new Float32Array(harmonics + 1);
+    real[0] = 0;
+    imag[0] = 0;
+    for (let n = 1; n <= harmonics; n++) {
+      // Serie de Fourier para onda rectangular de ancho de pulso `duty`
+      real[n] = (2 / (n * Math.PI)) * Math.sin(n * Math.PI * duty);
+      imag[n] = 0;
+    }
+    return audioCtx.createPeriodicWave(real, imag);
+  }
 
   function initAudio() {
     if (ctx) return true;
@@ -167,11 +340,11 @@
       ctx = new AudioCtx();
 
       compressor = ctx.createDynamicsCompressor();
-      compressor.threshold.setValueAtTime(-14, ctx.currentTime);
-      compressor.knee.setValueAtTime(10, ctx.currentTime);
-      compressor.ratio.setValueAtTime(3.5, ctx.currentTime);
-      compressor.attack.setValueAtTime(0.004, ctx.currentTime);
-      compressor.release.setValueAtTime(0.12, ctx.currentTime);
+      compressor.threshold.setValueAtTime(-12, ctx.currentTime);
+      compressor.knee.setValueAtTime(8, ctx.currentTime);
+      compressor.ratio.setValueAtTime(3.0, ctx.currentTime);
+      compressor.attack.setValueAtTime(0.003, ctx.currentTime);
+      compressor.release.setValueAtTime(0.10, ctx.currentTime);
 
       masterGain = ctx.createGain();
       const initialGain = isMutedInStorage() ? 0.0001 : currentVolume;
@@ -180,17 +353,24 @@
       compressor.connect(masterGain);
       masterGain.connect(ctx.destination);
 
-      // Buffer único de ruido blanco/rosa ligero para percusión sintética
-      const length = Math.floor(ctx.sampleRate * 0.28);
+      // Crear las 3 formas de onda de pulso clásicas de 8 bits (12.5%, 25%, 50%)
+      pulseWaves = {
+        p125: createPulseWave(ctx, 0.125),
+        p25:  createPulseWave(ctx, 0.25),
+        p50:  createPulseWave(ctx, 0.50)
+      };
+
+      // Buffer de ruido escalonado estilo LFSR de 8 bits para la batería
+      const length = Math.floor(ctx.sampleRate * 0.22);
       noiseBuffer = ctx.createBuffer(1, length, ctx.sampleRate);
       const out = noiseBuffer.getChannelData(0);
-      let b0 = 0, b1 = 0, b2 = 0;
+      let hold = 0;
       for (let i = 0; i < length; i++) {
-        const white = Math.random() * 2 - 1;
-        b0 = 0.997 * b0 + white * 0.09;
-        b1 = 0.965 * b1 + white * 0.18;
-        b2 = 0.650 * b2 + white * 0.45;
-        out[i] = (b0 + b1 + b2 + white * 0.35) * 0.35;
+        // Cuantización cada 3 muestras para textura crujiente de consola clásica
+        if (i % 3 === 0) {
+          hold = (Math.random() > 0.5 ? 1 : -1) * 0.65;
+        }
+        out[i] = hold;
       }
 
       return true;
@@ -200,188 +380,38 @@
   }
 
   /* =========================================================================
-     VOCES SINTÉTICAS (CON AUTO-DESCONEXIÓN PARA CERO FUGAS DE MEMORIA)
+     VOCES CHIPTUNE DE 8 BITS (CON AUTO-DESCONEXIÓN EN onended)
   ========================================================================= */
 
-  // 1. Bajo Arcade Pulsante (Sawtooth + Filtro Lowpass Resonante)
-  function playBass(midi, time, duration, accent) {
+  // 1. Canal de Pulso (Melodía Protagonista y Contracanto)
+  function playPulseVoice(midi, time, duration, waveKey, isCounter, hasSlide) {
     const osc = ctx.createOscillator();
-    const filter = ctx.createBiquadFilter();
     const gain = ctx.createGain();
 
-    osc.type = 'sawtooth';
-    osc.frequency.setValueAtTime(mtof(midi), time);
-
-    filter.type = 'lowpass';
-    filter.Q.setValueAtTime(3.2, time);
-    filter.frequency.setValueAtTime(accent ? 1050 : 720, time);
-    filter.frequency.exponentialRampToValueAtTime(135, time + duration * 0.9);
-
-    const peak = accent ? 0.30 : 0.23;
-    gain.gain.setValueAtTime(0.0001, time);
-    gain.gain.linearRampToValueAtTime(peak, time + 0.008);
-    gain.gain.exponentialRampToValueAtTime(0.0001, time + duration * 0.94);
-
-    osc.connect(filter);
-    filter.connect(gain);
-    gain.connect(compressor);
-
-    osc.onended = function () {
-      try {
-        osc.disconnect();
-        filter.disconnect();
-        gain.disconnect();
-      } catch (e) {}
-    };
-
-    osc.start(time);
-    osc.stop(time + duration);
-  }
-
-  // 2. Arpegiador Espacial Rápido
-  function playArp(midi, time, duration, isClimax) {
-    const osc = ctx.createOscillator();
-    const filter = ctx.createBiquadFilter();
-    const gain = ctx.createGain();
-
-    osc.type = isClimax ? 'square' : 'triangle';
-    osc.frequency.setValueAtTime(mtof(midi), time);
-
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(isClimax ? 2800 : 2100, time);
-    filter.frequency.exponentialRampToValueAtTime(650, time + duration * 0.9);
-
-    const peak = isClimax ? 0.095 : 0.085;
-    gain.gain.setValueAtTime(0.0001, time);
-    gain.gain.linearRampToValueAtTime(peak, time + 0.005);
-    gain.gain.exponentialRampToValueAtTime(0.0001, time + duration * 0.9);
-
-    osc.connect(filter);
-    filter.connect(gain);
-    gain.connect(compressor);
-
-    osc.onended = function () {
-      try {
-        osc.disconnect();
-        filter.disconnect();
-        gain.disconnect();
-      } catch (e) {}
-    };
-
-    osc.start(time);
-    osc.stop(time + duration);
-  }
-
-  // 3. Sintetizador Épico Principal (Brass / Hero Lead / Cosmic Bell)
-  function playLead(midi, time, duration, timbre) {
-    const freq = mtof(midi);
-    const osc1 = ctx.createOscillator();
-    const osc2 = ctx.createOscillator();
-    const filter = ctx.createBiquadFilter();
-    const gain = ctx.createGain();
-
-    if (timbre === 'bell') {
-      osc1.type = 'sine';
-      osc2.type = 'triangle';
-      osc1.frequency.setValueAtTime(freq, time);
-      osc2.frequency.setValueAtTime(freq * 2, time);
-      osc2.detune.setValueAtTime(4, time);
-    } else if (timbre === 'brass') {
-      osc1.type = 'sawtooth';
-      osc2.type = 'sawtooth';
-      osc1.frequency.setValueAtTime(freq, time);
-      osc2.frequency.setValueAtTime(freq, time);
-      osc1.detune.setValueAtTime(-7, time);
-      osc2.detune.setValueAtTime(7, time);
+    if (pulseWaves && pulseWaves[waveKey]) {
+      osc.setPeriodicWave(pulseWaves[waveKey]);
     } else {
-      osc1.type = 'sawtooth';
-      osc2.type = 'square';
-      osc1.frequency.setValueAtTime(freq, time);
-      osc2.frequency.setValueAtTime(freq, time);
-      osc1.detune.setValueAtTime(-9, time);
-      osc2.detune.setValueAtTime(9, time);
+      osc.type = 'square';
     }
 
-    filter.type = 'lowpass';
-    filter.Q.setValueAtTime(timbre === 'brass' ? 2.4 : 1.6, time);
-    filter.frequency.setValueAtTime(500, time);
-    filter.frequency.exponentialRampToValueAtTime(timbre === 'bell' ? 3800 : 3200, time + 0.035);
-    filter.frequency.exponentialRampToValueAtTime(1100, time + duration * 0.95);
-
-    const peak = timbre === 'bell' ? 0.13 : 0.145;
-    gain.gain.setValueAtTime(0.0001, time);
-    gain.gain.linearRampToValueAtTime(peak, time + 0.015);
-    gain.gain.setValueAtTime(peak * 0.82, time + Math.min(0.06, duration * 0.4));
-    gain.gain.exponentialRampToValueAtTime(0.0001, time + duration * 0.98);
-
-    osc1.connect(filter);
-    osc2.connect(filter);
-    filter.connect(gain);
-    gain.connect(compressor);
-
-    osc1.onended = function () {
-      try {
-        osc1.disconnect();
-        osc2.disconnect();
-        filter.disconnect();
-        gain.disconnect();
-      } catch (e) {}
-    };
-
-    osc1.start(time);
-    osc2.start(time);
-    osc1.stop(time + duration);
-    osc2.stop(time + duration);
-  }
-
-  // 4. Acorde de Impacto Sintético (Stab Heroico en cambios de sección)
-  function playChordStab(chordNotes, time, duration) {
-    const filter = ctx.createBiquadFilter();
-    const gain = ctx.createGain();
-
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(2400, time);
-    filter.frequency.exponentialRampToValueAtTime(480, time + duration);
-
-    gain.gain.setValueAtTime(0.0001, time);
-    gain.gain.linearRampToValueAtTime(0.055, time + 0.015);
-    gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
-
-    filter.connect(gain);
-    gain.connect(compressor);
-
-    const oscs = [];
-    for (let i = 0; i < 3; i++) {
-      const osc = ctx.createOscillator();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(mtof(chordNotes[i]), time);
-      osc.connect(filter);
-      osc.start(time);
-      osc.stop(time + duration);
-      oscs.push(osc);
+    const targetFreq = mtof(midi);
+    if (hasSlide) {
+      // Pequeño mordente ascendente de semitono típico de consolas de 8 bits
+      osc.frequency.setValueAtTime(mtof(midi - 1), time);
+      osc.frequency.setValueAtTime(targetFreq, time + 0.024);
+    } else {
+      osc.frequency.setValueAtTime(targetFreq, time);
     }
 
-    oscs[0].onended = function () {
-      try {
-        for (let i = 0; i < oscs.length; i++) oscs[i].disconnect();
-        filter.disconnect();
-        gain.disconnect();
-      } catch (e) {}
-    };
-  }
-
-  // 5. Batería Sintética Arcade: Bombo (Kick)
-  function playKick(time) {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(145, time);
-    osc.frequency.exponentialRampToValueAtTime(42, time + 0.09);
+    const peak = isCounter ? 0.115 : 0.22;
+    const sustain = isCounter ? 0.085 : 0.165;
+    const gateDur = duration * (isCounter ? 0.82 : 0.88);
 
     gain.gain.setValueAtTime(0.0001, time);
-    gain.gain.linearRampToValueAtTime(0.34, time + 0.004);
-    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.14);
+    gain.gain.linearRampToValueAtTime(peak, time + 0.004);
+    gain.gain.linearRampToValueAtTime(sustain, time + Math.min(0.035, gateDur * 0.4));
+    gain.gain.setValueAtTime(sustain, time + Math.max(0.005, gateDur - 0.012));
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + gateDur);
 
     osc.connect(gain);
     gain.connect(compressor);
@@ -394,37 +424,98 @@
     };
 
     osc.start(time);
-    osc.stop(time + 0.15);
+    osc.stop(time + gateDur + 0.005);
   }
 
-  // 6. Batería Sintética Arcade: Caja Espacial (Snare)
-  function playSnare(time, isFill) {
+  // 2. Canal de Bajo Triangular de 8 Bits
+  function playTriangleBass(midi, time, duration, isDownbeat) {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(mtof(midi), time);
+
+    const peak = isDownbeat ? 0.34 : 0.28;
+    const gateDur = duration * 0.84;
+
+    gain.gain.setValueAtTime(0.0001, time);
+    gain.gain.linearRampToValueAtTime(peak, time + 0.004);
+    gain.gain.setValueAtTime(peak * 0.85, time + gateDur * 0.65);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + gateDur);
+
+    osc.connect(gain);
+    gain.connect(compressor);
+
+    osc.onended = function () {
+      try {
+        osc.disconnect();
+        gain.disconnect();
+      } catch (e) {}
+    };
+
+    osc.start(time);
+    osc.stop(time + gateDur + 0.005);
+  }
+
+  // 3. Bombo Chiptune (Pitch-drop rápido de consola)
+  function play8BitKick(time) {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(165, time);
+    osc.frequency.exponentialRampToValueAtTime(44, time + 0.065);
+
+    gain.gain.setValueAtTime(0.0001, time);
+    gain.gain.linearRampToValueAtTime(0.32, time + 0.003);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.085);
+
+    osc.connect(gain);
+    gain.connect(compressor);
+
+    osc.onended = function () {
+      try {
+        osc.disconnect();
+        gain.disconnect();
+      } catch (e) {}
+    };
+
+    osc.start(time);
+    osc.stop(time + 0.09);
+  }
+
+  // 4. Caja de Ruido de 8 Bits (Snare)
+  function play8BitSnare(time, isFill) {
     if (!noiseBuffer) return;
 
+    // Golpe de cuerpo corto
     const osc = ctx.createOscillator();
     const oscGain = ctx.createGain();
     osc.type = 'triangle';
-    osc.frequency.setValueAtTime(210, time);
-    osc.frequency.exponentialRampToValueAtTime(95, time + 0.07);
+    osc.frequency.setValueAtTime(220, time);
+    osc.frequency.exponentialRampToValueAtTime(110, time + 0.045);
 
     oscGain.gain.setValueAtTime(0.0001, time);
-    oscGain.gain.linearRampToValueAtTime(isFill ? 0.12 : 0.16, time + 0.003);
-    oscGain.gain.exponentialRampToValueAtTime(0.0001, time + 0.08);
+    oscGain.gain.linearRampToValueAtTime(isFill ? 0.11 : 0.15, time + 0.002);
+    oscGain.gain.exponentialRampToValueAtTime(0.0001, time + 0.05);
 
     osc.connect(oscGain);
     oscGain.connect(compressor);
 
+    // Ráfaga de ruido de 8 bits
     const noise = ctx.createBufferSource();
     noise.buffer = noiseBuffer;
+
     const filter = ctx.createBiquadFilter();
-    filter.type = 'highpass';
-    filter.frequency.setValueAtTime(850, time);
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(2200, time);
+    filter.Q.setValueAtTime(1.2, time);
 
     const noiseGain = ctx.createGain();
-    const peak = isFill ? 0.11 : 0.15;
+    const peak = isFill ? 0.10 : 0.14;
     noiseGain.gain.setValueAtTime(0.0001, time);
-    noiseGain.gain.linearRampToValueAtTime(peak, time + 0.003);
-    noiseGain.gain.exponentialRampToValueAtTime(0.0001, time + 0.13);
+    noiseGain.gain.linearRampToValueAtTime(peak, time + 0.002);
+    noiseGain.gain.exponentialRampToValueAtTime(0.0001, time + 0.095);
 
     noise.connect(filter);
     filter.connect(noiseGain);
@@ -445,23 +536,23 @@
     };
 
     osc.start(time);
-    osc.stop(time + 0.09);
+    osc.stop(time + 0.055);
     noise.start(time);
-    noise.stop(time + 0.14);
+    noise.stop(time + 0.10);
   }
 
-  // 7. Batería Sintética Arcade: Hi-Hat Cerrado / Abierto
-  function playHiHat(time, isOpen) {
+  // 5. Hi-Hat de Ruido de 8 Bits
+  function play8BitHat(time, isOpen) {
     if (!noiseBuffer) return;
     const noise = ctx.createBufferSource();
     noise.buffer = noiseBuffer;
 
     const filter = ctx.createBiquadFilter();
     filter.type = 'highpass';
-    filter.frequency.setValueAtTime(5800, time);
+    filter.frequency.setValueAtTime(5200, time);
 
     const gain = ctx.createGain();
-    const dur = isOpen ? 0.14 : 0.038;
+    const dur = isOpen ? 0.085 : 0.026;
     const peak = isOpen ? 0.065 : 0.042;
 
     gain.gain.setValueAtTime(0.0001, time);
@@ -481,7 +572,7 @@
     };
 
     noise.start(time);
-    noise.stop(time + dur + 0.01);
+    noise.stop(time + dur + 0.005);
   }
 
   /* =========================================================================
@@ -491,81 +582,58 @@
   function scheduleStep(stepIndex, time) {
     const bar = Math.floor(stepIndex / STEPS_PER_BAR);
     const stepInBar = stepIndex % STEPS_PER_BAR;
-    const harmony = HARMONY_MAP[bar];
-    const rootMidi = harmony[0];
-    const arpChord = harmony[1];
+    const isTurnaroundBar = (bar === 5 || bar === 11 || bar === 17 || bar === 23);
 
-    const isSectionB = bar >= 8 && bar < 16;
-    const isSectionC = bar >= 16 && bar < 24;
-    const isSectionD = bar >= 24;
-    const isTurnaroundBar = (bar % 8 === 7);
-
-    // 1. Impacto armónico en el inicio de cada bloque de 4 compases
-    if (stepInBar === 0 && (bar % 4 === 0)) {
-      playChordStab(arpChord, time, STEP_DURATION * 4);
-    }
-
-    // 2. Línea de Bajo Pulsante (salto de octava estilo arcade 2000s)
-    if (!isSectionC || bar >= 20) {
-      if (stepInBar % 2 === 0) {
-        playBass(rootMidi, time, STEP_DURATION * 0.92, stepInBar % 4 === 0);
-      } else if (stepInBar % 4 === 2 || isSectionB || isSectionD) {
-        const fifthOrOctave = (stepInBar === 15 && isTurnaroundBar) ? rootMidi + 7 : rootMidi + 12;
-        playBass(fifthOrOctave, time, STEP_DURATION * 0.85, false);
-      }
-    } else {
-      if (stepInBar === 0 || stepInBar === 6 || stepInBar === 10 || stepInBar === 12) {
-        const note = stepInBar === 10 ? rootMidi + 12 : rootMidi;
-        playBass(note, time, STEP_DURATION * 1.8, stepInBar === 0);
-      }
-    }
-
-    // 3. Arpegiador Rápido
-    let pattern = ARP_PATTERNS.fastUp;
-    if (isSectionB) pattern = ARP_PATTERNS.cosmicWave;
-    else if (isSectionC && bar < 22) pattern = ARP_PATTERNS.nebulaBell;
-    else if (isSectionD) pattern = ARP_PATTERNS.climaxRun;
-
-    const arpIdx = pattern[stepInBar];
-    if (arpIdx !== null && arpIdx !== undefined) {
-      const octaveBoost = (isSectionD && stepInBar % 4 === 3) ? 12 : 0;
-      playArp(arpChord[arpIdx] + octaveBoost, time, STEP_DURATION * 0.9, isSectionD);
-    }
-
-    // 4. Melodía Principal Original
-    const barNotes = LEAD_MELODY[bar];
-    if (barNotes) {
-      for (let i = 0; i < barNotes.length; i++) {
-        const ev = barNotes[i];
+    // 1. Melodía Protagonista (Pulse 1)
+    const leadEvents = LEAD_MELODY[bar];
+    if (leadEvents) {
+      for (let i = 0; i < leadEvents.length; i++) {
+        const ev = leadEvents[i];
         if (ev.s === stepInBar) {
-          playLead(ev.n, time, ev.l * STEP_DURATION * 0.96, ev.t);
+          playPulseVoice(ev.n, time, ev.l * STEP_DURATION, ev.w || 'p25', false, Boolean(ev.slide));
         }
       }
     }
 
-    // 5. Batería Sintética Ligera
-    if (!isSectionC || bar >= 20) {
-      if (stepInBar === 0 || stepInBar === 4 || stepInBar === 8 || stepInBar === 12 || (isSectionD && stepInBar === 10)) {
-        playKick(time);
+    // 2. Contracanto Sencillo (Pulse 2)
+    const counterEvents = COUNTER_MELODY[bar];
+    if (counterEvents) {
+      for (let i = 0; i < counterEvents.length; i++) {
+        const ev = counterEvents[i];
+        if (ev.s === stepInBar) {
+          playPulseVoice(ev.n, time, ev.l * STEP_DURATION, ev.w || 'p50', true, false);
+        }
       }
-    } else if (stepInBar === 0 || stepInBar === 10) {
-      playKick(time);
     }
 
+    // 3. Bajo Triangular en Corcheas Saltarinas (con anticipación sincopada ocasional)
+    const bassBar = BASS_MAP[bar];
+    if (bassBar && stepInBar % 2 === 0) {
+      const eigthIdx = stepInBar >> 1;
+      const bassMidi = bassBar[eigthIdx];
+      if (bassMidi) {
+        playTriangleBass(bassMidi, time, STEP_DURATION * 2, stepInBar % 4 === 0);
+      }
+    }
+
+    // 4. Batería de 8 Bits
+    // Bombo en tiempos 1 y 3 + síncopa arcade en el paso 10
+    if (stepInBar === 0 || stepInBar === 8 || (stepInBar === 10 && bar % 2 === 0)) {
+      play8BitKick(time);
+    }
+
+    // Caja en tiempos 2 y 4 + redobles alegres de 8 bits al cerrar cada sección de 6 compases
     if (stepInBar === 4 || stepInBar === 12) {
-      playSnare(time, false);
-    } else if (isTurnaroundBar && (stepInBar === 11 || stepInBar === 13 || stepInBar === 14 || stepInBar === 15)) {
-      playSnare(time, true);
+      play8BitSnare(time, false);
+    } else if (isTurnaroundBar && (stepInBar === 11 || stepInBar === 14 || stepInBar === 15)) {
+      play8BitSnare(time, true);
     }
 
-    if (isSectionB || isSectionD) {
-      if (stepInBar % 4 === 2) {
-        playHiHat(time, true);
-      } else if (stepInBar % 2 === 0) {
-        playHiHat(time, false);
-      }
+    // Hi-Hat ágil en contratiempos
+    if (stepInBar % 4 === 2) {
+      play8BitHat(time, true);
     } else if (stepInBar % 2 === 0) {
-      playHiHat(time, stepInBar === 14);
+      play8BitHat(time, false);
     }
   }
 
@@ -601,7 +669,7 @@
     const now = ctx.currentTime;
     masterGain.gain.cancelScheduledValues(now);
     masterGain.gain.setValueAtTime(Math.max(0.0001, masterGain.gain.value), now);
-    masterGain.gain.linearRampToValueAtTime(currentVolume, now + 0.06);
+    masterGain.gain.linearRampToValueAtTime(currentVolume, now + 0.05);
 
     if (!isRunning) {
       isRunning = true;
@@ -622,7 +690,7 @@
       const now = ctx.currentTime;
       masterGain.gain.cancelScheduledValues(now);
       masterGain.gain.setValueAtTime(Math.max(0.0001, masterGain.gain.value), now);
-      masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+      masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.04);
     }
   }
 
@@ -695,7 +763,6 @@
   function onFirstUserGesture(e) {
     userInteracted = true;
 
-    // Si la primera interacción no fue sobre #audio-toggle-btn y no está silenciado, arrancamos
     if (!isEventOnAudioToggle(e) && !isMutedInStorage()) {
       shouldResumeOnVisible = true;
       beginPlaybackInternal();
@@ -723,7 +790,6 @@
     }
 
     if (clickedToggle) {
-      // Leemos el estado real antes de que index.html modifique localStorage
       const mutedBeforeClick = isMutedInStorage();
       const targetMuted = !mutedBeforeClick;
       pendingToggleMuted = targetMuted;
