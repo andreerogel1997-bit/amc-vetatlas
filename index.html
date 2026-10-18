@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>AMC VetAtlas · Animal Medical Center | Atlas de Enfermedades Veterinarias Difíciles</title>
+  <link rel="icon" type="image/svg+xml" href="assets/amc-logo.svg" />
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/amc-logo.png" />
+  <link rel="apple-touch-icon" href="assets/amc-logo.png" />
   <meta name="description" content="Atlas didáctico interactivo de enfermedades veterinarias complejas. Fisiopatología, modelos 3D, simuladores clínicos y protocolos terapéuticos." />
   <meta name="theme-color" content="#050811" id="meta-theme-color" />
 
@@ -231,7 +234,14 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      padding: 4px;
+      padding: 0;
+      filter: drop-shadow(0 2px 6px rgba(199, 154, 62, 0.35));
+    }
+    #brand-seal-box {
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+      overflow: visible;
     }
 
     .brand-seal svg {
@@ -1427,21 +1437,7 @@
     <div class="container nav-inner">
       <a href="#" class="brand-link" aria-label="AMC VetAtlas · Animal Medical Center">
         <div class="brand-seal" id="brand-seal-box">
-          <img 
-            src="assets/amc-logo.png" 
-            alt="AMC VetAtlas Logo" 
-            onerror="this.style.display='none'; document.getElementById('amc-fallback-svg').style.display='block';" 
-          />
-          <!-- Sello SVG propio de respaldo automático si assets/amc-logo.png no existe -->
-          <svg id="amc-fallback-svg" style="display:none;" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M18 3L31 10.5V25.5L18 33L5 25.5V10.5L18 3Z" stroke="#38bdf8" stroke-width="2" fill="rgba(56,189,248,0.08)"/>
-            <path d="M18 9V27M12 15H24" stroke="#10b981" stroke-width="2.4" stroke-linecap="round"/>
-            <circle cx="18" cy="18" r="3.2" fill="#f43f5e"/>
-            <circle cx="18" cy="9" r="2" fill="#38bdf8"/>
-            <circle cx="18" cy="27" r="2" fill="#38bdf8"/>
-            <circle cx="12" cy="15" r="2" fill="#10b981"/>
-            <circle cx="24" cy="15" r="2" fill="#10b981"/>
-          </svg>
+          <img src="assets/amc-logo.svg" alt="Logo AMC · Animal Medical Center" width="46" height="46" />
         </div>
         <div class="brand-text">
           <span class="brand-title">AMC VetAtlas <span class="dot">·</span> Animal Medical Center</span>
@@ -1799,15 +1795,6 @@
       'Conejos': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 10V4a2 2 0 0 1 4 0v6"/><path d="M13 10V5a2 2 0 0 1 4 0v6"/><circle cx="12" cy="15" r="5"/><circle cx="10.5" cy="14" r="0.8"/></svg>`
     };
 
-    /* Respaldo del sello: si assets/amc-logo.png no carga, mostrar el SVG */
-    (function ensureSealFallback() {
-      const img = document.querySelector('#brand-seal-box img');
-      const svg = document.getElementById('amc-fallback-svg');
-      if (!img || !svg) return;
-      const showSvg = () => { img.style.display = 'none'; svg.style.display = 'block'; };
-      if (img.complete && img.naturalWidth === 0) showSvg();
-      img.addEventListener('error', showSvg);
-    })();
 
     /* =========================================================================
        3. SINTETIZADOR ARCADE ESPACIAL RETRO-FUTURISTA (100% WEB AUDIO API)
