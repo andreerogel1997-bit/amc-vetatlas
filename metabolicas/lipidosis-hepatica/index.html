@@ -5051,8 +5051,34 @@
     let currentSeverityFactor = 0.85;
     let cameraTargetDist = null;
     let isProgrammaticZoom = false;
+    let tempWorldVec = null;
+    let tempCamVec = null;
 
-    // Configuración de etiquetas ancladas directamente al worldPosition de mallas reales
+    // Selecciona de una lista de mallas la que esté más orientada hacia la cámara en el frame actual
+    function pickFrontmostAnchor(meshList) {
+      if (!meshList || meshList.length === 0 || !camera3D) return null;
+      if (!tempWorldVec) tempWorldVec = new THREE.Vector3();
+      if (!tempCamVec) tempCamVec = new THREE.Vector3();
+
+      const camPos = camera3D.position;
+      let bestNode = null;
+      let minDistanceSq = Infinity;
+
+      for (let i = 0; i < meshList.length; i++) {
+        const item = meshList[i];
+        if (!item || !item.visible) continue;
+        const targetNode = (item.userData && item.userData.anchorNode) ? item.userData.anchorNode : item;
+        targetNode.getWorldPosition(tempWorldVec);
+        const dSq = tempWorldVec.distanceToSquared(camPos);
+        if (dSq < minDistanceSq) {
+          minDistanceSq = dSq;
+          bestNode = targetNode;
+        }
+      }
+      return bestNode;
+    }
+
+    // Configuración de etiquetas con versión corta para móvil (<480px) y cambio según severidad
     const labelConfigs = [
       {
         id: 'pinNucleus',
@@ -5060,39 +5086,54 @@
         color: '#a78bfa',
         getMesh: () => nucleusMesh,
         isVisibleAt: () => true,
-        getText: (val) => val < 20 ? 'Núcleo Central' : (val < 60 ? 'Núcleo Excéntrico' : 'Núcleo Desplazado')
+        getText: (val, isMob) => {
+          if (isMob) return val < 20 ? 'Núcleo central' : 'Núcleo periférico';
+          return val < 20 ? 'Núcleo Central' : (val < 60 ? 'Núcleo Excéntrico' : 'Núcleo Desplazado');
+        }
       },
       {
         id: 'pinVacuoles',
         mode: 'cell',
         color: '#fbbf24',
-        getMesh: () => cellVacuoles[0],
+        getMesh: () => pickFrontmostAnchor(cellVacuoles),
         isVisibleAt: (val) => val >= 5,
-        getText: (val) => val < 20 ? 'Gotas Lipídicas Mínimas' : (val < 60 ? 'Microvacuolas TG' : 'Macrovacuolas TG (>80%)')
+        getText: (val, isMob) => {
+          if (isMob) return val < 20 ? 'Gotas TG' : (val < 60 ? 'Microvacuolas' : 'Macrovacuola TG');
+          return val < 20 ? 'Gotas Lipídicas Mínimas' : (val < 60 ? 'Microvacuolas TG' : 'Macrovacuolas TG (>80%)');
+        }
       },
       {
         id: 'pinMito',
         mode: 'cell',
         color: '#22d3ee',
-        getMesh: () => cellMitochondria[0],
+        getMesh: () => pickFrontmostAnchor(cellMitochondria),
         isVisibleAt: () => true,
-        getText: (val) => val < 25 ? 'Mitocondrias (β-oxidación)' : 'Mitocondrias (Fallo CPT-1)'
+        getText: (val, isMob) => {
+          if (isMob) return val < 25 ? 'Mitocondrias' : 'Fallo CPT-1';
+          return val < 25 ? 'Mitocondrias (β-oxidación)' : 'Mitocondrias (Fallo CPT-1)';
+        }
       },
       {
         id: 'pinER',
         mode: 'cell',
         color: '#fb7185',
-        getMesh: () => cellERTubes[0],
+        getMesh: () => pickFrontmostAnchor(cellERTubes),
         isVisibleAt: () => true,
-        getText: (val) => val < 25 ? 'Retículo (Síntesis VLDL)' : 'Retículo (Bloqueo VLDL)'
+        getText: (val, isMob) => {
+          if (isMob) return val < 25 ? 'RE (VLDL)' : 'Bloqueo VLDL';
+          return val < 25 ? 'Retículo (Síntesis VLDL)' : 'Retículo (Bloqueo VLDL)';
+        }
       },
       {
         id: 'pinCanaliculus',
         mode: 'cell',
         color: '#34d399',
-        getMesh: () => cellCanaliculi[0],
+        getMesh: () => pickFrontmostAnchor(cellCanaliculi),
         isVisibleAt: () => true,
-        getText: (val) => val < 25 ? 'Canalículo Biliar Permeable' : 'Canalículo Comprimido (↑ FA)'
+        getText: (val, isMob) => {
+          if (isMob) return val < 25 ? 'Canalículo' : 'Canalículo (↑FA)';
+          return val < 25 ? 'Canalículo Biliar Permeable' : 'Canalículo Comprimido (↑ FA)';
+        }
       },
       {
         id: 'pinCentralVein',
@@ -5100,7 +5141,7 @@
         color: '#22d3ee',
         getMesh: () => anchorCentralVeinMesh,
         isVisibleAt: () => true,
-        getText: () => 'Vena Centrolobulillar'
+        getText: (val, isMob) => isMob ? 'Vena Central' : 'Vena Centrolobulillar'
       },
       {
         id: 'pinPortalTriad',
@@ -5108,7 +5149,7 @@
         color: '#fb7185',
         getMesh: () => anchorPortalTriadMesh,
         isVisibleAt: () => true,
-        getText: () => 'Tríada Portal (Arteria/Vena/Bilis)'
+        getText: (val, isMob) => isMob ? 'Tríada Portal' : 'Tríada Portal (Arteria/Vena/Bilis)'
       },
       {
         id: 'pinHepaticCords',
@@ -5116,7 +5157,10 @@
         color: '#fbbf24',
         getMesh: () => anchorHepaticCordMesh,
         isVisibleAt: () => true,
-        getText: (val) => val < 20 ? 'Placas de Hepatocitos Sanos' : (val < 60 ? 'Cordones con Esteatosis' : 'Trabéculas Tumefactas (TG)')
+        getText: (val, isMob) => {
+          if (isMob) return val < 20 ? 'Cordones sanos' : 'Trabéculas (TG)';
+          return val < 20 ? 'Placas de Hepatocitos Sanos' : (val < 60 ? 'Cordones con Esteatosis' : 'Trabéculas Tumefactas (TG)');
+        }
       },
       {
         id: 'pinSinusoid',
@@ -5124,29 +5168,46 @@
         color: '#34d399',
         getMesh: () => anchorSinusoidMesh,
         isVisibleAt: () => true,
-        getText: (val) => val < 20 ? 'Sinusoide Permeable' : (val < 60 ? 'Sinusoide Estrechado' : 'Sinusoide Comprimido')
+        getText: (val, isMob) => {
+          if (isMob) return val < 20 ? 'Sinusoide' : 'Sinusoide estrecho';
+          return val < 20 ? 'Sinusoide Permeable' : (val < 60 ? 'Sinusoide Estrechado' : 'Sinusoide Comprimido');
+        }
       }
     ];
 
     /* ----------------------------------------------------------
-       ENCUADRE AUTOMÁTICO DE CÁMARA SEGÚN ASPECT RATIO (360px a Desktop)
+       ENCUADRE POR CUADRO PROYECTADO (~78% DEL LADO LIMITANTE)
        ---------------------------------------------------------- */
     function computeIdealCameraDistance(mode) {
-      if (!camera3D || !stageWrap3D) return mode === 'cell' ? 6.5 : 10.5;
-      const aspect = Math.max(0.5, stageWrap3D.clientWidth / Math.max(1, stageWrap3D.clientHeight));
+      if (!camera3D || !stageWrap3D) return mode === 'cell' ? 5.6 : 7.8;
+      const w = Math.max(1, stageWrap3D.clientWidth);
+      const h = Math.max(1, stageWrap3D.clientHeight);
+      const aspect = w / h;
+      const isNarrowMobile = w < 480;
+
       const vFovRad = THREE.MathUtils.degToRad(camera3D.fov);
       const hFovRad = 2 * Math.atan(Math.tan(vFovRad / 2) * aspect);
-      const limitingFov = Math.min(vFovRad, hFovRad);
 
-      // Radio envolvente efectivo considerando la hepatomegalia actual
-      const hepatomegalyBoost = 1 + currentSeverityFactor * 0.16;
-      const boundingRadius = mode === 'cell'
-        ? 2.28 * hepatomegalyBoost
-        : 4.15 * hepatomegalyBoost;
+      const swell = 1 + currentSeverityFactor * 0.14;
 
-      // Margen adicional en pantallas estrechas para dejar espacio a las etiquetas
-      const marginFactor = aspect < 0.95 ? 1.18 : 1.06;
-      return (boundingRadius * marginFactor) / Math.sin(limitingFov / 2);
+      if (mode === 'cell') {
+        // En móvil dejamos un anillo exterior amplio (fill 0.64) para que las etiquetas rodeen la célula sin taparla
+        const fillRatio = isNarrowMobile ? 0.64 : 0.76;
+        const cellRadius = 1.88 * swell;
+        const distW = cellRadius / (fillRatio * Math.tan(hFovRad / 2));
+        const distH = cellRadius / (fillRatio * Math.tan(vFovRad / 2));
+        return Math.max(distW, distH);
+      } else {
+        // Proyección real del prisma hexagonal oblicuo (radio horizontal ~3.55, alto vertical proyectado ~2.35)
+        const fillRatio = isNarrowMobile ? 0.82 : 0.78;
+        const halfWidth = 3.55 * swell;
+        const pitchRad = 0.62; // ~35.5 grados de elevación
+        const halfHeight = (3.35 * Math.sin(pitchRad) + 0.62 * Math.cos(pitchRad)) * swell;
+
+        const distW = halfWidth / (fillRatio * Math.tan(hFovRad / 2));
+        const distH = halfHeight / (fillRatio * Math.tan(vFovRad / 2));
+        return Math.max(distW, distH);
+      }
     }
 
     function init3DViewer() {
@@ -5257,7 +5318,7 @@
     }
 
     /* ----------------------------------------------------------
-       CONSTRUCCIÓN MODO 1: HEPATOCITO TRANSLÚCIDO CON CANALÍCULOS FINOS EN MEMBRANA
+       CONSTRUCCIÓN MODO 1: HEPATOCITO TRANSLÚCIDO CON ANCLAJES DE SUPERFICIE
        ---------------------------------------------------------- */
     function buildUltrastructuralHepatocyte() {
       cellGroup = new THREE.Group();
@@ -5275,14 +5336,14 @@
       shellGeo.computeVertexNormals();
 
       const shellMat = new THREE.MeshPhysicalMaterial({
-        color: 0x991b1b,
+        color: 0xe57373,
         transparent: true,
-        opacity: 0.34,
-        transmission: 0.65,
+        opacity: 0.32,
+        transmission: 0.68,
         roughness: 0.16,
         metalness: 0.04,
         ior: 1.38,
-        thickness: 1.2,
+        thickness: 1.1,
         clearcoat: 1.0,
         clearcoatRoughness: 0.12,
         side: THREE.DoubleSide,
@@ -5291,12 +5352,12 @@
       hepatocyteShellMesh = new THREE.Mesh(shellGeo, shellMat);
       cellGroup.add(hepatocyteShellMesh);
 
-      // Citoplasma interno sutil
-      const coreGeo = new THREE.SphereGeometry(1.52, 28, 28);
+      // Halo citosólico interno sutil
+      const coreGeo = new THREE.SphereGeometry(1.50, 28, 28);
       const coreMat = new THREE.MeshStandardMaterial({
-        color: 0x7f1d1d,
+        color: 0xbe123c,
         transparent: true,
-        opacity: 0.14,
+        opacity: 0.12,
         roughness: 0.65,
         depthWrite: false
       });
@@ -5308,7 +5369,7 @@
       const nucMat = new THREE.MeshPhysicalMaterial({
         color: 0x7c3aed,
         emissive: 0x3b0764,
-        emissiveIntensity: 0.38,
+        emissiveIntensity: 0.4,
         roughness: 0.22,
         clearcoat: 0.85
       });
@@ -5324,12 +5385,12 @@
       nucleusMesh.add(nucleolusMesh);
       cellGroup.add(nucleusMesh);
 
-      // Vacuolas lipídicas intracitoplasmáticas (crecen y se fusionan en macrovacuolas)
+      // Vacuolas lipídicas intracitoplasmáticas
       const vacGeo = new THREE.SphereGeometry(0.32, 24, 24);
       const vacMat = new THREE.MeshPhysicalMaterial({
         color: 0xfacc15,
         emissive: 0xca8a04,
-        emissiveIntensity: 0.24,
+        emissiveIntensity: 0.25,
         roughness: 0.12,
         clearcoat: 0.9,
         transparent: true,
@@ -5372,24 +5433,24 @@
         cellVacuoles.push(mesh);
       }
 
-      // Mitocondrias (cápsulas cian dentro del citoplasma; la #0 sirve de ancla exacta para pinMito)
+      // Mitocondrias periféricas
       const mitoGeo = new THREE.CapsuleGeometry(0.095, 0.22, 8, 16);
       const mitoMat = new THREE.MeshStandardMaterial({
         color: 0x06b6d4,
         emissive: 0x0891b2,
-        emissiveIntensity: 0.42,
+        emissiveIntensity: 0.45,
         roughness: 0.28
       });
       cellMitochondria = [];
       const mitoCoords = [
-        new THREE.Vector3(-0.95, -0.45, 0.65),
-        new THREE.Vector3(-0.82, 0.55, 0.68),
-        new THREE.Vector3(0.75, -0.68, 0.62),
-        new THREE.Vector3(0.88, 0.42, -0.65),
-        new THREE.Vector3(-0.65, -0.78, -0.58),
-        new THREE.Vector3(0.0, 0.92, 0.55),
-        new THREE.Vector3(-0.92, 0.12, -0.62),
-        new THREE.Vector3(0.55, 0.75, 0.52)
+        new THREE.Vector3(-1.02, -0.42, 0.72),
+        new THREE.Vector3(1.02, -0.45, 0.70),
+        new THREE.Vector3(-0.88, 0.58, -0.72),
+        new THREE.Vector3(0.92, 0.52, -0.68),
+        new THREE.Vector3(0.0, -1.05, 0.78),
+        new THREE.Vector3(0.0, 1.02, -0.75),
+        new THREE.Vector3(-1.08, 0.22, 0.52),
+        new THREE.Vector3(1.05, 0.28, 0.55)
       ];
       mitoCoords.forEach((basePos, i) => {
         const mito = new THREE.Mesh(mitoGeo, mitoMat);
@@ -5400,18 +5461,20 @@
         cellMitochondria.push(mito);
       });
 
-      // Retículo Endoplasmático (ensamblaje de VLDL; el #0 sirve de ancla exacta para pinER)
-      const erGeo = new THREE.TorusKnotGeometry(0.26, 0.04, 44, 8, 2, 3);
+      // Retículo Endoplasmático (4 complejos distribuidos para que siempre haya uno visible de frente)
+      const erGeo = new THREE.TorusKnotGeometry(0.24, 0.038, 44, 8, 2, 3);
       const erMat = new THREE.MeshStandardMaterial({
         color: 0xf43f5e,
         emissive: 0x9f1239,
-        emissiveIntensity: 0.35,
+        emissiveIntensity: 0.38,
         roughness: 0.32
       });
       cellERTubes = [];
       [
-        new THREE.Vector3(-0.78, 0.68, -0.42),
-        new THREE.Vector3(0.72, -0.65, -0.48)
+        new THREE.Vector3(-0.82, 0.72, 0.52),
+        new THREE.Vector3(0.82, 0.68, -0.52),
+        new THREE.Vector3(0.78, -0.70, 0.50),
+        new THREE.Vector3(-0.78, -0.68, -0.52)
       ].forEach(pos => {
         const er = new THREE.Mesh(erGeo, erMat);
         er.position.copy(pos);
@@ -5420,37 +5483,38 @@
         cellERTubes.push(er);
       });
 
-      // Canalículos biliares: canales finos cortos adosados a las caras intercelulares de la membrana (no salen fuera)
+      // Canalículos biliares en la superficie de la membrana plasmática con anchorNode en su punto medio real
       cellCanaliculi = [];
-      const canalCurves = [
-        new THREE.CatmullRomCurve3([
-          new THREE.Vector3(-0.35, -1.48, 0.62),
-          new THREE.Vector3(0.0, -1.58, 0.52),
-          new THREE.Vector3(0.38, -1.46, 0.60)
-        ]),
-        new THREE.CatmullRomCurve3([
-          new THREE.Vector3(1.32, -0.42, 0.72),
-          new THREE.Vector3(1.48, 0.0, 0.62),
-          new THREE.Vector3(1.34, 0.42, 0.70)
-        ]),
-        new THREE.CatmullRomCurve3([
-          new THREE.Vector3(-1.32, -0.35, -0.68),
-          new THREE.Vector3(-1.46, 0.08, -0.58),
-          new THREE.Vector3(-1.28, 0.48, -0.66)
-        ])
+      const canalConfigs = [
+        [new THREE.Vector3(-0.36, -1.36, 0.88), new THREE.Vector3(0.0, -1.46, 0.82), new THREE.Vector3(0.36, -1.36, 0.88)],
+        [new THREE.Vector3(-0.36, -1.36, -0.88), new THREE.Vector3(0.0, -1.46, -0.82), new THREE.Vector3(0.36, -1.36, -0.88)],
+        [new THREE.Vector3(1.32, -0.38, 0.82), new THREE.Vector3(1.44, 0.0, 0.76), new THREE.Vector3(1.32, 0.38, 0.82)],
+        [new THREE.Vector3(-1.32, -0.38, 0.82), new THREE.Vector3(-1.44, 0.0, 0.76), new THREE.Vector3(-1.32, 0.38, 0.82)],
+        [new THREE.Vector3(0.82, -0.38, -1.32), new THREE.Vector3(0.76, 0.0, -1.44), new THREE.Vector3(0.82, 0.38, -1.32)],
+        [new THREE.Vector3(-0.82, -0.38, -1.32), new THREE.Vector3(-0.76, 0.0, -1.44), new THREE.Vector3(-0.82, 0.38, -1.32)]
       ];
 
       const canMat = new THREE.MeshStandardMaterial({
         color: 0x10b981,
         emissive: 0x059669,
-        emissiveIntensity: 0.45,
-        roughness: 0.25
+        emissiveIntensity: 0.55,
+        roughness: 0.22
       });
 
-      canalCurves.forEach(curve => {
-        const tubeGeo = new THREE.TubeGeometry(curve, 20, 0.055, 10, false);
+      canalConfigs.forEach(pts => {
+        // Centrar la geometría en su propio punto medio para que getWorldPosition() y scale actúen sobre la superficie celular
+        const midPoint = pts[1].clone();
+        const localPts = pts.map(p => p.clone().sub(midPoint));
+        const curve = new THREE.CatmullRomCurve3(localPts);
+        const tubeGeo = new THREE.TubeGeometry(curve, 18, 0.058, 10, false);
         const canMesh = new THREE.Mesh(tubeGeo, canMat);
-        // Al ser hijo directo de hepatocyteShellMesh, se mantiene pegado a la superficie de la membrana
+        canMesh.position.copy(midPoint);
+
+        const anchorNode = new THREE.Object3D();
+        anchorNode.position.set(0, 0, 0);
+        canMesh.add(anchorNode);
+        canMesh.userData = { anchorNode, basePos: midPoint.clone() };
+
         hepatocyteShellMesh.add(canMesh);
         cellCanaliculi.push(canMesh);
       });
@@ -5459,7 +5523,7 @@
     }
 
     /* ----------------------------------------------------------
-       CONSTRUCCIÓN MODO 2: LOBULILLO HEPÁTICO HISTOLÓGICO (NIVEL ATLAS MÉDICO)
+       CONSTRUCCIÓN MODO 2: LOBULILLO HEPÁTICO HISTOLÓGICO H&E
        ---------------------------------------------------------- */
     function buildHexagonalLobule() {
       lobuleGroup = new THREE.Group();
@@ -5468,138 +5532,215 @@
       lobuleSinusoidChannels = [];
       lobuleFlowParticles = [];
 
-      // 1. Placa basal hexagonal de tejido conectivo interlobulillar (cápsula de Glisson)
-      const baseHexGeo = new THREE.CylinderGeometry(3.45, 3.45, 0.16, 6);
+      // 1. Placa basal hexagonal de tejido conectivo interlobulillar claro
+      const baseHexGeo = new THREE.CylinderGeometry(3.52, 3.52, 0.16, 6);
       const baseHexMat = new THREE.MeshStandardMaterial({
-        color: 0x1e293b,
-        roughness: 0.65,
-        metalness: 0.1
+        color: 0x334155,
+        emissive: 0x0f172a,
+        emissiveIntensity: 0.3,
+        roughness: 0.6
       });
       const baseHex = new THREE.Mesh(baseHexGeo, baseHexMat);
       baseHex.position.y = -0.52;
       lobuleGroup.add(baseHex);
 
       // Contorno hexagonal fino del lobulillo
-      const borderEdges = new THREE.EdgesGeometry(new THREE.CylinderGeometry(3.46, 3.46, 1.02, 6));
+      const borderEdges = new THREE.EdgesGeometry(new THREE.CylinderGeometry(3.52, 3.52, 1.04, 6));
       const borderLine = new THREE.LineSegments(
         borderEdges,
-        new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.38 })
+        new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.42 })
       );
       lobuleGroup.add(borderLine);
 
-      // 2. Vena Central Centrolobulillar (con pared endotelial y luz venosa)
-      const cvWallGeo = new THREE.CylinderGeometry(0.48, 0.48, 1.12, 28, 1, true);
+      // 2. Vena Central Centrolobulillar (pared endotelial + boca superior centrada para etiqueta)
+      const cvWallGeo = new THREE.CylinderGeometry(0.48, 0.48, 1.08, 28, 1, true);
       const cvWallMat = new THREE.MeshPhysicalMaterial({
         color: 0x0284c7,
         emissive: 0x0369a1,
-        emissiveIntensity: 0.4,
+        emissiveIntensity: 0.45,
         side: THREE.DoubleSide,
         roughness: 0.2,
         clearcoat: 0.9
       });
-      anchorCentralVeinMesh = new THREE.Mesh(cvWallGeo, cvWallMat);
-      lobuleGroup.add(anchorCentralVeinMesh);
+      const centralVeinWall = new THREE.Mesh(cvWallGeo, cvWallMat);
+      lobuleGroup.add(centralVeinWall);
 
       const cvLumen = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.43, 0.43, 1.08, 28),
+        new THREE.CylinderGeometry(0.43, 0.43, 1.04, 28),
         new THREE.MeshBasicMaterial({ color: 0x041e30 })
       );
       lobuleGroup.add(cvLumen);
 
-      // 3. Seis Tríadas Portales Anatómicas en los vértices del hexágono
+      // Anillo endotelial en la boca superior de la vena centrolobulillar (ancla exacta de pinCentralVein)
+      const cvMouthRim = new THREE.Mesh(
+        new THREE.TorusGeometry(0.46, 0.035, 12, 32),
+        new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
+      );
+      cvMouthRim.rotation.x = Math.PI / 2;
+      cvMouthRim.position.y = 0.54;
+      lobuleGroup.add(cvMouthRim);
+      anchorCentralVeinMesh = cvMouthRim;
+
+      // 3. Seis Tríadas Portales en los vértices: estroma conectivo claro y los 3 vasos visibles en toda la altura del prisma
       for (let v = 0; v < 6; v++) {
         const vertAngle = (v / 6) * Math.PI * 2;
         const vx = Math.cos(vertAngle) * 3.18;
         const vz = Math.sin(vertAngle) * 3.18;
 
         const triadGroup = new THREE.Group();
-        triadGroup.position.set(vx, 0.02, vz);
+        triadGroup.position.set(vx, 0.0, vz);
         triadGroup.rotation.y = -vertAngle;
 
-        // Estroma portal (espacio de Mall)
-        const stroma = new THREE.Mesh(
-          new THREE.CylinderGeometry(0.38, 0.40, 0.96, 16),
-          new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.7 })
+        // Zócalo y matriz de tejido conectivo claro (espacio porta rosado-azulado claro, no negro)
+        const stromaPedestal = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.44, 0.46, 0.28, 18),
+          new THREE.MeshStandardMaterial({
+            color: 0xe2e8f0,
+            emissive: 0x64748b,
+            emissiveIntensity: 0.35,
+            roughness: 0.45
+          })
         );
-        triadGroup.add(stroma);
+        stromaPedestal.position.y = -0.34;
+        triadGroup.add(stromaPedestal);
 
-        // Rama de la Vena Porta (lumen amplio azul-violeta)
-        const portalVein = new THREE.Mesh(
-          new THREE.CylinderGeometry(0.16, 0.16, 1.12, 20),
-          new THREE.MeshPhysicalMaterial({ color: 0x6366f1, emissive: 0x312e81, emissiveIntensity: 0.35, clearcoat: 0.8 })
+        const stromaSheath = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.42, 0.42, 0.98, 18),
+          new THREE.MeshPhysicalMaterial({
+            color: 0xf1f5f9,
+            emissive: 0x475569,
+            emissiveIntensity: 0.25,
+            transparent: true,
+            opacity: 0.24,
+            roughness: 0.3,
+            depthWrite: false
+          })
         );
-        portalVein.position.set(-0.11, 0.04, -0.07);
+        triadGroup.add(stromaSheath);
 
-        // Rama de la Arteria Hepática (rojo escarlata pulsátil)
-        const hepaticArtery = new THREE.Mesh(
-          new THREE.CylinderGeometry(0.095, 0.095, 1.16, 18),
-          new THREE.MeshPhysicalMaterial({ color: 0xf43f5e, emissive: 0x9f1239, emissiveIntensity: 0.45, clearcoat: 0.8 })
+        // A) Rama de la Vena Porta (azul/violeta, gran calibre, visible de arriba a abajo)
+        const pvWall = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.18, 0.18, 1.12, 20),
+          new THREE.MeshPhysicalMaterial({
+            color: 0x6366f1,
+            emissive: 0x3730a3,
+            emissiveIntensity: 0.45,
+            roughness: 0.2,
+            clearcoat: 0.85
+          })
         );
-        hepaticArtery.position.set(0.13, 0.06, -0.06);
-
-        // Conducto Biliar Interlobulillar (verde esmeralda)
-        const bileDuct = new THREE.Mesh(
-          new THREE.CylinderGeometry(0.10, 0.10, 1.16, 18),
-          new THREE.MeshPhysicalMaterial({ color: 0x10b981, emissive: 0x065f46, emissiveIntensity: 0.45, clearcoat: 0.8 })
+        pvWall.position.set(-0.12, 0.04, 0.0);
+        const pvLumen = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.13, 0.13, 1.14, 18),
+          new THREE.MeshBasicMaterial({ color: 0x1e1b4b })
         );
-        bileDuct.position.set(0.02, 0.06, 0.14);
+        pvWall.add(pvLumen);
 
-        triadGroup.add(portalVein, hepaticArtery, bileDuct);
+        // B) Rama de la Arteria Hepática (roja brillante, menor calibre, pared muscular gruesa y luz estrecha)
+        const haWall = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.115, 0.115, 1.16, 18),
+          new THREE.MeshPhysicalMaterial({
+            color: 0xf43f5e,
+            emissive: 0xbe123c,
+            emissiveIntensity: 0.5,
+            roughness: 0.2,
+            clearcoat: 0.85
+          })
+        );
+        haWall.position.set(0.14, 0.06, -0.11);
+        const haLumen = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.042, 0.042, 1.18, 14),
+          new THREE.MeshBasicMaterial({ color: 0x4c0519 })
+        );
+        haWall.add(haLumen);
+
+        // C) Conducto Biliar Interlobulillar (verde esmeralda intenso, visible en toda la altura)
+        const bdWall = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.115, 0.115, 1.16, 18),
+          new THREE.MeshPhysicalMaterial({
+            color: 0x10b981,
+            emissive: 0x047857,
+            emissiveIntensity: 0.5,
+            roughness: 0.2,
+            clearcoat: 0.85
+          })
+        );
+        bdWall.position.set(0.14, 0.06, 0.12);
+        const bdLumen = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.055, 0.055, 1.18, 14),
+          new THREE.MeshBasicMaterial({ color: 0x022c22 })
+        );
+        bdWall.add(bdLumen);
+
+        triadGroup.add(pvWall, haWall, bdWall);
         lobuleGroup.add(triadGroup);
 
         if (v === 0) {
-          anchorPortalTriadMesh = bileDuct;
+          const triadAnchor = new THREE.Object3D();
+          triadAnchor.position.set(0.05, 0.52, 0.0);
+          triadGroup.add(triadAnchor);
+          anchorPortalTriadMesh = triadAnchor;
         }
       }
 
-      // 4. Placas / Trabéculas Radiales de Hepatocitos Poligonales (12 cordones histológicos)
-      // y 12 Sinusoides Vasculares intercalados entre las placas
+      // 4. Placas / Trabéculas Radiales de Hepatocitos Poligonales (tinción H&E rosa/salmón en sano)
+      // alternadas con 12 Sinusoides Rojo Oscuro bien diferenciados
       const numSectors = 12;
-      const cellBlockGeo = new THREE.CylinderGeometry(0.28, 0.28, 0.42, 6);
-      const vacDropGeo = new THREE.SphereGeometry(0.13, 14, 14);
-      const cellNucGeo = new THREE.SphereGeometry(0.065, 10, 10);
-      const cellNucMat = new THREE.MeshBasicMaterial({ color: 0xa78bfa });
+      const cellBlockGeo = new THREE.CylinderGeometry(0.275, 0.275, 0.42, 6);
+      const vacDropGeo = new THREE.SphereGeometry(0.135, 14, 14);
+      const cellNucGeo = new THREE.SphereGeometry(0.082, 14, 14);
+      const cellNucMat = new THREE.MeshStandardMaterial({
+        color: 0x7c3aed,
+        emissive: 0x4c1d95,
+        emissiveIntensity: 0.55,
+        roughness: 0.25
+      });
 
       for (let s = 0; s < numSectors; s++) {
         const plateAngle = (s / numSectors) * Math.PI * 2 + (Math.PI / numSectors);
         const sinAngle = (s / numSectors) * Math.PI * 2;
 
-        // A) Sinusoide hepático radial (canal endotelial rojo oscuro entre las placas de hepatocitos)
-        const sinLength = 2.25;
-        const sinGeo = new THREE.BoxGeometry(sinLength, 0.56, 0.16);
+        // A) Sinusoide vascular radial (canal rojo vino oscuro profundo que contrasta con las placas rosadas/amarillas)
+        const sinLength = 2.28;
+        const sinGeo = new THREE.BoxGeometry(sinLength, 0.52, 0.17);
         const sinMat = new THREE.MeshPhysicalMaterial({
-          color: 0xbe123c,
-          emissive: 0x4c0519,
-          emissiveIntensity: 0.45,
+          color: 0x7f1d1d,
+          emissive: 0x450a0a,
+          emissiveIntensity: 0.55,
           transparent: true,
-          opacity: 0.68,
+          opacity: 0.82,
           roughness: 0.25
         });
         const sinChannel = new THREE.Mesh(sinGeo, sinMat);
         const sinMidR = 1.68;
         sinChannel.position.set(
           Math.cos(sinAngle) * sinMidR,
-          0.0,
+          -0.02,
           Math.sin(sinAngle) * sinMidR
         );
         sinChannel.rotation.y = -sinAngle;
         lobuleGroup.add(sinChannel);
         lobuleSinusoidChannels.push(sinChannel);
 
-        if (s === 4) {
-          anchorSinusoidMesh = sinChannel;
+        if (s === 3) {
+          const sinAnchor = new THREE.Object3D();
+          sinAnchor.position.set(0, 0.26, 0);
+          sinChannel.add(sinAnchor);
+          anchorSinusoidMesh = sinAnchor;
         }
 
-        // B) Placa / Trabécula radial formada por 4 hepatocitos poligonales contiguos en 2 niveles
+        // B) Trabécula / Placa radial de hepatocitos poligonales con núcleo violeta H&E visible arriba
         const radialSteps = [0.85, 1.38, 1.92, 2.46];
         radialSteps.forEach((radDist, stepIdx) => {
           for (let layer = 0; layer < 2; layer++) {
             const hepMat = new THREE.MeshPhysicalMaterial({
-              color: 0x991b1b,
+              color: 0xf48fb1,
+              emissive: 0x831843,
+              emissiveIntensity: 0.18,
               transparent: true,
-              opacity: 0.78,
-              roughness: 0.22,
-              clearcoat: 0.85
+              opacity: 0.90,
+              roughness: 0.24,
+              clearcoat: 0.8
             });
             const hepCell = new THREE.Mesh(cellBlockGeo, hepMat);
             const yOffset = layer === 0 ? -0.21 : 0.21;
@@ -5611,26 +5752,26 @@
             );
             hepCell.rotation.y = -plateAngle + Math.PI / 6;
 
-            // Núcleo interno del hepatocito trabecular
+            // Núcleo violeta hematoxilina prominente en la cara superior/lateral del hepatocito
             const miniNuc = new THREE.Mesh(cellNucGeo, cellNucMat);
-            miniNuc.position.set(-0.08, 0.06, 0);
+            miniNuc.position.set(0.0, layer === 1 ? 0.17 : -0.14, 0.0);
             hepCell.add(miniNuc);
 
-            // 2 Vacuolas lipídicas doradas visibles en la superficie/interior de cada hepatocito del cordón
+            // Vacuolas lipídicas claras/amarillas que emergen y crecen con la severidad
             const vacMat = new THREE.MeshPhysicalMaterial({
-              color: 0xfacc15,
+              color: 0xfef08a,
               emissive: 0xca8a04,
               emissiveIntensity: 0.35,
-              roughness: 0.12,
+              roughness: 0.1,
               clearcoat: 1.0
             });
             const vac1 = new THREE.Mesh(vacDropGeo, vacMat);
-            vac1.position.set(0.06, 0.12, 0.05);
+            vac1.position.set(0.06, 0.13, 0.05);
             const vac2 = new THREE.Mesh(vacDropGeo, vacMat);
-            vac2.position.set(-0.04, 0.14, -0.06);
+            vac2.position.set(-0.05, 0.14, -0.06);
             hepCell.add(vac1, vac2);
 
-            // Fino canalículo biliar verde en la unión entre las capas superior e inferior del cordón
+            // Canalículo biliar intercelular verde entre hepatocitos vecinos
             if (layer === 1 && stepIdx < 3) {
               const bileGroove = new THREE.Mesh(
                 new THREE.CylinderGeometry(0.022, 0.022, 0.52, 8),
@@ -5645,6 +5786,7 @@
               vac1,
               vac2,
               miniNuc,
+              layer,
               stepIdx,
               noise: ((s * 3 + stepIdx) % 6) / 6
             };
@@ -5654,25 +5796,33 @@
             lobulePlateVacuoles.push(vac1, vac2);
 
             if (s === 1 && stepIdx === 2 && layer === 1) {
-              anchorHepaticCordMesh = hepCell;
+              const cordAnchor = new THREE.Object3D();
+              cordAnchor.position.set(0, 0.22, 0);
+              hepCell.add(cordAnchor);
+              anchorHepaticCordMesh = cordAnchor;
             }
           }
         });
       }
 
-      // 5. Eritrocitos y gotas de NEFA circulando por los sinusoides hacia la vena central
-      const rbcGeo = new THREE.CylinderGeometry(0.055, 0.055, 0.022, 12);
-      const rbcMat = new THREE.MeshStandardMaterial({ color: 0xf43f5e, emissive: 0xbe123c, emissiveIntensity: 0.4 });
-      const nefaGeo = new THREE.SphereGeometry(0.048, 10, 10);
-      const nefaMat = new THREE.MeshBasicMaterial({ color: 0xfde047 });
+      // 5. Eritrocitos (discos rojos brillantes) y gotas NEFA circulando por la parte superior de los sinusoides
+      const rbcGeo = new THREE.CylinderGeometry(0.068, 0.068, 0.028, 14);
+      const rbcMat = new THREE.MeshStandardMaterial({
+        color: 0xff2a55,
+        emissive: 0xe11d48,
+        emissiveIntensity: 0.65,
+        roughness: 0.2
+      });
+      const nefaGeo = new THREE.SphereGeometry(0.055, 10, 10);
+      const nefaMat = new THREE.MeshBasicMaterial({ color: 0xfef08a });
 
-      for (let i = 0; i < 36; i++) {
+      for (let i = 0; i < 42; i++) {
         const isNefa = i % 2 === 0;
         const p = new THREE.Mesh(isNefa ? nefaGeo : rbcGeo, isNefa ? nefaMat : rbcMat);
         p.userData = {
           sinAngle: ((i % numSectors) / numSectors) * Math.PI * 2,
-          progress: (i / 36),
-          speed: 0.0035 + (i % 4) * 0.001,
+          progress: (i / 42),
+          speed: 0.0038 + (i % 4) * 0.0012,
           isNefa
         };
         lobuleGroup.add(p);
@@ -5684,7 +5834,7 @@
     }
 
     /* ----------------------------------------------------------
-       CAMBIO DE ESCALA ANATÓMICA Y ENCUADRE INTELIGENTE
+       CAMBIO DE ESCALA ANATÓMICA Y ENCUADRE AL ~78% DEL VISOR
        ---------------------------------------------------------- */
     function set3DViewMode(mode, animateCamera = true) {
       current3DViewMode = mode;
@@ -5696,15 +5846,19 @@
       if (btnCell) btnCell.classList.toggle('active', mode === 'cell');
       if (btnLobule) btnLobule.classList.toggle('active', mode === 'lobule');
 
+      if (controls3D) {
+        // Centrar ópticamente el lobulillo y la boca de la vena centrolobulillar
+        controls3D.target.set(0, mode === 'lobule' ? 0.06 : 0.0, 0);
+      }
+
       if (animateCamera && camera3D) {
         isProgrammaticZoom = true;
         cameraTargetDist = computeIdealCameraDistance(mode);
-        // Ajustar inclinación para apreciar el hexágono histológico desde arriba-oblicuo
-        const targetDir = camera3D.position.clone().normalize();
+        const targetDir = camera3D.position.clone().sub(controls3D ? controls3D.target : new THREE.Vector3()).normalize();
         if (mode === 'lobule') {
-          targetDir.y = Math.max(0.52, targetDir.y);
+          targetDir.y = 0.56; // Vista oblicua ideal (~34°) para llenar ancho y alto con el hexágono
         } else {
-          targetDir.y = Math.min(0.38, Math.max(0.18, targetDir.y));
+          targetDir.y = 0.26;
         }
         targetDir.normalize();
         camera3D.position.copy(targetDir.multiplyScalar(camera3D.position.length()));
@@ -5722,7 +5876,7 @@
     });
 
     /* ----------------------------------------------------------
-       ACTUALIZACIÓN DEL SLIDER DE SEVERIDAD HISTOPATOLÓGICA
+       ACTUALIZACIÓN DEL SLIDER DE SEVERIDAD (ROSA H&E -> AMARILLO PÁLIDO)
        ---------------------------------------------------------- */
     function apply3DSteatosisLevel(val) {
       const clampedVal = Math.max(0, Math.min(100, val));
@@ -5741,14 +5895,14 @@
         sinText = '100% (Permeable)';
         if (desc3DVacuoles) desc3DVacuoles.textContent = 'Equilibrio estequiométrico normal: los NEFA captados por CD36 ingresan a la mitocondria vía CPT-1 o se exportan como VLDL sin acumularse.';
         if (desc3DCholestasis) desc3DCholestasis.textContent = 'Sinusoides y canalículos biliares completamente permeables. Fosfatasa Alcalina (FA), GGT y bilirrubina total dentro de rangos basales.';
-        if (desc3DFriability) desc3DFriability.textContent = 'Parénquima rojo-parduzco firme con bordes agudos. Núcleo hepatocitario central y arquitectura trabecular intacta.';
+        if (desc3DFriability) desc3DFriability.textContent = 'Trabéculas hepatocitarias eosinófilas (rosa/salmón) con núcleos centrales violeta y sinusoides permeables.';
       } else if (clampedVal < 45) {
         stageTitle = 'Esteatosis Leve · Microvesicular Inicial (' + clampedVal + '%)';
         vacText = clampedVal + '% (Microvesicular)';
         sinText = Math.round(100 - factor * 75) + '% (Compresión Leve)';
         if (desc3DVacuoles) desc3DVacuoles.textContent = 'El ingreso masivo de NEFA comienza a superar la beta-oxidación mitocondrial y la exportación de VLDL; en gatos obesos cualquier anorexia >24-48 h ya constituye una urgencia clínica.';
         if (desc3DCholestasis) desc3DCholestasis.textContent = 'Tumefacción hepatocitaria incipiente con compresión leve de canalículos biliares y elevación inicial de Fosfatasa Alcalina.';
-        if (desc3DFriability) desc3DFriability.textContent = 'Coloración rojiza-anaranjada con aumento leve del volumen lobulillar; momento crítico para restaurar el balance energético.';
+        if (desc3DFriability) desc3DFriability.textContent = 'Aparición de microvacuolas lipídicas citoplasmáticas con aumento leve del volumen de los cordones hepáticos.';
       } else if (clampedVal < 78) {
         stageTitle = 'Esteatosis Moderada · Coalescencia Vacuolar (' + clampedVal + '%)';
         vacText = clampedVal + '% (Mixta Micro/Macro)';
@@ -5769,22 +5923,15 @@
       if (telemetryVacuoleChip) telemetryVacuoleChip.innerHTML = 'Vacuolización: <strong>' + vacText + '</strong>';
       if (telemetrySinusoidChip) telemetrySinusoidChip.innerHTML = 'Luz Sinusoidal / Canalicular: <strong>' + sinText + '</strong>';
 
-      // Actualizar texto dinámico de las etiquetas HTML según la severidad
-      labelConfigs.forEach(cfg => {
-        const el = document.getElementById(cfg.id);
-        if (el && typeof cfg.getText === 'function') {
-          el.textContent = cfg.getText(clampedVal);
-        }
-      });
-
-      const colorHealthy = new THREE.Color(0x991b1b);
-      const colorModerate = new THREE.Color(0xd97706);
-      const colorSevere = new THREE.Color(0xfacc15);
+      // Transición cromática histológica: Rosa/Salmón Eosinófilo H&E (0%) -> Ámbar (50%) -> Amarillo Pálido (100%)
+      const colorHealthyHE = new THREE.Color(0xf48fb1);
+      const colorMidSteatosis = new THREE.Color(0xf59e0b);
+      const colorSevereButter = new THREE.Color(0xfde047);
       const parenchColor = new THREE.Color();
       if (factor < 0.5) {
-        parenchColor.lerpColors(colorHealthy, colorModerate, factor * 2);
+        parenchColor.lerpColors(colorHealthyHE, colorMidSteatosis, factor * 2);
       } else {
-        parenchColor.lerpColors(colorModerate, colorSevere, (factor - 0.5) * 2);
+        parenchColor.lerpColors(colorMidSteatosis, colorSevereButter, (factor - 0.5) * 2);
       }
 
       // 1. Actualizar Hepatocito Translúcido
@@ -5796,7 +5943,6 @@
         hepatocyteInnerCore.material.color.copy(parenchColor);
       }
 
-      // Núcleo: central en 0%, desplazado contra la membrana plasmática en severidad alta
       if (nucleusMesh) {
         nucleusMesh.position.set(
           factor * 1.05,
@@ -5806,7 +5952,6 @@
         nucleusMesh.scale.set(1.0 - factor * 0.16, 1.0 + factor * 0.08, 1.0 + factor * 0.08);
       }
 
-      // Coalescencia y crecimiento de vacuolas (ocultas si factor < 0.05)
       cellVacuoles.forEach(vac => {
         if (factor < 0.04) {
           vac.visible = false;
@@ -5827,24 +5972,32 @@
         er.position.copy(er.userData.basePos).multiplyScalar(0.86 + factor * 0.20);
       });
 
-      // Los canalículos biliares en la superficie se comprimen (adelgazan su calibre) al subir la severidad
+      // Comprimir el calibre de los canalículos biliares de superficie con la severidad
       cellCanaliculi.forEach(can => {
-        const caliber = Math.max(0.35, 1.0 - factor * 0.62);
-        can.scale.set(1.0, caliber, caliber);
+        const caliber = Math.max(0.32, 1.0 - factor * 0.65);
+        can.scale.set(caliber, caliber, caliber);
       });
 
-      // 2. Actualizar Lobulillo Hexagonal (Hepatomegalia, color de trabéculas, vacuolas y compresión sinusoidal)
+      // 2. Actualizar Lobulillo Hexagonal (Placas rosa/salmón -> amarillo pálido con vacuolas y compresión sinusoidal)
       if (lobuleGroup) {
-        const lobuleSwell = 1.0 + factor * 0.14; // Hepatomegalia global del lobulillo
-        lobuleGroup.scale.set(lobuleSwell, 1.0 + factor * 0.18, lobuleSwell);
+        const lobuleSwell = 1.0 + factor * 0.14;
+        lobuleGroup.scale.set(lobuleSwell, 1.0 + factor * 0.16, lobuleSwell);
       }
 
+      const emissiveHealthy = new THREE.Color(0x831843);
+      const emissiveSevere = new THREE.Color(0xa16207);
+
       lobuleTrabecularPlates.forEach(hep => {
-        const localF = Math.max(0, Math.min(1, factor * 1.12 - hep.userData.noise * 0.18));
-        hep.material.color.lerpColors(colorHealthy, colorSevere, localF);
-        // Ensanchamiento de cada hepatocito de la placa que invade el espacio sinusoidal vecino
+        const localF = Math.max(0, Math.min(1, factor * 1.12 - hep.userData.noise * 0.16));
+        if (localF < 0.5) {
+          hep.material.color.lerpColors(colorHealthyHE, colorMidSteatosis, localF * 2);
+        } else {
+          hep.material.color.lerpColors(colorMidSteatosis, colorSevereButter, (localF - 0.5) * 2);
+        }
+        hep.material.emissive.lerpColors(emissiveHealthy, emissiveSevere, localF);
+
         const widthExpand = 1.0 + localF * 0.34;
-        hep.scale.set(widthExpand, 1.0 + localF * 0.18, widthExpand);
+        hep.scale.set(widthExpand, 1.0 + localF * 0.16, widthExpand);
 
         const showVac = localF > 0.06;
         hep.userData.vac1.visible = showVac;
@@ -5852,13 +6005,13 @@
         if (showVac) {
           const vScale = 0.25 + localF * 1.15;
           hep.userData.vac1.scale.setScalar(vScale);
-          hep.userData.vac2.scale.setScalar(vScale * 0.9);
+          hep.userData.vac2.scale.setScalar(vScale * 0.92);
         }
-        // Desplazar el pequeño núcleo hacia el borde celular
-        hep.userData.miniNuc.position.x = -0.05 - localF * 0.12;
+        // El núcleo violeta hematoxilina es central en sano y se desplaza al borde celular con la severidad
+        hep.userData.miniNuc.position.x = -localF * 0.14;
+        hep.userData.miniNuc.position.z = localF * 0.08;
       });
 
-      // Estrechamiento visible de los canales sinusoidales rojos entre las trabéculas
       lobuleSinusoidChannels.forEach(sin => {
         const narrowFactor = Math.max(0.22, 1.0 - factor * 0.76);
         sin.scale.set(1.0, 1.0, narrowFactor);
@@ -5901,14 +6054,11 @@
     }
 
     /* ----------------------------------------------------------
-       MOTOR DE ETIQUETAS ANCLADAS A MALLAS REALES CON ANTICOLISIÓN
+       MOTOR DE ETIQUETAS: ANILLO EXTERIOR EN MÓVIL (<480PX) Y ANCLAJE EXACTO
        ---------------------------------------------------------- */
-    let tempWorldVec = null; /* se crea al cargar three.js (carga diferida) */
-
     function update3DLabelsAndConnectors() {
       const layer = document.getElementById('labels3DLayer');
       if (!layer || !camera3D || !stageWrap3D) return;
-      if (!tempWorldVec) tempWorldVec = new THREE.Vector3();
 
       if (!labels3DVisible) {
         layer.style.display = 'none';
@@ -5916,10 +6066,12 @@
       }
       layer.style.display = 'block';
 
+      if (!tempWorldVec) tempWorldVec = new THREE.Vector3();
       scene3D.updateMatrixWorld(true);
 
       const width = stageWrap3D.clientWidth;
       const height = stageWrap3D.clientHeight;
+      const isMobileCanvas = width < 480;
       const clampedVal = Math.round(currentSeverityFactor * 100);
       const activeItems = [];
 
@@ -5927,12 +6079,15 @@
         const el = document.getElementById(cfg.id);
         if (!el) return;
 
-        // Ocultar si pertenece al otro modo o si la estructura aún no es visible en este % de severidad
+        // Actualizar texto corto en móvil (<480px) o completo en escritorio según severidad
+        if (typeof cfg.getText === 'function') {
+          el.textContent = cfg.getText(clampedVal, isMobileCanvas);
+        }
+
         const targetMesh = cfg.getMesh ? cfg.getMesh() : null;
         if (
           cfg.mode !== current3DViewMode ||
           !targetMesh ||
-          !targetMesh.visible ||
           (typeof cfg.isVisibleAt === 'function' && !cfg.isVisibleAt(clampedVal))
         ) {
           el.style.opacity = '0';
@@ -5940,51 +6095,72 @@
           return;
         }
 
-        // Obtener posición mundial exacta de la malla anatómica en este frame
         targetMesh.getWorldPosition(tempWorldVec);
-
-        // Comprobar si el punto queda oculto detrás del centro del modelo respecto a la cámara
-        const toPoint = tempWorldVec.clone().normalize();
-        const toCam = camera3D.position.clone().normalize();
-        const facingDot = toPoint.dot(toCam);
-
         const projected = tempWorldVec.clone().project(camera3D);
-        if (projected.z > 1.0 || facingDot < -0.42) {
+        if (projected.z > 1.0) {
           el.style.opacity = '0';
           return;
         }
 
         const anchorX = (projected.x * 0.5 + 0.5) * width;
         const anchorY = (-(projected.y * 0.5) + 0.5) * height;
+        if (!Number.isFinite(anchorX) || !Number.isFinite(anchorY)) {
+          el.style.opacity = '0';
+          return;
+        }
 
-        const dx = anchorX - width * 0.5;
-        const dy = anchorY - height * 0.5;
-        const dist = Math.hypot(dx, dy) || 1;
-        const pushOut = width < 480 ? 34 : 52;
+        const centerX = width * 0.5;
+        const centerY = height * 0.52;
+        let dx = anchorX - centerX;
+        let dy = anchorY - centerY;
+        const dist = Math.hypot(dx, dy);
 
-        const labelW = Math.min(el.offsetWidth || 130, width - 16);
-        const labelH = el.offsetHeight || 24;
+        // Si el punto proyectado cae cerca del centro (p. ej. Vacuola o Vena Central), empujar la etiqueta hacia un borde despejado
+        if (dist < 18) {
+          dx = cfg.id === 'pinVacuoles' ? -1 : (cfg.id === 'pinCentralVein' ? 0 : 1);
+          dy = cfg.id === 'pinCentralVein' ? -1 : -0.7;
+        } else {
+          dx /= dist;
+          dy /= dist;
+        }
+
+        const labelW = Math.min(el.offsetWidth || (isMobileCanvas ? 92 : 135), width - 14);
+        const labelH = el.offsetHeight || 22;
+
+        // En móvil (<480px) colocamos las etiquetas en el anillo perimetral exterior para dejar 100% libre el centro de la célula
+        let targetX, targetY;
+        if (isMobileCanvas) {
+          const ringRx = Math.max(85, width * 0.42 - labelW * 0.35);
+          const ringRy = Math.max(95, height * 0.38 - labelH * 0.5);
+          targetX = centerX + dx * ringRx;
+          targetY = centerY + dy * ringRy;
+        } else {
+          const pushDist = Math.max(dist + 48, Math.min(width, height) * 0.32);
+          targetX = centerX + dx * pushDist;
+          targetY = centerY + dy * pushDist;
+        }
 
         activeItems.push({
           el,
           color: cfg.color,
           anchorX,
           anchorY,
-          x: anchorX + (dx / dist) * pushOut,
-          y: anchorY + (dy / dist) * pushOut,
+          x: targetX,
+          y: targetY,
           w: labelW,
           h: labelH
         });
       });
 
-      // Resolución iterativa de colisiones 2D para que ninguna etiqueta se pise
+      // Resolución iterativa de colisiones 2D + repulsión del centro en móvil
+      const minCenterClearance = isMobileCanvas ? Math.min(width, height) * 0.28 : 0;
       for (let iter = 0; iter < 10; iter++) {
         for (let i = 0; i < activeItems.length; i++) {
           for (let j = i + 1; j < activeItems.length; j++) {
             const a = activeItems[i];
             const b = activeItems[j];
-            const minX = (a.w + b.w) * 0.5 + 10;
-            const minY = (a.h + b.h) * 0.5 + 9;
+            const minX = (a.w + b.w) * 0.5 + 8;
+            const minY = (a.h + b.h) * 0.5 + 8;
             const diffX = b.x - a.x;
             const diffY = b.y - a.y;
 
@@ -5996,16 +6172,26 @@
 
               const overlapX = minX - Math.abs(diffX);
               const dirX = diffX >= 0 ? 1 : -1;
-              a.x -= dirX * overlapX * 0.25;
-              b.x += dirX * overlapX * 0.25;
+              a.x -= dirX * overlapX * 0.3;
+              b.x += dirX * overlapX * 0.3;
             }
           }
         }
 
-        // Clamping estricto dentro del lienzo para que jamás se corten en 360-430 px
         activeItems.forEach(item => {
-          const padX = item.w * 0.5 + 7;
-          const padY = item.h * 0.5 + 7;
+          // Mantener despejado el centro del hepatocito en móvil
+          if (minCenterClearance > 0) {
+            const cdx = item.x - width * 0.5;
+            const cdy = item.y - height * 0.52;
+            const cDist = Math.hypot(cdx, cdy) || 1;
+            if (cDist < minCenterClearance) {
+              item.x = width * 0.5 + (cdx / cDist) * minCenterClearance;
+              item.y = height * 0.52 + (cdy / cDist) * minCenterClearance;
+            }
+          }
+
+          const padX = item.w * 0.5 + 6;
+          const padY = item.h * 0.5 + 6;
           item.x = Math.max(padX, Math.min(width - padX, item.x));
           item.y = Math.max(padY + 34, Math.min(height - padY, item.y));
         });
@@ -6020,7 +6206,7 @@
         svgMarkup +=
           '<line x1="' + item.anchorX.toFixed(1) + '" y1="' + item.anchorY.toFixed(1) + '" ' +
           'x2="' + item.x.toFixed(1) + '" y2="' + item.y.toFixed(1) + '" ' +
-          'stroke="' + item.color + '" stroke-width="1.5" stroke-dasharray="3 2" opacity="0.82" />' +
+          'stroke="' + item.color + '" stroke-width="1.5" stroke-dasharray="3 2" opacity="0.85" />' +
           '<circle cx="' + item.anchorX.toFixed(1) + '" cy="' + item.anchorY.toFixed(1) + '" r="3.4" fill="' + item.color + '" />';
       });
 
