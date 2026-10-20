@@ -112,7 +112,7 @@
 
     html {
       scroll-behavior: smooth;
-      overflow-x: hidden;
+      overflow-x: clip;
       background-color: var(--bg-base);
       color: var(--text-primary);
       font-family: var(--font-sans);
@@ -121,7 +121,7 @@
     }
 
     body {
-      overflow-x: hidden;
+      overflow-x: clip;
       min-height: 100vh;
       background: radial-gradient(circle at 12% 8%, rgba(6, 182, 212, 0.09), transparent 36%),
                   radial-gradient(circle at 88% 22%, rgba(139, 92, 246, 0.09), transparent 40%),
@@ -1254,102 +1254,135 @@
       <div class="brand-group">
         <div class="brand-seal">
           <img class="brand-seal-logo" src="../../assets/amc-logo.svg" alt="" aria-hidden="true" width="30" height="30" />
-          <span>AMC VetAtlas · Animal Medical Center</span>
+          <span class="brand-text-full">AMC VetAtlas · Animal Medical Center</span>
+          <span class="brand-text-short">VetAtlas · Convulsiones</span>
         </div>
       </div>
       <div class="header-actions">
-        <button id="mobileNavBtn" class="btn-action mobile-menu-btn" type="button" aria-label="Abrir índice de módulos">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button id="mobileNavBtn" class="btn-action mobile-menu-btn" type="button" aria-label="Abrir índice de módulos" aria-pressed="false" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
-          <span>Módulos</span>
+          <span class="hdr-btn-lbl">Módulos</span>
         </button>
-        <button id="themeToggleBtn" class="btn-action" type="button" aria-label="Cambiar entre modo claro y oscuro">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button id="themeToggleBtn" class="btn-action" type="button" aria-label="Cambiar a modo claro" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <circle cx="12" cy="12" r="5"/>
             <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
           </svg>
-          <span id="themeLabel">Tema</span>
+          <span id="themeLabel" class="hdr-btn-lbl">Tema</span>
         </button>
-        <button id="audioToggleBtn" class="btn-action active-sound" type="button" aria-label="Alternar sonido arcade futurista">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button id="audioToggleBtn" class="btn-action active-sound" type="button" aria-label="Silenciar audio arcade" aria-pressed="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M11 5L6 9H2v6h4l5 4V5z"/>
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
           </svg>
-          <span id="audioLabel">Audio: ON</span>
+          <span id="audioLabel" class="hdr-btn-lbl">Audio: ON</span>
         </button>
-        <a href="../../" class="btn-action">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <a href="../../" class="btn-action" aria-label="Volver al portal AMC VetAtlas">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
           </svg>
-          <span>Volver a VetAtlas</span>
+          <span class="hdr-btn-lbl">Volver a VetAtlas</span>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- HERO INMERSIVO CON ANIMACIÓN CONSTANTE -->
-  <section class="hero-section">
-    <canvas id="heroCanvas"></canvas>
-    <div class="hero-overlay">
-      <div>
-        <div class="hero-badge">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-          </svg>
-          <span>Epileptología Clínica Comparada · Consensos IVETF y ACVIM</span>
+  <!-- HERO INMERSIVO CON RED NEURONAL Y EEG DE ALTA VISIBILIDAD -->
+  <section class="hero-section" id="heroTopSection">
+    <div class="hero-stage-wrap">
+      <canvas id="heroCanvas"></canvas>
+      <div class="hero-overlay">
+        <div class="hero-glass-main">
+          <div class="hero-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+            <span>Epileptología Clínica Comparada · Consensos IVETF y ACVIM</span>
+          </div>
+          <h1 class="hero-title">Convulsiones y epilepsia en perros y gatos</h1>
+          <p class="hero-subtitle-short">
+            Guía interactiva paso a paso para identificar crisis, detener el status epilepticus a tiempo y ajustar fármacos seguros según la especie.
+          </p>
+          <details class="hero-tech-details">
+            <summary>Ver definición técnica</summary>
+            <p class="hero-subtitle" style="margin-top:0.5rem;margin-bottom:0.2rem;">
+              Bases fisiopatológicas del cambio de despolarización paroxística (PDS), endocitosis de receptores GABA<sub>A</sub> y tráfico NMDA; estratificación diagnóstica por niveles IVETF (Tiers I–III), síndromes específicos felinos (FTLE, anti-LGI1, FARS, toxicosis por permetrina), algoritmos escalonados de Status Epilepticus y monitoreo terapéutico (TDM).
+            </p>
+          </details>
+          <div class="hero-kpis">
+            <div class="kpi-box danger">
+              <div class="kpi-val">T1 ≥ 5m | T2 ≥ 30m</div>
+              <div class="kpi-lbl">Umbral de rescate y daño excitotóxico irreversible</div>
+            </div>
+            <div class="kpi-box">
+              <div class="kpi-val">15–35 µg/mL</div>
+              <div class="kpi-lbl">Fenobarbital sérico canino (ideal 25–30 µg/mL)</div>
+            </div>
+            <div class="kpi-box amber">
+              <div class="kpi-val">CONTRAINDICADO</div>
+              <div class="kpi-lbl">Bromuro (KBr) y Diazepam PO en especie felina</div>
+            </div>
+            <div class="kpi-box violet">
+              <div class="kpi-val">60 mg/kg → 20 c/8h</div>
+              <div class="kpi-lbl">Levetiracetam pulso y mantenimiento (20–30 mg/kg)</div>
+            </div>
+          </div>
         </div>
-        <h1 class="hero-title">Convulsiones y epilepsia en perros y gatos</h1>
-        <p class="hero-subtitle">
-          Bases fisiopatológicas del cambio de despolarización paroxística (PDS), endocitosis de receptores GABA<sub>A</sub> y tráfico NMDA; estratificación diagnóstica por niveles IVETF (Tiers I–III), síndromes específicos felinos (FTLE, anti-LGI1, FARS, toxicosis por permetrina), algoritmos escalonados de Status Epilepticus y monitoreo terapéutico (TDM).
-        </p>
-        <div class="hero-kpis">
-          <div class="kpi-box danger">
-            <div class="kpi-val">T1 ≥ 5m | T2 ≥ 30m</div>
-            <div class="kpi-lbl">Umbral de rescate y daño excitotóxico irreversible</div>
-          </div>
-          <div class="kpi-box">
-            <div class="kpi-val">15–35 µg/mL</div>
-            <div class="kpi-lbl">Fenobarbital sérico canino (ideal 25–30 µg/mL)</div>
-          </div>
-          <div class="kpi-box amber">
-            <div class="kpi-val">CONTRAINDICADO</div>
-            <div class="kpi-lbl">Bromuro (KBr) y Diazepam PO en especie felina</div>
-          </div>
-          <div class="kpi-box violet">
-            <div class="kpi-val">60 mg/kg → 20 c/8h</div>
-            <div class="kpi-lbl">Levetiracetam pulso y mantenimiento (20–30 mg/kg)</div>
-          </div>
-        </div>
-      </div>
 
-      <div class="hero-canvas-legend">
-        <div class="legend-title">
-          <span>Red Sináptica y Trazo EEG en Vivo</span>
-          <span class="mono-badge">HTML5 Canvas</span>
+        <div class="hero-canvas-legend">
+          <div class="legend-title">
+            <span>Red Sináptica y Trazo EEG en Vivo</span>
+            <span class="mono-badge">HTML5 Canvas</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:#ef4444;"></span>
+            <span>Foco de cambio de despolarización paroxística (PDS: 10–40 mV)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:#f59e0b;"></span>
+            <span>Corrientes excitatorias glutamatérgicas (AMPA / NMDA y Ca²⁺)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:#06b6d4;"></span>
+            <span>Freno inhibitorio gabaérgico (GABA<sub>A</sub> · influjo de Cl⁻)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:#a78bfa;"></span>
+            <span>Onda electroencefalográfica (puntas y complejos punta-onda)</span>
+          </div>
+          <p style="font-size:0.74rem;color:var(--text-muted);margin-top:0.45rem;">
+            Toca o mueve el cursor sobre la red para inducir una descarga hipersincrónica y ver su propagación.
+          </p>
         </div>
-        <div class="legend-item">
-          <span class="legend-dot" style="background:#ef4444;"></span>
-          <span>Foco de cambio de despolarización paroxística (PDS: 10–40 mV)</span>
-        </div>
-        <div class="legend-item">
-          <span class="legend-dot" style="background:#f59e0b;"></span>
-          <span>Corrientes excitatorias glutamatérgicas (AMPA / NMDA y Ca²⁺)</span>
-        </div>
-        <div class="legend-item">
-          <span class="legend-dot" style="background:#06b6d4;"></span>
-          <span>Freno inhibitorio gabaérgico (GABA<sub>A</sub> · influjo de Cl⁻)</span>
-        </div>
-        <div class="legend-item">
-          <span class="legend-dot" style="background:#a78bfa;"></span>
-          <span>Onda electroencefalográfica (puntas y complejos punta-onda)</span>
-        </div>
-        <p style="font-size:0.74rem;color:var(--text-muted);margin-top:0.55rem;">
-          Mueve el cursor o toca el lienzo para inducir una descarga hipersincrónica transitoria y observar su propagación comisural.
-        </p>
       </div>
     </div>
   </section>
+
+  <!-- BARRA DE ACCESOS RÁPIDOS BAJO EL HERO -->
+  <nav class="quick-jumps-bar" aria-label="Accesos rápidos clínicos">
+    <a href="#mod-04" class="quick-jump-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <span>Rescate en status</span>
+    </a>
+    <a href="#calcWeight" id="quickJumpCalcBtn" class="quick-jump-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="16" x2="12" y2="16"/></svg>
+      <span>Calculadora de urgencia</span>
+    </a>
+    <a href="#mod-quiz" class="quick-jump-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span>Examen</span>
+    </a>
+  </nav>
+
+  <!-- BOTÓN FLOTANTE SUBIR -->
+  <button id="backToTopBtn" type="button" aria-label="Subir al inicio de la página">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+    <span>Subir</span>
+  </button>
 
   <!-- ESTRUCTURA PRINCIPAL: MENÚ LATERAL + CONTENIDO -->
   <div class="atlas-layout">
@@ -1363,7 +1396,7 @@
         <li><a class="nav-link" href="#mod-04"><span class="nav-num">04</span><span>Status Epilepticus y Racimo</span></a></li>
         <li><a class="nav-link" href="#mod-05"><span class="nav-num">05</span><span>Mantenimiento y TDM</span></a></li>
         <li><a class="nav-link" href="#mod-06"><span class="nav-num">06</span><span>Pronóstico y Plan Tutor</span></a></li>
-        <li><a class="nav-link" href="#mod-3d"><span class="nav-num">3D</span><span>Cerebro 3D y Descarga</span></a></li>
+        <li><a class="nav-link" href="#mod-3d"><span class="nav-num">3D</span><span>Neurona y Cerebro 3D</span></a></li>
         <li><a class="nav-link" href="#mod-tdm-lab"><span class="nav-num">LAB</span><span>Simulador Niveles Séricos</span></a></li>
         <li><a class="nav-link" href="#mod-juegos"><span class="nav-num">SIM</span><span>Mini Juegos y Reloj SE</span></a></li>
         <li><a class="nav-link" href="#mod-quiz"><span class="nav-num">EVA</span><span>Examen 12P y Certificado</span></a></li>
@@ -2163,21 +2196,176 @@
         </div>
       </section>
 
-      <!-- CEREBRO 3D INTERACTIVO CON THREE.JS, ETIQUETAS SIN SOLAPARSE Y ONDA DE DESCARGA ANIMADA -->
+      <!-- LABORATORIO 3D INTERACTIVO: NEURONA PIRAMIDAL CA1/CA3 Y CEREBRO CANINO -->
       <section id="mod-3d" class="module-card">
+        <style>
+          #brain3dCanvas {
+            touch-action: pan-y;
+            user-select: none;
+            -webkit-user-select: none;
+          }
+          .view3d-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.85rem;
+          }
+          .view3d-switch {
+            display: inline-flex;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-highlight);
+            border-radius: var(--radius-sm);
+            padding: 0.2rem;
+            gap: 0.25rem;
+          }
+          .view3d-switch-btn {
+            min-height: 38px;
+            padding: 0.38rem 0.9rem;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.18s ease;
+          }
+          .view3d-switch-btn.active {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: #ffffff;
+            box-shadow: 0 2px 10px rgba(6, 182, 212, 0.28);
+          }
+          html:not([data-theme="light"]) .view3d-switch-btn.active {
+            background: linear-gradient(135deg, #0e7490, #1d4ed8);
+          }
+          .view3d-ion-legend {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+            font-family: var(--font-mono);
+            font-size: 0.71rem;
+            color: var(--text-secondary);
+          }
+          .view3d-ion-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.32rem;
+          }
+          .view3d-ion-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+          }
+          .loader3d-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--viewer3d-bg);
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 0.84rem;
+            font-weight: 600;
+            z-index: 6;
+            transition: opacity 0.28s ease;
+          }
+          .loader3d-placeholder.hidden {
+            opacity: 0;
+            pointer-events: none;
+          }
+          .scope2d-box {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 196px;
+            background: var(--label3d-bg);
+            border: 1px solid var(--border-highlight);
+            border-radius: 7px;
+            padding: 0.28rem 0.42rem;
+            z-index: 4;
+            pointer-events: none;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.32);
+          }
+          .scope2d-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.63rem;
+            color: var(--text-secondary);
+            margin-bottom: 2px;
+          }
+          #scope2dCanvas {
+            width: 100%;
+            height: 50px;
+            display: block;
+            border-radius: 4px;
+            background: #060b16;
+          }
+          .label3d-pin {
+            transition: opacity 0.12s linear;
+            max-width: 36%;
+          }
+          @media (max-width: 680px) {
+            .scope2d-box {
+              width: 146px;
+              padding: 0.2rem 0.32rem;
+            }
+            #scope2dCanvas {
+              height: 40px;
+            }
+            .label3d-pin {
+              font-size: 0.58rem;
+              padding: 0.15rem 0.3rem;
+              max-width: 34%;
+            }
+          }
+        </style>
+
         <div class="module-header">
           <div>
-            <span class="module-tag">Neuroanatomía Funcional 3D · Three.js 0.160</span>
-            <h2 class="module-title">Cerebro 3D Interactivo: Propagación del Foco Ictal, Hipocampo (CA1/CA3) y BHE</h2>
+            <span class="module-tag">Neurobiología y Neuroanatomía 3D · Three.js 0.160</span>
+            <h2 class="module-title">Laboratorio 3D: Neurona Piramidal (CA1/CA3), Conducción Saltatoria y Cerebro Canino</h2>
           </div>
-          <span class="mono-badge">Onda de Descarga Animada · Etiquetas sin Solapamiento</span>
+          <span class="mono-badge">Conducción Saltatoria · PDS · Etiquetas Ancladas</span>
+        </div>
+
+        <div class="view3d-topbar">
+          <div class="view3d-switch" role="tablist" aria-label="Selector de vista 3D">
+            <button id="viewNeuron3dBtn" class="view3d-switch-btn active" type="button" role="tab" aria-selected="true">Neurona</button>
+            <button id="viewBrain3dBtn" class="view3d-switch-btn" type="button" role="tab" aria-selected="false">Cerebro</button>
+          </div>
+          <div class="view3d-ion-legend" id="ionLegend3d">
+            <span class="view3d-ion-item"><span class="view3d-ion-dot" style="background:#facc15;"></span>Na⁺ entra (nodo)</span>
+            <span class="view3d-ion-item"><span class="view3d-ion-dot" style="background:#a855f7;"></span>K⁺ sale (nodo)</span>
+            <span class="view3d-ion-item"><span class="view3d-ion-dot" style="background:#38bdf8;"></span>Ca²⁺ terminal</span>
+            <span class="view3d-ion-item"><span class="view3d-ion-dot" style="background:#ef4444;"></span>Glutamato (AMPA/NMDA)</span>
+            <span class="view3d-ion-item"><span class="view3d-ion-dot" style="background:#06b6d4;"></span>Cl⁻ (GABA-A)</span>
+          </div>
         </div>
 
         <div class="viewer3d-wrapper">
           <div class="canvas3d-box" id="canvas3dContainer">
+            <div id="loader3dPlaceholder" class="loader3d-placeholder">Cargando laboratorio 3D...</div>
             <canvas id="brain3dCanvas"></canvas>
             <svg id="labels3dSvg" aria-hidden="true"></svg>
             <div class="labels3d-layer" id="labels3dLayer"></div>
+
+            <div class="scope2d-box" aria-hidden="true">
+              <div class="scope2d-head">
+                <span>Vm (-70 a +30 mV)</span>
+                <strong id="scope2dMvVal" style="color:var(--accent-cyan);">-70 mV</strong>
+              </div>
+              <canvas id="scope2dCanvas" width="196" height="50"></canvas>
+            </div>
+
             <div id="hud3dTelemetry" style="position:absolute;bottom:10px;left:10px;right:10px;display:flex;justify-content:space-between;gap:0.45rem;flex-wrap:wrap;pointer-events:none;z-index:4;font-family:var(--font-mono);font-size:0.69rem;">
               <span class="mono-badge" id="hud3dState" style="background:var(--label3d-bg);">Estado: Foco Límbico / Temporal</span>
               <span class="mono-badge" id="hud3dReceptors" style="background:var(--label3d-bg);">GABA-A: 100% | NMDA: Basal</span>
@@ -2337,6 +2525,23 @@
 
       <!-- EXAMEN FINAL DE 12 PREGUNTAS CON REPASO DE ERRORES, INSIGNIA Y CERTIFICADO PNG -->
       <section id="mod-quiz" class="module-card">
+        <style>
+          #mod-quiz .cert-stage {
+            display: none;
+            opacity: 0;
+            transform: translateY(8px) scale(0.98);
+            transition: opacity 600ms ease, transform 600ms ease;
+          }
+          #mod-quiz .cert-stage.revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+          #mod-quiz .quiz-choice {
+            display: block;
+            width: 100%;
+          }
+        </style>
+
         <div class="module-header">
           <div>
             <span class="module-tag">Evaluación de Competencias · 12 Preguntas</span>
@@ -2345,25 +2550,56 @@
           <span class="mono-badge">12 Preguntas Basadas en Consensos</span>
         </div>
 
-        <div id="quizContainer"></div>
-
-        <div style="display:flex;gap:0.7rem;flex-wrap:wrap;margin-top:1.2rem;">
-          <button id="submitQuizBtn" class="btn-action" style="border-color:var(--accent-cyan);background:rgba(6,182,212,0.18);" type="button">Calificar Examen (12 Preguntas)</button>
-          <button id="filterErrorsBtn" class="btn-action" style="display:none;" type="button">Ver Solo Errores para Repaso</button>
-          <button id="resetQuizBtn" class="btn-action" type="button">Reiniciar Examen</button>
+        <div class="quiz-stepper-head">
+          <strong id="quizStepCounter" style="color:var(--accent-cyan);">Pregunta 1/12</strong>
+          <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+            <span id="quizAnsweredBadge" class="mono-badge">Respondidas: 0/12</span>
+            <span id="quizStreakBadge" class="mono-badge ok">Racha: x0</span>
+          </div>
+        </div>
+        <div class="quiz-progress-track" aria-hidden="true">
+          <div id="quizProgressFill" class="quiz-progress-fill"></div>
         </div>
 
+        <div id="quizContainer"></div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-top:0.95rem;">
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <button id="prevQuizQBtn" class="btn-action" type="button">Anterior</button>
+            <button id="nextQuizQBtn" class="btn-action" type="button">Siguiente</button>
+          </div>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <button id="submitQuizBtn" class="btn-action" style="border-color:var(--accent-cyan);background:rgba(6,182,212,0.18);" type="button">Calificar Examen (12 Preguntas)</button>
+            <button id="filterErrorsBtn" class="btn-action" style="display:none;" type="button">Ver Solo Errores para Repaso</button>
+            <button id="resetQuizBtn" class="btn-action" type="button">Reiniciar Examen</button>
+          </div>
+        </div>
+
+        <!-- Tarjeta con candado antes de calificar -->
+        <div id="certLockedCard" class="cert-locked-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <div>
+            <strong style="color:var(--text-primary);display:block;">Completa el examen para desbloquear tu certificado</strong>
+            <span>Responde las 12 preguntas y pulsa Calificar Examen al final para habilitar la generación de tu certificado.</span>
+          </div>
+        </div>
+
+        <!-- Resultado y controles del certificado (visibles solo tras calificar) -->
         <div id="quizResultBox" style="display:none;margin-top:1.45rem;" class="info-panel">
           <h4 id="quizScoreHeading">Resultado</h4>
           <p id="quizScoreSummary"></p>
           <div class="cert-preview-wrap">
             <div class="cert-controls">
               <label for="certNameInput">Nombre para el Certificado:</label>
-              <input id="certNameInput" type="text" maxlength="80" autocomplete="name" placeholder="Ej. Dr. / Dra. Nombre Apellido" value="Profesional Veterinario" />
-              <button id="renderCertBtn" class="btn-action" type="button">Actualizar Certificado</button>
-              <button id="downloadCertBtn" class="btn-action active-sound" type="button">Descargar Certificado PNG</button>
+              <input id="certNameInput" type="text" maxlength="80" autocomplete="name" placeholder="Escribe tu nombre y apellido" value="" />
+              <button id="renderCertBtn" class="btn-action" style="border-color:var(--accent-cyan);background:rgba(6,182,212,0.18);" type="button">Generar certificado</button>
+              <button id="downloadCertBtn" class="btn-action active-sound" style="display:none;" type="button">Descargar PNG</button>
+              <button id="editCertNameBtn" class="btn-action" style="display:none;" type="button">Editar nombre</button>
             </div>
-            <div class="cert-stage">
+            <div id="certStageWrap" class="cert-stage">
               <canvas id="certCanvas" width="1600" height="1131" role="img" aria-label="Certificado de AMC VetAtlas"></canvas>
             </div>
           </div>
@@ -2507,6 +2743,652 @@
   </footer>
 <!-- ESTILOS DE CONTRASTE AA (CLARO Y OSCURO) Y AJUSTES MÓVILES 360–430 PX -->
   <style>
+    /* Sticky, accesibilidad :focus-visible y áreas táctiles de 44 px */
+    html, body {
+      overflow-x: clip !important;
+    }
+    :focus-visible {
+      outline: 3px solid #f59e0b !important;
+      outline-offset: 2px !important;
+    }
+    .btn-action, .tab-btn, .view3d-switch-btn, .sim-opt-btn, .quiz-choice,
+    .draggable-item, .dropzone-item, .nav-link, .quick-jump-btn, .tldr-summary-btn {
+      min-height: 44px;
+    }
+    .brand-text-short {
+      display: none;
+    }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    @media (min-width: 1041px) {
+      .sidebar-nav {
+        position: sticky;
+        top: 72px;
+        align-self: start;
+      }
+    }
+
+    /* Header compacto de 1 fila (~56 px) en móvil con botones de ícono de 44x44 px */
+    @media (max-width: 680px) {
+      .site-header {
+        height: 56px;
+        padding: 0 0.5rem;
+        display: flex;
+        align-items: center;
+      }
+      .header-inner {
+        width: 100%;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 0.35rem;
+      }
+      .brand-seal {
+        min-height: 40px;
+        padding: 0.25rem 0.55rem;
+        font-size: 0.76rem;
+        white-space: nowrap;
+      }
+      .brand-seal img.brand-seal-logo {
+        width: 24px;
+        height: 24px;
+      }
+      .brand-text-full {
+        display: none;
+      }
+      .brand-text-short {
+        display: inline;
+      }
+      .site-header .brand-group, .site-header .brand-seal { min-width: 0; overflow: hidden; }
+      .site-header .brand-text-short { display: block; min-width: 0; overflow: hidden; text-overflow: ellipsis; } /* glue G5 */
+      .header-actions {
+        flex-wrap: nowrap;
+        gap: 0.28rem;
+      }
+      .header-actions .btn-action {
+        width: 44px;
+        min-width: 44px;
+        height: 44px;
+        padding: 0;
+        border-radius: 8px;
+      }
+      .header-actions .hdr-btn-lbl {
+        display: none;
+      }
+    }
+
+    /* Hero de alto contraste: red neuronal visible + paneles translúcidos */
+    .hero-section {
+      position: relative;
+      min-height: 500px;
+      display: block;
+      border-bottom: 1px solid var(--border-subtle);
+      overflow: hidden;
+    }
+    .hero-stage-wrap {
+      position: relative;
+      width: 100%;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+    }
+    #heroCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      display: block;
+    }
+    .hero-overlay {
+      position: relative;
+      z-index: 2;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1.25rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.65fr);
+      gap: 1.5rem;
+      align-items: start;
+      background: transparent;
+      pointer-events: none;
+    }
+    .hero-glass-main, .hero-canvas-legend {
+      pointer-events: auto;
+      background: rgba(6, 10, 20, 0.58);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.15rem;
+    }
+    html[data-theme="light"] .hero-glass-main,
+    html[data-theme="light"] .hero-canvas-legend {
+      background: rgba(255, 255, 255, 0.68);
+    }
+    .hero-subtitle-short {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-bottom: 0.65rem;
+      line-height: 1.5;
+    }
+    .hero-tech-details {
+      margin-bottom: 1rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      background: rgba(15, 23, 42, 0.35);
+      padding: 0.35rem 0.7rem;
+    }
+    html[data-theme="light"] .hero-tech-details {
+      background: rgba(241, 245, 249, 0.75);
+    }
+    .hero-tech-details summary {
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+    }
+    .hero-kpis {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+    .kpi-box {
+      background: rgba(15, 23, 42, 0.52);
+      backdrop-filter: blur(8px);
+      padding: 0.55rem 0.7rem;
+    }
+    html[data-theme="light"] .kpi-box {
+      background: rgba(255, 255, 255, 0.78);
+    }
+
+    @media (max-width: 900px) {
+      .hero-stage-wrap {
+        min-height: calc(100svh - 56px);
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      #heroCanvas {
+        position: relative;
+        width: 100%;
+        height: 54svh;
+        min-height: 300px;
+      }
+      .hero-overlay {
+        grid-template-columns: 1fr;
+        padding: 0.85rem;
+        gap: 0.85rem;
+        background: var(--bg-surface);
+        border-top: 1px solid var(--border-subtle);
+      }
+    }
+
+    /* Barra de accesos rápidos bajo el Hero y botón flotante Subir */
+    .quick-jumps-bar {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+    }
+    .quick-jump-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-highlight);
+      background: var(--badge-mono-bg);
+      color: var(--text-primary);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, background 0.2s ease;
+    }
+    .quick-jump-btn:hover {
+      background: var(--accent-cyan);
+      color: #ffffff;
+      text-decoration: none;
+    }
+    .quick-jump-btn svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+    #backToTopBtn {
+      position: fixed;
+      bottom: 1.15rem;
+      right: 1.15rem;
+      z-index: 980;
+      min-width: 46px;
+      min-height: 46px;
+      padding: 0.5rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-highlight);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-lg);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+    #backToTopBtn.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* Caja En 30 segundos, <details> Profundizar, Negrita selectiva y Reto rápido */
+    .tldr-box {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.11), rgba(59, 130, 246, 0.07));
+      border: 1px solid var(--border-highlight);
+      border-left: 4px solid var(--accent-cyan);
+      border-radius: var(--radius-md);
+      padding: 0.95rem 1.1rem;
+      margin-bottom: 1.1rem;
+    }
+    .tldr-head {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 0.5rem;
+    }
+    .tldr-head svg {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+    }
+    .tldr-list {
+      padding-left: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.86rem;
+      color: var(--text-primary);
+    }
+    details.deep-dive-box {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      background: var(--bg-panel);
+      margin: 0.95rem 0;
+      overflow: hidden;
+    }
+    details.deep-dive-box > summary {
+      min-height: 46px;
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.86rem;
+      color: var(--accent-cyan);
+      background: var(--bg-surface);
+      list-style: none;
+    }
+    details.deep-dive-box > summary::-webkit-details-marker {
+      display: none;
+    }
+    .deep-dive-body {
+      padding: 1rem;
+    }
+    strong.prose-term {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .quick-challenge-card {
+      margin-top: 1.15rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-highlight);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.1rem;
+    }
+    .qc-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--accent-amber);
+      margin-bottom: 0.45rem;
+    }
+    .qc-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.5rem;
+      margin-top: 0.65rem;
+    }
+    .qc-btn {
+      min-height: 44px;
+      padding: 0.6rem 0.8rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .qc-btn:hover:not(:disabled) {
+      border-color: var(--accent-cyan);
+      background: var(--badge-mono-bg);
+    }
+    .qc-feedback {
+      margin-top: 0.65rem;
+      padding: 0.65rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      display: none;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .qc-feedback svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Progreso Módulos completados x/N en el índice lateral */
+    .sidebar-progress-box {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 0.7rem;
+      margin-bottom: 0.75rem;
+    }
+    .sidebar-progress-lbl {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.35rem;
+    }
+    .sidebar-progress-track {
+      height: 6px;
+      border-radius: 999px;
+      background: var(--bg-elevated);
+      overflow: hidden;
+    }
+    .sidebar-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-emerald));
+      transition: width 0.25s ease;
+    }
+    .nav-done-check {
+      margin-left: auto;
+      width: 16px;
+      height: 16px;
+      color: var(--accent-emerald);
+      opacity: 0;
+      flex-shrink: 0;
+      transition: opacity 0.2s ease;
+    }
+    .nav-link.completed .nav-done-check {
+      opacity: 1;
+    }
+
+    /* Diagramas SVG en claro/oscuro, scroll horizontal 720 px y botón Ampliar */
+    .svg-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+    .svg-expand-btn {
+      min-height: 36px;
+      padding: 0.28rem 0.65rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-highlight);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+    }
+    @media (max-width: 680px) {
+      .wide-svg-box {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .wide-svg-box svg {
+        min-width: 720px !important;
+      }
+    }
+    html[data-theme="light"] .step-svg-wrap,
+    html[data-theme="light"] .wide-svg-box {
+      background: var(--bg-card) !important;
+    }
+    html[data-theme="light"] .wide-svg-box svg > rect:first-of-type,
+    html[data-theme="light"] .step-svg-wrap svg > rect:first-of-type {
+      fill: var(--bg-card) !important;
+    }
+    html[data-theme="light"] .wide-svg-box svg rect[fill="#0f172a"],
+    html[data-theme="light"] .wide-svg-box svg rect[fill="#1e293b"],
+    html[data-theme="light"] .step-svg-wrap svg rect[fill="#1e293b"] {
+      fill: var(--bg-panel) !important;
+    }
+    html[data-theme="light"] .wide-svg-box svg text[fill="#f8fafc"],
+    html[data-theme="light"] .wide-svg-box svg text[fill="#cbd5e1"],
+    html[data-theme="light"] .step-svg-wrap svg text[fill="#cbd5e1"],
+    html[data-theme="light"] .step-svg-wrap svg text[fill="#94a3b8"] {
+      fill: var(--text-primary) !important;
+    }
+    html[data-theme="light"] .wide-svg-box svg text[fill="#fde68a"],
+    html[data-theme="light"] .step-svg-wrap svg text[fill="#fde68a"] {
+      fill: #92400e !important;
+    }
+    html[data-theme="light"] .wide-svg-box svg text[fill="#67e8f9"],
+    html[data-theme="light"] .wide-svg-box svg text[fill="#38bdf8"],
+    html[data-theme="light"] .wide-svg-box svg text[fill="#93c5fd"],
+    html[data-theme="light"] .step-svg-wrap svg text[fill="#67e8f9"] {
+      fill: #0369a1 !important;
+    }
+    html[data-theme="light"] .wide-svg-box svg text[fill="#fca5a5"],
+    html[data-theme="light"] .wide-svg-box svg text[fill="#fecaca"],
+    html[data-theme="light"] .step-svg-wrap svg text[fill="#fca5a5"],
+    html[data-theme="light"] .step-svg-wrap svg text[fill="#fecaca"] {
+      fill: #991b1b !important;
+    }
+    html[data-theme="light"] .wide-svg-box svg text[fill="#6ee7b7"] {
+      fill: #065f46 !important;
+    }
+    html[data-theme="light"] .wide-svg-box svg text[fill="#ddd6fe"],
+    html[data-theme="light"] .step-svg-wrap svg text[fill="#a78bfa"] {
+      fill: #5b21b6 !important;
+    }
+
+    /* Tablas por debajo de 680 px: cada fila como tarjeta con data-label */
+    @media (max-width: 680px) {
+      .table-responsive {
+        border: none;
+        overflow-x: visible;
+      }
+      table.clinical-table,
+      table.clinical-table tbody,
+      table.clinical-table tr,
+      table.clinical-table td {
+        display: block;
+        width: 100%;
+        min-width: 0 !important;
+      }
+      table.clinical-table thead {
+        display: none;
+      }
+      table.clinical-table tr {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-left: 3px solid var(--accent-cyan);
+        border-radius: var(--radius-md);
+        padding: 0.75rem;
+        margin-bottom: 0.85rem;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+      }
+      table.clinical-table td {
+        padding: 0.42rem 0;
+        border-bottom: 1px dashed var(--border-subtle);
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+      table.clinical-table td:last-child {
+        border-bottom: none;
+      }
+      table.clinical-table td::before {
+        content: attr(data-label);
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--accent-cyan);
+      }
+      table.clinical-table .mono-badge {
+        font-size: 0.84rem;
+        padding: 0.24rem 0.55rem;
+      }
+    }
+
+    /* Tira horizontal de pestañas con scroll-snap */
+    .tabs-bar {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      gap: 0.48rem;
+      padding-bottom: 0.65rem;
+    }
+    .tabs-bar .tab-btn {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+    }
+
+    /* Modales <dialog> para Galería Lightbox y Ampliar SVG */
+    dialog.vetatlas-modal {
+      margin: auto;
+      width: min(94vw, 1080px);
+      max-height: 90vh;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border-highlight);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      box-shadow: var(--shadow-lg);
+    }
+    dialog.vetatlas-modal::backdrop {
+      background: rgba(4, 7, 14, 0.82);
+      backdrop-filter: blur(6px);
+    }
+    .qa-gal-card {
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease;
+    }
+    .qa-gal-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-cyan);
+    }
+
+    /* Examen de 1 pregunta por tarjeta y Certificado con candado + revelado animado */
+    .quiz-stepper-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.55rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+    }
+    .quiz-progress-track {
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--bg-elevated);
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      width: 8.33%;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+      transition: width 0.25s ease;
+    }
+    .cert-locked-card {
+      margin-top: 1.25rem;
+      padding: 1.15rem;
+      border-radius: var(--radius-md);
+      border: 1px dashed var(--border-highlight);
+      background: var(--bg-panel);
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+    }
+    .cert-locked-card svg {
+      width: 28px;
+      height: 28px;
+      color: var(--accent-amber);
+      flex-shrink: 0;
+    }
+    .cert-stage {
+      opacity: 0;
+      transform: scale(0.96);
+      max-height: 0;
+      overflow: hidden;
+      pointer-events: none;
+      transition: opacity 600ms ease, transform 600ms ease, max-height 600ms ease;
+    }
+    .cert-stage.revealed {
+      opacity: 1;
+      transform: scale(1);
+      max-height: 1200px;
+      pointer-events: auto;
+      margin-top: 0.85rem;
+    }
+
     html[data-theme="light"] .hero-title {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #0369a1 100%);
       -webkit-background-clip: text;
@@ -2521,10 +3403,6 @@
       border-color: #047857;
       background: rgba(5, 150, 105, 0.14);
     }
-    html[data-theme="light"] .step-svg-wrap,
-    html[data-theme="light"] .wide-svg-box {
-      background: #0b1324;
-    }
     html[data-theme="dark"] .nav-link.active .nav-num {
       color: #04131c;
     }
@@ -2532,15 +3410,25 @@
       opacity: 0.96;
       border: 1px solid var(--border-subtle);
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 
   <!-- LÓGICA INTERACTIVA PRINCIPAL: AUDIO, HERO CANVAS, TABS, CEREBRO 3D, SIMULADOR TDM, MINI JUEGOS Y EXAMEN -->
   <script src="../../assets/vetatlas-certificate.js"></script>
   <script type="module">
-    import * as THREE from 'three';
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotionQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+    let prefersReducedMotion = prefersReducedMotionQuery.matches;
+    if (prefersReducedMotionQuery.addEventListener) {
+      prefersReducedMotionQuery.addEventListener('change', (e) => { prefersReducedMotion = e.matches; });
+    }
 
     /* =========================================================================
        1. MODO CLARO / OSCURO CON LOCALSTORAGE ('vetatlas-theme')
@@ -2560,6 +3448,10 @@
       } catch (e) {}
       if (themeLabel) {
         themeLabel.textContent = theme === 'light' ? 'Modo: Claro' : 'Modo: Oscuro';
+      }
+      if (themeToggleBtn) {
+        themeToggleBtn.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+        themeToggleBtn.setAttribute('aria-label', theme === 'light' ? 'Tema claro activo. Cambiar a modo oscuro' : 'Tema oscuro activo. Cambiar a modo claro');
       }
       if (typeof window.__redrawTdmChart === 'function') window.__redrawTdmChart();
       if (typeof window.__redrawCertificate === 'function') window.__redrawCertificate();
@@ -2744,9 +3636,13 @@
       if (!audioToggleBtn || !audioLabel) return;
       if (SoundEngine.enabled) {
         audioToggleBtn.classList.add('active-sound');
+        audioToggleBtn.setAttribute('aria-pressed', 'true');
+        audioToggleBtn.setAttribute('aria-label', 'Audio activado. Pulsar para silenciar');
         audioLabel.textContent = 'Audio: ON';
       } else {
         audioToggleBtn.classList.remove('active-sound');
+        audioToggleBtn.setAttribute('aria-pressed', 'false');
+        audioToggleBtn.setAttribute('aria-label', 'Audio silenciado. Pulsar para activar');
         audioLabel.textContent = 'Audio: MUTE';
       }
     }
@@ -2787,70 +3683,86 @@
        ========================================================================= */
     const heroCanvas = document.getElementById('heroCanvas');
     const hCtx = heroCanvas.getContext('2d');
-    let hW = 0, hH = 0;
+    let hW = 0, hH = 0, hDpr = 1;
+    let heroInViewport = true;
     const neurons = [];
     const pulses = [];
     let spikeBoost = 0;
 
     function initHeroNetwork() {
       neurons.length = 0;
-      const count = window.innerWidth < 768 ? 24 : 48;
+      const count = window.innerWidth < 768 ? 34 : 58;
       for (let i = 0; i < count; i++) {
+        // Concentrar nodos en la banda central visible
+        const xBand = 0.06 + Math.random() * 0.88;
+        const yBand = 0.10 + Math.random() * 0.74;
         neurons.push({
-          x: Math.random() * hW,
-          y: Math.random() * hH,
-          vx: (Math.random() - 0.5) * (prefersReducedMotion ? 0.12 : 0.55),
-          vy: (Math.random() - 0.5) * (prefersReducedMotion ? 0.12 : 0.55),
-          r: 3 + Math.random() * 2.5,
-          isExcitatory: Math.random() > 0.35,
-          energy: Math.random()
+          x: xBand * hW,
+          y: yBand * hH,
+          vx: (Math.random() - 0.5) * (prefersReducedMotion ? 0.08 : 0.62),
+          vy: (Math.random() - 0.5) * (prefersReducedMotion ? 0.08 : 0.62),
+          r: 4.5 + Math.random() * 3.8,
+          isExcitatory: Math.random() > 0.32,
+          phase: Math.random() * Math.PI * 2
         });
       }
     }
 
     function resizeHero() {
-      const rect = heroCanvas.parentElement.getBoundingClientRect();
-      hW = heroCanvas.width = rect.width;
-      hH = heroCanvas.height = rect.height;
-      if (neurons.length === 0) initHeroNetwork();
+      const rect = heroCanvas.getBoundingClientRect();
+      hDpr = Math.min(window.devicePixelRatio || 1, 2);
+      hW = Math.max(300, rect.width);
+      hH = Math.max(260, rect.height);
+      heroCanvas.width = Math.round(hW * hDpr);
+      heroCanvas.height = Math.round(hH * hDpr);
+      hCtx.setTransform(hDpr, 0, 0, hDpr, 0, 0);
+      initHeroNetwork();
     }
     window.addEventListener('resize', resizeHero);
     resizeHero();
+
+    const heroVisObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { heroInViewport = entry.isIntersecting; });
+    }, { threshold: 0.02 });
+    heroVisObserver.observe(heroCanvas);
 
     heroCanvas.addEventListener('pointermove', (e) => {
       const rect = heroCanvas.getBoundingClientRect();
       const mx = e.clientX - rect.left;
       const my = e.clientY - rect.top;
-      spikeBoost = Math.min(1, spikeBoost + 0.18);
-      if (pulses.length < 25) {
-        pulses.push({ x: mx, y: my, rad: 4, maxRad: 90, alpha: 0.85 });
+      spikeBoost = Math.min(1.2, spikeBoost + 0.22);
+      if (pulses.length < 28) {
+        pulses.push({ x: mx, y: my, rad: 6, maxRad: 115, alpha: 0.92 });
       }
     });
 
     function animateHero(time) {
+      requestAnimationFrame(animateHero);
+      if (!heroInViewport || document.hidden) return;
+
       hCtx.clearRect(0, 0, hW, hH);
       const isLight = getActiveTheme() === 'light';
-      spikeBoost = Math.max(0, spikeBoost - 0.008);
+      spikeBoost = Math.max(0, spikeBoost - 0.009);
 
-      // Conexiones sinápticas
+      // Axones y sinapsis brillantes
       for (let i = 0; i < neurons.length; i++) {
         const a = neurons[i];
-        a.x += a.vx;
-        a.y += a.vy;
-        if (a.x < 0 || a.x > hW) a.vx *= -1;
-        if (a.y < 0 || a.y > hH) a.vy *= -1;
+        if (!prefersReducedMotion) {
+          a.x += a.vx;
+          a.y += a.vy;
+        }
+        if (a.x < 18 || a.x > hW - 18) a.vx *= -1;
+        if (a.y < 18 || a.y > hH - 68) a.vy *= -1;
 
         for (let j = i + 1; j < neurons.length; j++) {
           const b = neurons[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < 135) {
-            const alpha = (1 - dist / 135) * 0.35;
+          const dist = Math.hypot(a.x - b.x, a.y - b.y);
+          if (dist < 165) {
+            const alpha = (1 - dist / 165) * (isLight ? 0.55 : 0.68);
             hCtx.strokeStyle = a.isExcitatory
-              ? (isLight ? `rgba(217, 119, 6, ${alpha})` : `rgba(245, 158, 11, ${alpha})`)
-              : (isLight ? `rgba(3, 105, 161, ${alpha})` : `rgba(6, 182, 212, ${alpha})`);
-            hCtx.lineWidth = 1.1;
+              ? (isLight ? `rgba(217, 119, 6, ${alpha})` : `rgba(251, 191, 36, ${alpha})`)
+              : (isLight ? `rgba(2, 132, 199, ${alpha})` : `rgba(34, 211, 238, ${alpha})`);
+            hCtx.lineWidth = 1.65;
             hCtx.beginPath();
             hCtx.moveTo(a.x, a.y);
             hCtx.lineTo(b.x, b.y);
@@ -2859,48 +3771,87 @@
         }
       }
 
-      // Nodos neuronales
+      // Somas neuronales con halo luminoso
       neurons.forEach((n, idx) => {
-        const pulseGlow = 0.5 + 0.5 * Math.sin(time * 0.004 + idx);
+        const pulseGlow = 0.5 + 0.5 * Math.sin(time * 0.0045 + n.phase + idx);
+        const radius = n.r + pulseGlow * 2.2;
+        const baseColor = n.isExcitatory
+          ? (pulseGlow > 0.76 ? '#ef4444' : '#f59e0b')
+          : '#06b6d4';
+
         hCtx.beginPath();
         hCtx.fillStyle = n.isExcitatory
-          ? (pulseGlow > 0.82 ? '#ef4444' : '#f59e0b')
-          : '#06b6d4';
-        hCtx.arc(n.x, n.y, n.r + pulseGlow * 1.4, 0, Math.PI * 2);
+          ? 'rgba(245, 158, 11, 0.24)'
+          : 'rgba(6, 182, 212, 0.24)';
+        hCtx.arc(n.x, n.y, radius * 2.1, 0, Math.PI * 2);
+        hCtx.fill();
+
+        hCtx.beginPath();
+        hCtx.fillStyle = baseColor;
+        hCtx.arc(n.x, n.y, radius, 0, Math.PI * 2);
         hCtx.fill();
       });
 
-      // Ondas de choque PDS interactivas
+      // Ondas de despolarización paroxística (PDS)
       for (let i = pulses.length - 1; i >= 0; i--) {
         const p = pulses[i];
-        p.rad += 2.4;
-        p.alpha *= 0.95;
+        p.rad += 2.8;
+        p.alpha *= 0.94;
         hCtx.strokeStyle = `rgba(239, 68, 68, ${p.alpha})`;
-        hCtx.lineWidth = 2;
+        hCtx.lineWidth = 2.6;
         hCtx.beginPath();
         hCtx.arc(p.x, p.y, p.rad, 0, Math.PI * 2);
         hCtx.stroke();
         if (p.rad >= p.maxRad || p.alpha < 0.04) pulses.splice(i, 1);
       }
 
-      // Trazo EEG continuo en la base del Hero
-      const baseY = hH - 46;
+      // Trazo EEG nítido y contrastado en el borde inferior
+      const baseY = hH - 36;
       hCtx.beginPath();
-      hCtx.strokeStyle = isLight ? 'rgba(109, 40, 217, 0.65)' : 'rgba(167, 139, 250, 0.78)';
-      hCtx.lineWidth = 2.2;
-      for (let x = 0; x <= hW; x += 6) {
-        const phase = (x * 0.025) - (time * 0.006);
-        const burst = Math.sin(x * 0.008 - time * 0.002) > 0.55 ? (1.8 + spikeBoost * 1.6) : 0.35;
-        const spike = Math.sin(phase * 3.2) * Math.cos(phase * 0.8) * 18 * burst;
+      hCtx.strokeStyle = isLight ? '#6d28d9' : '#c4b5fd';
+      hCtx.lineWidth = 2.8;
+      for (let x = 0; x <= hW; x += 4) {
+        const phase = (x * 0.028) - (prefersReducedMotion ? 0 : time * 0.0065);
+        const burst = Math.sin(x * 0.009 - (prefersReducedMotion ? 0 : time * 0.0024)) > 0.48 ? (2.1 + spikeBoost * 1.8) : 0.42;
+        const spike = Math.sin(phase * 3.4) * Math.cos(phase * 0.85) * 19 * burst;
         const y = baseY + spike;
         if (x === 0) hCtx.moveTo(x, y);
         else hCtx.lineTo(x, y);
       }
       hCtx.stroke();
-
-      requestAnimationFrame(animateHero);
     }
     requestAnimationFrame(animateHero);
+
+    // Accesos rápidos y botón flotante Subir
+    const quickJumpCalcBtn = document.getElementById('quickJumpCalcBtn');
+    if (quickJumpCalcBtn) {
+      quickJumpCalcBtn.addEventListener('click', (e) => {
+        SoundEngine.blip();
+        const sNav = document.getElementById('sidebarNav');
+        if (window.innerWidth <= 1040 && sNav) {
+          e.preventDefault();
+          sNav.classList.add('open');
+          const mBtn = document.getElementById('mobileNavBtn');
+          if (mBtn) {
+            mBtn.setAttribute('aria-pressed', 'true');
+            mBtn.setAttribute('aria-expanded', 'true');
+          }
+          const cw = document.getElementById('calcWeight');
+          if (cw) setTimeout(() => cw.focus(), 120);
+        }
+      });
+    }
+
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    if (backToTopBtn) {
+      backToTopBtn.addEventListener('click', () => {
+        SoundEngine.blip();
+        window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+      });
+      window.addEventListener('scroll', () => {
+        backToTopBtn.classList.toggle('visible', window.scrollY > 460);
+      }, { passive: true });
+    }
 
     /* =========================================================================
        4. CALCULADORA DE URGENCIA EN SIDEBAR
@@ -3150,351 +4101,1730 @@
     renderSeProtocol('canino');
 
     /* =========================================================================
-       7. CEREBRO 3D INTERACTIVO CON THREE.JS, ETIQUETAS SIN SOLAPARSE Y ONDA ICTAL
+       6B. CONTENIDO UX: CAJA EN 30 SEGUNDOS, DETAILS PROFUNDIZAR, RETO RÁPIDO,
+           PROGRESO ('vetatlas-progress-convulsiones'), TABLAS MÓVILES Y MODALES
        ========================================================================= */
-    const canvas3d = document.getElementById('brain3dCanvas');
-    const labelsLayer = document.getElementById('labels3dLayer');
-    const labelsSvg = document.getElementById('labels3dSvg');
-    const seizureModeSelect = document.getElementById('seizureModeSelect');
-    const dischargeSlider = document.getElementById('dischargeSlider');
-    const dischargeSliderVal = document.getElementById('dischargeSliderVal');
-    const stage3dTitle = document.getElementById('stage3dTitle');
-    const stage3dDesc = document.getElementById('stage3dDesc');
-    const hud3dState = document.getElementById('hud3dState');
-    const hud3dReceptors = document.getElementById('hud3dReceptors');
+    const PROGRESS_KEY = 'vetatlas-progress-convulsiones';
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    camera.position.set(5.4, 3.2, 6.2);
-
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.target.set(0, 0.1, 0);
-
-    scene.add(new THREE.AmbientLight(0xffffff, 0.78));
-    const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.3);
-    dirLight1.position.set(6, 9, 7);
-    scene.add(dirLight1);
-    const dirLight2 = new THREE.PointLight(0x38bdf8, 1.8, 18);
-    dirLight2.position.set(-5, -3, -4);
-    scene.add(dirLight2);
-
-    const brainGroup = new THREE.Group();
-    scene.add(brainGroup);
-
-    // Hemisferio Izquierdo (translúcido para ver hipocampo y tálamo internos)
-    const hemiGeo = new THREE.SphereGeometry(1.55, 32, 24);
-    const leftHemiMat = new THREE.MeshStandardMaterial({
-      color: 0x38bdf8,
-      emissive: 0x082f49,
-      roughness: 0.38,
-      transparent: true,
-      opacity: 0.42
-    });
-    const leftHemi = new THREE.Mesh(hemiGeo, leftHemiMat);
-    leftHemi.scale.set(0.78, 0.92, 1.38);
-    leftHemi.position.set(-0.92, 0.42, 0.1);
-    brainGroup.add(leftHemi);
-
-    // Hemisferio Derecho
-    const rightHemiMat = new THREE.MeshStandardMaterial({
-      color: 0x38bdf8,
-      emissive: 0x082f49,
-      roughness: 0.38,
-      transparent: true,
-      opacity: 0.42
-    });
-    const rightHemi = new THREE.Mesh(hemiGeo, rightHemiMat);
-    rightHemi.scale.set(0.78, 0.92, 1.38);
-    rightHemi.position.set(0.92, 0.42, 0.1);
-    brainGroup.add(rightHemi);
-
-    // Cuerpo Calloso y Comisura Intertalámica (puente interhemisférico)
-    const callosumCurve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-0.95, 0.35, 0.15),
-      new THREE.Vector3(-0.4, 0.68, 0.15),
-      new THREE.Vector3(0.4, 0.68, 0.15),
-      new THREE.Vector3(0.95, 0.35, 0.15)
-    ]);
-    const callosumGeo = new THREE.TubeGeometry(callosumCurve, 28, 0.13, 12, false);
-    const callosumMat = new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x0e7490, roughness: 0.3 });
-    const callosumMesh = new THREE.Mesh(callosumGeo, callosumMat);
-    brainGroup.add(callosumMesh);
-
-    // Hipocampo (Sectores CA1, CA3, CA4) y Lóbulo Piriforme (arcos en C bilaterales)
-    const hippoCurveL = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-0.55, 0.55, -0.35),
-      new THREE.Vector3(-0.88, 0.25, -0.65),
-      new THREE.Vector3(-0.98, -0.22, -0.25),
-      new THREE.Vector3(-0.82, -0.38, 0.45)
-    ]);
-    const hippoGeoL = new THREE.TubeGeometry(hippoCurveL, 28, 0.16, 12, false);
-    const hippoMatL = new THREE.MeshStandardMaterial({ color: 0xf59e0b, emissive: 0x9a3412, roughness: 0.28 });
-    const hippoMeshL = new THREE.Mesh(hippoGeoL, hippoMatL);
-    brainGroup.add(hippoMeshL);
-
-    const hippoCurveR = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(0.55, 0.55, -0.35),
-      new THREE.Vector3(0.88, 0.25, -0.65),
-      new THREE.Vector3(0.98, -0.22, -0.25),
-      new THREE.Vector3(0.82, -0.38, 0.45)
-    ]);
-    const hippoGeoR = new THREE.TubeGeometry(hippoCurveR, 28, 0.16, 12, false);
-    const hippoMatR = new THREE.MeshStandardMaterial({ color: 0xf59e0b, emissive: 0x78350f, roughness: 0.28 });
-    const hippoMeshR = new THREE.Mesh(hippoGeoR, hippoMatR);
-    brainGroup.add(hippoMeshR);
-
-    // Tálamo Medial (centro diencefálico)
-    const thalGeo = new THREE.SphereGeometry(0.42, 20, 16);
-    const thalMat = new THREE.MeshStandardMaterial({ color: 0xa78bfa, emissive: 0x4c1d95, roughness: 0.35 });
-    const thalMesh = new THREE.Mesh(thalGeo, thalMat);
-    thalMesh.scale.set(1.35, 0.9, 1.1);
-    thalMesh.position.set(0, 0.15, -0.05);
-    brainGroup.add(thalMesh);
-
-    // Cerebelo y Tallo Encefálico
-    const cerebGeo = new THREE.SphereGeometry(0.78, 24, 18);
-    const cerebMat = new THREE.MeshStandardMaterial({ color: 0x64748b, emissive: 0x1e293b, roughness: 0.55 });
-    const cerebMesh = new THREE.Mesh(cerebGeo, cerebMat);
-    cerebMesh.scale.set(1.25, 0.88, 0.95);
-    cerebMesh.position.set(0, -0.22, -1.78);
-    brainGroup.add(cerebMesh);
-
-    const stemGeo = new THREE.CylinderGeometry(0.28, 0.22, 1.45, 16);
-    const stemMesh = new THREE.Mesh(stemGeo, cerebMat);
-    stemMesh.rotation.x = Math.PI * 0.36;
-    stemMesh.position.set(0, -0.78, -1.25);
-    brainGroup.add(stemMesh);
-
-    // Vaso de la Barrera Hematoencefálica (BHE / Glicoproteína-P)
-    const bbbCurve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-1.8, -0.75, 1.1),
-      new THREE.Vector3(-0.6, -0.68, 1.25),
-      new THREE.Vector3(0.7, -0.68, 1.2),
-      new THREE.Vector3(1.85, -0.75, 0.95)
-    ]);
-    const bbbGeo = new THREE.TubeGeometry(bbbCurve, 28, 0.075, 10, false);
-    const bbbMat = new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x064e3b, roughness: 0.3 });
-    const bbbMesh = new THREE.Mesh(bbbGeo, bbbMat);
-    brainGroup.add(bbbMesh);
-
-    // Onda de Descarga Animada: Anillos Expansivos + Partículas Viajeras de Potencial de Acción
-    const waveRingGeo = new THREE.RingGeometry(0.18, 0.28, 32);
-    const waveRingMat = new THREE.MeshBasicMaterial({
-      color: 0xef4444,
-      side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 0.85
-    });
-    const waveRing1 = new THREE.Mesh(waveRingGeo, waveRingMat);
-    waveRing1.position.set(-0.88, 0.22, -0.45);
-    brainGroup.add(waveRing1);
-
-    const waveRingMat2 = waveRingMat.clone();
-    const waveRing2 = new THREE.Mesh(waveRingGeo, waveRingMat2);
-    waveRing2.position.set(-0.88, 0.22, -0.45);
-    brainGroup.add(waveRing2);
-
-    // Partículas viajeras sobre hipocampo y cuerpo calloso
-    const actionSparks = [];
-    const sparkGeo = new THREE.SphereGeometry(0.075, 10, 10);
-    const sparkMat = new THREE.MeshBasicMaterial({ color: 0xfef08a });
-    const allCurves = [hippoCurveL, callosumCurve, hippoCurveR, bbbCurve];
-    for (let i = 0; i < 16; i++) {
-      const sp = new THREE.Mesh(sparkGeo, sparkMat);
-      sp.userData = {
-        curveIdx: i % allCurves.length,
-        u: (i / 16) % 1
-      };
-      brainGroup.add(sp);
-      actionSparks.push(sp);
-    }
-
-    // 6 Etiquetas sin solaparse (3 a la izquierda, 3 a la derecha) con líneas guía SVG
-    const labelAnchors = [
-      { text: '1. Corteza Cerebral (Capas III–V)', pos: new THREE.Vector3(-1.35, 0.85, 0.55), side: 'left', topPct: 8, color: '#38bdf8' },
-      { text: '2. Hipocampo (Sectores CA1 / CA3)', pos: new THREE.Vector3(-0.88, 0.22, -0.55), side: 'left', topPct: 40, color: '#f59e0b' },
-      { text: '3. Lóbulo Piriforme / Temporal', pos: new THREE.Vector3(-0.82, -0.38, 0.45), side: 'left', topPct: 72, color: '#ef4444' },
-      { text: '4. Cuerpo Calloso (Comisura)', pos: new THREE.Vector3(0.0, 0.68, 0.15), side: 'right', topPct: 12, color: '#06b6d4' },
-      { text: '5. Tálamo Medial (Circuito Ca²⁺ T)', pos: new THREE.Vector3(0.25, 0.15, -0.05), side: 'right', topPct: 44, color: '#a78bfa' },
-      { text: '6. BHE Endotelial (Glicoproteína-P)', pos: new THREE.Vector3(0.7, -0.68, 1.2), side: 'right', topPct: 74, color: '#10b981' }
-    ];
-
-    let showLabels3d = true;
-    const labelEls = labelAnchors.map(a => {
-      const el = document.createElement('div');
-      el.className = `label3d-pin side-${a.side}`;
-      el.style.top = `${a.topPct}%`;
-      el.textContent = a.text;
-      labelsLayer.appendChild(el);
-
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('stroke', a.color);
-      line.setAttribute('stroke-width', '1.5');
-      line.setAttribute('stroke-dasharray', '3 3');
-      line.setAttribute('opacity', '0.88');
-      labelsSvg.appendChild(line);
-
-      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      dot.setAttribute('r', '3.5');
-      dot.setAttribute('fill', a.color);
-      labelsSvg.appendChild(dot);
-
-      return { el, line, dot, pos: a.pos, side: a.side };
-    });
-
-    function updateBrain3DState() {
-      const mode = seizureModeSelect.value;
-      const val = Number(dischargeSlider.value);
-      const t = val / 100;
-      dischargeSliderVal.textContent = `${val}%`;
-
-      if (mode === 'focal') {
-        leftHemiMat.color.setHex(0xf59e0b);
-        leftHemiMat.emissive.setHex(0x7c2d12);
-        rightHemiMat.color.setHex(0x38bdf8);
-        rightHemiMat.emissive.setHex(0x082f49);
-        hippoMatL.color.setHex(0xef4444);
-        hippoMatL.emissive.setHex(0x991b1b);
-        waveRing1.position.set(-0.88, 0.22, -0.45);
-        waveRing2.position.set(-0.82, -0.35, 0.35);
-        stage3dTitle.textContent = '1. Crisis Focal Límbica / Hipocampal (FTLE)';
-        stage3dDesc.textContent = 'Sincronización anómala circunscrita a un solo hemisferio (sectores CA1/CA3 del hipocampo y lóbulo piriforme). Explica sialorrea paroxística, clonus facial y automatismos motores.';
-        hud3dState.textContent = 'Estado: Crisis Focal Unilateral (Límbica)';
-        hud3dReceptors.textContent = `PDS Focal: ${Math.round(10 + t * 30)} mV | GABA-A Intacto`;
-      } else if (mode === 'secondary') {
-        leftHemiMat.color.setHex(0xef4444);
-        leftHemiMat.emissive.setHex(0x7f1d1d);
-        rightHemiMat.color.setHex(t > 0.3 ? 0xef4444 : 0xf59e0b);
-        rightHemiMat.emissive.setHex(t > 0.3 ? 0x7f1d1d : 0x78350f);
-        callosumMat.color.setHex(0xfde047);
-        callosumMat.emissive.setHex(0xca8a04);
-        waveRing1.position.set(0, 0.65, 0.15);
-        waveRing2.position.set(0.88, 0.22, -0.45);
-        stage3dTitle.textContent = '2. Crisis Focal con Generalización Comisural';
-        stage3dDesc.textContent = 'El foco inicial se difunde a través del cuerpo calloso y la comisura intertalámica reclutando sincrónicamente ambos hemisferios (patrón preponderante en caninos).';
-        hud3dState.textContent = 'Estado: Propagación Transcomisural Bilateral';
-        hud3dReceptors.textContent = 'Reclutamiento: Cuerpo Calloso → Bilateral';
-      } else {
-        leftHemiMat.color.setHex(0xef4444);
-        leftHemiMat.emissive.setHex(0x991b1b);
-        rightHemiMat.color.setHex(0xef4444);
-        rightHemiMat.emissive.setHex(0x991b1b);
-        thalMat.color.setHex(0xef4444);
-        bbbMat.color.setHex(0xa855f7);
-        bbbMat.emissive.setHex(0x581c87);
-        waveRing1.position.set(0, 0.25, 0);
-        waveRing2.position.set(0, -0.1, 0.2);
-        stage3dTitle.textContent = '3. Status Prolongado (>30 min · T2 y Excitotoxicidad)';
-        stage3dDesc.textContent = 'Pérdida de hasta 50% de receptores GABA-A por endocitosis de clatrina, externalización masiva de receptores NMDA, sobrecarga de Ca²⁺ en CA1/CA3 y bombeo de FAE por Glicoproteína-P (ABCB1) en la BHE.';
-        hud3dState.textContent = '¡ALERTA T2 ≥ 30 min!: Desacoplamiento Neurovascular';
-        hud3dReceptors.textContent = 'GABA-A ↓ (endocitosis, ilustrativo) | ↑NMDA y ↑P-gp';
+    const moduleUxMeta = {
+      'especies-tabs': {
+        bullets: [
+          'En perros de <strong>6 meses a 6 años</strong> predomina la epilepsia idiopática; en gatos predominan etiologías estructurales o reactivas.',
+          'En felinos están contraindicados el bromuro de potasio (<strong>35–42%</strong> neumonitis eosinofílica), el diazepam oral (mortalidad <strong>&gt; 80%</strong>) y el propofol en CRI <strong>&gt; 6–12 h</strong>.',
+          'La toxicosis felina por permetrina (spot-on canino al <strong>45–65%</strong>) se trata con lavado templado, metocarbamol (<strong>55–220 mg/kg IV</strong>, máx. <strong>330 mg/kg/24h</strong>) e ILE <strong>20%</strong> (<strong>1,5–2,0 mL/kg</strong>).'
+        ],
+        q: '¿Cuál es el fármaco de elección en un gato Birmano geriátrico (>14 años) con crisis reflejas audiogénicas (FARS)?',
+        opts: [
+          { t: 'Levetiracetam a 20–30 mg/kg PO cada 8 horas', ok: true, exp: 'Correcto: el levetiracetam (20–30 mg/kg PO c/8h) controla las mioclonías y el reflejo audiogénico en FARS.' },
+          { t: 'Bromuro de potasio a 30 mg/kg PO cada 12 horas', ok: false, exp: 'Incorrecto: el bromuro está proscrito en gatos por causar neumonitis eosinofílica severa (35–42%).' }
+        ]
+      },
+      'mod-01': {
+        bullets: [
+          'La definición operativa de epilepsia exige al menos <strong>2 crisis no provocadas</strong> separadas por <strong>&gt; 24 horas</strong>.',
+          'La sospecha genética se apoya en una prevalencia racial <strong>&gt; 2%</strong> y agregación familiar.',
+          'Las crisis reactivas reflejan un trastorno sistémico o tóxico sobre un encéfalo sano y revierten al corregir la causa.'
+        ],
+        q: '¿Qué intervalo mínimo debe separar dos crisis epilépticas no provocadas para confirmar operativamente epilepsia?',
+        opts: [
+          { t: 'Más de 24 horas entre ambos episodios', ok: true, exp: 'Correcto: se requieren al menos dos crisis no provocadas separadas por más de 24 horas (ILAE / IVETF).' },
+          { t: 'Menos de 5 minutos en un mismo día', ok: false, exp: 'Incorrecto: múltiples crisis en 24 horas definen crisis en racimo o status epilepticus.' }
+        ]
+      },
+      'mod-02': {
+        bullets: [
+          'El cambio de despolarización paroxística (PDS) sostiene mesetas de <strong>10 a 40 mV</strong> por activación masiva de receptores NMDA, AMPA y canales de Ca²⁺.',
+          'En <strong>T1 (≥ 5 min)</strong> fracasa el freno endógeno; en <strong>T2 (≥ 30 min)</strong> ocurre daño excitotóxico irreversible en sectores <strong>CA1/CA3</strong>.',
+          'Tras <strong>15–45 min</strong> de status se internaliza hasta el <strong>50%</strong> de receptores GABA-A y se externalizan receptores NMDA.'
+        ],
+        q: '¿Qué fenómeno molecular explica la pérdida de eficacia de las benzodiacepinas tras 15–45 minutos de status epilepticus?',
+        opts: [
+          { t: 'Endocitosis mediada por clatrina de hasta el 50% de receptores GABA-A y externalización de receptores NMDA', ok: true, exp: 'Exacto: la internalización de subunidades β2/β3 y γ2 de GABA-A y el aumento de NMDA obligan a usar Ketamina.' },
+          { t: 'Destrucción completa del fármaco en el plasma en menos de 60 segundos', ok: false, exp: 'Incorrecto: el mecanismo primario es el tráfico de membrana de receptores GABA-A/NMDA y la bomba P-gp.' }
+        ]
+      },
+      'mod-03': {
+        bullets: [
+          '<strong>Tier I:</strong> inicio entre <strong>6 meses y 6 años</strong>, examen interictal normal, bioquímica, Na⁺/K⁺/Ca²⁺ iónico, urianálisis y ácidos biliares/NH₃.',
+          '<strong>Tier II:</strong> suma ácidos biliares pre/postprandiales, RM de <strong>≥ 1,5 Tesla</strong> (cortes <strong>≤ 3 mm</strong>) y LCR normal (<strong>&lt; 5 cél/µL</strong>).',
+          '<strong>Tier III:</strong> confirma con descargas epileptiformes ictales o interictales en EEG o mutación genética validada.'
+        ],
+        q: 'En el Nivel de Certeza II (Tier II) del IVETF, ¿qué parámetros confirman un LCR normal?',
+        opts: [
+          { t: 'Recuento < 5 cél/µL y microproteínas < 25–30 mg/dL (cisternal) o < 45 mg/dL (lumbar)', ok: true, exp: 'Correcto: esos son los límites de referencia establecidos por el consenso IVETF.' },
+          { t: 'Recuento > 25 cél/µL y proteínas > 80 mg/dL', ok: false, exp: 'Incorrecto: esos valores indican pleocitosis e hiperproteinorraquia compatibles con lesión estructural/inflamatoria.' }
+        ]
+      },
+      'mod-04': {
+        bullets: [
+          '<strong>Fase 1 (0–10 min):</strong> Midazolam <strong>0,2–0,5 mg/kg</strong> IV, IM o IN (atomizador MAD) o Diazepam <strong>0,5 mg/kg IV</strong> (máx. <strong>3 bolos</strong>).',
+          '<strong>Fase 2 (10–30 min):</strong> Levetiracetam <strong>60 mg/kg IV</strong> en <strong>10–15 min</strong> y Fenobarbital carga <strong>16–20 mg/kg</strong> (alícuotas de <strong>4 mg/kg</strong> c/<strong>20–30 min</strong>).',
+          '<strong>Fase 3 (&gt; 30 min · RSE):</strong> Ketamina bolo <strong>2,5–5 mg/kg IV</strong> (rango <strong>1–5 mg/kg</strong>) + CRI <strong>1–2 mg/kg/h</strong> y Dexmedetomidina <strong>2–3 µg/kg IV</strong>.'
+        ],
+        q: 'En el Status Epiléptico Refractario (>30 min · T2), ¿cuál es la pauta verificada de Ketamina en perros?',
+        opts: [
+          { t: 'Bolo de 2,5–5 mg/kg IV (rango consenso 1–5 mg/kg) seguido de CRI de 1–2 mg/kg/h', ok: true, exp: 'Correcto: antagoniza los receptores NMDA externalizados sin deprimir la contractilidad miocárdica.' },
+          { t: 'Bolo único intramuscular de 25 mg/kg sin soporte ventilatorio', ok: false, exp: 'Incorrecto: en Fase 3 se administra a 2,5–5 mg/kg IV lento con intubación endotraqueal obligatoria.' }
+        ]
+      },
+      'mod-05': {
+        bullets: [
+          'Fenobarbital: <strong>2,5–3,0 mg/kg c/12h</strong> en perros (diana <strong>15–35 µg/mL</strong>; ideal <strong>25–30 µg/mL</strong>) y <strong>1,5–2,5 mg/kg c/12h</strong> en gatos (<strong>15–30 µg/mL</strong>).',
+          'Bromuro canino: diana de <strong>1000–3000 mg/L</strong> en monoterapia u <strong>800–2500 mg/L</strong> con fenobarbital (T½ <strong>21–28 días</strong>).',
+          'Realizar TDM de fenobarbital en tubo seco sin gel separador a los <strong>14, 45 y 90 días</strong>; valores <strong>&gt; 35 µg/mL</strong> son hepatotóxicos.'
+        ],
+        q: '¿Cómo se revierte clínicamente la intoxicación por bromuro (bromismo > 3000 mg/L) en perros?',
+        opts: [
+          { t: 'Fluidoterapia intravenosa con NaCl 0,9% para acelerar la excreción renal competitiva del bromuro', ok: true, exp: 'Correcto: la carga de cloruro compite en el túbulo renal y promueve la diuresis del ion bromuro.' },
+          { t: 'Suspender el agua y cambiar a una dieta hiposódica estricta', ok: false, exp: 'Incorrecto: el déficit de cloruro aumenta la reabsorción renal de bromuro y agrava la neurotoxicidad.' }
+        ]
+      },
+      'mod-06': {
+        bullets: [
+          'Entre el <strong>20% y 30%</strong> de los perros con epilepsia idiopática presentan farmacorresistencia pese a <strong>≥ 2 FAE</strong> en rango.',
+          'En crisis en racimo domiciliarias: Midazolam IN (<strong>0,2–0,5 mg/kg</strong>) y pulso oral de Levetiracetam (<strong>60 mg/kg</strong> y luego <strong>20 mg/kg c/8h</strong> por <strong>48 h</strong>).',
+          'Ante hipertermia <strong>&gt; 40 °C</strong> en status, enfriar con agua templada y suspender el enfriamiento activo al llegar a <strong>39,0 °C</strong>.'
+        ],
+        q: '¿Cuál es el esquema domiciliario de pulso oral con Levetiracetam en un perro con crisis en racimo?',
+        opts: [
+          { t: 'Carga oral de 60 mg/kg seguida de 20 mg/kg (o 30 mg/kg) PO cada 8 horas durante 48 horas', ok: true, exp: 'Correcto: controla las crisis agrupadas en casa manteniendo seguridad hemodinámica y hepática.' },
+          { t: '1 mg/kg PO cada 24 horas durante 7 días', ok: false, exp: 'Incorrecto: la pauta de pulso requiere carga inicial de 60 mg/kg y mantenimiento cada 8 horas por 48 h.' }
+        ]
       }
-    }
+    };
 
-    seizureModeSelect.addEventListener('change', () => {
-      SoundEngine.pulse();
-      updateBrain3DState();
-    });
-    dischargeSlider.addEventListener('input', updateBrain3DState);
-    dischargeSlider.addEventListener('change', () => SoundEngine.blip());
-    updateBrain3DState();
+    const svgIconCheck = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.8 2.8L16 9.5"/></svg>`;
+    const svgIconCross = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>`;
+    const svgIconBolt = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>`;
 
-    let wavePulseBoost = 0;
-    document.getElementById('pulseWave3dBtn').addEventListener('click', () => {
-      SoundEngine.pulse();
-      wavePulseBoost = 1.0;
-    });
-    document.getElementById('toggleLabels3dBtn').addEventListener('click', () => {
-      SoundEngine.blip();
-      showLabels3d = !showLabels3d;
-      labelsLayer.style.display = showLabels3d ? 'block' : 'none';
-      labelsSvg.style.display = showLabels3d ? 'block' : 'none';
-    });
-    document.getElementById('resetCam3dBtn').addEventListener('click', () => {
-      SoundEngine.blip();
-      camera.position.set(5.4, 3.2, 6.2);
-      controls.target.set(0, 0.1, 0);
-      controls.update();
-    });
+    // 1. Tablas responsivas con data-label (<680 px) y pestañas con role="tablist"
+    function setupResponsiveTablesAndTabs() {
+      document.querySelectorAll('table.clinical-table').forEach(table => {
+        const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+        table.querySelectorAll('tbody tr').forEach(tr => {
+          Array.from(tr.querySelectorAll('td')).forEach((td, idx) => {
+            if (headers[idx]) td.setAttribute('data-label', headers[idx]);
+          });
+        });
+      });
 
-    function resize3D() {
-      const container = document.getElementById('canvas3dContainer');
-      const w = container.clientWidth;
-      const h = container.clientHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-      labelsSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
-    }
-    window.addEventListener('resize', resize3D);
-    resize3D();
-
-    function animate3D(now) {
-      requestAnimationFrame(animate3D);
-      const t = Number(dischargeSlider.value) / 100;
-      wavePulseBoost = Math.max(0, wavePulseBoost - 0.015);
-
-      if (!prefersReducedMotion) {
-        brainGroup.rotation.y += 0.0018 + t * 0.002;
-
-        // Animación de la onda de descarga (anillos expansivos)
-        const s1 = 1 + ((now * (0.002 + t * 0.003)) % 2.8) + wavePulseBoost * 1.4;
-        const s2 = 1 + (((now * (0.002 + t * 0.003)) + 1.4) % 2.8) + wavePulseBoost * 1.4;
-        waveRing1.scale.set(s1, s1, s1);
-        waveRing2.scale.set(s2, s2, s2);
-        waveRingMat.opacity = Math.max(0.08, 1 - s1 / 3.4);
-        waveRingMat2.opacity = Math.max(0.08, 1 - s2 / 3.4);
-        waveRing1.lookAt(camera.position);
-        waveRing2.lookAt(camera.position);
-
-        // Partículas de descarga viajando por los tractos
-        const mode = seizureModeSelect.value;
-        const speed = 0.004 + t * 0.009 + wavePulseBoost * 0.015;
-        actionSparks.forEach((sp, i) => {
-          sp.userData.u = (sp.userData.u + speed) % 1;
-          let curve = allCurves[sp.userData.curveIdx];
-          if (mode === 'focal' && sp.userData.curveIdx === 2) {
-            curve = hippoCurveL;
+      ['speciesTabButtons', 'seSpeciesTabs'].forEach(barId => {
+        const bar = document.getElementById(barId);
+        if (!bar) return;
+        bar.setAttribute('role', 'tablist');
+        bar.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.setAttribute('role', 'tab');
+          btn.setAttribute('aria-selected', btn.classList.contains('active') ? 'true' : 'false');
+          if (!btn.dataset.ariaBound) {
+            btn.dataset.ariaBound = 'true';
+            btn.addEventListener('click', () => {
+              bar.querySelectorAll('.tab-btn').forEach(b => b.setAttribute('aria-selected', 'false'));
+              btn.setAttribute('aria-selected', 'true');
+            });
           }
-          const pt = curve.getPointAt(sp.userData.u);
-          sp.position.copy(pt);
         });
-      }
-
-      controls.update();
-      renderer.render(scene, camera);
-
-      if (showLabels3d) {
-        const w = canvas3d.clientWidth;
-        const h = canvas3d.clientHeight;
-        labelEls.forEach(item => {
-          const worldPos = item.pos.clone().applyMatrix4(brainGroup.matrixWorld);
-          worldPos.project(camera);
-          const tx = Math.max(12, Math.min(w - 12, (worldPos.x * 0.5 + 0.5) * w));
-          const ty = Math.max(12, Math.min(h - 12, (-worldPos.y * 0.5 + 0.5) * h));
-
-          const rect = item.el.getBoundingClientRect();
-          const parentRect = labelsLayer.getBoundingClientRect();
-          const boxX = item.side === 'left'
-            ? (rect.right - parentRect.left)
-            : (rect.left - parentRect.left);
-          const boxY = (rect.top - parentRect.top) + rect.height / 2;
-
-          item.line.setAttribute('x1', boxX);
-          item.line.setAttribute('y1', boxY);
-          item.line.setAttribute('x2', tx);
-          item.line.setAttribute('y2', ty);
-
-          item.dot.setAttribute('cx', tx);
-          item.dot.setAttribute('cy', ty);
-        });
-      }
+      });
     }
-    requestAnimationFrame(animate3D);
+
+    // 2. Negrita solo en cifras, porcentajes, tiempos, grados y dosis en el cuerpo del texto
+    function applySelectiveBold(rootEl) {
+      if (!rootEl) return;
+      rootEl.querySelectorAll('p strong, li strong').forEach(str => {
+        const txt = str.textContent || '';
+        const hasNumberOrDose = /(\d|%|mg|µg|mL|mV|min|h\b|días|Tesla|mm\b|°C|T1|T2|Tier\s+[I|V]|Nivel\s+[I|V]|≥|≤|>|<)/i.test(txt);
+        if (!hasNumberOrDose) {
+          str.classList.add('prose-term');
+        }
+      });
+    }
+
+    // 3. Progreso 'Módulos completados x/N' con clave 'vetatlas-progress-convulsiones'
+    const trackedModuleIds = Object.keys(moduleUxMeta);
+    let completedModules = {};
+    try {
+      const savedProg = localStorage.getItem(PROGRESS_KEY);
+      if (savedProg) completedModules = JSON.parse(savedProg) || {};
+    } catch (e) {}
+
+    function saveModuleProgress(modId) {
+      completedModules[modId] = true;
+      try {
+        localStorage.setItem(PROGRESS_KEY, JSON.stringify(completedModules));
+      } catch (e) {}
+      updateSidebarProgressUI();
+    }
+
+    function setupSidebarProgressUI() {
+      const sNav = document.getElementById('sidebarNav');
+      if (!sNav) return;
+      const progBox = document.createElement('div');
+      progBox.className = 'sidebar-progress-box';
+      progBox.innerHTML = `
+        <div class="sidebar-progress-lbl">
+          <span>Módulos completados</span>
+          <strong id="sidebarProgCount">0/${trackedModuleIds.length}</strong>
+        </div>
+        <div class="sidebar-progress-track">
+          <div id="sidebarProgFill" class="sidebar-progress-fill"></div>
+        </div>
+      `;
+      sNav.insertBefore(progBox, sNav.firstChild);
+
+      sNav.querySelectorAll('.nav-link').forEach(link => {
+        const checkSpan = document.createElement('span');
+        checkSpan.className = 'nav-done-check';
+        checkSpan.setAttribute('aria-hidden', 'true');
+        checkSpan.innerHTML = svgIconCheck;
+        link.appendChild(checkSpan);
+      });
+      updateSidebarProgressUI();
+    }
+
+    function updateSidebarProgressUI() {
+      const doneCount = trackedModuleIds.filter(id => completedModules[id]).length;
+      const countEl = document.getElementById('sidebarProgCount');
+      const fillEl = document.getElementById('sidebarProgFill');
+      if (countEl) countEl.textContent = `${doneCount}/${trackedModuleIds.length}`;
+      if (fillEl) fillEl.style.width = `${Math.round((doneCount / trackedModuleIds.length) * 100)}%`;
+
+      document.querySelectorAll('#sidebarNav .nav-link').forEach(link => {
+        const href = (link.getAttribute('href') || '').replace('#', '');
+        link.classList.toggle('completed', Boolean(completedModules[href]));
+      });
+    }
+
+    // 4. Inyección de 'En 30 segundos', <details> 'Profundizar' (cerrado en móvil) y 'Reto rápido'
+    function enhanceModulesStructure() {
+      const isDesktop = window.innerWidth > 680;
+
+      trackedModuleIds.forEach(modId => {
+        const sec = document.getElementById(modId);
+        const meta = moduleUxMeta[modId];
+        if (!sec || !meta) return;
+
+        const header = sec.querySelector('.module-header');
+        if (!header) return;
+
+        // Caja En 30 segundos (3 viñetas + ícono SVG)
+        const tldr = document.createElement('div');
+        tldr.className = 'tldr-box';
+        tldr.innerHTML = `
+          <div class="tldr-head">${svgIconBolt}<span>En 30 segundos</span></div>
+          <ul class="tldr-list">
+            ${meta.bullets.map(b => `<li>${b}</li>`).join('')}
+          </ul>
+        `;
+
+        // Texto largo dentro de <details> 'Profundizar' (cerrado en móvil)
+        const detailsEl = document.createElement('details');
+        detailsEl.className = 'deep-dive-box';
+        if (isDesktop) detailsEl.setAttribute('open', '');
+        const summaryEl = document.createElement('summary');
+        summaryEl.innerHTML = `<span>Profundizar</span><span class="mono-badge">Desplegar / Ocultar</span>`;
+        const bodyEl = document.createElement('div');
+        bodyEl.className = 'deep-dive-body';
+
+        const nodesToMove = [];
+        let curr = header.nextSibling;
+        while (curr) {
+          nodesToMove.push(curr);
+          curr = curr.nextSibling;
+        }
+        nodesToMove.forEach(n => bodyEl.appendChild(n));
+        detailsEl.appendChild(summaryEl);
+        detailsEl.appendChild(bodyEl);
+
+        // Reto rápido de 1 pregunta con feedback y sonido
+        const qc = document.createElement('div');
+        qc.className = 'quick-challenge-card';
+        qc.innerHTML = `
+          <div class="qc-head">
+            <span>Reto rápido</span>
+            <span class="mono-badge">${completedModules[modId] ? 'Completado' : '1 pregunta'}</span>
+          </div>
+          <p style="font-size:0.86rem;font-weight:600;color:var(--text-primary);">${meta.q}</p>
+          <div class="qc-options">
+            ${meta.opts.map((o, idx) => `<button type="button" class="qc-btn" data-idx="${idx}">${o.t}</button>`).join('')}
+          </div>
+          <div class="qc-feedback" role="status" aria-live="polite"></div>
+        `;
+
+        const fbEl = qc.querySelector('.qc-feedback');
+        const statusBadge = qc.querySelector('.qc-head .mono-badge');
+        qc.querySelectorAll('.qc-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const opt = meta.opts[Number(btn.dataset.idx)];
+            fbEl.style.display = 'flex';
+            if (opt.ok) {
+              SoundEngine.ok();
+              fbEl.className = 'qc-feedback ok-alert';
+              fbEl.innerHTML = `${svgIconCheck}<div>${opt.exp}</div>`;
+              statusBadge.textContent = 'Completado';
+              saveModuleProgress(modId);
+            } else {
+              SoundEngine.bad();
+              fbEl.className = 'qc-feedback contra-alert';
+              fbEl.innerHTML = `${svgIconCross}<div>${opt.exp}</div>`;
+            }
+          });
+        });
+
+        sec.appendChild(tldr);
+        sec.appendChild(detailsEl);
+        sec.appendChild(qc);
+        applySelectiveBold(bodyEl);
+      });
+    }
+
+    // 5. Diagramas SVG con pista 'desliza' + botón 'Ampliar' y Galería con Lightbox <dialog>
+    function setupModalsForSvgAndGallery() {
+      const modal = document.createElement('dialog');
+      modal.className = 'vetatlas-modal';
+      modal.id = 'vetatlasUniversalModal';
+      modal.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:0.75rem;margin-bottom:0.75rem;border-bottom:1px solid var(--border-subtle);padding-bottom:0.55rem;">
+          <strong id="modalTitle" style="font-size:0.95rem;color:var(--accent-cyan);">Vista Ampliada</strong>
+          <button id="modalCloseBtn" type="button" class="btn-action" aria-label="Cerrar ventana ampliada">Cerrar</button>
+        </div>
+        <div id="modalBody" style="overflow:auto;max-height:calc(85vh - 70px);"></div>
+      `;
+      document.body.appendChild(modal);
+
+      const modalTitle = modal.querySelector('#modalTitle');
+      const modalBody = modal.querySelector('#modalBody');
+      modal.querySelector('#modalCloseBtn').addEventListener('click', () => {
+        SoundEngine.blip();
+        modal.close();
+      });
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.close();
+      });
+
+      document.querySelectorAll('.wide-svg-box, .step-svg-wrap').forEach((wrap, idx) => {
+        const svg = wrap.querySelector('svg');
+        if (!svg) return;
+        const bar = document.createElement('div');
+        bar.className = 'svg-toolbar';
+        bar.innerHTML = `
+          <span>Desliza para explorar el diagrama</span>
+          <button type="button" class="svg-expand-btn" aria-label="Ampliar diagrama a pantalla completa">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            <span>Ampliar</span>
+          </button>
+        `;
+        bar.querySelector('.svg-expand-btn').addEventListener('click', () => {
+          SoundEngine.blip();
+          modalTitle.textContent = svg.getAttribute('aria-label') || `Diagrama Clínico #${idx + 1}`;
+          modalBody.innerHTML = `<div class="wide-svg-box" style="margin:0;">${svg.outerHTML}</div>`;
+          modal.showModal();
+        });
+        wrap.insertBefore(bar, svg);
+      });
+
+      // Galería con lightbox <dialog> conservando los mismos créditos y enlaces
+      document.querySelectorAll('#mod-galeria .qa-gal-card').forEach(card => {
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        const openLightbox = (e) => {
+          if (e.target && e.target.closest && e.target.closest('a')) return;
+          SoundEngine.blip();
+          const img = card.querySelector('img');
+          const cap = card.querySelector('figcaption');
+          const title = cap && cap.querySelector('strong') ? cap.querySelector('strong').textContent : 'Imagen Clínica';
+          modalTitle.textContent = title;
+          modalBody.innerHTML = `
+            <div style="display:flex;flex-direction:column;gap:0.75rem;align-items:center;">
+              <img src="${img.src}" alt="${img.alt}" style="max-width:100%;max-height:66vh;object-fit:contain;border-radius:8px;" />
+              <div style="width:100%;font-size:0.86rem;color:var(--text-secondary);">${cap ? cap.innerHTML : ''}</div>
+            </div>
+          `;
+          modal.showModal();
+        };
+        card.addEventListener('click', openLightbox);
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openLightbox(e);
+          }
+        });
+      });
+    }
+
+    setupResponsiveTablesAndTabs();
+    setupSidebarProgressUI();
+    enhanceModulesStructure();
+    setupModalsForSvgAndGallery();
+
+    document.querySelectorAll('#seSpeciesTabs .tab-btn, #speciesTabButtons .tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        setTimeout(() => {
+          setupResponsiveTablesAndTabs();
+          applySelectiveBold(document.getElementById('speciesTabContent'));
+          applySelectiveBold(document.getElementById('seSpeciesContent'));
+        }, 0);
+      });
+    });
+
+    /* =========================================================================
+       7. LABORATORIO 3D DIFERIDO: NEURONA PIRAMIDAL CA1/CA3 Y CEREBRO CANINO
+       ========================================================================= */
+    const mod3dSection = document.getElementById('mod-3d');
+    let lab3dBootstrapped = false;
+
+    async function init3D() {
+      if (lab3dBootstrapped) return;
+      lab3dBootstrapped = true;
+
+      const placeholderEl = document.getElementById('loader3dPlaceholder');
+      const container = document.getElementById('canvas3dContainer');
+      const canvas3d = document.getElementById('brain3dCanvas');
+      const labelsLayer = document.getElementById('labels3dLayer');
+      const labelsSvg = document.getElementById('labels3dSvg');
+      const scopeCanvas = document.getElementById('scope2dCanvas');
+      const scopeMvVal = document.getElementById('scope2dMvVal');
+      const seizureModeSelect = document.getElementById('seizureModeSelect');
+      const dischargeSlider = document.getElementById('dischargeSlider');
+      const dischargeSliderVal = document.getElementById('dischargeSliderVal');
+      const stage3dTitle = document.getElementById('stage3dTitle');
+      const stage3dDesc = document.getElementById('stage3dDesc');
+      const hud3dState = document.getElementById('hud3dState');
+      const hud3dReceptors = document.getElementById('hud3dReceptors');
+      const viewNeuronBtn = document.getElementById('viewNeuron3dBtn');
+      const viewBrainBtn = document.getElementById('viewBrain3dBtn');
+      const ionLegend3d = document.getElementById('ionLegend3d');
+
+      let THREE, OrbitControls;
+      try {
+        THREE = await import('three');
+        const addons = await import('three/addons/controls/OrbitControls.js');
+        OrbitControls = addons.OrbitControls;
+      } catch (err) {
+        if (placeholderEl) {
+          placeholderEl.textContent = 'Visor 3D no disponible sin conexión al CDN. El resto del atlas sigue operativo.';
+        }
+        return;
+      }
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 120);
+      camera.position.set(0, 1.4, 9.5);
+
+      const renderer = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      renderer.domElement.style.touchAction = 'pan-y'; /* glue G3: OrbitControls sets 'none' */
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.08;
+      controls.enablePan = false;
+      controls.minDistance = 2.6;
+      controls.maxDistance = 22;
+
+      const ambLight = new THREE.AmbientLight(0xffffff, 0.86);
+      scene.add(ambLight);
+      const keyLight = new THREE.DirectionalLight(0xffffff, 1.35);
+      keyLight.position.set(6, 10, 8);
+      scene.add(keyLight);
+      const rimLight = new THREE.DirectionalLight(0x38bdf8, 0.9);
+      rimLight.position.set(-7, -4, -6);
+      scene.add(rimLight);
+      const apPointLight = new THREE.PointLight(0xfacc15, 0, 4.5);
+      scene.add(apPointLight);
+
+      let activeView = 'neuron'; // 'neuron' por defecto | 'brain'
+      let showLabels3d = true;
+      let is3dInViewport = true;
+
+      /* --- A. CONSTRUCCIÓN DE LA NEURONA PIRAMIDAL CA1/CA3 --- */
+      const neuronGroup = new THREE.Group();
+      scene.add(neuronGroup);
+
+      // 1. Soma piramidal triangular semitransparente
+      const somaGeo = new THREE.ConeGeometry(0.88, 1.55, 28, 16);
+      somaGeo.rotateZ(Math.PI * 0.5);
+      const sPos = somaGeo.attributes.position;
+      for (let i = 0; i < sPos.count; i++) {
+        let x = sPos.getX(i);
+        let y = sPos.getY(i);
+        let z = sPos.getZ(i);
+        // Perfil piramidal triangular suave con base convexa
+        const normX = (x + 0.775) / 1.55; // 0 en base derecha, 1 en ápice izquierdo
+        const triFactor = 1 + 0.18 * Math.cos(Math.atan2(y, z) * 3) * (1 - normX * 0.6);
+        y *= triFactor * (1.06 - 0.15 * normX);
+        z *= triFactor * (0.85 - 0.12 * normX);
+        if (x < -0.55) {
+          const cap = (x + 0.55) * 0.35;
+          x = -0.55 + cap;
+        }
+        sPos.setXYZ(i, x, y, z);
+      }
+      somaGeo.computeVertexNormals();
+
+      const somaMat = new THREE.MeshPhysicalMaterial({
+        color: 0x0ea5e9,
+        emissive: 0x075985,
+        emissiveIntensity: 0.35,
+        roughness: 0.22,
+        metalness: 0.05,
+        transparent: true,
+        opacity: 0.52,
+        depthWrite: false
+      });
+      const somaMesh = new THREE.Mesh(somaGeo, somaMat);
+      somaMesh.position.set(-1.05, 0.0, 0.0);
+      neuronGroup.add(somaMesh);
+
+      // 2. Núcleo y nucléolo visibles en el interior del soma
+      const nucleusGeo = new THREE.SphereGeometry(0.39, 24, 20);
+      nucleusGeo.scale(1.15, 0.92, 0.92);
+      const nucleusMat = new THREE.MeshStandardMaterial({
+        color: 0x6366f1,
+        emissive: 0x312e81,
+        roughness: 0.35,
+        transparent: true,
+        opacity: 0.86
+      });
+      const nucleusMesh = new THREE.Mesh(nucleusGeo, nucleusMat);
+      nucleusMesh.position.set(-1.02, 0.0, 0.0);
+      neuronGroup.add(nucleusMesh);
+
+      const nucleolusGeo = new THREE.SphereGeometry(0.14, 16, 16);
+      const nucleolusMat = new THREE.MeshStandardMaterial({
+        color: 0xf43f5e,
+        emissive: 0x9f1239,
+        roughness: 0.2
+      });
+      const nucleolusMesh = new THREE.Mesh(nucleolusGeo, nucleolusMat);
+      nucleolusMesh.position.set(-0.98, 0.05, 0.08);
+      neuronGroup.add(nucleolusMesh);
+
+      // 3. Dendrita apical larga + penacho apical y dendritas basales ramificadas
+      const dendriteMat = new THREE.MeshStandardMaterial({
+        color: 0x38bdf8,
+        emissive: 0x0c4a6e,
+        roughness: 0.36
+      });
+
+      const apicalMainCurve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-1.68, 0.02, 0.0),
+        new THREE.Vector3(-2.55, 0.18, 0.06),
+        new THREE.Vector3(-3.45, 0.42, -0.04),
+        new THREE.Vector3(-4.25, 0.72, 0.02)
+      ]);
+      const apicalTuft1 = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-4.15, 0.68, 0.02),
+        new THREE.Vector3(-4.75, 1.15, 0.32),
+        new THREE.Vector3(-5.25, 1.52, 0.48)
+      ]);
+      const apicalTuft2 = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-4.15, 0.68, 0.02),
+        new THREE.Vector3(-4.80, 0.52, -0.36),
+        new THREE.Vector3(-5.28, 0.32, -0.58)
+      ]);
+      const apicalOblique = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-2.85, 0.24, 0.03),
+        new THREE.Vector3(-3.35, 0.88, -0.28),
+        new THREE.Vector3(-3.88, 1.32, -0.45)
+      ]);
+
+      const basalCurves = [
+        new THREE.CatmullRomCurve3([
+          new THREE.Vector3(-0.72, -0.38, 0.28),
+          new THREE.Vector3(-1.15, -0.95, 0.62),
+          new THREE.Vector3(-1.72, -1.42, 0.88)
+        ]),
+        new THREE.CatmullRomCurve3([
+          new THREE.Vector3(-1.15, -0.95, 0.62),
+          new THREE.Vector3(-0.82, -1.48, 0.95)
+        ]),
+        new THREE.CatmullRomCurve3([
+          new THREE.Vector3(-0.75, -0.35, -0.30),
+          new THREE.Vector3(-1.25, -0.92, -0.68),
+          new THREE.Vector3(-1.85, -1.36, -0.92)
+        ]),
+        new THREE.CatmullRomCurve3([
+          new THREE.Vector3(-0.85, 0.36, -0.32),
+          new THREE.Vector3(-1.35, 0.88, -0.68),
+          new THREE.Vector3(-1.92, 1.28, -0.92)
+        ]),
+        new THREE.CatmullRomCurve3([
+          new THREE.Vector3(-1.35, -0.32, 0.25),
+          new THREE.Vector3(-2.05, -0.78, 0.52),
+          new THREE.Vector3(-2.68, -1.15, 0.68)
+        ])
+      ];
+
+      const dendriteSpec = [
+        { curve: apicalMainCurve, r: 0.11 },
+        { curve: apicalTuft1, r: 0.065 },
+        { curve: apicalTuft2, r: 0.065 },
+        { curve: apicalOblique, r: 0.06 },
+        ...basalCurves.map((c, idx) => ({ curve: c, r: idx === 1 ? 0.045 : 0.062 }))
+      ];
+
+      dendriteSpec.forEach(d => {
+        const geo = new THREE.TubeGeometry(d.curve, 24, d.r, 10, false);
+        neuronGroup.add(new THREE.Mesh(geo, dendriteMat));
+      });
+
+      // 4. Espinas dendríticas con InstancedMesh
+      const spineCurves = [apicalMainCurve, apicalTuft1, apicalTuft2, apicalOblique, basalCurves[0], basalCurves[2], basalCurves[4]];
+      const spineTotal = 84;
+      const spineGeo = new THREE.ConeGeometry(0.038, 0.16, 7);
+      spineGeo.translate(0, 0.08, 0);
+      const spineMat = new THREE.MeshStandardMaterial({
+        color: 0x7dd3fc,
+        emissive: 0x0369a1,
+        roughness: 0.3
+      });
+      const spinesInstanced = new THREE.InstancedMesh(spineGeo, spineMat, spineTotal);
+      const dummyObj = new THREE.Object3D();
+      const upVec = new THREE.Vector3(0, 1, 0);
+
+      for (let i = 0; i < spineTotal; i++) {
+        const c = spineCurves[i % spineCurves.length];
+        const u = 0.14 + ((i * 0.6180339) % 0.78);
+        const pt = c.getPointAt(u);
+        const tang = c.getTangentAt(u).normalize();
+        const angle = i * 2.39996;
+        const radial = new THREE.Vector3(0, Math.cos(angle), Math.sin(angle));
+        radial.sub(tang.clone().multiplyScalar(radial.dot(tang))).normalize();
+        dummyObj.position.copy(pt).addScaledVector(radial, 0.045);
+        dummyObj.quaternion.setFromUnitVectors(upVec, radial);
+        dummyObj.updateMatrix();
+        spinesInstanced.setMatrixAt(i, dummyObj.matrix);
+      }
+      spinesInstanced.instanceMatrix.needsUpdate = true;
+      neuronGroup.add(spinesInstanced);
+
+      // 5. Cono axónico (axon hillock) y segmento inicial (AIS)
+      const hillockGeo = new THREE.CylinderGeometry(0.075, 0.28, 0.56, 18);
+      hillockGeo.rotateZ(-Math.PI * 0.5);
+      const hillockMat = new THREE.MeshStandardMaterial({
+        color: 0xf59e0b,
+        emissive: 0x78350f,
+        roughness: 0.32
+      });
+      const hillockMesh = new THREE.Mesh(hillockGeo, hillockMat);
+      hillockMesh.position.set(-0.28, -0.02, 0.0);
+      neuronGroup.add(hillockMesh);
+
+      // 6. Axón mielinizado, vainas de mielina (internodos), nodos de Ranvier y colateral
+      const axonCurve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-0.02, -0.02, 0.0),
+        new THREE.Vector3(1.05, -0.06, 0.05),
+        new THREE.Vector3(2.15, 0.04, -0.04),
+        new THREE.Vector3(3.25, -0.05, 0.03),
+        new THREE.Vector3(4.15, -0.02, 0.0)
+      ]);
+      const axonCoreGeo = new THREE.TubeGeometry(axonCurve, 60, 0.046, 10, false);
+      const axonCoreMat = new THREE.MeshStandardMaterial({
+        color: 0xfde047,
+        emissive: 0x854d0e,
+        roughness: 0.3
+      });
+      neuronGroup.add(new THREE.Mesh(axonCoreGeo, axonCoreMat));
+
+      const myelinMat = new THREE.MeshPhysicalMaterial({
+        color: 0xe2e8f0,
+        emissive: 0x1e293b,
+        roughness: 0.25,
+        transparent: true,
+        opacity: 0.78
+      });
+      const internodeRanges = [
+        [0.06, 0.23],
+        [0.27, 0.44],
+        [0.48, 0.65],
+        [0.69, 0.86]
+      ];
+      const ranvierUs = [0.04, 0.25, 0.46, 0.67, 0.88];
+      const ranvierPositions = ranvierUs.map(u => axonCurve.getPointAt(u));
+      const ranvierRings = [];
+
+      internodeRanges.forEach(([u0, u1]) => {
+        const subPts = [];
+        for (let k = 0; k <= 10; k++) {
+          subPts.push(axonCurve.getPointAt(u0 + (u1 - u0) * (k / 10)));
+        }
+        const subCurve = new THREE.CatmullRomCurve3(subPts);
+        const sheathGeo = new THREE.TubeGeometry(subCurve, 16, 0.125, 14, false);
+        neuronGroup.add(new THREE.Mesh(sheathGeo, myelinMat));
+      });
+
+      const nodeRingGeo = new THREE.TorusGeometry(0.068, 0.02, 10, 20);
+      nodeRingGeo.rotateY(Math.PI * 0.5);
+      ranvierPositions.forEach(pos => {
+        const rMat = new THREE.MeshStandardMaterial({
+          color: 0xf59e0b,
+          emissive: 0x9a3412,
+          roughness: 0.25
+        });
+        const ring = new THREE.Mesh(nodeRingGeo, rMat);
+        ring.position.copy(pos);
+        neuronGroup.add(ring);
+        ranvierRings.push(ring);
+      });
+
+      // Colateral axónica que emerge del 2.º nodo de Ranvier
+      const collateralCurve = new THREE.CatmullRomCurve3([
+        ranvierPositions[2].clone(),
+        new THREE.Vector3(2.25, 0.58, -0.18),
+        new THREE.Vector3(2.95, 1.05, -0.28),
+        new THREE.Vector3(3.65, 1.22, -0.22)
+      ]);
+      neuronGroup.add(new THREE.Mesh(new THREE.TubeGeometry(collateralCurve, 24, 0.036, 8, false), axonCoreMat));
+      const colSheathPts = [
+        collateralCurve.getPointAt(0.15),
+        collateralCurve.getPointAt(0.45),
+        collateralCurve.getPointAt(0.78)
+      ];
+      neuronGroup.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(colSheathPts), 12, 0.085, 10, false), myelinMat));
+
+      // 7. Botones terminales con vesículas + Sinapsis Glutamatérgica sobre espina de 2.ª neurona
+      const boutonPos = new THREE.Vector3(4.32, -0.02, 0.0);
+      const boutonGeo = new THREE.SphereGeometry(0.26, 20, 16);
+      boutonGeo.scale(1.25, 0.95, 0.95);
+      const boutonMat = new THREE.MeshPhysicalMaterial({
+        color: 0x38bdf8,
+        emissive: 0x075985,
+        roughness: 0.25,
+        transparent: true,
+        opacity: 0.54,
+        depthWrite: false
+      });
+      const boutonMesh = new THREE.Mesh(boutonGeo, boutonMat);
+      boutonMesh.position.copy(boutonPos);
+      neuronGroup.add(boutonMesh);
+
+      const colBoutonMesh = new THREE.Mesh(new THREE.SphereGeometry(0.15, 14, 12), boutonMat);
+      colBoutonMesh.position.copy(collateralCurve.getPointAt(1));
+      neuronGroup.add(colBoutonMesh);
+
+      // Vesículas sinápticas presinápticas dentro del botón terminal
+      const vesicles = [];
+      const vesicleGeo = new THREE.SphereGeometry(0.044, 10, 10);
+      const vesicleMat = new THREE.MeshStandardMaterial({ color: 0xfbbf24, emissive: 0xb45309, roughness: 0.2 });
+      const vesicleHomeOffsets = [
+        new THREE.Vector3(-0.08, 0.07, 0.04),
+        new THREE.Vector3(-0.05, -0.06, -0.04),
+        new THREE.Vector3(0.02, 0.09, -0.05),
+        new THREE.Vector3(0.04, -0.08, 0.05),
+        new THREE.Vector3(0.09, 0.02, 0.02),
+        new THREE.Vector3(0.11, -0.03, -0.03)
+      ];
+      vesicleHomeOffsets.forEach(off => {
+        const v = new THREE.Mesh(vesicleGeo, vesicleMat);
+        v.position.copy(boutonPos).add(off);
+        v.userData.home = v.position.clone();
+        neuronGroup.add(v);
+        vesicles.push(v);
+      });
+
+      // Segunda neurona (dendrita postsináptica + espina receptora glutamatérgica)
+      const postNeuronMat = new THREE.MeshStandardMaterial({
+        color: 0x14b8a6,
+        emissive: 0x115e59,
+        roughness: 0.34
+      });
+      const postDendriteCurve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(5.28, -1.25, 0.12),
+        new THREE.Vector3(5.18, -0.05, 0.0),
+        new THREE.Vector3(5.32, 1.18, -0.1)
+      ]);
+      const postDendriteMesh = new THREE.Mesh(new THREE.TubeGeometry(postDendriteCurve, 24, 0.14, 12, false), postNeuronMat);
+      neuronGroup.add(postDendriteMesh);
+
+      // Espina postsináptica (cuello + cabeza enfrentada al botón presináptico)
+      const postSpineNeck = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.055, 0.28, 10).rotateZ(Math.PI * 0.5), postNeuronMat);
+      postSpineNeck.position.set(5.02, -0.02, 0.0);
+      neuronGroup.add(postSpineNeck);
+
+      const postSpineHead = new THREE.Mesh(new THREE.SphereGeometry(0.18, 16, 14).scale(0.85, 1.1, 1.0), postNeuronMat);
+      postSpineHead.position.set(4.82, -0.02, 0.0);
+      neuronGroup.add(postSpineHead);
+
+      // Receptores NMDA (se externalizan en Status) y AMPA en la espina postsináptica
+      const nmdaReceptors = [];
+      const nmdaGeo = new THREE.CylinderGeometry(0.024, 0.024, 0.09, 8).rotateZ(Math.PI * 0.5);
+      const nmdaMat = new THREE.MeshStandardMaterial({ color: 0xef4444, emissive: 0x991b1b });
+      for (let i = 0; i < 6; i++) {
+        const rec = new THREE.Mesh(nmdaGeo, nmdaMat);
+        const ang = (i / 6) * Math.PI * 2;
+        rec.position.set(4.68, -0.02 + Math.cos(ang) * 0.11, Math.sin(ang) * 0.11);
+        rec.userData.baseX = 4.68;
+        rec.userData.extra = i >= 3; // 3 basales + 3 que se externalizan en Status
+        neuronGroup.add(rec);
+        nmdaReceptors.push(rec);
+      }
+
+      // 8. Sinapsis GABAérgica inhibitoria sobre el soma + receptores GABA-A
+      const gabaAxonCurve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-0.35, 1.55, 0.35),
+        new THREE.Vector3(-0.68, 1.05, 0.22),
+        new THREE.Vector3(-0.92, 0.62, 0.08)
+      ]);
+      const gabaAxonMat = new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x155e75, roughness: 0.32 });
+      neuronGroup.add(new THREE.Mesh(new THREE.TubeGeometry(gabaAxonCurve, 18, 0.045, 8, false), gabaAxonMat));
+
+      const gabaBoutonPos = new THREE.Vector3(-0.95, 0.52, 0.05);
+      const gabaBoutonMesh = new THREE.Mesh(new THREE.SphereGeometry(0.16, 16, 14).scale(1.15, 0.85, 1.0), gabaAxonMat);
+      gabaBoutonMesh.position.copy(gabaBoutonPos);
+      neuronGroup.add(gabaBoutonMesh);
+
+      const gabaReceptors = [];
+      const gabaRecGeo = new THREE.CylinderGeometry(0.026, 0.026, 0.085, 8);
+      const gabaRecMat = new THREE.MeshStandardMaterial({ color: 0x22d3ee, emissive: 0x0891b2 });
+      for (let i = 0; i < 6; i++) {
+        const gr = new THREE.Mesh(gabaRecGeo, gabaRecMat);
+        const offsetX = -1.08 + (i - 2.5) * 0.055;
+        const offsetZ = (i % 2 === 0 ? 1 : -1) * 0.045;
+        gr.position.set(offsetX, 0.38, offsetZ);
+        gr.userData.surfaceY = 0.38;
+        gr.userData.internalize = i % 2 === 0; // 50% se internaliza en Status (endocitosis por clatrina)
+        neuronGroup.add(gr);
+        gabaReceptors.push(gr);
+      }
+
+      /* --- B. CONSTRUCCIÓN DEL CEREBRO CANINO CON LÓBULOS Y SURCOS + resetMaterials() --- */
+      const brainGroup = new THREE.Group();
+      brainGroup.visible = false;
+      scene.add(brainGroup);
+
+      function createCanineHemisphereGeo(sideSign) {
+        const geo = new THREE.SphereGeometry(1.45, 52, 38);
+        const pos = geo.attributes.position;
+        for (let i = 0; i < pos.count; i++) {
+          let x = pos.getX(i);
+          let y = pos.getY(i);
+          let z = pos.getZ(i);
+
+          // Proporción dolico/mesocefálica canina (z: rostro-caudal, y: dorso-ventral, x: medio-lateral)
+          x *= 0.68;
+          y *= 0.86;
+          z *= 1.38;
+
+          // Cara medial interhemisférica plana junto a la fisura longitudinal
+          if (x * sideSign < 0) {
+            x *= 0.22;
+          } else {
+            x += sideSign * 0.06;
+          }
+
+          // Ahusamiento rostral (lóbulo frontal y pedúnculo olfatorio canino)
+          if (z > 0.45) {
+            const frontTaper = Math.max(0.36, 1 - (z - 0.45) * 0.34);
+            x *= frontTaper;
+            y *= frontTaper * 0.92;
+            if (z > 1.35) y -= (z - 1.35) * 0.32;
+          }
+
+          // Prominencia ventrolateral del lóbulo piriforme y temporal
+          if (y < 0.05 && z > -0.7 && z < 0.55) {
+            const temporalBulge = Math.exp(-Math.pow((z + 0.1) / 0.55, 2)) * Math.exp(-Math.pow((y + 0.35) / 0.45, 2));
+            x += sideSign * temporalBulge * 0.28;
+            y -= temporalBulge * 0.14;
+          }
+
+          // Surcos corticales (ectosilvio, suprasilvio, marginal y cruciado)
+          const gyriSulci =
+            Math.sin(z * 5.2 + y * 2.8) * Math.cos(x * 6.0) * 0.042 +
+            Math.sin(z * 9.5) * 0.018;
+          const lateralMask = Math.min(1, Math.abs(x) * 1.4);
+          x += sideSign * gyriSulci * lateralMask;
+          y += gyriSulci * 0.7 * lateralMask;
+
+          pos.setXYZ(i, x, y, z);
+        }
+        geo.computeVertexNormals();
+        return geo;
+      }
+
+      const leftHemiMat = new THREE.MeshStandardMaterial({
+        color: 0x38bdf8,
+        emissive: 0x082f49,
+        roughness: 0.36,
+        transparent: true,
+        opacity: 0.42
+      });
+      const leftHemi = new THREE.Mesh(createCanineHemisphereGeo(-1), leftHemiMat);
+      leftHemi.position.set(-0.22, 0.38, 0.08);
+      brainGroup.add(leftHemi);
+
+      const rightHemiMat = new THREE.MeshStandardMaterial({
+        color: 0x38bdf8,
+        emissive: 0x082f49,
+        roughness: 0.36,
+        transparent: true,
+        opacity: 0.42
+      });
+      const rightHemi = new THREE.Mesh(createCanineHemisphereGeo(1), rightHemiMat);
+      rightHemi.position.set(0.22, 0.38, 0.08);
+      brainGroup.add(rightHemi);
+
+      const callosumCurve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-0.82, 0.36, 0.12),
+        new THREE.Vector3(-0.32, 0.66, 0.12),
+        new THREE.Vector3(0.32, 0.66, 0.12),
+        new THREE.Vector3(0.82, 0.36, 0.12)
+      ]);
+      const callosumMat = new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x0e7490, roughness: 0.3 });
+      brainGroup.add(new THREE.Mesh(new THREE.TubeGeometry(callosumCurve, 28, 0.12, 12, false), callosumMat));
+
+      const hippoCurveL = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-0.45, 0.52, -0.32),
+        new THREE.Vector3(-0.78, 0.22, -0.62),
+        new THREE.Vector3(-0.88, -0.22, -0.22),
+        new THREE.Vector3(-0.74, -0.38, 0.42)
+      ]);
+      const hippoMatL = new THREE.MeshStandardMaterial({ color: 0xf59e0b, emissive: 0x9a3412, roughness: 0.28 });
+      brainGroup.add(new THREE.Mesh(new THREE.TubeGeometry(hippoCurveL, 28, 0.15, 12, false), hippoMatL));
+
+      const hippoCurveR = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(0.45, 0.52, -0.32),
+        new THREE.Vector3(0.78, 0.22, -0.62),
+        new THREE.Vector3(0.88, -0.22, -0.22),
+        new THREE.Vector3(0.74, -0.38, 0.42)
+      ]);
+      const hippoMatR = new THREE.MeshStandardMaterial({ color: 0xf59e0b, emissive: 0x78350f, roughness: 0.28 });
+      brainGroup.add(new THREE.Mesh(new THREE.TubeGeometry(hippoCurveR, 28, 0.15, 12, false), hippoMatR));
+
+      const thalMat = new THREE.MeshStandardMaterial({ color: 0xa78bfa, emissive: 0x4c1d95, roughness: 0.35 });
+      const thalMesh = new THREE.Mesh(new THREE.SphereGeometry(0.38, 20, 16), thalMat);
+      thalMesh.scale.set(1.3, 0.9, 1.1);
+      thalMesh.position.set(0, 0.15, -0.05);
+      brainGroup.add(thalMesh);
+
+      const cerebGeo = new THREE.SphereGeometry(0.74, 28, 22);
+      const cPos = cerebGeo.attributes.position;
+      for (let i = 0; i < cPos.count; i++) {
+        const y = cPos.getY(i);
+        const folia = Math.sin(y * 22) * 0.025;
+        cPos.setX(i, cPos.getX(i) * 1.22 + folia);
+        cPos.setZ(i, cPos.getZ(i) * 0.92 + folia);
+      }
+      cerebGeo.computeVertexNormals();
+      const cerebMat = new THREE.MeshStandardMaterial({ color: 0x64748b, emissive: 0x1e293b, roughness: 0.52 });
+      const cerebMesh = new THREE.Mesh(cerebGeo, cerebMat);
+      cerebMesh.position.set(0, -0.18, -1.72);
+      brainGroup.add(cerebMesh);
+
+      const stemMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.26, 0.20, 1.4, 16), cerebMat);
+      stemMesh.rotation.x = Math.PI * 0.36;
+      stemMesh.position.set(0, -0.76, -1.22);
+      brainGroup.add(stemMesh);
+
+      const bbbCurve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-1.65, -0.72, 1.05),
+        new THREE.Vector3(-0.55, -0.66, 1.20),
+        new THREE.Vector3(0.65, -0.66, 1.16),
+        new THREE.Vector3(1.70, -0.72, 0.92)
+      ]);
+      const bbbMat = new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x064e3b, roughness: 0.3 });
+      brainGroup.add(new THREE.Mesh(new THREE.TubeGeometry(bbbCurve, 28, 0.072, 10, false), bbbMat));
+
+      const waveRingGeo = new THREE.RingGeometry(0.18, 0.28, 32);
+      const waveRingMat = new THREE.MeshBasicMaterial({ color: 0xef4444, side: THREE.DoubleSide, transparent: true, opacity: 0.85 });
+      const waveRing1 = new THREE.Mesh(waveRingGeo, waveRingMat);
+      brainGroup.add(waveRing1);
+      const waveRingMat2 = waveRingMat.clone();
+      const waveRing2 = new THREE.Mesh(waveRingGeo, waveRingMat2);
+      brainGroup.add(waveRing2);
+
+      const actionSparks = [];
+      const sparkGeo = new THREE.SphereGeometry(0.068, 10, 10);
+      const sparkMat = new THREE.MeshBasicMaterial({ color: 0xfef08a });
+      const allBrainCurves = [hippoCurveL, callosumCurve, hippoCurveR, bbbCurve];
+      for (let i = 0; i < 16; i++) {
+        const sp = new THREE.Mesh(sparkGeo, sparkMat);
+        sp.userData = { curveIdx: i % allBrainCurves.length, u: (i / 16) % 1 };
+        brainGroup.add(sp);
+        actionSparks.push(sp);
+      }
+
+      // Reinicio íntegro de todos los materiales de Cerebro y Neurona
+      function resetMaterials() {
+        const isLight = getActiveTheme() === 'light';
+        // Cerebro
+        leftHemiMat.color.setHex(isLight ? 0x0284c7 : 0x38bdf8);
+        leftHemiMat.emissive.setHex(isLight ? 0x0369a1 : 0x082f49);
+        leftHemiMat.opacity = isLight ? 0.38 : 0.42;
+
+        rightHemiMat.color.setHex(isLight ? 0x0284c7 : 0x38bdf8);
+        rightHemiMat.emissive.setHex(isLight ? 0x0369a1 : 0x082f49);
+        rightHemiMat.opacity = isLight ? 0.38 : 0.42;
+
+        callosumMat.color.setHex(0x06b6d4);
+        callosumMat.emissive.setHex(0x0e7490);
+
+        hippoMatL.color.setHex(0xf59e0b);
+        hippoMatL.emissive.setHex(0x9a3412);
+
+        hippoMatR.color.setHex(0xf59e0b);
+        hippoMatR.emissive.setHex(0x78350f);
+
+        thalMat.color.setHex(0xa78bfa);
+        thalMat.emissive.setHex(0x4c1d95);
+
+        cerebMat.color.setHex(isLight ? 0x475569 : 0x64748b);
+        cerebMat.emissive.setHex(0x1e293b);
+
+        bbbMat.color.setHex(0x10b981);
+        bbbMat.emissive.setHex(0x064e3b);
+
+        // Neurona
+        somaMat.color.setHex(isLight ? 0x0284c7 : 0x0ea5e9);
+        somaMat.emissive.setHex(isLight ? 0x0369a1 : 0x075985);
+        somaMat.opacity = isLight ? 0.48 : 0.52;
+
+        dendriteMat.color.setHex(isLight ? 0x0369a1 : 0x38bdf8);
+        dendriteMat.emissive.setHex(0x0c4a6e);
+
+        spineMat.color.setHex(isLight ? 0x0284c7 : 0x7dd3fc);
+        spineMat.emissive.setHex(0x0369a1);
+
+        myelinMat.color.setHex(isLight ? 0xcbd5e1 : 0xe2e8f0);
+        myelinMat.opacity = isLight ? 0.82 : 0.78;
+
+        postNeuronMat.color.setHex(0x14b8a6);
+        postNeuronMat.emissive.setHex(0x115e59);
+      }
+
+      /* --- C. CONDUCCIÓN SALTATORIA, IONES Y MINI OSCILOSCOPIO 2D --- */
+      // Frente luminoso de potencial de acción viajando desde el cono axónico
+      const apWaveMesh = new THREE.Mesh(
+        new THREE.SphereGeometry(0.16, 16, 16),
+        new THREE.MeshBasicMaterial({ color: 0xfef08a, transparent: true, opacity: 0.92 })
+      );
+      const apHaloMesh = new THREE.Mesh(
+        new THREE.SphereGeometry(0.32, 16, 16),
+        new THREE.MeshBasicMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.36 })
+      );
+      apWaveMesh.add(apHaloMesh);
+      neuronGroup.add(apWaveMesh);
+
+      const colWaveMesh = new THREE.Mesh(
+        new THREE.SphereGeometry(0.11, 12, 12),
+        new THREE.MeshBasicMaterial({ color: 0xfef08a, transparent: true, opacity: 0.88 })
+      );
+      neuronGroup.add(colWaveMesh);
+
+      // En cada nodo de Ranvier: Na+ entra (amarillo) y K+ sale (violeta)
+      const ionSphereGeo = new THREE.SphereGeometry(0.034, 8, 8);
+      const naMat = new THREE.MeshBasicMaterial({ color: 0xfacc15 });
+      const kMat = new THREE.MeshBasicMaterial({ color: 0xa855f7 });
+      const caMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+      const gluMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+      const clMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4 });
+
+      const nodalIons = [];
+      ranvierPositions.forEach((nodePos, nIdx) => {
+        for (let i = 0; i < 6; i++) {
+          const ang = (i / 6) * Math.PI * 2;
+          const naDot = new THREE.Mesh(ionSphereGeo, naMat);
+          const kDot = new THREE.Mesh(ionSphereGeo, kMat);
+          neuronGroup.add(naDot);
+          neuronGroup.add(kDot);
+          nodalIons.push({ nodePos, nodeU: ranvierUs[nIdx], ang, naDot, kDot });
+        }
+      });
+
+      // Terminal axónico: entrada de Ca2+ y liberación de glutamato en la hendidura
+      const caIons = [];
+      for (let i = 0; i < 8; i++) {
+        const m = new THREE.Mesh(ionSphereGeo, caMat);
+        const ang = (i / 8) * Math.PI * 2;
+        m.userData = { ang };
+        neuronGroup.add(m);
+        caIons.push(m);
+      }
+
+      const gluParticles = [];
+      for (let i = 0; i < 14; i++) {
+        const m = new THREE.Mesh(ionSphereGeo, gluMat);
+        m.userData = {
+          seedY: (Math.random() - 0.5) * 0.22,
+          seedZ: (Math.random() - 0.5) * 0.22,
+          phase: i / 14
+        };
+        neuronGroup.add(m);
+        gluParticles.push(m);
+      }
+
+      // Sinapsis GABAérgica somática: entrada de Cl- hacia el soma
+      const clIons = [];
+      for (let i = 0; i < 8; i++) {
+        const m = new THREE.Mesh(ionSphereGeo, clMat);
+        m.userData = {
+          offsetX: -1.06 + (i - 3.5) * 0.045,
+          offsetZ: ((i % 3) - 1) * 0.05,
+          phase: i / 8
+        };
+        neuronGroup.add(m);
+        clIons.push(m);
+      }
+
+      // Estado biofísico del potencial de acción y del osciloscopio 2D
+      let apProgress = 0.0;
+      let manualSpikeQueue = 0;
+      let wavePulseBoost = 0;
+      const scopeHistory = new Array(98).fill(-70);
+
+      function computeMembraneVoltage(phase, mode, sliderNorm) {
+        // Valores de libro: reposo -70 mV, umbral -55 mV, pico +30 mV, hiperpolarización -80 mV
+        if (mode === 'status') {
+          // Cambio de despolarización paroxística (PDS): meseta despolarizada con salvas de espigas hasta +30 mV
+          if (phase > 0.08 && phase < 0.76) {
+            const burst = Math.sin((phase - 0.08) * Math.PI * 16);
+            return burst > 0.25 ? -35 + burst * 65 : -42 + Math.sin((phase - 0.08) * Math.PI * 1.4) * 10;
+          }
+          if (phase >= 0.76 && phase < 0.90) return -76;
+          return -70;
+        }
+        // Potencial de acción estándar o en ráfaga (según modo focal o secundario)
+        if (phase < 0.08) return -70;
+        if (phase < 0.14) {
+          const u = (phase - 0.08) / 0.06;
+          return -70 + u * 15; // ascenso prepotencial a umbral (-55 mV)
+        }
+        if (phase < 0.22) {
+          const u = (phase - 0.14) / 0.08;
+          return -55 + u * 85; // despolarización rápida por Na+ hasta +30 mV
+        }
+        if (phase < 0.34) {
+          const u = (phase - 0.22) / 0.12;
+          return 30 - u * 110; // repolarización por eflujo de K+ hasta -80 mV
+        }
+        if (phase < 0.54) {
+          const u = (phase - 0.34) / 0.20;
+          if (mode === 'secondary' && sliderNorm > 0.25 && u < 0.55) {
+            // Segunda espiga acoplada en ráfaga
+            return -55 + Math.sin(u * Math.PI * 1.8) * 82;
+          }
+          return -80 + u * 10; // hiperpolarización post-potencial de vuelta a -70 mV
+        }
+        return -70;
+      }
+
+      function drawScope2D(currentMv, mode) {
+        if (!scopeCanvas) return;
+        const ctx = scopeCanvas.getContext('2d');
+        const W = scopeCanvas.width;
+        const H = scopeCanvas.height;
+        ctx.fillStyle = '#060b16';
+        ctx.fillRect(0, 0, W, H);
+
+        const mvToY = (mv) => {
+          const norm = (mv - (-88)) / (38 - (-88)); // rango -88 a +38 mV
+          return H - 5 - Math.max(0, Math.min(1, norm)) * (H - 10);
+        };
+
+        // Líneas de referencia: +30 mV (pico) y -70 mV (reposo)
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
+        ctx.setLineDash([3, 3]);
+        ctx.lineWidth = 1;
+        const yRest = mvToY(-70);
+        const yPeak = mvToY(30);
+        ctx.beginPath();
+        ctx.moveTo(0, yRest); ctx.lineTo(W, yRest);
+        ctx.moveTo(0, yPeak); ctx.lineTo(W, yPeak);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = '#64748b';
+        ctx.font = '8px JetBrains Mono, monospace';
+        ctx.fillText('+30', 3, yPeak + 7);
+        ctx.fillText('-70', 3, yRest - 2);
+
+        // Trazo de Vm
+        ctx.beginPath();
+        ctx.strokeStyle = mode === 'status' ? '#ef4444' : (currentMv > -20 ? '#facc15' : '#38bdf8');
+        ctx.lineWidth = 1.8;
+        for (let i = 0; i < scopeHistory.length; i++) {
+          const x = (i / (scopeHistory.length - 1)) * W;
+          const y = mvToY(scopeHistory[i]);
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        if (scopeMvVal) {
+          const rMv = Math.round(currentMv);
+          scopeMvVal.textContent = `${rMv > 0 ? '+' : ''}${rMv} mV`;
+          scopeMvVal.style.color = rMv > -15 ? '#facc15' : (mode === 'status' ? '#ef4444' : 'var(--accent-cyan)');
+        }
+      }
+
+      // Actualización de estados electroclínicos con resetMaterials() previo
+      function updateBrain3DState() {
+        resetMaterials();
+
+        const mode = seizureModeSelect.value;
+        const val = Number(dischargeSlider.value);
+        const t = val / 100;
+        dischargeSliderVal.textContent = `${val}%`;
+
+        // Tráfico de receptores en la vista Neurona (GABA-A internalizados vs NMDA externalizados en Status)
+        gabaReceptors.forEach(gr => {
+          if (mode === 'status' && gr.userData.internalize) {
+            gr.position.y = 0.14; // endocitosis ilustrativa hacia endosomas intracelulares
+            gr.material = nmdaMat;
+          } else {
+            gr.position.y = gr.userData.surfaceY;
+            gr.material = gabaRecMat;
+          }
+        });
+        nmdaReceptors.forEach(rec => {
+          rec.visible = mode === 'status' ? true : !rec.userData.extra;
+          rec.position.x = mode === 'status' ? 4.64 : rec.userData.baseX;
+        });
+
+        // Materiales y textos clínicos intactos
+        if (mode === 'focal') {
+          leftHemiMat.color.setHex(0xf59e0b);
+          leftHemiMat.emissive.setHex(0x7c2d12);
+          hippoMatL.color.setHex(0xef4444);
+          hippoMatL.emissive.setHex(0x991b1b);
+          waveRing1.position.set(-0.78, 0.22, -0.45);
+          waveRing2.position.set(-0.74, -0.35, 0.35);
+          stage3dTitle.textContent = '1. Crisis Focal Límbica / Hipocampal (FTLE)';
+          stage3dDesc.textContent = 'Sincronización anómala circunscrita a un solo hemisferio (sectores CA1/CA3 del hipocampo y lóbulo piriforme). Explica sialorrea paroxística, clonus facial y automatismos motores.';
+          hud3dState.textContent = 'Estado: Crisis Focal Unilateral (Límbica)';
+          hud3dReceptors.textContent = `PDS Focal: ${Math.round(10 + t * 30)} mV | GABA-A Intacto`;
+        } else if (mode === 'secondary') {
+          leftHemiMat.color.setHex(0xef4444);
+          leftHemiMat.emissive.setHex(0x7f1d1d);
+          rightHemiMat.color.setHex(t > 0.3 ? 0xef4444 : 0xf59e0b);
+          rightHemiMat.emissive.setHex(t > 0.3 ? 0x7f1d1d : 0x78350f);
+          callosumMat.color.setHex(0xfde047);
+          callosumMat.emissive.setHex(0xca8a04);
+          waveRing1.position.set(0, 0.65, 0.12);
+          waveRing2.position.set(0.78, 0.22, -0.45);
+          stage3dTitle.textContent = '2. Crisis Focal con Generalización Comisural';
+          stage3dDesc.textContent = 'El foco inicial se difunde a través del cuerpo calloso y la comisura intertalámica reclutando sincrónicamente ambos hemisferios (patrón preponderante en caninos).';
+          hud3dState.textContent = 'Estado: Propagación Transcomisural Bilateral';
+          hud3dReceptors.textContent = 'Reclutamiento: Cuerpo Calloso → Bilateral';
+        } else {
+          leftHemiMat.color.setHex(0xef4444);
+          leftHemiMat.emissive.setHex(0x991b1b);
+          rightHemiMat.color.setHex(0xef4444);
+          rightHemiMat.emissive.setHex(0x991b1b);
+          thalMat.color.setHex(0xef4444);
+          thalMat.emissive.setHex(0x7f1d1d);
+          bbbMat.color.setHex(0xa855f7);
+          bbbMat.emissive.setHex(0x581c87);
+          somaMat.color.setHex(0xef4444);
+          somaMat.emissive.setHex(0x7f1d1d);
+          waveRing1.position.set(0, 0.25, 0);
+          waveRing2.position.set(0, -0.1, 0.2);
+          stage3dTitle.textContent = '3. Status Prolongado (>30 min · T2 y Excitotoxicidad)';
+          stage3dDesc.textContent = 'Pérdida de hasta 50% de receptores GABA-A por endocitosis de clatrina, externalización masiva de receptores NMDA, sobrecarga de Ca²⁺ en CA1/CA3 y bombeo de FAE por Glicoproteína-P (ABCB1) en la BHE.';
+          hud3dState.textContent = '¡ALERTA T2 ≥ 30 min!: Desacoplamiento Neurovascular';
+          hud3dReceptors.textContent = 'GABA-A ↓ (endocitosis, ilustrativo) | ↑NMDA y ↑P-gp';
+        }
+      }
+
+      /* --- D. ETIQUETAS ANCLADAS, ENCUADRE BOX3 (~75%) Y GESTO MÓVIL --- */
+      const neuronLabelAnchors = [
+        { full: 'Soma piramidal (CA1/CA3)', short: 'Soma', pos: new THREE.Vector3(-1.05, -0.35, 0.28), side: 'left', color: '#38bdf8' },
+        { full: 'Núcleo y nucléolo', short: 'Núcleo', pos: new THREE.Vector3(-1.02, 0.05, 0.08), side: 'left', color: '#818cf8' },
+        { full: 'Dendrita apical (CA1)', short: 'Dendrita apical', pos: new THREE.Vector3(-3.45, 0.42, -0.04), side: 'left', color: '#06b6d4' },
+        { full: 'Espinas dendríticas', short: 'Espinas', pos: new THREE.Vector3(-2.85, 0.55, 0.08), side: 'left', color: '#7dd3fc' },
+        { full: 'Sinapsis GABA (Cl⁻)', short: 'Sinapsis GABA', pos: new THREE.Vector3(-0.95, 0.54, 0.05), side: 'left', color: '#22d3ee' },
+        { full: 'Cono axónico y AIS', short: 'Cono axónico', pos: new THREE.Vector3(-0.22, -0.02, 0.0), side: 'right', color: '#f59e0b' },
+        { full: 'Vaina de mielina', short: 'Mielina', pos: new THREE.Vector3(1.58, 0.02, 0.0), side: 'right', color: '#cbd5e1' },
+        { full: 'Nodo de Ranvier (Na⁺/K⁺)', short: 'Nodo de Ranvier', pos: ranvierPositions[2].clone(), side: 'right', color: '#facc15' },
+        { full: 'Botón sináptico (Ca²⁺/Glu)', short: 'Botón sináptico', pos: new THREE.Vector3(4.52, -0.02, 0.0), side: 'right', color: '#ef4444' }
+      ];
+
+      const brainLabelAnchors = [
+        { full: '1. Corteza Cerebral (Capas III–V)', short: 'Corteza (III–V)', pos: new THREE.Vector3(-0.95, 0.85, 0.52), side: 'left', color: '#38bdf8' },
+        { full: '2. Hipocampo (Sectores CA1 / CA3)', short: 'Hipocampo CA1/CA3', pos: new THREE.Vector3(-0.78, 0.22, -0.52), side: 'left', color: '#f59e0b' },
+        { full: '3. Lóbulo Piriforme / Temporal', short: 'Lób. Piriforme', pos: new THREE.Vector3(-0.74, -0.38, 0.42), side: 'left', color: '#ef4444' },
+        { full: '4. Cuerpo Calloso (Comisura)', short: 'Cuerpo Calloso', pos: new THREE.Vector3(0.0, 0.66, 0.12), side: 'right', color: '#06b6d4' },
+        { full: '5. Tálamo Medial (Circuito Ca²⁺ T)', short: 'Tálamo Medial', pos: new THREE.Vector3(0.22, 0.15, -0.05), side: 'right', color: '#a78bfa' },
+        { full: '6. BHE Endotelial (Glicoproteína-P)', short: 'BHE (P-gp)', pos: new THREE.Vector3(0.65, -0.66, 1.16), side: 'right', color: '#10b981' }
+      ];
+
+      let labelItems = [];
+
+      function rebuildLabelsForView() {
+        labelsLayer.innerHTML = '';
+        labelsSvg.innerHTML = '';
+        const list = activeView === 'neuron' ? neuronLabelAnchors : brainLabelAnchors;
+        const isCompact = window.innerWidth < 480;
+
+        labelItems = list.map(a => {
+          const el = document.createElement('div');
+          el.className = `label3d-pin side-${a.side}`;
+          el.textContent = isCompact ? a.short : a.full;
+          labelsLayer.appendChild(el);
+
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('stroke', a.color);
+          line.setAttribute('stroke-width', '1.4');
+          line.setAttribute('stroke-dasharray', '3 3');
+          labelsSvg.appendChild(line);
+
+          const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          dot.setAttribute('r', '3.2');
+          dot.setAttribute('fill', a.color);
+          labelsSvg.appendChild(dot);
+
+          return { el, line, dot, anchor: a };
+        });
+      }
+
+      function updateLabelsLayout() {
+        if (!showLabels3d) return;
+        const w = canvas3d.clientWidth;
+        const h = labelsLayer.clientHeight || (canvas3d.clientHeight - 54);
+        const isCompact = window.innerWidth < 480;
+        const activeGroup = activeView === 'neuron' ? neuronGroup : brainGroup;
+
+        const leftCol = [];
+        const rightCol = [];
+
+        labelItems.forEach(item => {
+          item.el.textContent = isCompact ? item.anchor.short : item.anchor.full;
+          const worldPos = item.anchor.pos.clone().applyMatrix4(activeGroup.matrixWorld);
+          const camSpace = worldPos.clone().applyMatrix4(camera.matrixWorldInverse);
+          const ndc = worldPos.clone().project(camera);
+
+          // Ocultar si queda detrás de la cámara o fuera del frustum
+          if (camSpace.z > -0.2 || ndc.z > 1 || ndc.z < -1 || Math.abs(ndc.x) > 1.15 || Math.abs(ndc.y) > 1.15) {
+            item.el.style.display = 'none';
+            item.line.style.display = 'none';
+            item.dot.style.display = 'none';
+            return;
+          }
+
+          item.el.style.display = 'block';
+          item.line.style.display = 'block';
+          item.dot.style.display = 'block';
+
+          const tx = Math.max(10, Math.min(w - 10, (ndc.x * 0.5 + 0.5) * w));
+          const ty = Math.max(14, Math.min(h - 14, (-ndc.y * 0.5 + 0.5) * h));
+          item.tx = tx;
+          item.ty = ty;
+          item.desiredY = ty;
+
+          if (item.anchor.side === 'left') leftCol.push(item);
+          else rightCol.push(item);
+        });
+
+        // Resolución de solapamiento vertical por barrido en cada columna
+        [leftCol, rightCol].forEach(col => {
+          col.sort((a, b) => a.desiredY - b.desiredY);
+          const minGap = isCompact ? 26 : 32;
+          let prevY = 6;
+          col.forEach(it => {
+            it.finalY = Math.max(prevY, it.desiredY - 12);
+            prevY = it.finalY + Math.max(minGap, it.el.offsetHeight + 4); /* glue G4: real label height */
+          });
+          const overflow = prevY - minGap - (h - 26);
+          if (overflow > 0) {
+            for (let i = col.length - 1; i >= 0; i--) {
+              col[i].finalY = Math.max(6 + i * (minGap - 3), col[i].finalY - overflow);
+            }
+          }
+          col.forEach(it => {
+            it.el.style.top = `${Math.round(it.finalY)}px`;
+            const rect = it.el.getBoundingClientRect();
+            const parentRect = labelsLayer.getBoundingClientRect();
+            const boxX = it.anchor.side === 'left'
+              ? (rect.right - parentRect.left)
+              : (rect.left - parentRect.left);
+            const boxY = (rect.top - parentRect.top) + rect.height * 0.5;
+
+            it.line.setAttribute('x1', boxX);
+            it.line.setAttribute('y1', boxY);
+            it.line.setAttribute('x2', it.tx);
+            it.line.setAttribute('y2', it.ty);
+            it.dot.setAttribute('cx', it.tx);
+            it.dot.setAttribute('cy', it.ty);
+          });
+        });
+      }
+
+      // Encuadre automático con Box3 proyectado para ocupar ~75% del lado limitante
+      const camGoalPos = new THREE.Vector3();
+      const targetGoalPos = new THREE.Vector3();
+      let isFramingSmooth = false;
+
+      function computeBox3Frame(group, viewDir, smooth = true) {
+        group.updateWorldMatrix(true, true);
+        const box = new THREE.Box3().setFromObject(group);
+        const center = new THREE.Vector3();
+        const size = new THREE.Vector3();
+        box.getCenter(center);
+        box.getSize(size);
+
+        const dir = viewDir.clone().normalize();
+        const right = new THREE.Vector3().crossVectors(new THREE.Vector3(0, 1, 0), dir).normalize();
+        const up = new THREE.Vector3().crossVectors(dir, right).normalize();
+
+        // Proyección de las 8 esquinas del Box3 sobre el plano de la cámara
+        let maxHalfW = 0.1;
+        let maxHalfH = 0.1;
+        let maxHalfD = 0.1;
+        for (let dx = -0.5; dx <= 0.5; dx += 1) {
+          for (let dy = -0.5; dy <= 0.5; dy += 1) {
+            for (let dz = -0.5; dz <= 0.5; dz += 1) {
+              const cornerOffset = new THREE.Vector3(size.x * dx, size.y * dy, size.z * dz);
+              maxHalfW = Math.max(maxHalfW, Math.abs(cornerOffset.dot(right)));
+              maxHalfH = Math.max(maxHalfH, Math.abs(cornerOffset.dot(up)));
+              maxHalfD = Math.max(maxHalfD, Math.abs(cornerOffset.dot(dir)));
+            }
+          }
+        }
+
+        const vFovRad = THREE.MathUtils.degToRad(camera.fov);
+        const hFovRad = 2 * Math.atan(Math.tan(vFovRad * 0.5) * camera.aspect);
+        const fillRatio = 0.75; // ~75% del lado limitante
+        const distH = maxHalfH / (Math.tan(vFovRad * 0.5) * fillRatio);
+        const distW = maxHalfW / (Math.tan(hFovRad * 0.5) * fillRatio);
+        const dist = Math.max(distH, distW) + maxHalfD * 0.45;
+
+        targetGoalPos.copy(center);
+        camGoalPos.copy(center).addScaledVector(dir, dist);
+
+        if (!smooth || prefersReducedMotion) {
+          controls.target.copy(targetGoalPos);
+          camera.position.copy(camGoalPos);
+          controls.update();
+          isFramingSmooth = false;
+        } else {
+          isFramingSmooth = true;
+        }
+      }
+
+      function frameCurrentView(smooth = true) {
+        if (activeView === 'neuron') {
+          computeBox3Frame(neuronGroup, new THREE.Vector3(0.06, 0.16, 1.0), smooth);
+        } else {
+          computeBox3Frame(brainGroup, new THREE.Vector3(0.72, 0.42, 0.85), smooth);
+        }
+      }
+
+      function setView3D(viewName, smooth = true) {
+        activeView = viewName;
+        neuronGroup.visible = viewName === 'neuron';
+        brainGroup.visible = viewName === 'brain';
+        viewNeuronBtn.classList.toggle('active', viewName === 'neuron');
+        viewNeuronBtn.setAttribute('aria-selected', viewName === 'neuron' ? 'true' : 'false');
+        viewBrainBtn.classList.toggle('active', viewName === 'brain');
+        viewBrainBtn.setAttribute('aria-selected', viewName === 'brain' ? 'true' : 'false');
+        if (ionLegend3d) ionLegend3d.style.opacity = viewName === 'neuron' ? '1' : '0.65';
+        rebuildLabelsForView();
+        frameCurrentView(smooth);
+      }
+
+      viewNeuronBtn.addEventListener('click', () => {
+        SoundEngine.blip();
+        setView3D('neuron', true);
+      });
+      viewBrainBtn.addEventListener('click', () => {
+        SoundEngine.blip();
+        setView3D('brain', true);
+      });
+
+      // Móvil: 1 dedo en vertical hace scroll (pan-y), 1 dedo en horizontal rota en acimut, 2 dedos rotan/zoom
+      let touchState = { count: 0, startX: 0, startY: 0, mode: null };
+      canvas3d.addEventListener('touchstart', (e) => {
+        touchState.count = e.touches.length;
+        if (e.touches.length === 1) {
+          controls.enableRotate = false;
+          touchState.startX = e.touches[0].clientX;
+          touchState.startY = e.touches[0].clientY;
+          touchState.mode = null;
+        } else {
+          controls.enableRotate = true;
+          touchState.mode = 'multi';
+        }
+      }, { passive: true });
+
+      canvas3d.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 1 && touchState.mode !== 'multi') {
+          const dx = e.touches[0].clientX - touchState.startX;
+          const dy = e.touches[0].clientY - touchState.startY;
+          if (!touchState.mode && (Math.abs(dx) > 6 || Math.abs(dy) > 6)) {
+            touchState.mode = Math.abs(dx) > Math.abs(dy) * 1.15 ? 'horiz' : 'vert';
+          }
+          if (touchState.mode === 'horiz') {
+            if (e.cancelable) e.preventDefault();
+            const offset = camera.position.clone().sub(controls.target);
+            offset.applyAxisAngle(new THREE.Vector3(0, 1, 0), -dx * 0.0085);
+            camera.position.copy(controls.target).add(offset);
+            touchState.startX = e.touches[0].clientX;
+            touchState.startY = e.touches[0].clientY;
+            isFramingSmooth = false;
+          }
+        }
+      }, { passive: false });
+
+      canvas3d.addEventListener('touchend', () => {
+        controls.enableRotate = true;
+        touchState.mode = null;
+      }, { passive: true });
+
+      // Controles e interacciones
+      seizureModeSelect.addEventListener('change', () => {
+        SoundEngine.pulse();
+        updateBrain3DState();
+      });
+      dischargeSlider.addEventListener('input', updateBrain3DState);
+      dischargeSlider.addEventListener('change', () => SoundEngine.blip());
+
+      document.getElementById('pulseWave3dBtn').addEventListener('click', () => {
+        SoundEngine.pulse();
+        wavePulseBoost = 1.0;
+        manualSpikeQueue = Math.min(3, manualSpikeQueue + 1);
+        if (apProgress > 0.35) apProgress = 0.0;
+      });
+      document.getElementById('toggleLabels3dBtn').addEventListener('click', () => {
+        SoundEngine.blip();
+        showLabels3d = !showLabels3d;
+        labelsLayer.style.display = showLabels3d ? 'block' : 'none';
+        labelsSvg.style.display = showLabels3d ? 'block' : 'none';
+      });
+      document.getElementById('resetCam3dBtn').addEventListener('click', () => {
+        SoundEngine.blip();
+        brainGroup.rotation.set(0, 0, 0);
+        frameCurrentView(true);
+      });
+
+      const themeObserver = new MutationObserver(() => updateBrain3DState());
+      themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+      function resize3D() {
+        const w = container.clientWidth || 600;
+        const h = container.clientHeight || 470;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        renderer.setSize(w, h);
+        labelsSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+        frameCurrentView(false);
+      }
+      window.addEventListener('resize', resize3D);
+
+      updateBrain3DState();
+      resize3D();
+      setView3D('neuron', false);
+      if (placeholderEl) placeholderEl.classList.add('hidden');
+
+      let lastTime = performance.now();
+      function animate3D(now) {
+        requestAnimationFrame(animate3D);
+        if (!is3dInViewport || document.hidden) {
+          lastTime = now;
+          return;
+        }
+        const dt = Math.min(0.05, (now - lastTime) / 1000);
+        lastTime = now;
+
+        const mode = seizureModeSelect.value;
+        const sliderNorm = Number(dischargeSlider.value) / 100;
+        wavePulseBoost = Math.max(0, wavePulseBoost - dt * 0.9);
+
+        if (isFramingSmooth) {
+          camera.position.lerp(camGoalPos, 0.12);
+          controls.target.lerp(targetGoalPos, 0.12);
+          if (camera.position.distanceToSquared(camGoalPos) < 0.002) {
+            isFramingSmooth = false;
+          }
+        }
+
+        // Velocidad de disparo del potencial de acción según modo e intensidad
+        const baseFreq = mode === 'status' ? (0.85 + sliderNorm * 1.1) : (mode === 'secondary' ? (0.55 + sliderNorm * 0.85) : (0.35 + sliderNorm * 0.75));
+        const stepSpeed = prefersReducedMotion && manualSpikeQueue === 0 ? 0.18 : (baseFreq + (manualSpikeQueue > 0 ? 0.65 : 0));
+        apProgress += dt * stepSpeed;
+        if (apProgress >= 1.0) {
+          apProgress -= 1.0;
+          if (manualSpikeQueue > 0) manualSpikeQueue--;
+        }
+
+        // Conducción saltatoria: rápida en internodos de mielina y regeneración brillante en cada nodo de Ranvier
+        const axonPhase = Math.min(1, apProgress / 0.68);
+        let saltatoryU = axonPhase;
+        ranvierUs.forEach(nu => {
+          const distNode = axonPhase - nu;
+          if (Math.abs(distNode) < 0.055) {
+            saltatoryU = nu + distNode * 0.35; // pausa regenerativa breve en el nodo
+          }
+        });
+        saltatoryU = Math.max(0, Math.min(1, saltatoryU));
+        const wavePos = axonCurve.getPointAt(saltatoryU);
+        apWaveMesh.position.copy(wavePos);
+        apWaveMesh.visible = apProgress <= 0.75;
+        apPointLight.position.copy(wavePos);
+        apPointLight.intensity = apProgress <= 0.75 ? 2.2 : 0.3;
+
+        // Onda en la colateral axónica tras cruzar el 2.º nodo de Ranvier
+        if (saltatoryU > ranvierUs[2] && apProgress <= 0.78) {
+          const colU = Math.min(1, (saltatoryU - ranvierUs[2]) / (1 - ranvierUs[2]));
+          colWaveMesh.visible = true;
+          colWaveMesh.position.copy(collateralCurve.getPointAt(colU));
+        } else {
+          colWaveMesh.visible = false;
+        }
+
+        // Flujos iónicos en cada nodo de Ranvier: Na+ entra (amarillo) y K+ sale (violeta)
+        nodalIons.forEach((ion, idx) => {
+          const delta = saltatoryU - ion.nodeU;
+          // Fase de entrada de Na+ cuando el frente alcanza el nodo
+          if (delta > -0.08 && delta < 0.09 && apProgress <= 0.75) {
+            const uIn = (delta + 0.08) / 0.17; // 0 (afuera) -> 1 (adentro del axón)
+            const rNa = 0.26 * (1 - uIn) + 0.04;
+            ion.naDot.position.set(
+              ion.nodePos.x,
+              ion.nodePos.y + Math.cos(ion.ang) * rNa,
+              ion.nodePos.z + Math.sin(ion.ang) * rNa
+            );
+            ion.naDot.scale.setScalar(1.15);
+          } else {
+            ion.naDot.position.set(
+              ion.nodePos.x,
+              ion.nodePos.y + Math.cos(ion.ang) * 0.24,
+              ion.nodePos.z + Math.sin(ion.ang) * 0.24
+            );
+            ion.naDot.scale.setScalar(0.65);
+          }
+
+          // Fase de salida de K+ durante la repolarización nodal
+          if (delta >= 0.04 && delta < 0.24 && apProgress <= 0.85) {
+            const uOut = (delta - 0.04) / 0.20; // 0 (adentro) -> 1 (afuera)
+            const rK = 0.04 + uOut * 0.28;
+            ion.kDot.position.set(
+              ion.nodePos.x + 0.02,
+              ion.nodePos.y + Math.cos(ion.ang + 0.5) * rK,
+              ion.nodePos.z + Math.sin(ion.ang + 0.5) * rK
+            );
+            ion.kDot.scale.setScalar(1.1);
+          } else {
+            ion.kDot.position.set(
+              ion.nodePos.x + 0.02,
+              ion.nodePos.y + Math.cos(ion.ang + 0.5) * 0.05,
+              ion.nodePos.z + Math.sin(ion.ang + 0.5) * 0.05
+            );
+            ion.kDot.scale.setScalar(0.55);
+          }
+        });
+
+        // Terminal sináptico: entrada de Ca2+, fusión vesicular y liberación de glutamato
+        const synapticActive = apProgress > 0.55 && apProgress < 0.96;
+        const synU = synapticActive ? (apProgress - 0.55) / 0.41 : 0;
+
+        caIons.forEach(ca => {
+          const rCa = synapticActive ? (0.34 * (1 - Math.min(1, synU * 1.6)) + 0.08) : 0.34;
+          ca.position.set(
+            boutonPos.x - 0.05 + Math.sin(ca.userData.ang) * 0.06,
+            boutonPos.y + Math.cos(ca.userData.ang) * rCa,
+            boutonPos.z + Math.sin(ca.userData.ang) * rCa
+          );
+        });
+
+        vesicles.forEach(v => {
+          const fuseX = synapticActive ? Math.sin(synU * Math.PI) * 0.14 : 0;
+          v.position.set(v.userData.home.x + fuseX, v.userData.home.y, v.userData.home.z);
+        });
+
+        gluParticles.forEach(gp => {
+          if (synapticActive || mode === 'status') {
+            const cleftU = ((synU + gp.userData.phase) % 1);
+            gp.visible = true;
+            gp.position.set(
+              4.46 + cleftU * 0.34,
+              -0.02 + gp.userData.seedY * (0.5 + cleftU * 0.6),
+              gp.userData.seedZ * (0.5 + cleftU * 0.6)
+            );
+          } else {
+            gp.visible = false;
+          }
+        });
+
+        // Reclutamiento de la 2.ª neurona postsináptica en modo secundario y status
+        if ((mode === 'secondary' || mode === 'status') && (synapticActive || mode === 'status')) {
+          postNeuronMat.color.setHex(mode === 'status' ? 0xef4444 : 0xf59e0b);
+          postNeuronMat.emissive.setHex(mode === 'status' ? 0x991b1b : 0xb45309);
+        } else {
+          postNeuronMat.color.setHex(0x14b8a6);
+          postNeuronMat.emissive.setHex(0x115e59);
+        }
+
+        // Sinapsis GABAérgica sobre el soma: entrada de Cl- (reducida en Status por endocitosis GABA-A)
+        clIons.forEach((cl, idx) => {
+          if (mode === 'status' && idx % 2 === 0) {
+            cl.visible = false;
+            return;
+          }
+          cl.visible = true;
+          const clU = ((now * 0.0009) + cl.userData.phase) % 1;
+          cl.position.set(
+            cl.userData.offsetX,
+            0.52 - clU * 0.38,
+            cl.userData.offsetZ
+          );
+        });
+
+        // Mini osciloscopio 2D (-70 mV reposo, +30 mV pico, PDS en Status)
+        const currentMv = computeMembraneVoltage(apProgress, mode, sliderNorm);
+        scopeHistory.push(currentMv);
+        if (scopeHistory.length > 98) scopeHistory.shift();
+        drawScope2D(currentMv, mode);
+
+        // Animación de la vista Cerebro
+        if (activeView === 'brain' && !prefersReducedMotion) {
+          brainGroup.rotation.y += 0.0018 + sliderNorm * 0.002;
+          const s1 = 1 + ((now * (0.002 + sliderNorm * 0.003)) % 2.8) + wavePulseBoost * 1.4;
+          const s2 = 1 + (((now * (0.002 + sliderNorm * 0.003)) + 1.4) % 2.8) + wavePulseBoost * 1.4;
+          waveRing1.scale.set(s1, s1, s1);
+          waveRing2.scale.set(s2, s2, s2);
+          waveRingMat.opacity = Math.max(0.08, 1 - s1 / 3.4);
+          waveRingMat2.opacity = Math.max(0.08, 1 - s2 / 3.4);
+          waveRing1.lookAt(camera.position);
+          waveRing2.lookAt(camera.position);
+
+          const speed = 0.004 + sliderNorm * 0.009 + wavePulseBoost * 0.015;
+          actionSparks.forEach(sp => {
+            sp.userData.u = (sp.userData.u + speed) % 1;
+            let curve = allBrainCurves[sp.userData.curveIdx];
+            if (mode === 'focal' && sp.userData.curveIdx === 2) curve = hippoCurveL;
+            sp.position.copy(curve.getPointAt(sp.userData.u));
+          });
+        }
+
+        controls.update();
+        renderer.render(scene, camera);
+        updateLabelsLayout();
+      }
+
+      // Pausar render cuando #mod-3d sale del viewport
+      const runPauseObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          is3dInViewport = entry.isIntersecting;
+        });
+      }, { threshold: 0.01 });
+      runPauseObserver.observe(mod3dSection);
+
+      requestAnimationFrame(animate3D);
+    }
+
+    // Carga diferida cuando #mod-3d está a 1 pantalla (IntersectionObserver)
+    if (mod3dSection && 'IntersectionObserver' in window) {
+      const lazy3dObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            obs.disconnect();
+            init3D();
+          }
+        });
+      }, { rootMargin: '100% 0px' });
+      lazy3dObserver.observe(mod3dSection);
+    } else if (mod3dSection) {
+      init3D();
+    }
 
     /* =========================================================================
        8. LABORATORIO / SIMULADOR DE NIVELES SÉRICOS (TDM LAB REHECHO)
@@ -4136,51 +6466,141 @@
     ];
 
     const userAnswers = new Array(quizQuestions.length).fill(null);
+    let currentQIdx = 0;
+    let quizStreak = 0;
     let quizSubmitted = false;
     let showErrorsOnly = false;
+    let certGeneratedOnce = false;
+
     const quizContainer = document.getElementById('quizContainer');
+    const quizStepCounter = document.getElementById('quizStepCounter');
+    const quizAnsweredBadge = document.getElementById('quizAnsweredBadge');
+    const quizStreakBadge = document.getElementById('quizStreakBadge');
+    const quizProgressFill = document.getElementById('quizProgressFill');
+    const prevQuizQBtn = document.getElementById('prevQuizQBtn');
+    const nextQuizQBtn = document.getElementById('nextQuizQBtn');
+    const submitQuizBtn = document.getElementById('submitQuizBtn');
+    const filterErrorsBtn = document.getElementById('filterErrorsBtn');
+    const resetQuizBtn = document.getElementById('resetQuizBtn');
+    const certLockedCard = document.getElementById('certLockedCard');
+    const quizResultBox = document.getElementById('quizResultBox');
+    const certStageWrap = document.getElementById('certStageWrap');
+    const certNameInput = document.getElementById('certNameInput');
+    const renderCertBtn = document.getElementById('renderCertBtn');
+    const downloadCertBtn = document.getElementById('downloadCertBtn');
+    const editCertNameBtn = document.getElementById('editCertNameBtn');
+
+    const quizSvgOk = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.8 2.8L16 9.5"/></svg>`;
+    const quizSvgBad = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>`;
+
+    function getActiveQuizIndices() {
+      if (quizSubmitted && showErrorsOnly) {
+        const errIndices = [];
+        quizQuestions.forEach((q, idx) => {
+          if (userAnswers[idx] !== q.ans) errIndices.push(idx);
+        });
+        return errIndices.length > 0 ? errIndices : [0];
+      }
+      return quizQuestions.map((_, idx) => idx);
+    }
 
     function renderQuiz() {
-      quizContainer.innerHTML = quizQuestions.map((item, qIdx) => {
-        const uAns = userAnswers[qIdx];
-        const isOk = uAns === item.ans;
-        if (quizSubmitted && showErrorsOnly && isOk) return '';
+      const activeList = getActiveQuizIndices();
+      if (!activeList.includes(currentQIdx)) {
+        currentQIdx = activeList[0];
+      }
+      const pos = activeList.indexOf(currentQIdx);
+      const item = quizQuestions[currentQIdx];
+      const uAns = userAnswers[currentQIdx];
+      const isAnswered = uAns !== null;
+      const isOk = uAns === item.ans;
+      const answeredCount = userAnswers.filter(a => a !== null).length;
 
-        return `
-          <div class="quiz-q-card" data-qidx="${qIdx}">
-            <div style="font-weight:700;font-size:0.92rem;color:var(--text-primary);">${item.q}</div>
-            <div>
-              ${item.opts.map((opt, oIdx) => {
-                let cls = 'quiz-choice';
-                if (!quizSubmitted && uAns === oIdx) cls += ' selected';
-                if (quizSubmitted) {
-                  if (oIdx === item.ans) cls += ' correct-ans';
-                  else if (uAns === oIdx && uAns !== item.ans) cls += ' wrong-ans';
-                }
-                return `<button type="button" class="${cls}" data-q="${qIdx}" data-o="${oIdx}" ${quizSubmitted ? 'disabled' : ''}>${opt}</button>`;
-              }).join('')}
-            </div>
-            ${quizSubmitted ? `
-              <div style="margin-top:0.7rem;font-size:0.82rem;padding:0.65rem 0.85rem;border-radius:6px;background:var(--bg-elevated);border-left:3px solid ${isOk ? 'var(--accent-emerald)' : 'var(--accent-crimson)'};">
-                <strong>${isOk ? '✓ Correcto:' : '✗ Explicación:'}</strong> ${item.exp}
-              </div>
-            ` : ''}
+      if (quizStepCounter) {
+        quizStepCounter.textContent = (quizSubmitted && showErrorsOnly)
+          ? `Error ${pos + 1}/${activeList.length} · (Pregunta ${currentQIdx + 1}/12)`
+          : `Pregunta ${currentQIdx + 1}/${quizQuestions.length}`;
+      }
+      if (quizAnsweredBadge) {
+        quizAnsweredBadge.textContent = `Respondidas: ${answeredCount}/${quizQuestions.length}`;
+      }
+      if (quizStreakBadge) {
+        quizStreakBadge.textContent = `Racha: x${quizStreak}`;
+      }
+      if (quizProgressFill) {
+        const pctBar = Math.round(((pos + 1) / activeList.length) * 100);
+        quizProgressFill.style.width = `${pctBar}%`;
+      }
+
+      if (prevQuizQBtn) prevQuizQBtn.disabled = pos <= 0;
+      if (nextQuizQBtn) nextQuizQBtn.disabled = pos >= activeList.length - 1;
+
+      quizContainer.innerHTML = `
+        <div class="quiz-q-card" data-qidx="${currentQIdx}">
+          <div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);margin-bottom:0.55rem;">${item.q}</div>
+          <div>
+            ${item.opts.map((opt, oIdx) => {
+              let cls = 'quiz-choice';
+              if (isAnswered) {
+                if (oIdx === item.ans) cls += ' correct-ans';
+                else if (uAns === oIdx && uAns !== item.ans) cls += ' wrong-ans';
+              }
+              return `<button type="button" class="${cls}" data-q="${currentQIdx}" data-o="${oIdx}" ${(isAnswered || quizSubmitted) ? 'disabled' : ''}>${opt}</button>`;
+            }).join('')}
           </div>
-        `;
-      }).join('');
+          ${isAnswered ? `
+            <div style="margin-top:0.75rem;font-size:0.83rem;padding:0.7rem 0.9rem;border-radius:6px;background:var(--bg-elevated);border-left:3px solid ${isOk ? 'var(--accent-emerald)' : 'var(--accent-crimson)'};display:flex;align-items:flex-start;gap:0.55rem;" role="status" aria-live="polite">
+              <span style="flex-shrink:0;margin-top:2px;color:${isOk ? 'var(--accent-emerald)' : 'var(--accent-crimson)'};">${isOk ? quizSvgOk : quizSvgBad}</span>
+              <div><strong>${isOk ? 'Respuesta correcta:' : 'Respuesta incorrecta:'}</strong> ${item.exp}</div>
+            </div>
+          ` : ''}
+        </div>
+      `;
 
-      if (!quizSubmitted) {
+      if (!quizSubmitted && !isAnswered) {
         quizContainer.querySelectorAll('.quiz-choice').forEach(btn => {
           btn.addEventListener('click', () => {
-            SoundEngine.blip();
             const q = Number(btn.dataset.q);
             const o = Number(btn.dataset.o);
+            if (userAnswers[q] !== null) return;
             userAnswers[q] = o;
+            if (o === quizQuestions[q].ans) {
+              SoundEngine.ok();
+              quizStreak++;
+            } else {
+              SoundEngine.bad();
+              quizStreak = 0;
+            }
             renderQuiz();
           });
         });
       }
     }
+
+    if (prevQuizQBtn) {
+      prevQuizQBtn.addEventListener('click', () => {
+        SoundEngine.blip();
+        const activeList = getActiveQuizIndices();
+        const pos = activeList.indexOf(currentQIdx);
+        if (pos > 0) {
+          currentQIdx = activeList[pos - 1];
+          renderQuiz();
+        }
+      });
+    }
+
+    if (nextQuizQBtn) {
+      nextQuizQBtn.addEventListener('click', () => {
+        SoundEngine.blip();
+        const activeList = getActiveQuizIndices();
+        const pos = activeList.indexOf(currentQIdx);
+        if (pos < activeList.length - 1) {
+          currentQIdx = activeList[pos + 1];
+          renderQuiz();
+        }
+      });
+    }
+
     renderQuiz();
 
     function getBadgeTier(pct) {
@@ -4189,7 +6609,7 @@
       return { title: 'INSIGNIA BRONCE · EN ENTRENAMIENTO NEUROCLÍNICO', color: '#94a3b8' };
     }
 
-    /* Certificado PNG: lo dibuja el módulo compartido assets/vetatlas-certificate.js */
+    /* Certificado PNG: usa el módulo compartido assets/vetatlas-certificate.js sin cambios */
     const CERT = {
       titulo: 'Certificado de Competencia en Epileptología',
       curso: 'Convulsiones y epilepsia en perros y gatos (Consensos IVETF / ACVIM)',
@@ -4198,18 +6618,19 @@
       logoSrc: '../../assets/amc-logo.png'
     };
     let certFecha = new Date();
-    let certNameTimer = null;
 
     function getQuizScore() {
       let score = 0;
-      quizQuestions.forEach((q, idx) => { if (userAnswers[idx] === q.ans) score++; });
+      quizQuestions.forEach((q, idx) => {
+        if (userAnswers[idx] === q.ans) score++;
+      });
       return score;
     }
 
     function drawCertificate(score, total) {
       if (!window.VetAtlasCert) return Promise.resolve(null);
       return window.VetAtlasCert.draw(document.getElementById('certCanvas'), {
-        nombre: document.getElementById('certNameInput').value.trim() || 'Profesional Veterinario',
+        nombre: certNameInput.value.trim() || 'Profesional Veterinario',
         curso: CERT.curso,
         titulo: CERT.titulo,
         temas: CERT.temas,
@@ -4226,80 +6647,109 @@
     }
 
     window.__redrawCertificate = () => {
-      if (!quizSubmitted) return;
+      if (!quizSubmitted || !certGeneratedOnce) return;
       drawCertificate(getQuizScore(), quizQuestions.length);
     };
 
-    document.getElementById('submitQuizBtn').addEventListener('click', () => {
+    // Calificar al final: oculta tarjeta con candado, deja nombre vacío y muestra botón 'Generar certificado'
+    submitQuizBtn.addEventListener('click', () => {
       quizSubmitted = true;
       showErrorsOnly = false;
-      let score = 0;
-      quizQuestions.forEach((q, idx) => {
-        if (userAnswers[idx] === q.ans) score++;
-      });
+      const score = getQuizScore();
       if (score >= 9) SoundEngine.win();
       else SoundEngine.bad();
 
       renderQuiz();
       const pct = Math.round((score / quizQuestions.length) * 100);
       const badge = getBadgeTier(pct);
-      const resBox = document.getElementById('quizResultBox');
-      resBox.style.display = 'block';
-      document.getElementById('filterErrorsBtn').style.display = score < quizQuestions.length ? 'inline-flex' : 'none';
+
+      if (certLockedCard) certLockedCard.style.display = 'none';
+      quizResultBox.style.display = 'block';
+      filterErrorsBtn.style.display = score < quizQuestions.length ? 'inline-flex' : 'none';
       document.getElementById('quizScoreHeading').textContent = `${badge.title} · Puntaje: ${score} de ${quizQuestions.length} (${pct}%)`;
       document.getElementById('quizScoreSummary').textContent = score === quizQuestions.length
         ? '¡Excelencia clínica! Has respondido correctamente las 12 preguntas basadas en los consensos IVETF y ACVIM.'
         : 'Revisa las explicaciones detalladas en cada reactivo o pulsa "Ver Solo Errores para Repaso" para reforzar conceptos.';
+
+      certGeneratedOnce = false;
+      certNameInput.value = '';
+      certNameInput.readOnly = false;
+      certStageWrap.classList.remove('revealed');
+      certStageWrap.style.display = 'none';
+      renderCertBtn.textContent = 'Generar certificado';
+      downloadCertBtn.style.display = 'none';
+      editCertNameBtn.style.display = 'none';
+      setTimeout(() => certNameInput.focus(), 80);
+    });
+
+    // Al pulsar 'Generar certificado': VetAtlasCert.draw() -> revelado animado (0 a 1, 600 ms) + celebrate() -> 'Descargar PNG' y 'Editar nombre'
+    renderCertBtn.addEventListener('click', () => {
+      SoundEngine.blip();
+      const score = getQuizScore();
       certFecha = new Date();
       drawCertificate(score, quizQuestions.length).then(() => {
+        certGeneratedOnce = true;
+        certNameInput.readOnly = true;
+        certStageWrap.style.display = 'block';
+        void certStageWrap.offsetWidth; // Reflow para activar la transición de 0 a 1 en 600 ms
+        certStageWrap.classList.add('revealed');
+
+        downloadCertBtn.style.display = 'inline-flex';
+        editCertNameBtn.style.display = 'inline-flex';
+
         if (window.VetAtlasCert) {
-          window.VetAtlasCert.celebrate(document.getElementById('certCanvas'), { confeti: score / quizQuestions.length >= 0.7 });
+          window.VetAtlasCert.celebrate(document.getElementById('certCanvas'), {
+            confeti: score / quizQuestions.length >= 0.7
+          });
         }
       });
     });
 
-    document.getElementById('filterErrorsBtn').addEventListener('click', (e) => {
+    editCertNameBtn.addEventListener('click', () => {
+      SoundEngine.blip();
+      certNameInput.readOnly = false;
+      certNameInput.focus();
+      certNameInput.select();
+    });
+
+    filterErrorsBtn.addEventListener('click', (e) => {
       SoundEngine.blip();
       showErrorsOnly = !showErrorsOnly;
+      currentQIdx = 0;
       e.currentTarget.textContent = showErrorsOnly ? 'Mostrar las 12 Preguntas' : 'Ver Solo Errores para Repaso';
       renderQuiz();
     });
 
-    document.getElementById('resetQuizBtn').addEventListener('click', () => {
+    resetQuizBtn.addEventListener('click', () => {
       SoundEngine.blip();
       userAnswers.fill(null);
+      currentQIdx = 0;
+      quizStreak = 0;
       quizSubmitted = false;
       showErrorsOnly = false;
-      document.getElementById('quizResultBox').style.display = 'none';
-      document.getElementById('filterErrorsBtn').style.display = 'none';
+      certGeneratedOnce = false;
+
+      if (certLockedCard) certLockedCard.style.display = 'flex';
+      quizResultBox.style.display = 'none';
+      filterErrorsBtn.style.display = 'none';
+      filterErrorsBtn.textContent = 'Ver Solo Errores para Repaso';
+
+      certNameInput.value = '';
+      certNameInput.readOnly = false;
+      certStageWrap.classList.remove('revealed');
+      certStageWrap.style.display = 'none';
+      downloadCertBtn.style.display = 'none';
+      editCertNameBtn.style.display = 'none';
       renderQuiz();
     });
 
-    document.getElementById('certNameInput').addEventListener('input', () => {
-      clearTimeout(certNameTimer);
-      certNameTimer = setTimeout(() => {
-        certNameTimer = null;
-        if (quizSubmitted) drawCertificate(getQuizScore(), quizQuestions.length);
-      }, 220);
-    });
-
-    document.getElementById('renderCertBtn').addEventListener('click', () => {
-      SoundEngine.blip();
-      drawCertificate(getQuizScore(), quizQuestions.length);
-    });
-
-    document.getElementById('downloadCertBtn').addEventListener('click', () => {
+    downloadCertBtn.addEventListener('click', () => {
       SoundEngine.win();
       if (!window.VetAtlasCert) return;
       const c = document.getElementById('certCanvas');
-      if (certNameTimer) {
-        // Hay un nombre recién escrito sin dibujar: se dibuja y luego se descarga
-        clearTimeout(certNameTimer);
-        certNameTimer = null;
-        drawCertificate(getQuizScore(), quizQuestions.length).then(() => window.VetAtlasCert.download(c, CERT.archivo));
-      } else {
+      drawCertificate(getQuizScore(), quizQuestions.length).then(() => {
         window.VetAtlasCert.download(c, CERT.archivo);
-      }
+      });
     });
 
     /* =========================================================================
@@ -4309,17 +6759,26 @@
     const sidebarNav = document.getElementById('sidebarNav');
     const readingProgressBar = document.getElementById('readingProgressBar');
 
-    if (mobileNavBtn) {
+    function syncMobileNavAria(isOpen) {
+      if (!mobileNavBtn) return;
+      mobileNavBtn.setAttribute('aria-pressed', isOpen ? 'true' : 'false');
+      mobileNavBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      mobileNavBtn.setAttribute('aria-label', isOpen ? 'Cerrar índice de módulos' : 'Abrir índice de módulos');
+    }
+
+    if (mobileNavBtn && sidebarNav) {
       mobileNavBtn.addEventListener('click', () => {
         SoundEngine.blip();
-        sidebarNav.classList.toggle('open');
+        const isOpen = sidebarNav.classList.toggle('open');
+        syncMobileNavAria(isOpen);
       });
     }
 
     document.querySelectorAll('.sidebar-nav .nav-link').forEach(link => {
       link.addEventListener('click', () => {
         SoundEngine.blip();
-        sidebarNav.classList.remove('open');
+        if (sidebarNav) sidebarNav.classList.remove('open');
+        syncMobileNavAria(false);
       });
     });
 
