@@ -1255,7 +1255,7 @@
         <div class="brand-seal">
           <img class="brand-seal-logo" src="../../assets/amc-logo.svg" alt="" aria-hidden="true" width="30" height="30" />
           <span class="brand-text-full">AMC VetAtlas · Animal Medical Center</span>
-          <span class="brand-text-short">VetAtlas · Convulsiones</span>
+          <span class="brand-text-short">VetAtlas<span class="brand-sub-hide"> · Convulsiones</span></span>
         </div>
       </div>
       <div class="header-actions">
@@ -1667,18 +1667,18 @@
             <div class="step-svg-wrap">
               <svg viewBox="0 0 340 140" fill="none">
                 <rect width="340" height="140" rx="8" fill="#080f1e"/>
-                <rect x="20" y="54" width="300" height="14" rx="4" fill="#1e293b" stroke="#64748b"/>
-                <text x="28" y="46" fill="#94a3b8" font-size="9" font-family="monospace">Membrana Postsináptica (15–45 min de Status)</text>
+                <text x="170" y="15" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="monospace">Membrana Postsináptica (15–45 min de Status)</text>
+                <rect x="20" y="62" width="300" height="12" rx="4" fill="#1e293b" stroke="#64748b"/>
                 <!-- Endocitosis GABA-A -->
-                <rect x="65" y="88" width="95" height="36" rx="6" fill="rgba(6,182,212,0.15)" stroke="#06b6d4"/>
-                <text x="112" y="104" text-anchor="middle" fill="#67e8f9" font-size="9" font-family="monospace">Endosoma Clatrina</text>
-                <text x="112" y="117" text-anchor="middle" fill="#cbd5e1" font-size="8.5" font-family="monospace">-50% GABA-A (β2/β3/γ2)</text>
-                <path d="M112 58 L112 85" stroke="#06b6d4" stroke-width="2" class="svg-anim-dash"/>
+                <rect x="36" y="92" width="122" height="36" rx="6" fill="rgba(6,182,212,0.15)" stroke="#06b6d4"/>
+                <text x="97" y="107" text-anchor="middle" fill="#67e8f9" font-size="9" font-family="monospace">Endosoma Clatrina</text>
+                <text x="97" y="120" text-anchor="middle" fill="#cbd5e1" font-size="8.5" font-family="monospace">-50% GABA-A (β2/β3/γ2)</text>
+                <path d="M97 74 L97 90" stroke="#06b6d4" stroke-width="2" class="svg-anim-dash"/>
                 <!-- Externalización NMDA -->
-                <rect x="195" y="18" width="110" height="32" rx="6" fill="rgba(239,68,68,0.2)" stroke="#ef4444"/>
-                <text x="250" y="33" text-anchor="middle" fill="#fca5a5" font-size="9" font-family="monospace">↑ NMDA / AMPA activos</text>
-                <text x="250" y="45" text-anchor="middle" fill="#fde68a" font-size="8.5" font-family="monospace">Diana de Ketamina</text>
-                <path d="M250 95 L250 54" stroke="#ef4444" stroke-width="2.5" class="svg-anim-dash"/>
+                <rect x="190" y="22" width="124" height="32" rx="6" fill="rgba(239,68,68,0.2)" stroke="#ef4444"/>
+                <text x="252" y="35" text-anchor="middle" fill="#fca5a5" font-size="9" font-family="monospace">↑ NMDA / AMPA activos</text>
+                <text x="252" y="47" text-anchor="middle" fill="#fde68a" font-size="8.5" font-family="monospace">Diana de Ketamina</text>
+                <path d="M252 102 L252 56" stroke="#ef4444" stroke-width="2.5" class="svg-anim-dash"/>
               </svg>
             </div>
             <p style="font-size:0.83rem;color:var(--text-secondary);">
@@ -2204,6 +2204,12 @@
             user-select: none;
             -webkit-user-select: none;
           }
+          .canvas3d-box {
+            background: radial-gradient(circle at 50% 42%, #172b4d 0%, #091326 58%, #040811 100%);
+          }
+          html[data-theme="light"] .canvas3d-box {
+            background: radial-gradient(circle at 50% 42%, #f0f9ff 0%, #dbeafe 62%, #cbd5e1 100%);
+          }
           .view3d-topbar {
             display: flex;
             align-items: center;
@@ -2279,52 +2285,100 @@
             opacity: 0;
             pointer-events: none;
           }
+          .labels3d-layer {
+            bottom: 0 !important;
+          }
           .scope2d-box {
             position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 196px;
-            background: var(--label3d-bg);
+            top: 6px;
+            right: 8px;
+            left: auto;
+            transform: none;
+            width: 158px;
+            background: rgba(7, 11, 20, 0.78);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             border: 1px solid var(--border-highlight);
             border-radius: 7px;
-            padding: 0.28rem 0.42rem;
+            padding: 0.2rem 0.34rem;
             z-index: 4;
             pointer-events: none;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.32);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+          }
+          html[data-theme="light"] .scope2d-box {
+            background: rgba(255, 255, 255, 0.84);
           }
           .scope2d-head {
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-family: var(--font-mono);
-            font-size: 0.63rem;
+            font-size: 0.59rem;
+            line-height: 1.15;
             color: var(--text-secondary);
             margin-bottom: 2px;
           }
           #scope2dCanvas {
             width: 100%;
-            height: 50px;
+            height: 36px;
             display: block;
             border-radius: 4px;
             background: #060b16;
           }
           .label3d-pin {
             transition: opacity 0.12s linear;
-            max-width: 36%;
+            max-width: 34%;
+            font-size: 0.63rem;
+            padding: 0.18rem 0.38rem;
+            background: rgba(7, 11, 20, 0.76);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+          }
+          html[data-theme="light"] .label3d-pin {
+            background: rgba(255, 255, 255, 0.84);
+          }
+          .label3d-pin.band-pin {
+            left: auto;
+            right: auto;
+            max-width: 46%;
+            white-space: nowrap;
+            border-left: 3px solid var(--accent-cyan);
+          }
+          #hud3dTelemetry {
+            display: flex;
+            flex-direction: column;
+            gap: 0.32rem;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            padding-bottom: 0.55rem;
+            border-bottom: 1px solid var(--border-subtle);
+          }
+          #hud3dTelemetry .mono-badge {
+            display: block;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0.22rem 0.5rem;
+            font-size: 0.68rem;
           }
           @media (max-width: 680px) {
             .scope2d-box {
-              width: 146px;
-              padding: 0.2rem 0.32rem;
+              top: 4px;
+              right: 4px;
+              width: 114px;
+              padding: 0.12rem 0.22rem;
+            }
+            .scope2d-head {
+              font-size: 0.52rem;
             }
             #scope2dCanvas {
-              height: 40px;
+              height: 22px;
             }
             .label3d-pin {
-              font-size: 0.58rem;
-              padding: 0.15rem 0.3rem;
-              max-width: 34%;
+              font-size: 0.54rem;
+              padding: 0.11rem 0.24rem;
+              line-height: 1.15;
             }
           }
         </style>
@@ -2363,16 +2417,16 @@
                 <span>Vm (-70 a +30 mV)</span>
                 <strong id="scope2dMvVal" style="color:var(--accent-cyan);">-70 mV</strong>
               </div>
-              <canvas id="scope2dCanvas" width="196" height="50"></canvas>
-            </div>
-
-            <div id="hud3dTelemetry" style="position:absolute;bottom:10px;left:10px;right:10px;display:flex;justify-content:space-between;gap:0.45rem;flex-wrap:wrap;pointer-events:none;z-index:4;font-family:var(--font-mono);font-size:0.69rem;">
-              <span class="mono-badge" id="hud3dState" style="background:var(--label3d-bg);">Estado: Foco Límbico / Temporal</span>
-              <span class="mono-badge" id="hud3dReceptors" style="background:var(--label3d-bg);">GABA-A: 100% | NMDA: Basal</span>
+              <canvas id="scope2dCanvas" width="158" height="36"></canvas>
             </div>
           </div>
 
           <div class="controls3d-panel">
+            <div id="hud3dTelemetry">
+              <span class="mono-badge" id="hud3dState" style="background:var(--label3d-bg);">Estado: Foco Límbico / Temporal</span>
+              <span class="mono-badge" id="hud3dReceptors" style="background:var(--label3d-bg);">GABA-A: 100% | NMDA: Basal</span>
+            </div>
+
             <div>
               <label for="seizureModeSelect" style="font-size:0.8rem;font-weight:700;color:var(--accent-cyan);display:block;margin-bottom:0.35rem;">
                 Modo Electroclínico 3D:
@@ -2818,8 +2872,13 @@
         display: none;
       }
     }
+    @media (max-width: 385px) {
+      .brand-sub-hide {
+        display: none;
+      }
+    }
 
-    /* Hero de alto contraste: red neuronal visible + paneles translúcidos */
+    /* Hero de alto contraste: red neuronal visible (>55% libre a 1280px) + paneles compactos */
     .hero-section {
       position: relative;
       min-height: 500px;
@@ -2832,7 +2891,7 @@
       width: 100%;
       min-height: 500px;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
     }
     #heroCanvas {
       position: absolute;
@@ -2848,39 +2907,64 @@
       max-width: 1440px;
       width: 100%;
       margin: 0 auto;
-      padding: 2rem 1.25rem;
+      padding: 1.15rem 1.25rem;
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.65fr);
-      gap: 1.5rem;
+      grid-template-columns: minmax(0, 520px) minmax(0, 285px);
+      justify-content: space-between;
+      gap: 1rem;
       align-items: start;
       background: transparent;
       pointer-events: none;
     }
     .hero-glass-main, .hero-canvas-legend {
       pointer-events: auto;
-      background: rgba(6, 10, 20, 0.58);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(6, 10, 20, 0.56);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 1.15rem;
+      padding: 0.82rem 0.96rem;
+    }
+    .hero-canvas-legend {
+      max-width: 285px;
+      justify-self: end;
+      padding: 0.72rem 0.85rem;
+    }
+    .hero-canvas-legend .legend-title {
+      font-size: 0.72rem;
+      margin-bottom: 0.42rem;
+    }
+    .hero-canvas-legend .legend-item {
+      font-size: 0.72rem;
+      margin-bottom: 0.3rem;
+      gap: 0.45rem;
     }
     html[data-theme="light"] .hero-glass-main,
     html[data-theme="light"] .hero-canvas-legend {
       background: rgba(255, 255, 255, 0.68);
     }
+    .hero-badge {
+      padding: 0.22rem 0.65rem;
+      font-size: 0.67rem;
+      margin-bottom: 0.42rem;
+    }
+    .hero-title {
+      font-size: clamp(1.32rem, 2.05vw, 1.98rem);
+      margin-bottom: 0.4rem;
+      line-height: 1.14;
+    }
     .hero-subtitle-short {
-      font-size: 0.95rem;
+      font-size: 0.84rem;
       color: var(--text-primary);
-      margin-bottom: 0.65rem;
-      line-height: 1.5;
+      margin-bottom: 0.42rem;
+      line-height: 1.4;
     }
     .hero-tech-details {
-      margin-bottom: 1rem;
+      margin-bottom: 0.52rem;
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
       background: rgba(15, 23, 42, 0.35);
-      padding: 0.35rem 0.7rem;
+      padding: 0.16rem 0.55rem;
     }
     html[data-theme="light"] .hero-tech-details {
       background: rgba(241, 245, 249, 0.75);
@@ -2888,22 +2972,31 @@
     .hero-tech-details summary {
       cursor: pointer;
       font-family: var(--font-mono);
-      font-size: 0.76rem;
+      font-size: 0.72rem;
       font-weight: 700;
       color: var(--accent-cyan);
-      min-height: 38px;
+      min-height: 30px;
       display: flex;
       align-items: center;
     }
     .hero-kpis {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.55rem;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.36rem;
     }
     .kpi-box {
       background: rgba(15, 23, 42, 0.52);
       backdrop-filter: blur(8px);
-      padding: 0.55rem 0.7rem;
+      padding: 0.34rem 0.42rem;
+    }
+    .kpi-val {
+      font-size: 0.74rem;
+      line-height: 1.18;
+    }
+    .kpi-lbl {
+      font-size: 0.62rem;
+      line-height: 1.2;
+      margin-top: 0.08rem;
     }
     html[data-theme="light"] .kpi-box {
       background: rgba(255, 255, 255, 0.78);
@@ -2928,15 +3021,24 @@
         background: var(--bg-surface);
         border-top: 1px solid var(--border-subtle);
       }
+      .hero-canvas-legend {
+        max-width: none;
+        justify-self: stretch;
+      }
+      .hero-kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
-    /* Barra de accesos rápidos bajo el Hero y botón flotante Subir */
+    /* Barra de accesos rápidos a todo el ancho con contenido centrado y botón flotante Subir */
     .quick-jumps-bar {
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 0.65rem 1rem;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0.65rem max(1rem, calc((100% - 1440px) / 2 + 1rem));
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 0.6rem;
       flex-wrap: wrap;
       border-bottom: 1px solid var(--border-subtle);
@@ -3826,18 +3928,33 @@
     const quickJumpCalcBtn = document.getElementById('quickJumpCalcBtn');
     if (quickJumpCalcBtn) {
       quickJumpCalcBtn.addEventListener('click', (e) => {
+        e.preventDefault();
         SoundEngine.blip();
         const sNav = document.getElementById('sidebarNav');
+        const cw = document.getElementById('calcWeight');
+        const calcBox = document.querySelector('.quick-calc-box');
         if (window.innerWidth <= 1040 && sNav) {
-          e.preventDefault();
           sNav.classList.add('open');
           const mBtn = document.getElementById('mobileNavBtn');
           if (mBtn) {
             mBtn.setAttribute('aria-pressed', 'true');
             mBtn.setAttribute('aria-expanded', 'true');
           }
-          const cw = document.getElementById('calcWeight');
+          if (sNav) sNav.scrollTo({ top: sNav.scrollHeight, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
           if (cw) setTimeout(() => cw.focus(), 120);
+        } else {
+          const layoutEl = document.querySelector('.atlas-layout');
+          if (layoutEl) {
+            const topY = Math.max(0, layoutEl.getBoundingClientRect().top + window.scrollY - 72);
+            window.scrollTo({ top: topY, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+          }
+          if (sNav) {
+            sNav.scrollTo({ top: sNav.scrollHeight, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+          }
+          if (calcBox && calcBox.scrollIntoView) {
+            setTimeout(() => calcBox.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'nearest' }), 120);
+          }
+          if (cw) setTimeout(() => cw.focus({ preventScroll: true }), 220);
         }
       });
     }
@@ -4435,7 +4552,7 @@
           modalBody.innerHTML = `
             <div style="display:flex;flex-direction:column;gap:0.75rem;align-items:center;">
               <img src="${img.src}" alt="${img.alt}" style="max-width:100%;max-height:66vh;object-fit:contain;border-radius:8px;" />
-              <div style="width:100%;font-size:0.86rem;color:var(--text-secondary);">${cap ? cap.innerHTML : ''}</div>
+              <div style="width:100%;display:flex;flex-direction:column;gap:0.35rem;font-size:0.86rem;color:var(--text-secondary);">${cap ? cap.innerHTML : ''}</div>
             </div>
           `;
           modal.showModal();
@@ -4506,55 +4623,128 @@
       }
 
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 120);
-      camera.position.set(0, 1.4, 9.5);
+      const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 120);
+      camera.position.set(0, 1.0, 6.2);
 
       const renderer = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true, alpha: true });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.12;
 
       const controls = new OrbitControls(camera, renderer.domElement);
       renderer.domElement.style.touchAction = 'pan-y'; /* glue G3: OrbitControls sets 'none' */
       controls.enableDamping = true;
       controls.dampingFactor = 0.08;
       controls.enablePan = false;
-      controls.minDistance = 2.6;
-      controls.maxDistance = 22;
+      controls.minDistance = 2.0;
+      controls.maxDistance = 18;
 
-      const ambLight = new THREE.AmbientLight(0xffffff, 0.86);
-      scene.add(ambLight);
-      const keyLight = new THREE.DirectionalLight(0xffffff, 1.35);
-      keyLight.position.set(6, 10, 8);
+      // Iluminación suave de 3 puntos + luz hemisférica y luz puntual del potencial de acción
+      const hemiLight = new THREE.HemisphereLight(0xe0f2fe, 0x091326, 0.72);
+      scene.add(hemiLight);
+      const keyLight = new THREE.DirectionalLight(0xfffbeb, 1.45);
+      keyLight.position.set(5, 8, 7);
       scene.add(keyLight);
-      const rimLight = new THREE.DirectionalLight(0x38bdf8, 0.9);
-      rimLight.position.set(-7, -4, -6);
+      const fillLight = new THREE.DirectionalLight(0x38bdf8, 0.78);
+      fillLight.position.set(-6, 3, 4);
+      scene.add(fillLight);
+      const rimLight = new THREE.DirectionalLight(0xa855f7, 0.92);
+      rimLight.position.set(0, -6, -7);
       scene.add(rimLight);
-      const apPointLight = new THREE.PointLight(0xfacc15, 0, 4.5);
+      const apPointLight = new THREE.PointLight(0xfacc15, 0, 4.8);
       scene.add(apPointLight);
 
-      let activeView = 'neuron'; // 'neuron' por defecto | 'brain'
+      // Textura radial suave en memoria para bloom/glow ligero y partículas de neuropilo
+      function createGlowTexture(innerHex, midHex) {
+        const c = document.createElement('canvas');
+        c.width = 64;
+        c.height = 64;
+        const gCtx = c.getContext('2d');
+        const grad = gCtx.createRadialGradient(32, 32, 2, 32, 32, 32);
+        grad.addColorStop(0, innerHex);
+        grad.addColorStop(0.38, midHex);
+        grad.addColorStop(1, 'rgba(0,0,0,0)');
+        gCtx.fillStyle = grad;
+        gCtx.fillRect(0, 0, 64, 64);
+        return new THREE.CanvasTexture(c);
+      }
+      const glowTexGold = createGlowTexture('rgba(255,255,220,1)', 'rgba(250,204,21,0.48)');
+      const glowTexCyan = createGlowTexture('rgba(224,242,254,0.9)', 'rgba(56,189,248,0.28)');
+
+      // Fondo con profundidad: partículas tenues tipo neuropilo en 3D (1 sola draw call)
+      const neuropilCount = 90;
+      const neuropilPos = new Float32Array(neuropilCount * 3);
+      for (let i = 0; i < neuropilCount; i++) {
+        neuropilPos[i * 3] = (Math.random() - 0.5) * 9.5;
+        neuropilPos[i * 3 + 1] = (Math.random() - 0.5) * 5.2;
+        neuropilPos[i * 3 + 2] = -0.8 - Math.random() * 3.2;
+      }
+      const neuropilGeo = new THREE.BufferGeometry();
+      neuropilGeo.setAttribute('position', new THREE.BufferAttribute(neuropilPos, 3));
+      const neuropilMat = new THREE.PointsMaterial({
+        size: 0.22,
+        map: glowTexCyan,
+        transparent: true,
+        opacity: 0.34,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+      });
+      const neuropilPoints = new THREE.Points(neuropilGeo, neuropilMat);
+      scene.add(neuropilPoints);
+
+      // Generador reutilizable de tubos orgánicos ahusados (dendritas y vainas con volumen real)
+      function createTaperedTubeGeo(curve, tubularSegments, rStart, rEnd, radialSegments, capEnds = false) {
+        const geo = new THREE.TubeGeometry(curve, tubularSegments, 1, radialSegments, false);
+        const pos = geo.attributes.position;
+        const ringSize = radialSegments + 1;
+        const centerPt = new THREE.Vector3();
+        const vtx = new THREE.Vector3();
+        for (let i = 0; i <= tubularSegments; i++) {
+          const u = i / tubularSegments;
+          curve.getPointAt(u, centerPt);
+          let radius = rStart + (rEnd - rStart) * u;
+          if (capEnds) {
+            const edgeFade = Math.sin(u * Math.PI);
+            radius *= (0.72 + 0.28 * Math.pow(edgeFade, 0.35));
+          }
+          for (let j = 0; j < ringSize; j++) {
+            const idx = i * ringSize + j;
+            vtx.fromBufferAttribute(pos, idx).sub(centerPt).multiplyScalar(radius).add(centerPt);
+            pos.setXYZ(idx, vtx.x, vtx.y, vtx.z);
+          }
+        }
+        geo.computeVertexNormals();
+        return geo;
+      }
+
+      let activeView = 'neuron';
       let showLabels3d = true;
       let is3dInViewport = true;
 
-      /* --- A. CONSTRUCCIÓN DE LA NEURONA PIRAMIDAL CA1/CA3 --- */
+      /* --- A. CONSTRUCCIÓN DE LA NEURONA PIRAMIDAL CA1/CA3 (ORGÁNICA, VOLUMÉTRICA Y COMPACTA) --- */
       const neuronGroup = new THREE.Group();
       scene.add(neuronGroup);
 
-      // 1. Soma piramidal triangular semitransparente
-      const somaGeo = new THREE.ConeGeometry(0.88, 1.55, 28, 16);
-      somaGeo.rotateZ(Math.PI * 0.5);
+      // 1. Soma piramidal 3D con volumen real (pirámide redondeada orgánica, membrana translúcida con brillo suave)
+      const somaCenter = new THREE.Vector3(-0.78, 0.02, 0.0);
+      const somaGeo = new THREE.SphereGeometry(0.76, 48, 36);
       const sPos = somaGeo.attributes.position;
       for (let i = 0; i < sPos.count; i++) {
         let x = sPos.getX(i);
         let y = sPos.getY(i);
         let z = sPos.getZ(i);
-        // Perfil piramidal triangular suave con base convexa
-        const normX = (x + 0.775) / 1.55; // 0 en base derecha, 1 en ápice izquierdo
-        const triFactor = 1 + 0.18 * Math.cos(Math.atan2(y, z) * 3) * (1 - normX * 0.6);
-        y *= triFactor * (1.06 - 0.15 * normX);
-        z *= triFactor * (0.85 - 0.12 * normX);
-        if (x < -0.55) {
-          const cap = (x + 0.55) * 0.35;
-          x = -0.55 + cap;
+        // u = 0 en la base derecha (hacia cono axónico), u = 1 en el ápice izquierdo (hacia dendrita apical)
+        const u = THREE.MathUtils.clamp((0.76 - x) / 1.52, 0, 1);
+        const theta = Math.atan2(y, z);
+        // Lóbulos piramidales redondeados en 3 direcciones 3D
+        const triLobe = 1 + 0.22 * Math.cos(theta * 3) * Math.sin(u * Math.PI);
+        const taper = (1 - 0.58 * Math.pow(u, 1.35)) * (0.92 + 0.28 * Math.sin(u * Math.PI));
+        y *= taper * triLobe * 1.08;
+        z *= taper * triLobe * 1.02;
+        x *= 1.18;
+        // Suave concavidad basal
+        if (x > 0.42) {
+          x = 0.42 + (x - 0.42) * 0.52;
         }
         sPos.setXYZ(i, x, y, z);
       }
@@ -4563,119 +4753,164 @@
       const somaMat = new THREE.MeshPhysicalMaterial({
         color: 0x0ea5e9,
         emissive: 0x075985,
-        emissiveIntensity: 0.35,
-        roughness: 0.22,
-        metalness: 0.05,
+        emissiveIntensity: 0.36,
+        roughness: 0.16,
+        metalness: 0.04,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.12,
+        ior: 1.38,
         transparent: true,
         opacity: 0.52,
         depthWrite: false
       });
       const somaMesh = new THREE.Mesh(somaGeo, somaMat);
-      somaMesh.position.set(-1.05, 0.0, 0.0);
+      somaMesh.position.copy(somaCenter);
       neuronGroup.add(somaMesh);
 
-      // 2. Núcleo y nucléolo visibles en el interior del soma
-      const nucleusGeo = new THREE.SphereGeometry(0.39, 24, 20);
-      nucleusGeo.scale(1.15, 0.92, 0.92);
-      const nucleusMat = new THREE.MeshStandardMaterial({
+      // 2. Núcleo, nucléolo y orgánulos perinucleares visibles dentro del soma
+      const nucleusGeo = new THREE.SphereGeometry(0.38, 28, 22);
+      nucleusGeo.scale(1.16, 0.96, 0.96);
+      const nucleusMat = new THREE.MeshPhysicalMaterial({
         color: 0x6366f1,
         emissive: 0x312e81,
-        roughness: 0.35,
+        emissiveIntensity: 0.45,
+        roughness: 0.28,
+        clearcoat: 0.8,
         transparent: true,
-        opacity: 0.86
+        opacity: 0.88
       });
       const nucleusMesh = new THREE.Mesh(nucleusGeo, nucleusMat);
-      nucleusMesh.position.set(-1.02, 0.0, 0.0);
+      nucleusMesh.position.set(-0.74, 0.02, 0.0);
       neuronGroup.add(nucleusMesh);
 
-      const nucleolusGeo = new THREE.SphereGeometry(0.14, 16, 16);
+      const nucleolusGeo = new THREE.SphereGeometry(0.145, 20, 20);
       const nucleolusMat = new THREE.MeshStandardMaterial({
         color: 0xf43f5e,
-        emissive: 0x9f1239,
-        roughness: 0.2
+        emissive: 0xbe123c,
+        emissiveIntensity: 0.65,
+        roughness: 0.18
       });
       const nucleolusMesh = new THREE.Mesh(nucleolusGeo, nucleolusMat);
-      nucleolusMesh.position.set(-0.98, 0.05, 0.08);
+      nucleolusMesh.position.set(-0.70, 0.07, 0.08);
       neuronGroup.add(nucleolusMesh);
 
-      // 3. Dendrita apical larga + penacho apical y dendritas basales ramificadas
-      const dendriteMat = new THREE.MeshStandardMaterial({
+      // Mitocondrias / cisternas de Nissl sutiles dentro del soma para dar riqueza 3D
+      const nisslGeo = new THREE.CapsuleGeometry(0.042, 0.11, 6, 10);
+      const nisslMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, roughness: 0.3 });
+      [
+        { p: [-0.98, -0.18, 0.18], r: [0.4, 0.8, 0.2] },
+        { p: [-0.55, 0.24, -0.16], r: [-0.3, 0.5, 1.1] },
+        { p: [-0.62, -0.22, -0.18], r: [0.6, -0.4, 0.9] },
+        { p: [-1.05, 0.16, -0.12], r: [0.2, 0.3, -0.6] }
+      ].forEach(o => {
+        const m = new THREE.Mesh(nisslGeo, nisslMat);
+        m.position.set(o.p[0], o.p[1], o.p[2]);
+        m.rotation.set(o.r[0], o.r[1], o.r[2]);
+        neuronGroup.add(m);
+      });
+
+      // 3. Árbol dendrítico orgánico 3D (dendrita apical gruesa ahusada con penacho + dendritas basales en 3D)
+      const dendriteMat = new THREE.MeshPhysicalMaterial({
         color: 0x38bdf8,
         emissive: 0x0c4a6e,
-        roughness: 0.36
+        emissiveIntensity: 0.32,
+        roughness: 0.26,
+        clearcoat: 0.65
       });
 
       const apicalMainCurve = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(-1.68, 0.02, 0.0),
-        new THREE.Vector3(-2.55, 0.18, 0.06),
-        new THREE.Vector3(-3.45, 0.42, -0.04),
-        new THREE.Vector3(-4.25, 0.72, 0.02)
+        new THREE.Vector3(-1.32, 0.04, 0.0),
+        new THREE.Vector3(-1.78, 0.18, 0.08),
+        new THREE.Vector3(-2.18, 0.38, -0.05),
+        new THREE.Vector3(-2.52, 0.62, 0.04)
       ]);
       const apicalTuft1 = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(-4.15, 0.68, 0.02),
-        new THREE.Vector3(-4.75, 1.15, 0.32),
-        new THREE.Vector3(-5.25, 1.52, 0.48)
+        new THREE.Vector3(-2.46, 0.58, 0.04),
+        new THREE.Vector3(-2.78, 0.96, 0.34),
+        new THREE.Vector3(-3.04, 1.24, 0.52)
       ]);
       const apicalTuft2 = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(-4.15, 0.68, 0.02),
-        new THREE.Vector3(-4.80, 0.52, -0.36),
-        new THREE.Vector3(-5.28, 0.32, -0.58)
+        new THREE.Vector3(-2.46, 0.58, 0.04),
+        new THREE.Vector3(-2.82, 0.42, -0.34),
+        new THREE.Vector3(-3.08, 0.22, -0.58)
       ]);
-      const apicalOblique = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(-2.85, 0.24, 0.03),
-        new THREE.Vector3(-3.35, 0.88, -0.28),
-        new THREE.Vector3(-3.88, 1.32, -0.45)
+      const apicalTuft3 = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-2.46, 0.58, 0.04),
+        new THREE.Vector3(-2.72, 1.05, -0.22),
+        new THREE.Vector3(-2.92, 1.32, -0.38)
+      ]);
+      const apicalOblique1 = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-1.82, 0.20, 0.06),
+        new THREE.Vector3(-2.12, 0.72, 0.38),
+        new THREE.Vector3(-2.42, 1.06, 0.58)
+      ]);
+      const apicalOblique2 = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-2.05, 0.30, -0.02),
+        new THREE.Vector3(-2.35, -0.18, -0.42),
+        new THREE.Vector3(-2.65, -0.52, -0.64)
       ]);
 
       const basalCurves = [
         new THREE.CatmullRomCurve3([
-          new THREE.Vector3(-0.72, -0.38, 0.28),
-          new THREE.Vector3(-1.15, -0.95, 0.62),
-          new THREE.Vector3(-1.72, -1.42, 0.88)
+          new THREE.Vector3(-0.48, -0.38, 0.28),
+          new THREE.Vector3(-0.82, -0.82, 0.58),
+          new THREE.Vector3(-1.22, -1.16, 0.82)
         ]),
         new THREE.CatmullRomCurve3([
-          new THREE.Vector3(-1.15, -0.95, 0.62),
-          new THREE.Vector3(-0.82, -1.48, 0.95)
+          new THREE.Vector3(-0.82, -0.82, 0.58),
+          new THREE.Vector3(-0.52, -1.24, 0.88)
         ]),
         new THREE.CatmullRomCurve3([
-          new THREE.Vector3(-0.75, -0.35, -0.30),
-          new THREE.Vector3(-1.25, -0.92, -0.68),
-          new THREE.Vector3(-1.85, -1.36, -0.92)
+          new THREE.Vector3(-0.52, -0.36, -0.28),
+          new THREE.Vector3(-0.88, -0.78, -0.62),
+          new THREE.Vector3(-1.32, -1.12, -0.86)
         ]),
         new THREE.CatmullRomCurve3([
-          new THREE.Vector3(-0.85, 0.36, -0.32),
-          new THREE.Vector3(-1.35, 0.88, -0.68),
-          new THREE.Vector3(-1.92, 1.28, -0.92)
+          new THREE.Vector3(-0.58, 0.38, -0.28),
+          new THREE.Vector3(-0.96, 0.78, -0.58),
+          new THREE.Vector3(-1.38, 1.08, -0.82)
         ]),
         new THREE.CatmullRomCurve3([
-          new THREE.Vector3(-1.35, -0.32, 0.25),
-          new THREE.Vector3(-2.05, -0.78, 0.52),
-          new THREE.Vector3(-2.68, -1.15, 0.68)
+          new THREE.Vector3(-0.62, 0.36, 0.30),
+          new THREE.Vector3(-1.04, 0.74, 0.62),
+          new THREE.Vector3(-1.44, 1.02, 0.84)
+        ]),
+        new THREE.CatmullRomCurve3([
+          new THREE.Vector3(-1.02, -0.32, 0.22),
+          new THREE.Vector3(-1.52, -0.68, 0.46),
+          new THREE.Vector3(-1.96, -0.96, 0.64)
         ])
       ];
 
       const dendriteSpec = [
-        { curve: apicalMainCurve, r: 0.11 },
-        { curve: apicalTuft1, r: 0.065 },
-        { curve: apicalTuft2, r: 0.065 },
-        { curve: apicalOblique, r: 0.06 },
-        ...basalCurves.map((c, idx) => ({ curve: c, r: idx === 1 ? 0.045 : 0.062 }))
+        { curve: apicalMainCurve, r0: 0.19, r1: 0.095 },
+        { curve: apicalTuft1, r0: 0.09, r1: 0.032 },
+        { curve: apicalTuft2, r0: 0.09, r1: 0.032 },
+        { curve: apicalTuft3, r0: 0.082, r1: 0.028 },
+        { curve: apicalOblique1, r0: 0.085, r1: 0.028 },
+        { curve: apicalOblique2, r0: 0.082, r1: 0.028 },
+        { curve: basalCurves[0], r0: 0.11, r1: 0.034 },
+        { curve: basalCurves[1], r0: 0.068, r1: 0.026 },
+        { curve: basalCurves[2], r0: 0.105, r1: 0.034 },
+        { curve: basalCurves[3], r0: 0.10, r1: 0.032 },
+        { curve: basalCurves[4], r0: 0.10, r1: 0.032 },
+        { curve: basalCurves[5], r0: 0.095, r1: 0.030 }
       ];
 
       dendriteSpec.forEach(d => {
-        const geo = new THREE.TubeGeometry(d.curve, 24, d.r, 10, false);
+        const geo = createTaperedTubeGeo(d.curve, 22, d.r0, d.r1, 10, false);
         neuronGroup.add(new THREE.Mesh(geo, dendriteMat));
       });
 
       // 4. Espinas dendríticas con InstancedMesh
-      const spineCurves = [apicalMainCurve, apicalTuft1, apicalTuft2, apicalOblique, basalCurves[0], basalCurves[2], basalCurves[4]];
-      const spineTotal = 84;
-      const spineGeo = new THREE.ConeGeometry(0.038, 0.16, 7);
-      spineGeo.translate(0, 0.08, 0);
+      const spineCurves = [apicalMainCurve, apicalTuft1, apicalTuft2, apicalTuft3, apicalOblique1, apicalOblique2, basalCurves[0], basalCurves[2], basalCurves[3], basalCurves[4], basalCurves[5]];
+      const spineTotal = 88;
+      const spineGeo = new THREE.ConeGeometry(0.042, 0.17, 7);
+      spineGeo.translate(0, 0.085, 0);
       const spineMat = new THREE.MeshStandardMaterial({
         color: 0x7dd3fc,
         emissive: 0x0369a1,
-        roughness: 0.3
+        roughness: 0.28
       });
       const spinesInstanced = new THREE.InstancedMesh(spineGeo, spineMat, spineTotal);
       const dummyObj = new THREE.Object3D();
@@ -4683,13 +4918,13 @@
 
       for (let i = 0; i < spineTotal; i++) {
         const c = spineCurves[i % spineCurves.length];
-        const u = 0.14 + ((i * 0.6180339) % 0.78);
+        const u = 0.16 + ((i * 0.6180339) % 0.76);
         const pt = c.getPointAt(u);
         const tang = c.getTangentAt(u).normalize();
         const angle = i * 2.39996;
         const radial = new THREE.Vector3(0, Math.cos(angle), Math.sin(angle));
         radial.sub(tang.clone().multiplyScalar(radial.dot(tang))).normalize();
-        dummyObj.position.copy(pt).addScaledVector(radial, 0.045);
+        dummyObj.position.copy(pt).addScaledVector(radial, 0.048);
         dummyObj.quaternion.setFromUnitVectors(upVec, radial);
         dummyObj.updateMatrix();
         spinesInstanced.setMatrixAt(i, dummyObj.matrix);
@@ -4698,70 +4933,82 @@
       neuronGroup.add(spinesInstanced);
 
       // 5. Cono axónico (axon hillock) y segmento inicial (AIS)
-      const hillockGeo = new THREE.CylinderGeometry(0.075, 0.28, 0.56, 18);
-      hillockGeo.rotateZ(-Math.PI * 0.5);
-      const hillockMat = new THREE.MeshStandardMaterial({
+      const hillockCurve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-0.34, -0.02, 0.0),
+        new THREE.Vector3(-0.12, -0.03, 0.02),
+        new THREE.Vector3(0.08, -0.02, 0.04)
+      ]);
+      const hillockMat = new THREE.MeshPhysicalMaterial({
         color: 0xf59e0b,
-        emissive: 0x78350f,
-        roughness: 0.32
+        emissive: 0x9a3412,
+        emissiveIntensity: 0.4,
+        roughness: 0.25,
+        clearcoat: 0.7
       });
-      const hillockMesh = new THREE.Mesh(hillockGeo, hillockMat);
-      hillockMesh.position.set(-0.28, -0.02, 0.0);
+      const hillockMesh = new THREE.Mesh(createTaperedTubeGeo(hillockCurve, 14, 0.28, 0.085, 14, false), hillockMat);
       neuronGroup.add(hillockMesh);
 
-      // 6. Axón mielinizado, vainas de mielina (internodos), nodos de Ranvier y colateral
+      // 6. Axón mielinizado plegado en S orgánica 3D con vainas de mielina gruesas y brillantes y nodos de Ranvier
       const axonCurve = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(-0.02, -0.02, 0.0),
-        new THREE.Vector3(1.05, -0.06, 0.05),
-        new THREE.Vector3(2.15, 0.04, -0.04),
-        new THREE.Vector3(3.25, -0.05, 0.03),
-        new THREE.Vector3(4.15, -0.02, 0.0)
+        new THREE.Vector3(0.06, -0.02, 0.04),
+        new THREE.Vector3(0.56, 0.36, 0.22),
+        new THREE.Vector3(1.14, 0.02, 0.0),
+        new THREE.Vector3(1.72, -0.34, -0.20),
+        new THREE.Vector3(2.32, -0.02, 0.0)
       ]);
-      const axonCoreGeo = new THREE.TubeGeometry(axonCurve, 60, 0.046, 10, false);
+      const axonCoreGeo = new THREE.TubeGeometry(axonCurve, 64, 0.058, 12, false);
       const axonCoreMat = new THREE.MeshStandardMaterial({
         color: 0xfde047,
-        emissive: 0x854d0e,
-        roughness: 0.3
+        emissive: 0xa16207,
+        emissiveIntensity: 0.45,
+        roughness: 0.26
       });
       neuronGroup.add(new THREE.Mesh(axonCoreGeo, axonCoreMat));
 
       const myelinMat = new THREE.MeshPhysicalMaterial({
-        color: 0xe2e8f0,
-        emissive: 0x1e293b,
-        roughness: 0.25,
+        color: 0xf1f5f9,
+        emissive: 0x334155,
+        emissiveIntensity: 0.25,
+        roughness: 0.16,
+        metalness: 0.06,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
         transparent: true,
-        opacity: 0.78
+        opacity: 0.84
       });
       const internodeRanges = [
         [0.06, 0.23],
-        [0.27, 0.44],
-        [0.48, 0.65],
-        [0.69, 0.86]
+        [0.28, 0.45],
+        [0.50, 0.67],
+        [0.72, 0.89]
       ];
-      const ranvierUs = [0.04, 0.25, 0.46, 0.67, 0.88];
+      const ranvierUs = [0.03, 0.255, 0.475, 0.695, 0.915];
       const ranvierPositions = ranvierUs.map(u => axonCurve.getPointAt(u));
+      const ranvierTangents = ranvierUs.map(u => axonCurve.getTangentAt(u).normalize());
       const ranvierRings = [];
 
       internodeRanges.forEach(([u0, u1]) => {
         const subPts = [];
-        for (let k = 0; k <= 10; k++) {
-          subPts.push(axonCurve.getPointAt(u0 + (u1 - u0) * (k / 10)));
+        for (let k = 0; k <= 12; k++) {
+          subPts.push(axonCurve.getPointAt(u0 + (u1 - u0) * (k / 12)));
         }
         const subCurve = new THREE.CatmullRomCurve3(subPts);
-        const sheathGeo = new THREE.TubeGeometry(subCurve, 16, 0.125, 14, false);
+        const sheathGeo = createTaperedTubeGeo(subCurve, 18, 0.175, 0.175, 16, true);
         neuronGroup.add(new THREE.Mesh(sheathGeo, myelinMat));
       });
 
-      const nodeRingGeo = new THREE.TorusGeometry(0.068, 0.02, 10, 20);
-      nodeRingGeo.rotateY(Math.PI * 0.5);
-      ranvierPositions.forEach(pos => {
+      const nodeRingGeo = new THREE.TorusGeometry(0.086, 0.028, 12, 22);
+      const defaultAxis = new THREE.Vector3(0, 0, 1);
+      ranvierPositions.forEach((pos, idx) => {
         const rMat = new THREE.MeshStandardMaterial({
-          color: 0xf59e0b,
-          emissive: 0x9a3412,
-          roughness: 0.25
+          color: 0xfacc15,
+          emissive: 0xb45309,
+          emissiveIntensity: 0.55,
+          roughness: 0.22
         });
         const ring = new THREE.Mesh(nodeRingGeo, rMat);
         ring.position.copy(pos);
+        ring.quaternion.setFromUnitVectors(defaultAxis, ranvierTangents[idx]);
         neuronGroup.add(ring);
         ranvierRings.push(ring);
       });
@@ -4769,26 +5016,28 @@
       // Colateral axónica que emerge del 2.º nodo de Ranvier
       const collateralCurve = new THREE.CatmullRomCurve3([
         ranvierPositions[2].clone(),
-        new THREE.Vector3(2.25, 0.58, -0.18),
-        new THREE.Vector3(2.95, 1.05, -0.28),
-        new THREE.Vector3(3.65, 1.22, -0.22)
+        new THREE.Vector3(1.32, 0.52, -0.16),
+        new THREE.Vector3(1.68, 0.88, -0.26),
+        new THREE.Vector3(2.08, 1.04, -0.18)
       ]);
-      neuronGroup.add(new THREE.Mesh(new THREE.TubeGeometry(collateralCurve, 24, 0.036, 8, false), axonCoreMat));
+      neuronGroup.add(new THREE.Mesh(createTaperedTubeGeo(collateralCurve, 20, 0.048, 0.036, 8, false), axonCoreMat));
       const colSheathPts = [
-        collateralCurve.getPointAt(0.15),
-        collateralCurve.getPointAt(0.45),
-        collateralCurve.getPointAt(0.78)
+        collateralCurve.getPointAt(0.16),
+        collateralCurve.getPointAt(0.48),
+        collateralCurve.getPointAt(0.80)
       ];
-      neuronGroup.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(colSheathPts), 12, 0.085, 10, false), myelinMat));
+      neuronGroup.add(new THREE.Mesh(createTaperedTubeGeo(new THREE.CatmullRomCurve3(colSheathPts), 14, 0.11, 0.11, 12, true), myelinMat));
 
-      // 7. Botones terminales con vesículas + Sinapsis Glutamatérgica sobre espina de 2.ª neurona
-      const boutonPos = new THREE.Vector3(4.32, -0.02, 0.0);
-      const boutonGeo = new THREE.SphereGeometry(0.26, 20, 16);
-      boutonGeo.scale(1.25, 0.95, 0.95);
+      // 7. Botón sináptico terminal voluminoso con vesículas + Sinapsis Glutamatérgica sobre espina de 2.ª neurona
+      const boutonPos = new THREE.Vector3(2.50, -0.02, 0.0);
+      const boutonGeo = new THREE.SphereGeometry(0.34, 24, 20);
+      boutonGeo.scale(1.22, 1.02, 1.02);
       const boutonMat = new THREE.MeshPhysicalMaterial({
         color: 0x38bdf8,
         emissive: 0x075985,
-        roughness: 0.25,
+        emissiveIntensity: 0.35,
+        roughness: 0.18,
+        clearcoat: 1.0,
         transparent: true,
         opacity: 0.54,
         depthWrite: false
@@ -4797,21 +5046,27 @@
       boutonMesh.position.copy(boutonPos);
       neuronGroup.add(boutonMesh);
 
-      const colBoutonMesh = new THREE.Mesh(new THREE.SphereGeometry(0.15, 14, 12), boutonMat);
+      const colBoutonMesh = new THREE.Mesh(new THREE.SphereGeometry(0.17, 14, 12), boutonMat);
       colBoutonMesh.position.copy(collateralCurve.getPointAt(1));
       neuronGroup.add(colBoutonMesh);
 
       // Vesículas sinápticas presinápticas dentro del botón terminal
       const vesicles = [];
-      const vesicleGeo = new THREE.SphereGeometry(0.044, 10, 10);
-      const vesicleMat = new THREE.MeshStandardMaterial({ color: 0xfbbf24, emissive: 0xb45309, roughness: 0.2 });
+      const vesicleGeo = new THREE.SphereGeometry(0.056, 12, 12);
+      const vesicleMat = new THREE.MeshStandardMaterial({
+        color: 0xfacc15,
+        emissive: 0xd97706,
+        emissiveIntensity: 0.5,
+        roughness: 0.18
+      });
       const vesicleHomeOffsets = [
-        new THREE.Vector3(-0.08, 0.07, 0.04),
-        new THREE.Vector3(-0.05, -0.06, -0.04),
-        new THREE.Vector3(0.02, 0.09, -0.05),
-        new THREE.Vector3(0.04, -0.08, 0.05),
-        new THREE.Vector3(0.09, 0.02, 0.02),
-        new THREE.Vector3(0.11, -0.03, -0.03)
+        new THREE.Vector3(-0.10, 0.09, 0.05),
+        new THREE.Vector3(-0.07, -0.08, -0.05),
+        new THREE.Vector3(0.02, 0.11, -0.06),
+        new THREE.Vector3(0.05, -0.10, 0.06),
+        new THREE.Vector3(0.11, 0.04, 0.03),
+        new THREE.Vector3(0.13, -0.04, -0.03),
+        new THREE.Vector3(-0.02, 0.01, 0.09)
       ];
       vesicleHomeOffsets.forEach(off => {
         const v = new THREE.Mesh(vesicleGeo, vesicleMat);
@@ -4822,66 +5077,67 @@
       });
 
       // Segunda neurona (dendrita postsináptica + espina receptora glutamatérgica)
-      const postNeuronMat = new THREE.MeshStandardMaterial({
+      const postNeuronMat = new THREE.MeshPhysicalMaterial({
         color: 0x14b8a6,
         emissive: 0x115e59,
-        roughness: 0.34
+        emissiveIntensity: 0.35,
+        roughness: 0.28,
+        clearcoat: 0.65
       });
       const postDendriteCurve = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(5.28, -1.25, 0.12),
-        new THREE.Vector3(5.18, -0.05, 0.0),
-        new THREE.Vector3(5.32, 1.18, -0.1)
+        new THREE.Vector3(3.48, -1.12, 0.12),
+        new THREE.Vector3(3.36, -0.02, 0.0),
+        new THREE.Vector3(3.50, 1.10, -0.10)
       ]);
-      const postDendriteMesh = new THREE.Mesh(new THREE.TubeGeometry(postDendriteCurve, 24, 0.14, 12, false), postNeuronMat);
+      const postDendriteMesh = new THREE.Mesh(createTaperedTubeGeo(postDendriteCurve, 24, 0.18, 0.14, 12, false), postNeuronMat);
       neuronGroup.add(postDendriteMesh);
 
-      // Espina postsináptica (cuello + cabeza enfrentada al botón presináptico)
-      const postSpineNeck = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.055, 0.28, 10).rotateZ(Math.PI * 0.5), postNeuronMat);
-      postSpineNeck.position.set(5.02, -0.02, 0.0);
+      const postSpineNeck = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.075, 0.28, 10).rotateZ(Math.PI * 0.5), postNeuronMat);
+      postSpineNeck.position.set(3.22, -0.02, 0.0);
       neuronGroup.add(postSpineNeck);
 
-      const postSpineHead = new THREE.Mesh(new THREE.SphereGeometry(0.18, 16, 14).scale(0.85, 1.1, 1.0), postNeuronMat);
-      postSpineHead.position.set(4.82, -0.02, 0.0);
+      const postSpineHead = new THREE.Mesh(new THREE.SphereGeometry(0.24, 18, 16).scale(0.86, 1.15, 1.05), postNeuronMat);
+      postSpineHead.position.set(3.02, -0.02, 0.0);
       neuronGroup.add(postSpineHead);
 
       // Receptores NMDA (se externalizan en Status) y AMPA en la espina postsináptica
       const nmdaReceptors = [];
-      const nmdaGeo = new THREE.CylinderGeometry(0.024, 0.024, 0.09, 8).rotateZ(Math.PI * 0.5);
-      const nmdaMat = new THREE.MeshStandardMaterial({ color: 0xef4444, emissive: 0x991b1b });
+      const nmdaGeo = new THREE.CylinderGeometry(0.032, 0.032, 0.11, 8).rotateZ(Math.PI * 0.5);
+      const nmdaMat = new THREE.MeshStandardMaterial({ color: 0xef4444, emissive: 0xb91c1c, emissiveIntensity: 0.5 });
       for (let i = 0; i < 6; i++) {
         const rec = new THREE.Mesh(nmdaGeo, nmdaMat);
         const ang = (i / 6) * Math.PI * 2;
-        rec.position.set(4.68, -0.02 + Math.cos(ang) * 0.11, Math.sin(ang) * 0.11);
-        rec.userData.baseX = 4.68;
-        rec.userData.extra = i >= 3; // 3 basales + 3 que se externalizan en Status
+        rec.position.set(2.86, -0.02 + Math.cos(ang) * 0.14, Math.sin(ang) * 0.14);
+        rec.userData.baseX = 2.86;
+        rec.userData.extra = i >= 3;
         neuronGroup.add(rec);
         nmdaReceptors.push(rec);
       }
 
       // 8. Sinapsis GABAérgica inhibitoria sobre el soma + receptores GABA-A
       const gabaAxonCurve = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(-0.35, 1.55, 0.35),
-        new THREE.Vector3(-0.68, 1.05, 0.22),
-        new THREE.Vector3(-0.92, 0.62, 0.08)
+        new THREE.Vector3(-0.18, 1.28, 0.28),
+        new THREE.Vector3(-0.48, 0.94, 0.18),
+        new THREE.Vector3(-0.72, 0.64, 0.06)
       ]);
-      const gabaAxonMat = new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x155e75, roughness: 0.32 });
-      neuronGroup.add(new THREE.Mesh(new THREE.TubeGeometry(gabaAxonCurve, 18, 0.045, 8, false), gabaAxonMat));
+      const gabaAxonMat = new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x155e75, roughness: 0.3 });
+      neuronGroup.add(new THREE.Mesh(createTaperedTubeGeo(gabaAxonCurve, 18, 0.062, 0.048, 8, false), gabaAxonMat));
 
-      const gabaBoutonPos = new THREE.Vector3(-0.95, 0.52, 0.05);
-      const gabaBoutonMesh = new THREE.Mesh(new THREE.SphereGeometry(0.16, 16, 14).scale(1.15, 0.85, 1.0), gabaAxonMat);
+      const gabaBoutonPos = new THREE.Vector3(-0.75, 0.54, 0.05);
+      const gabaBoutonMesh = new THREE.Mesh(new THREE.SphereGeometry(0.19, 16, 14).scale(1.15, 0.85, 1.0), gabaAxonMat);
       gabaBoutonMesh.position.copy(gabaBoutonPos);
       neuronGroup.add(gabaBoutonMesh);
 
       const gabaReceptors = [];
-      const gabaRecGeo = new THREE.CylinderGeometry(0.026, 0.026, 0.085, 8);
-      const gabaRecMat = new THREE.MeshStandardMaterial({ color: 0x22d3ee, emissive: 0x0891b2 });
+      const gabaRecGeo = new THREE.CylinderGeometry(0.03, 0.03, 0.095, 8);
+      const gabaRecMat = new THREE.MeshStandardMaterial({ color: 0x22d3ee, emissive: 0x0891b2, emissiveIntensity: 0.45 });
       for (let i = 0; i < 6; i++) {
         const gr = new THREE.Mesh(gabaRecGeo, gabaRecMat);
-        const offsetX = -1.08 + (i - 2.5) * 0.055;
-        const offsetZ = (i % 2 === 0 ? 1 : -1) * 0.045;
-        gr.position.set(offsetX, 0.38, offsetZ);
-        gr.userData.surfaceY = 0.38;
-        gr.userData.internalize = i % 2 === 0; // 50% se internaliza en Status (endocitosis por clatrina)
+        const offsetX = -0.88 + (i - 2.5) * 0.06;
+        const offsetZ = (i % 2 === 0 ? 1 : -1) * 0.05;
+        gr.position.set(offsetX, 0.40, offsetZ);
+        gr.userData.surfaceY = 0.40;
+        gr.userData.internalize = i % 2 === 0;
         neuronGroup.add(gr);
         gabaReceptors.push(gr);
       }
@@ -4899,19 +5155,16 @@
           let y = pos.getY(i);
           let z = pos.getZ(i);
 
-          // Proporción dolico/mesocefálica canina (z: rostro-caudal, y: dorso-ventral, x: medio-lateral)
           x *= 0.68;
           y *= 0.86;
           z *= 1.38;
 
-          // Cara medial interhemisférica plana junto a la fisura longitudinal
           if (x * sideSign < 0) {
             x *= 0.22;
           } else {
             x += sideSign * 0.06;
           }
 
-          // Ahusamiento rostral (lóbulo frontal y pedúnculo olfatorio canino)
           if (z > 0.45) {
             const frontTaper = Math.max(0.36, 1 - (z - 0.45) * 0.34);
             x *= frontTaper;
@@ -4919,14 +5172,12 @@
             if (z > 1.35) y -= (z - 1.35) * 0.32;
           }
 
-          // Prominencia ventrolateral del lóbulo piriforme y temporal
           if (y < 0.05 && z > -0.7 && z < 0.55) {
             const temporalBulge = Math.exp(-Math.pow((z + 0.1) / 0.55, 2)) * Math.exp(-Math.pow((y + 0.35) / 0.45, 2));
             x += sideSign * temporalBulge * 0.28;
             y -= temporalBulge * 0.14;
           }
 
-          // Surcos corticales (ectosilvio, suprasilvio, marginal y cruciado)
           const gyriSulci =
             Math.sin(z * 5.2 + y * 2.8) * Math.cos(x * 6.0) * 0.042 +
             Math.sin(z * 9.5) * 0.018;
@@ -5045,7 +5296,6 @@
       // Reinicio íntegro de todos los materiales de Cerebro y Neurona
       function resetMaterials() {
         const isLight = getActiveTheme() === 'light';
-        // Cerebro
         leftHemiMat.color.setHex(isLight ? 0x0284c7 : 0x38bdf8);
         leftHemiMat.emissive.setHex(isLight ? 0x0369a1 : 0x082f49);
         leftHemiMat.opacity = isLight ? 0.38 : 0.42;
@@ -5072,7 +5322,6 @@
         bbbMat.color.setHex(0x10b981);
         bbbMat.emissive.setHex(0x064e3b);
 
-        // Neurona
         somaMat.color.setHex(isLight ? 0x0284c7 : 0x0ea5e9);
         somaMat.emissive.setHex(isLight ? 0x0369a1 : 0x075985);
         somaMat.opacity = isLight ? 0.48 : 0.52;
@@ -5083,34 +5332,51 @@
         spineMat.color.setHex(isLight ? 0x0284c7 : 0x7dd3fc);
         spineMat.emissive.setHex(0x0369a1);
 
-        myelinMat.color.setHex(isLight ? 0xcbd5e1 : 0xe2e8f0);
-        myelinMat.opacity = isLight ? 0.82 : 0.78;
+        myelinMat.color.setHex(isLight ? 0xcbd5e1 : 0xf1f5f9);
+        myelinMat.opacity = isLight ? 0.84 : 0.84;
 
         postNeuronMat.color.setHex(0x14b8a6);
         postNeuronMat.emissive.setHex(0x115e59);
       }
 
-      /* --- C. CONDUCCIÓN SALTATORIA, IONES Y MINI OSCILOSCOPIO 2D --- */
-      // Frente luminoso de potencial de acción viajando desde el cono axónico
+      /* --- C. CONDUCCIÓN SALTATORIA CON BLOOM/GLOW LIGERO, IONES Y MINI OSCILOSCOPIO 2D --- */
       const apWaveMesh = new THREE.Mesh(
-        new THREE.SphereGeometry(0.16, 16, 16),
-        new THREE.MeshBasicMaterial({ color: 0xfef08a, transparent: true, opacity: 0.92 })
+        new THREE.SphereGeometry(0.17, 16, 16),
+        new THREE.MeshBasicMaterial({ color: 0xfef9c3, transparent: true, opacity: 0.96 })
       );
-      const apHaloMesh = new THREE.Mesh(
-        new THREE.SphereGeometry(0.32, 16, 16),
-        new THREE.MeshBasicMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.36 })
+      const apHaloSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+          map: glowTexGold,
+          color: 0xfacc15,
+          transparent: true,
+          opacity: 0.92,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending
+        })
       );
-      apWaveMesh.add(apHaloMesh);
+      apHaloSprite.scale.set(1.05, 1.05, 1.05);
+      apWaveMesh.add(apHaloSprite);
       neuronGroup.add(apWaveMesh);
 
       const colWaveMesh = new THREE.Mesh(
         new THREE.SphereGeometry(0.11, 12, 12),
-        new THREE.MeshBasicMaterial({ color: 0xfef08a, transparent: true, opacity: 0.88 })
+        new THREE.MeshBasicMaterial({ color: 0xfef08a, transparent: true, opacity: 0.9 })
       );
+      const colHaloSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+          map: glowTexGold,
+          color: 0xf59e0b,
+          transparent: true,
+          opacity: 0.78,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending
+        })
+      );
+      colHaloSprite.scale.set(0.65, 0.65, 0.65);
+      colWaveMesh.add(colHaloSprite);
       neuronGroup.add(colWaveMesh);
 
-      // En cada nodo de Ranvier: Na+ entra (amarillo) y K+ sale (violeta)
-      const ionSphereGeo = new THREE.SphereGeometry(0.034, 8, 8);
+      const ionSphereGeo = new THREE.SphereGeometry(0.04, 8, 8);
       const naMat = new THREE.MeshBasicMaterial({ color: 0xfacc15 });
       const kMat = new THREE.MeshBasicMaterial({ color: 0xa855f7 });
       const caMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
@@ -5129,7 +5395,6 @@
         }
       });
 
-      // Terminal axónico: entrada de Ca2+ y liberación de glutamato en la hendidura
       const caIons = [];
       for (let i = 0; i < 8; i++) {
         const m = new THREE.Mesh(ionSphereGeo, caMat);
@@ -5143,20 +5408,19 @@
       for (let i = 0; i < 14; i++) {
         const m = new THREE.Mesh(ionSphereGeo, gluMat);
         m.userData = {
-          seedY: (Math.random() - 0.5) * 0.22,
-          seedZ: (Math.random() - 0.5) * 0.22,
+          seedY: (Math.random() - 0.5) * 0.24,
+          seedZ: (Math.random() - 0.5) * 0.24,
           phase: i / 14
         };
         neuronGroup.add(m);
         gluParticles.push(m);
       }
 
-      // Sinapsis GABAérgica somática: entrada de Cl- hacia el soma
       const clIons = [];
       for (let i = 0; i < 8; i++) {
         const m = new THREE.Mesh(ionSphereGeo, clMat);
         m.userData = {
-          offsetX: -1.06 + (i - 3.5) * 0.045,
+          offsetX: -0.86 + (i - 3.5) * 0.045,
           offsetZ: ((i % 3) - 1) * 0.05,
           phase: i / 8
         };
@@ -5164,16 +5428,13 @@
         clIons.push(m);
       }
 
-      // Estado biofísico del potencial de acción y del osciloscopio 2D
       let apProgress = 0.0;
       let manualSpikeQueue = 0;
       let wavePulseBoost = 0;
       const scopeHistory = new Array(98).fill(-70);
 
       function computeMembraneVoltage(phase, mode, sliderNorm) {
-        // Valores de libro: reposo -70 mV, umbral -55 mV, pico +30 mV, hiperpolarización -80 mV
         if (mode === 'status') {
-          // Cambio de despolarización paroxística (PDS): meseta despolarizada con salvas de espigas hasta +30 mV
           if (phase > 0.08 && phase < 0.76) {
             const burst = Math.sin((phase - 0.08) * Math.PI * 16);
             return burst > 0.25 ? -35 + burst * 65 : -42 + Math.sin((phase - 0.08) * Math.PI * 1.4) * 10;
@@ -5181,27 +5442,25 @@
           if (phase >= 0.76 && phase < 0.90) return -76;
           return -70;
         }
-        // Potencial de acción estándar o en ráfaga (según modo focal o secundario)
         if (phase < 0.08) return -70;
         if (phase < 0.14) {
           const u = (phase - 0.08) / 0.06;
-          return -70 + u * 15; // ascenso prepotencial a umbral (-55 mV)
+          return -70 + u * 15;
         }
         if (phase < 0.22) {
           const u = (phase - 0.14) / 0.08;
-          return -55 + u * 85; // despolarización rápida por Na+ hasta +30 mV
+          return -55 + u * 85;
         }
         if (phase < 0.34) {
           const u = (phase - 0.22) / 0.12;
-          return 30 - u * 110; // repolarización por eflujo de K+ hasta -80 mV
+          return 30 - u * 110;
         }
         if (phase < 0.54) {
           const u = (phase - 0.34) / 0.20;
           if (mode === 'secondary' && sliderNorm > 0.25 && u < 0.55) {
-            // Segunda espiga acoplada en ráfaga
             return -55 + Math.sin(u * Math.PI * 1.8) * 82;
           }
-          return -80 + u * 10; // hiperpolarización post-potencial de vuelta a -70 mV
+          return -80 + u * 10;
         }
         return -70;
       }
@@ -5215,11 +5474,10 @@
         ctx.fillRect(0, 0, W, H);
 
         const mvToY = (mv) => {
-          const norm = (mv - (-88)) / (38 - (-88)); // rango -88 a +38 mV
-          return H - 5 - Math.max(0, Math.min(1, norm)) * (H - 10);
+          const norm = (mv - (-88)) / (38 - (-88));
+          return H - 4 - Math.max(0, Math.min(1, norm)) * (H - 8);
         };
 
-        // Líneas de referencia: +30 mV (pico) y -70 mV (reposo)
         ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
         ctx.setLineDash([3, 3]);
         ctx.lineWidth = 1;
@@ -5236,7 +5494,6 @@
         ctx.fillText('+30', 3, yPeak + 7);
         ctx.fillText('-70', 3, yRest - 2);
 
-        // Trazo de Vm
         ctx.beginPath();
         ctx.strokeStyle = mode === 'status' ? '#ef4444' : (currentMv > -20 ? '#facc15' : '#38bdf8');
         ctx.lineWidth = 1.8;
@@ -5255,7 +5512,6 @@
         }
       }
 
-      // Actualización de estados electroclínicos con resetMaterials() previo
       function updateBrain3DState() {
         resetMaterials();
 
@@ -5264,10 +5520,9 @@
         const t = val / 100;
         dischargeSliderVal.textContent = `${val}%`;
 
-        // Tráfico de receptores en la vista Neurona (GABA-A internalizados vs NMDA externalizados en Status)
         gabaReceptors.forEach(gr => {
           if (mode === 'status' && gr.userData.internalize) {
-            gr.position.y = 0.14; // endocitosis ilustrativa hacia endosomas intracelulares
+            gr.position.y = 0.14;
             gr.material = nmdaMat;
           } else {
             gr.position.y = gr.userData.surfaceY;
@@ -5276,10 +5531,9 @@
         });
         nmdaReceptors.forEach(rec => {
           rec.visible = mode === 'status' ? true : !rec.userData.extra;
-          rec.position.x = mode === 'status' ? 4.64 : rec.userData.baseX;
+          rec.position.x = mode === 'status' ? 2.82 : rec.userData.baseX;
         });
 
-        // Materiales y textos clínicos intactos
         if (mode === 'focal') {
           leftHemiMat.color.setHex(0xf59e0b);
           leftHemiMat.emissive.setHex(0x7c2d12);
@@ -5324,26 +5578,26 @@
         }
       }
 
-      /* --- D. ETIQUETAS ANCLADAS, ENCUADRE BOX3 (~75%) Y GESTO MÓVIL --- */
+      /* --- D. ETIQUETAS EN FRANJAS ARRIBA/ABAJO Y ENCUADRE BOX3 SOBRE EL ÁREA LIBRE (~78%) --- */
       const neuronLabelAnchors = [
-        { full: 'Soma piramidal (CA1/CA3)', short: 'Soma', pos: new THREE.Vector3(-1.05, -0.35, 0.28), side: 'left', color: '#38bdf8' },
-        { full: 'Núcleo y nucléolo', short: 'Núcleo', pos: new THREE.Vector3(-1.02, 0.05, 0.08), side: 'left', color: '#818cf8' },
-        { full: 'Dendrita apical (CA1)', short: 'Dendrita apical', pos: new THREE.Vector3(-3.45, 0.42, -0.04), side: 'left', color: '#06b6d4' },
-        { full: 'Espinas dendríticas', short: 'Espinas', pos: new THREE.Vector3(-2.85, 0.55, 0.08), side: 'left', color: '#7dd3fc' },
-        { full: 'Sinapsis GABA (Cl⁻)', short: 'Sinapsis GABA', pos: new THREE.Vector3(-0.95, 0.54, 0.05), side: 'left', color: '#22d3ee' },
-        { full: 'Cono axónico y AIS', short: 'Cono axónico', pos: new THREE.Vector3(-0.22, -0.02, 0.0), side: 'right', color: '#f59e0b' },
-        { full: 'Vaina de mielina', short: 'Mielina', pos: new THREE.Vector3(1.58, 0.02, 0.0), side: 'right', color: '#cbd5e1' },
-        { full: 'Nodo de Ranvier (Na⁺/K⁺)', short: 'Nodo de Ranvier', pos: ranvierPositions[2].clone(), side: 'right', color: '#facc15' },
-        { full: 'Botón sináptico (Ca²⁺/Glu)', short: 'Botón sináptico', pos: new THREE.Vector3(4.52, -0.02, 0.0), side: 'right', color: '#ef4444' }
+        { full: 'Dendrita apical (CA1)', short: 'Dendrita apical', pos: new THREE.Vector3(-2.18, 0.38, -0.05), side: 'left', band: 'top', color: '#06b6d4' },
+        { full: 'Núcleo y nucléolo', short: 'Núcleo', pos: new THREE.Vector3(-0.74, 0.08, 0.08), side: 'left', band: 'top', color: '#818cf8' },
+        { full: 'Sinapsis GABA (Cl⁻)', short: 'Sinapsis GABA', pos: new THREE.Vector3(-0.75, 0.56, 0.05), side: 'left', band: 'top', color: '#22d3ee' },
+        { full: 'Nodo de Ranvier (Na⁺/K⁺)', short: 'Nodo de Ranvier', pos: ranvierPositions[2].clone(), side: 'right', band: 'top', color: '#facc15' },
+        { full: 'Botón sináptico (Ca²⁺/Glu)', short: 'Botón sináptico', pos: new THREE.Vector3(2.68, 0.04, 0.0), side: 'right', band: 'top', color: '#ef4444' },
+        { full: 'Espinas dendríticas', short: 'Espinas', pos: new THREE.Vector3(-1.52, -0.68, 0.46), side: 'left', band: 'bottom', color: '#7dd3fc' },
+        { full: 'Soma piramidal (CA1/CA3)', short: 'Soma', pos: new THREE.Vector3(-0.78, -0.44, 0.26), side: 'left', band: 'bottom', color: '#38bdf8' },
+        { full: 'Cono axónico y AIS', short: 'Cono axónico', pos: new THREE.Vector3(-0.12, -0.10, 0.02), side: 'right', band: 'bottom', color: '#f59e0b' },
+        { full: 'Vaina de mielina', short: 'Mielina', pos: axonCurve.getPointAt(0.60), side: 'right', band: 'bottom', color: '#cbd5e1' }
       ];
 
       const brainLabelAnchors = [
-        { full: '1. Corteza Cerebral (Capas III–V)', short: 'Corteza (III–V)', pos: new THREE.Vector3(-0.95, 0.85, 0.52), side: 'left', color: '#38bdf8' },
-        { full: '2. Hipocampo (Sectores CA1 / CA3)', short: 'Hipocampo CA1/CA3', pos: new THREE.Vector3(-0.78, 0.22, -0.52), side: 'left', color: '#f59e0b' },
-        { full: '3. Lóbulo Piriforme / Temporal', short: 'Lób. Piriforme', pos: new THREE.Vector3(-0.74, -0.38, 0.42), side: 'left', color: '#ef4444' },
-        { full: '4. Cuerpo Calloso (Comisura)', short: 'Cuerpo Calloso', pos: new THREE.Vector3(0.0, 0.66, 0.12), side: 'right', color: '#06b6d4' },
-        { full: '5. Tálamo Medial (Circuito Ca²⁺ T)', short: 'Tálamo Medial', pos: new THREE.Vector3(0.22, 0.15, -0.05), side: 'right', color: '#a78bfa' },
-        { full: '6. BHE Endotelial (Glicoproteína-P)', short: 'BHE (P-gp)', pos: new THREE.Vector3(0.65, -0.66, 1.16), side: 'right', color: '#10b981' }
+        { full: '1. Corteza Cerebral (Capas III–V)', short: 'Corteza (III–V)', pos: new THREE.Vector3(-0.95, 0.85, 0.52), side: 'left', band: 'top', color: '#38bdf8' },
+        { full: '2. Hipocampo (Sectores CA1 / CA3)', short: 'Hipocampo CA1/CA3', pos: new THREE.Vector3(-0.78, 0.22, -0.52), side: 'left', band: 'top', color: '#f59e0b' },
+        { full: '3. Lóbulo Piriforme / Temporal', short: 'Lób. Piriforme', pos: new THREE.Vector3(-0.74, -0.38, 0.42), side: 'left', band: 'bottom', color: '#ef4444' },
+        { full: '4. Cuerpo Calloso (Comisura)', short: 'Cuerpo Calloso', pos: new THREE.Vector3(0.0, 0.66, 0.12), side: 'right', band: 'top', color: '#06b6d4' },
+        { full: '5. Tálamo Medial (Circuito Ca²⁺ T)', short: 'Tálamo Medial', pos: new THREE.Vector3(0.22, 0.15, -0.05), side: 'right', band: 'bottom', color: '#a78bfa' },
+        { full: '6. BHE Endotelial (Glicoproteína-P)', short: 'BHE (P-gp)', pos: new THREE.Vector3(0.65, -0.66, 1.16), side: 'right', band: 'bottom', color: '#10b981' }
       ];
 
       let labelItems = [];
@@ -5352,22 +5606,26 @@
         labelsLayer.innerHTML = '';
         labelsSvg.innerHTML = '';
         const list = activeView === 'neuron' ? neuronLabelAnchors : brainLabelAnchors;
-        const isCompact = window.innerWidth < 480;
+        const w = container.clientWidth || window.innerWidth;
+        const useBands = (activeView === 'neuron') || (w < 560);
+        const useShortText = (w < 640) || (activeView === 'neuron' && w < 780);
 
         labelItems = list.map(a => {
           const el = document.createElement('div');
-          el.className = `label3d-pin side-${a.side}`;
-          el.textContent = isCompact ? a.short : a.full;
+          el.className = useBands ? 'label3d-pin band-pin' : `label3d-pin side-${a.side}`;
+          el.style.borderColor = a.color;
+          el.textContent = useShortText ? a.short : a.full;
           labelsLayer.appendChild(el);
 
           const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
           line.setAttribute('stroke', a.color);
-          line.setAttribute('stroke-width', '1.4');
+          line.setAttribute('stroke-width', '1.35');
           line.setAttribute('stroke-dasharray', '3 3');
+          line.setAttribute('opacity', '0.82');
           labelsSvg.appendChild(line);
 
           const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-          dot.setAttribute('r', '3.2');
+          dot.setAttribute('r', '3.0');
           dot.setAttribute('fill', a.color);
           labelsSvg.appendChild(dot);
 
@@ -5378,20 +5636,21 @@
       function updateLabelsLayout() {
         if (!showLabels3d) return;
         const w = canvas3d.clientWidth;
-        const h = labelsLayer.clientHeight || (canvas3d.clientHeight - 54);
+        const h = labelsLayer.clientHeight || canvas3d.clientHeight;
         const isCompact = window.innerWidth < 480;
+        const useBands = (activeView === 'neuron') || (w < 560);
+        const useShortText = isCompact || (activeView === 'neuron' && w < 780);
         const activeGroup = activeView === 'neuron' ? neuronGroup : brainGroup;
 
-        const leftCol = [];
-        const rightCol = [];
+        const visibleItems = [];
 
         labelItems.forEach(item => {
-          item.el.textContent = isCompact ? item.anchor.short : item.anchor.full;
+          item.el.textContent = useShortText ? item.anchor.short : item.anchor.full;
+          item.el.className = useBands ? 'label3d-pin band-pin' : `label3d-pin side-${item.anchor.side}`;
           const worldPos = item.anchor.pos.clone().applyMatrix4(activeGroup.matrixWorld);
           const camSpace = worldPos.clone().applyMatrix4(camera.matrixWorldInverse);
           const ndc = worldPos.clone().project(camera);
 
-          // Ocultar si queda detrás de la cámara o fuera del frustum
           if (camSpace.z > -0.2 || ndc.z > 1 || ndc.z < -1 || Math.abs(ndc.x) > 1.15 || Math.abs(ndc.y) > 1.15) {
             item.el.style.display = 'none';
             item.line.style.display = 'none';
@@ -5403,39 +5662,74 @@
           item.line.style.display = 'block';
           item.dot.style.display = 'block';
 
-          const tx = Math.max(10, Math.min(w - 10, (ndc.x * 0.5 + 0.5) * w));
-          const ty = Math.max(14, Math.min(h - 14, (-ndc.y * 0.5 + 0.5) * h));
-          item.tx = tx;
-          item.ty = ty;
-          item.desiredY = ty;
-
-          if (item.anchor.side === 'left') leftCol.push(item);
-          else rightCol.push(item);
+          item.tx = Math.max(10, Math.min(w - 10, (ndc.x * 0.5 + 0.5) * w));
+          item.ty = Math.max(12, Math.min(h - 12, (-ndc.y * 0.5 + 0.5) * h));
+          item.desiredY = item.ty;
+          visibleItems.push(item);
         });
 
-        // Resolución de solapamiento vertical por barrido en cada columna
-        [leftCol, rightCol].forEach(col => {
-          col.sort((a, b) => a.desiredY - b.desiredY);
-          const minGap = isCompact ? 26 : 32;
-          let prevY = 6;
-          col.forEach(it => {
-            it.finalY = Math.max(prevY, it.desiredY - 12);
-            prevY = it.finalY + Math.max(minGap, it.el.offsetHeight + 4); /* glue G4: real label height */
-          });
-          const overflow = prevY - minGap - (h - 26);
-          if (overflow > 0) {
-            for (let i = col.length - 1; i >= 0; i--) {
-              col[i].finalY = Math.max(6 + i * (minGap - 3), col[i].finalY - overflow);
+        if (useBands) {
+          // Etiquetas en franja superior e inferior: dejan toda la franja central libre para la neurona y la sinapsis
+          const topList = visibleItems.filter(it => it.anchor.band === 'top').sort((a, b) => a.tx - b.tx);
+          const botList = visibleItems.filter(it => it.anchor.band === 'bottom').sort((a, b) => a.tx - b.tx);
+          const scopeW = isCompact ? 120 : 166;
+          const scopeH = isCompact ? 40 : 56;
+
+          let curX = 6, curY = 6, rowH = 0;
+          topList.forEach(it => {
+            const iw = it.el.offsetWidth || 72;
+            const ih = it.el.offsetHeight || 20;
+            const rightLimit = curY < scopeH ? (w - scopeW - 8) : (w - 6);
+            if (curX + iw > rightLimit && curX > 6) {
+              curX = 6;
+              curY += rowH + 4;
+              rowH = 0;
             }
-          }
-          col.forEach(it => {
+            it.finalX = curX;
+            it.finalY = curY;
+            curX += iw + 5;
+            rowH = Math.max(rowH, ih);
+          });
+
+          const botRows = [[]];
+          let bCurX = 6;
+          botList.forEach(it => {
+            const iw = it.el.offsetWidth || 72;
+            if (bCurX + iw > w - 6 && botRows[botRows.length - 1].length > 0) {
+              botRows.push([]);
+              bCurX = 6;
+            }
+            botRows[botRows.length - 1].push(it);
+            bCurX += iw + 5;
+          });
+
+          let totalBotH = 0;
+          const rowHeights = botRows.map(r => {
+            const rh = r.reduce((m, it) => Math.max(m, it.el.offsetHeight || 20), 0);
+            totalBotH += rh;
+            return rh;
+          });
+          totalBotH += Math.max(0, botRows.length - 1) * 4;
+
+          let bY = h - totalBotH - 6;
+          botRows.forEach((r, rIdx) => {
+            let rx = 6;
+            r.forEach(it => {
+              const iw = it.el.offsetWidth || 72;
+              it.finalX = rx;
+              it.finalY = bY;
+              rx += iw + 5;
+            });
+            bY += rowHeights[rIdx] + 4;
+          });
+
+          [...topList, ...botList].forEach(it => {
+            it.el.style.left = `${Math.round(it.finalX)}px`;
             it.el.style.top = `${Math.round(it.finalY)}px`;
-            const rect = it.el.getBoundingClientRect();
-            const parentRect = labelsLayer.getBoundingClientRect();
-            const boxX = it.anchor.side === 'left'
-              ? (rect.right - parentRect.left)
-              : (rect.left - parentRect.left);
-            const boxY = (rect.top - parentRect.top) + rect.height * 0.5;
+            const iw = it.el.offsetWidth || 72;
+            const ih = it.el.offsetHeight || 20;
+            const boxX = it.finalX + iw * 0.5;
+            const boxY = it.anchor.band === 'top' ? (it.finalY + ih) : it.finalY;
 
             it.line.setAttribute('x1', boxX);
             it.line.setAttribute('y1', boxY);
@@ -5444,27 +5738,87 @@
             it.dot.setAttribute('cx', it.tx);
             it.dot.setAttribute('cy', it.ty);
           });
-        });
+        } else {
+          // Columnas laterales en vista Cerebro de escritorio usando la altura real (offsetHeight + 4)
+          const leftCol = visibleItems.filter(it => it.anchor.side === 'left');
+          const rightCol = visibleItems.filter(it => it.anchor.side === 'right');
+
+          [leftCol, rightCol].forEach(col => {
+            col.sort((a, b) => a.desiredY - b.desiredY);
+            const minGap = isCompact ? 26 : 32;
+            let prevY = 56;
+            col.forEach(it => {
+              it.el.style.left = '';
+              it.el.style.right = '';
+              it.finalY = Math.max(prevY, it.desiredY - 12);
+              prevY = it.finalY + Math.max(minGap, it.el.offsetHeight + 4); /* glue G4: real label height */
+            });
+            const overflow = prevY - minGap - (h - 22);
+            if (overflow > 0) {
+              for (let i = col.length - 1; i >= 0; i--) {
+                col[i].finalY = Math.max(56 + i * (minGap - 2), col[i].finalY - overflow);
+              }
+            }
+            col.forEach(it => {
+              it.el.style.top = `${Math.round(it.finalY)}px`;
+              const rect = it.el.getBoundingClientRect();
+              const parentRect = labelsLayer.getBoundingClientRect();
+              const boxX = it.anchor.side === 'left'
+                ? (rect.right - parentRect.left)
+                : (rect.left - parentRect.left);
+              const boxY = (rect.top - parentRect.top) + rect.height * 0.5;
+
+              it.line.setAttribute('x1', boxX);
+              it.line.setAttribute('y1', boxY);
+              it.line.setAttribute('x2', it.tx);
+              it.line.setAttribute('y2', it.ty);
+              it.dot.setAttribute('cx', it.tx);
+              it.dot.setAttribute('cy', it.ty);
+            });
+          });
+        }
       }
 
-      // Encuadre automático con Box3 proyectado para ocupar ~75% del lado limitante
+      // Encuadre con Box3 proyectado descontando las franjas/columnas reservadas para etiquetas (~78% del área libre)
       const camGoalPos = new THREE.Vector3();
       const targetGoalPos = new THREE.Vector3();
       let isFramingSmooth = false;
 
-      function computeBox3Frame(group, viewDir, smooth = true) {
+      function computeBox3Frame(group, viewDir, smooth = true, customBox = null) {
         group.updateWorldMatrix(true, true);
-        const box = new THREE.Box3().setFromObject(group);
+        const box = customBox ? customBox.clone() : new THREE.Box3().setFromObject(group);
         const center = new THREE.Vector3();
         const size = new THREE.Vector3();
         box.getCenter(center);
         box.getSize(size);
 
+        const w = container.clientWidth || 600;
+        const h = container.clientHeight || 470;
+        const useBands = (activeView === 'neuron') || (w < 560);
+
+        let reservedLeft = 10, reservedRight = 10, reservedTop = 42, reservedBottom = 10;
+        if (showLabels3d) {
+          if (useBands) {
+            reservedTop = w < 480 ? 68 : 74;
+            reservedBottom = w < 480 ? 48 : 48;
+            reservedLeft = 8;
+            reservedRight = 8;
+          } else {
+            const colW = Math.min(w * 0.27, 145);
+            reservedLeft = colW;
+            reservedRight = colW;
+            reservedTop = 46;
+            reservedBottom = 14;
+          }
+        }
+
+        const freeW = Math.max(150, w - reservedLeft - reservedRight);
+        const freeH = Math.max(150, h - reservedTop - reservedBottom);
+
         const dir = viewDir.clone().normalize();
         const right = new THREE.Vector3().crossVectors(new THREE.Vector3(0, 1, 0), dir).normalize();
         const up = new THREE.Vector3().crossVectors(dir, right).normalize();
 
-        // Proyección de las 8 esquinas del Box3 sobre el plano de la cámara
         let maxHalfW = 0.1;
         let maxHalfH = 0.1;
         let maxHalfD = 0.1;
@@ -5481,13 +5835,20 @@
 
         const vFovRad = THREE.MathUtils.degToRad(camera.fov);
         const hFovRad = 2 * Math.atan(Math.tan(vFovRad * 0.5) * camera.aspect);
-        const fillRatio = 0.75; // ~75% del lado limitante
-        const distH = maxHalfH / (Math.tan(vFovRad * 0.5) * fillRatio);
-        const distW = maxHalfW / (Math.tan(hFovRad * 0.5) * fillRatio);
-        const dist = Math.max(distH, distW) + maxHalfD * 0.45;
+        const fillRatio = 0.80; // ~78-80% del área libre descontando etiquetas
+        const effFillW = fillRatio * (freeW / w);
+        const effFillH = fillRatio * (freeH / h);
 
-        targetGoalPos.copy(center);
-        camGoalPos.copy(center).addScaledVector(dir, dist);
+        const distH = maxHalfH / (Math.tan(vFovRad * 0.5) * effFillH);
+        const distW = maxHalfW / (Math.tan(hFovRad * 0.5) * effFillW);
+        const dist = Math.max(distH, distW) + maxHalfD * 0.30;
+
+        // Compensar asimetría vertical entre franja superior e inferior para centrar en el área libre
+        const pixelOffsetY = (reservedTop - reservedBottom) * 0.5;
+        const worldPerPixelY = (2 * dist * Math.tan(vFovRad * 0.5)) / h;
+
+        targetGoalPos.copy(center).addScaledVector(up, pixelOffsetY * worldPerPixelY);
+        camGoalPos.copy(targetGoalPos).addScaledVector(dir, dist);
 
         if (!smooth || prefersReducedMotion) {
           controls.target.copy(targetGoalPos);
@@ -5500,8 +5861,17 @@
       }
 
       function frameCurrentView(smooth = true) {
+        const w = container.clientWidth || 600;
+        const h = container.clientHeight || 470;
         if (activeView === 'neuron') {
-          computeBox3Frame(neuronGroup, new THREE.Vector3(0.06, 0.16, 1.0), smooth);
+          const isNarrow = w < 560 || w < h;
+          const roiBox = isNarrow
+            ? new THREE.Box3(new THREE.Vector3(-1.95, -0.98, -0.7), new THREE.Vector3(3.25, 1.02, 0.7))
+            : new THREE.Box3(new THREE.Vector3(-2.65, -1.08, -0.75), new THREE.Vector3(3.38, 1.12, 0.75));
+          const vDir = isNarrow
+            ? new THREE.Vector3(0.24, 0.20, 0.95)
+            : new THREE.Vector3(0.10, 0.16, 0.98);
+          computeBox3Frame(neuronGroup, vDir, smooth, roiBox);
         } else {
           computeBox3Frame(brainGroup, new THREE.Vector3(0.72, 0.42, 0.85), smooth);
         }
@@ -5529,7 +5899,6 @@
         setView3D('brain', true);
       });
 
-      // Móvil: 1 dedo en vertical hace scroll (pan-y), 1 dedo en horizontal rota en acimut, 2 dedos rotan/zoom
       let touchState = { count: 0, startX: 0, startY: 0, mode: null };
       canvas3d.addEventListener('touchstart', (e) => {
         touchState.count = e.touches.length;
@@ -5568,7 +5937,6 @@
         touchState.mode = null;
       }, { passive: true });
 
-      // Controles e interacciones
       seizureModeSelect.addEventListener('change', () => {
         SoundEngine.pulse();
         updateBrain3DState();
@@ -5587,6 +5955,7 @@
         showLabels3d = !showLabels3d;
         labelsLayer.style.display = showLabels3d ? 'block' : 'none';
         labelsSvg.style.display = showLabels3d ? 'block' : 'none';
+        frameCurrentView(true);
       });
       document.getElementById('resetCam3dBtn').addEventListener('click', () => {
         SoundEngine.blip();
@@ -5636,7 +6005,12 @@
           }
         }
 
-        // Velocidad de disparo del potencial de acción según modo e intensidad
+        // Deriva orgánica suave del neuropilo de fondo
+        if (!prefersReducedMotion) {
+          neuropilPoints.rotation.y = Math.sin(now * 0.00025) * 0.08;
+          neuropilPoints.position.y = Math.cos(now * 0.00035) * 0.06;
+        }
+
         const baseFreq = mode === 'status' ? (0.85 + sliderNorm * 1.1) : (mode === 'secondary' ? (0.55 + sliderNorm * 0.85) : (0.35 + sliderNorm * 0.75));
         const stepSpeed = prefersReducedMotion && manualSpikeQueue === 0 ? 0.18 : (baseFreq + (manualSpikeQueue > 0 ? 0.65 : 0));
         apProgress += dt * stepSpeed;
@@ -5645,23 +6019,30 @@
           if (manualSpikeQueue > 0) manualSpikeQueue--;
         }
 
-        // Conducción saltatoria: rápida en internodos de mielina y regeneración brillante en cada nodo de Ranvier
+        // Conducción saltatoria con destello luminoso (bloom aditivo) al regenerarse en cada nodo de Ranvier
         const axonPhase = Math.min(1, apProgress / 0.68);
         let saltatoryU = axonPhase;
-        ranvierUs.forEach(nu => {
+        let nodalFlash = 0;
+        ranvierUs.forEach((nu, rIdx) => {
           const distNode = axonPhase - nu;
-          if (Math.abs(distNode) < 0.055) {
-            saltatoryU = nu + distNode * 0.35; // pausa regenerativa breve en el nodo
+          if (Math.abs(distNode) < 0.065) {
+            saltatoryU = nu + distNode * 0.32;
+            const nodeGlow = 1 - Math.abs(distNode) / 0.065;
+            nodalFlash = Math.max(nodalFlash, nodeGlow);
+            ranvierRings[rIdx].scale.setScalar(1 + nodeGlow * 0.35);
+          } else {
+            ranvierRings[rIdx].scale.setScalar(1.0);
           }
         });
         saltatoryU = Math.max(0, Math.min(1, saltatoryU));
         const wavePos = axonCurve.getPointAt(saltatoryU);
         apWaveMesh.position.copy(wavePos);
-        apWaveMesh.visible = apProgress <= 0.75;
+        apWaveMesh.visible = apProgress <= 0.76;
+        const haloScale = 0.95 + nodalFlash * 0.55 + wavePulseBoost * 0.3;
+        apHaloSprite.scale.set(haloScale, haloScale, haloScale);
         apPointLight.position.copy(wavePos);
-        apPointLight.intensity = apProgress <= 0.75 ? 2.2 : 0.3;
+        apPointLight.intensity = apProgress <= 0.76 ? (2.2 + nodalFlash * 1.8) : 0.35;
 
-        // Onda en la colateral axónica tras cruzar el 2.º nodo de Ranvier
         if (saltatoryU > ranvierUs[2] && apProgress <= 0.78) {
           const colU = Math.min(1, (saltatoryU - ranvierUs[2]) / (1 - ranvierUs[2]));
           colWaveMesh.visible = true;
@@ -5670,13 +6051,11 @@
           colWaveMesh.visible = false;
         }
 
-        // Flujos iónicos en cada nodo de Ranvier: Na+ entra (amarillo) y K+ sale (violeta)
-        nodalIons.forEach((ion, idx) => {
+        nodalIons.forEach((ion) => {
           const delta = saltatoryU - ion.nodeU;
-          // Fase de entrada de Na+ cuando el frente alcanza el nodo
-          if (delta > -0.08 && delta < 0.09 && apProgress <= 0.75) {
-            const uIn = (delta + 0.08) / 0.17; // 0 (afuera) -> 1 (adentro del axón)
-            const rNa = 0.26 * (1 - uIn) + 0.04;
+          if (delta > -0.08 && delta < 0.09 && apProgress <= 0.76) {
+            const uIn = (delta + 0.08) / 0.17;
+            const rNa = 0.28 * (1 - uIn) + 0.05;
             ion.naDot.position.set(
               ion.nodePos.x,
               ion.nodePos.y + Math.cos(ion.ang) * rNa,
@@ -5686,16 +6065,15 @@
           } else {
             ion.naDot.position.set(
               ion.nodePos.x,
-              ion.nodePos.y + Math.cos(ion.ang) * 0.24,
-              ion.nodePos.z + Math.sin(ion.ang) * 0.24
+              ion.nodePos.y + Math.cos(ion.ang) * 0.26,
+              ion.nodePos.z + Math.sin(ion.ang) * 0.26
             );
             ion.naDot.scale.setScalar(0.65);
           }
 
-          // Fase de salida de K+ durante la repolarización nodal
-          if (delta >= 0.04 && delta < 0.24 && apProgress <= 0.85) {
-            const uOut = (delta - 0.04) / 0.20; // 0 (adentro) -> 1 (afuera)
-            const rK = 0.04 + uOut * 0.28;
+          if (delta >= 0.04 && delta < 0.24 && apProgress <= 0.86) {
+            const uOut = (delta - 0.04) / 0.20;
+            const rK = 0.05 + uOut * 0.30;
             ion.kDot.position.set(
               ion.nodePos.x + 0.02,
               ion.nodePos.y + Math.cos(ion.ang + 0.5) * rK,
@@ -5705,19 +6083,18 @@
           } else {
             ion.kDot.position.set(
               ion.nodePos.x + 0.02,
-              ion.nodePos.y + Math.cos(ion.ang + 0.5) * 0.05,
-              ion.nodePos.z + Math.sin(ion.ang + 0.5) * 0.05
+              ion.nodePos.y + Math.cos(ion.ang + 0.5) * 0.06,
+              ion.nodePos.z + Math.sin(ion.ang + 0.5) * 0.06
             );
             ion.kDot.scale.setScalar(0.55);
           }
         });
 
-        // Terminal sináptico: entrada de Ca2+, fusión vesicular y liberación de glutamato
         const synapticActive = apProgress > 0.55 && apProgress < 0.96;
         const synU = synapticActive ? (apProgress - 0.55) / 0.41 : 0;
 
         caIons.forEach(ca => {
-          const rCa = synapticActive ? (0.34 * (1 - Math.min(1, synU * 1.6)) + 0.08) : 0.34;
+          const rCa = synapticActive ? (0.38 * (1 - Math.min(1, synU * 1.6)) + 0.09) : 0.38;
           ca.position.set(
             boutonPos.x - 0.05 + Math.sin(ca.userData.ang) * 0.06,
             boutonPos.y + Math.cos(ca.userData.ang) * rCa,
@@ -5726,7 +6103,7 @@
         });
 
         vesicles.forEach(v => {
-          const fuseX = synapticActive ? Math.sin(synU * Math.PI) * 0.14 : 0;
+          const fuseX = synapticActive ? Math.sin(synU * Math.PI) * 0.16 : 0;
           v.position.set(v.userData.home.x + fuseX, v.userData.home.y, v.userData.home.z);
         });
 
@@ -5735,7 +6112,7 @@
             const cleftU = ((synU + gp.userData.phase) % 1);
             gp.visible = true;
             gp.position.set(
-              4.46 + cleftU * 0.34,
+              2.68 + cleftU * 0.32,
               -0.02 + gp.userData.seedY * (0.5 + cleftU * 0.6),
               gp.userData.seedZ * (0.5 + cleftU * 0.6)
             );
@@ -5744,7 +6121,6 @@
           }
         });
 
-        // Reclutamiento de la 2.ª neurona postsináptica en modo secundario y status
         if ((mode === 'secondary' || mode === 'status') && (synapticActive || mode === 'status')) {
           postNeuronMat.color.setHex(mode === 'status' ? 0xef4444 : 0xf59e0b);
           postNeuronMat.emissive.setHex(mode === 'status' ? 0x991b1b : 0xb45309);
@@ -5753,7 +6129,6 @@
           postNeuronMat.emissive.setHex(0x115e59);
         }
 
-        // Sinapsis GABAérgica sobre el soma: entrada de Cl- (reducida en Status por endocitosis GABA-A)
         clIons.forEach((cl, idx) => {
           if (mode === 'status' && idx % 2 === 0) {
             cl.visible = false;
@@ -5763,18 +6138,16 @@
           const clU = ((now * 0.0009) + cl.userData.phase) % 1;
           cl.position.set(
             cl.userData.offsetX,
-            0.52 - clU * 0.38,
+            0.54 - clU * 0.40,
             cl.userData.offsetZ
           );
         });
 
-        // Mini osciloscopio 2D (-70 mV reposo, +30 mV pico, PDS en Status)
         const currentMv = computeMembraneVoltage(apProgress, mode, sliderNorm);
         scopeHistory.push(currentMv);
         if (scopeHistory.length > 98) scopeHistory.shift();
         drawScope2D(currentMv, mode);
 
-        // Animación de la vista Cerebro
         if (activeView === 'brain' && !prefersReducedMotion) {
           brainGroup.rotation.y += 0.0018 + sliderNorm * 0.002;
           const s1 = 1 + ((now * (0.002 + sliderNorm * 0.003)) % 2.8) + wavePulseBoost * 1.4;
@@ -5800,7 +6173,6 @@
         updateLabelsLayout();
       }
 
-      // Pausar render cuando #mod-3d sale del viewport
       const runPauseObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           is3dInViewport = entry.isIntersecting;
