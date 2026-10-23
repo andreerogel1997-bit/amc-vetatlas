@@ -163,6 +163,18 @@
       z-index: 0;
     }
 
+    /* Regla base uniforme para iconos Lucide */
+    .lucide {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      flex-shrink: 0;
+    }
+
     /* Contenedor global */
     .container {
       width: 100%;
@@ -245,8 +257,8 @@
     }
 
     .brand-seal svg {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
     }
 
     .brand-text {
@@ -299,6 +311,7 @@
     .nav-links a {
       display: inline-flex;
       align-items: center;
+      gap: 0.45rem;
       min-height: 44px;
       text-decoration: none;
       color: var(--text-secondary);
@@ -307,6 +320,12 @@
       padding: 0.5rem 0.9rem;
       border-radius: var(--radius-pill);
       transition: color 0.25s ease, background 0.25s ease;
+    }
+
+    .nav-links a svg {
+      width: 20px;
+      height: 20px;
+      color: var(--accent-cyan);
     }
 
     .nav-links a:hover {
@@ -338,6 +357,12 @@
 
     .icon-control-btn {
       padding: 0.5rem 0.8rem;
+    }
+
+    .icon-control-btn svg,
+    .audio-btn svg {
+      width: 20px;
+      height: 20px;
     }
 
     .icon-control-btn:hover,
@@ -388,6 +413,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 0.45rem;
       min-height: 44px;
       text-decoration: none;
       font-family: var(--font-display);
@@ -398,6 +424,12 @@
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       transition: all 0.2s ease;
+    }
+
+    .mobile-quick-nav a svg {
+      width: 20px;
+      height: 20px;
+      color: var(--accent-cyan);
     }
 
     .mobile-quick-nav a:active,
@@ -471,8 +503,8 @@
     }
 
     .hero-badge svg {
-      width: 15px;
-      height: 15px;
+      width: 20px;
+      height: 20px;
       flex-shrink: 0;
     }
 
@@ -527,6 +559,12 @@
       cursor: pointer;
       box-shadow: 0 12px 30px -8px rgba(14, 165, 233, 0.55);
       transition: transform 0.25s var(--transition-smooth), box-shadow 0.25s ease;
+    }
+
+    .btn-primary svg,
+    .btn-secondary svg {
+      width: 20px;
+      height: 20px;
     }
 
     .btn-primary:hover {
@@ -646,6 +684,11 @@
       gap: 0.45rem;
     }
 
+    .hud-title svg {
+      width: 20px;
+      height: 20px;
+    }
+
     .hud-tag {
       font-family: var(--font-mono);
       font-size: 0.68rem;
@@ -683,8 +726,8 @@
     }
 
     .hud-list svg {
-      width: 18px;
-      height: 18px;
+      width: 22px;
+      height: 22px;
       color: var(--accent-cyan);
       flex-shrink: 0;
       margin-top: 2px;
@@ -714,6 +757,11 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
+    }
+
+    .section-eyebrow svg {
+      width: 20px;
+      height: 20px;
     }
 
     .section-title {
@@ -775,7 +823,7 @@
       background: var(--bg-input);
       border: 1px solid var(--border-strong);
       border-radius: var(--radius-md);
-      padding: 0.85rem 3.4rem 0.85rem 3rem;
+      padding: 0.85rem 3.4rem 0.85rem 3.1rem;
       color: var(--text-primary);
       font-family: var(--font-sans);
       font-size: 1rem;
@@ -812,6 +860,11 @@
       align-items: center;
       justify-content: center;
       transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .search-clear-btn svg {
+      width: 20px;
+      height: 20px;
     }
 
     .search-clear-btn.visible {
@@ -851,6 +904,11 @@
       transition: all 0.2s ease;
     }
 
+    .reset-filters-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
     .reset-filters-btn.visible {
       display: inline-flex;
     }
@@ -886,11 +944,24 @@
       gap: 0.45rem;
     }
 
+    .filter-label-left svg {
+      width: 20px;
+      height: 20px;
+      color: var(--accent-cyan);
+    }
+
     .swipe-hint {
       display: none;
+      align-items: center;
+      gap: 0.3rem;
       font-size: 0.68rem;
       color: var(--accent-cyan);
       font-weight: 500;
+    }
+
+    .swipe-hint svg {
+      width: 20px;
+      height: 20px;
     }
 
     .chips-container {
@@ -919,10 +990,10 @@
     }
 
     .filter-chip svg {
-      width: 16px;
-      height: 16px;
+      width: 20px;
+      height: 20px;
       flex-shrink: 0;
-      opacity: 0.88;
+      opacity: 0.9;
       transition: transform 0.25s var(--transition-smooth);
     }
 
@@ -934,7 +1005,7 @@
     }
 
     .filter-chip:hover svg {
-      transform: scale(1.12);
+      transform: scale(1.1);
     }
 
     .filter-chip.active {
@@ -1045,8 +1116,8 @@
     }
 
     .card-area-badge svg {
-      width: 14px;
-      height: 14px;
+      width: 20px;
+      height: 20px;
       color: var(--card-accent);
     }
 
@@ -1054,6 +1125,9 @@
       font-family: var(--font-mono);
       font-size: 0.74rem;
       color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
     }
 
     .card-title {
@@ -1084,11 +1158,11 @@
     .species-pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.4rem;
       font-family: var(--font-mono);
       font-size: 0.72rem;
       font-weight: 500;
-      padding: 0.26rem 0.64rem;
+      padding: 0.28rem 0.68rem;
       border-radius: 8px;
       background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
@@ -1096,10 +1170,19 @@
     }
 
     .species-pill svg {
-      width: 13px;
-      height: 13px;
+      width: 20px;
+      height: 20px;
       color: var(--card-accent);
     }
+
+    /* Colores distintivos por especie que respetan tema claro y oscuro */
+    .species-pill[data-species-pill="Caninos"] svg { color: var(--accent-cyan); }
+    .species-pill[data-species-pill="Felinos"] svg { color: var(--accent-violet); }
+    .species-pill[data-species-pill="Equinos"] svg { color: var(--accent-amber); }
+    .species-pill[data-species-pill="Porcinos"] svg { color: var(--accent-rose); }
+    .species-pill[data-species-pill="Rumiantes"] svg { color: var(--accent-emerald); }
+    .species-pill[data-species-pill="Aves"] svg { color: var(--accent-cyan); }
+    .species-pill[data-species-pill="Conejos"] svg { color: var(--accent-violet); }
 
     .card-cta {
       display: inline-flex;
@@ -1120,8 +1203,8 @@
     }
 
     .card-cta svg {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       transition: transform 0.25s var(--transition-smooth);
       color: var(--card-accent);
     }
@@ -1165,6 +1248,11 @@
       background: rgba(148, 163, 184, 0.16);
       color: var(--text-secondary);
       border: 1px solid var(--border-subtle);
+    }
+
+    .coming-soon-pill svg {
+      width: 20px;
+      height: 20px;
     }
 
     /* ==================== SECCIÓN POR ÁREAS CON CONTADORES ==================== */
@@ -1228,8 +1316,8 @@
     }
 
     .area-icon-box svg {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
     }
 
     .area-counter-badge {
@@ -1296,7 +1384,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 1rem;
+      gap: 0.65rem;
     }
 
     .footer-legal {
@@ -1304,6 +1392,29 @@
       color: var(--text-secondary);
       max-width: 820px;
       line-height: 1.65;
+    }
+
+    .footer-credits {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-credits a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--border-highlight);
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .footer-credits a:hover {
+      color: var(--text-primary);
+      border-bottom-color: var(--accent-cyan);
     }
 
     /* ==================== RESPONSIVE Y MÓVIL 360-430 PX IMPECABLE ==================== */
@@ -1380,7 +1491,7 @@
         padding: 1.15rem 1rem;
       }
       .swipe-hint {
-        display: inline-block;
+        display: inline-flex;
       }
       /* Chips con scroll horizontal cómodo al pulgar en móvil */
       .chips-container {
@@ -1447,36 +1558,60 @@
 
       <div class="nav-actions">
         <ul class="nav-links">
-          <li><a href="#catalogo-clinico" class="nav-anchor">Catálogo Clínico</a></li>
-          <li><a href="#mapa-areas" class="nav-anchor">Áreas Médicas</a></li>
+          <li>
+            <a href="#catalogo-clinico" class="nav-anchor">
+              <!-- Lucide: book-open -->
+              <svg class="lucide lucide-book-open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 7v14" />
+                <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
+              </svg>
+              <span>Catálogo Clínico</span>
+            </a>
+          </li>
+          <li>
+            <a href="#mapa-areas" class="nav-anchor">
+              <!-- Lucide: layers -->
+              <svg class="lucide lucide-layers" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
+                <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
+                <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
+              </svg>
+              <span>Áreas Médicas</span>
+            </a>
+          </li>
         </ul>
 
-        <!-- Botón de Tema Sol / Luna -->
+        <!-- Botón de Tema Sol / Luna (solo-icono con aria-label) -->
         <button type="button" id="theme-toggle-btn" class="icon-control-btn" aria-label="Alternar tema claro u oscuro" title="Cambiar modo de color">
-          <!-- Icono Sol (visible en modo oscuro para pasar a claro) -->
-          <svg id="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          <!-- Lucide: sun (visible en modo oscuro para pasar a claro) -->
+          <svg id="theme-icon-sun" class="lucide lucide-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2" />
+            <path d="M12 20v2" />
+            <path d="m4.93 4.93 1.41 1.41" />
+            <path d="m17.66 17.66 1.41 1.41" />
+            <path d="M2 12h2" />
+            <path d="M20 12h2" />
+            <path d="m6.34 17.66-1.41 1.41" />
+            <path d="m19.07 4.93-1.41 1.41" />
           </svg>
-          <!-- Icono Luna (visible en modo claro para pasar a oscuro) -->
-          <svg id="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          <!-- Lucide: moon (visible en modo claro para pasar a oscuro) -->
+          <svg id="theme-icon-moon" class="lucide lucide-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="display:none;" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
           </svg>
         </button>
 
         <!-- Botón de Audio Arcade Espacial -->
-        <button type="button" id="audio-toggle-btn" class="audio-btn" aria-pressed="true" title="Alternar sintetizador espacial Web Audio">
-          <span class="pulse-dot"></span>
-          <svg id="audio-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <path id="audio-waves" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+        <button type="button" id="audio-toggle-btn" class="audio-btn" aria-pressed="true" aria-label="Alternar sintetizador de audio espacial" title="Alternar sintetizador espacial Web Audio">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <!-- Lucide: volume-2 / volume-x combinados -->
+          <svg id="audio-icon-svg" class="lucide lucide-volume-2" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path id="audio-waves" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" />
+            <g id="audio-mute-x" style="display:none;">
+              <line x1="22" x2="16" y1="9" y2="15" />
+              <line x1="16" x2="22" y1="9" y2="15" />
+            </g>
           </svg>
           <span id="audio-status-label">Audio: ON</span>
         </button>
@@ -1484,8 +1619,23 @@
 
       <!-- Barra de acceso rápido al pulgar en pantallas móviles -->
       <nav class="mobile-quick-nav" aria-label="Navegación rápida móvil">
-        <a href="#catalogo-clinico" class="nav-anchor">Catálogo Clínico</a>
-        <a href="#mapa-areas" class="nav-anchor">Áreas Médicas</a>
+        <a href="#catalogo-clinico" class="nav-anchor">
+          <!-- Lucide: book-open -->
+          <svg class="lucide lucide-book-open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 7v14" />
+            <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
+          </svg>
+          <span>Catálogo Clínico</span>
+        </a>
+        <a href="#mapa-areas" class="nav-anchor">
+          <!-- Lucide: layers -->
+          <svg class="lucide lucide-layers" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
+            <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
+            <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
+          </svg>
+          <span>Áreas Médicas</span>
+        </a>
       </nav>
     </div>
   </header>
@@ -1500,9 +1650,10 @@
     <div class="container hero-grid">
       <div class="hero-content reveal-on-scroll is-visible">
         <div class="hero-badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="3"></circle>
-            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+          <!-- Lucide: shield-check -->
+          <svg class="lucide lucide-shield-check" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+            <path d="m9 12 2 2 4-4" />
           </svg>
           <span>Plataforma de Medicina Veterinaria Basada en Evidencia</span>
         </div>
@@ -1518,12 +1669,19 @@
         <div class="hero-cta-group">
           <a href="#catalogo-clinico" class="btn-primary">
             <span>Explorar Atlas Clínico</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
+            <!-- Lucide: arrow-right -->
+            <svg class="lucide lucide-arrow-right" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
             </svg>
           </a>
           <a href="#mapa-areas" class="btn-secondary">
+            <!-- Lucide: layers -->
+            <svg class="lucide lucide-layers" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
+              <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
+              <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
+            </svg>
             <span>Ver Especialidades</span>
           </a>
         </div>
@@ -1547,8 +1705,9 @@
       <aside class="hero-hud-card reveal-on-scroll is-visible" aria-label="Arquitectura de cada guía">
         <div class="hud-header">
           <span class="hud-title">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            <!-- Lucide: activity -->
+            <svg class="lucide lucide-activity" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" />
             </svg>
             Arquitectura Didáctica
           </span>
@@ -1556,9 +1715,11 @@
         </div>
         <ul class="hud-list">
           <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"></path>
-              <path d="M9 21h6"></path>
+            <!-- Lucide: lightbulb -->
+            <svg class="lucide lucide-lightbulb" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+              <path d="M9 18h6" />
+              <path d="M10 22h4" />
             </svg>
             <div>
               <strong>Cascadas Fisiopatológicas</strong>
@@ -1566,10 +1727,11 @@
             </div>
           </li>
           <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            <!-- Lucide: box -->
+            <svg class="lucide lucide-box" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
             </svg>
             <div>
               <strong>Visualización Molecular y Tisular 3D</strong>
@@ -1577,11 +1739,13 @@
             </div>
           </li>
           <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
+            <!-- Lucide: file-text -->
+            <svg class="lucide lucide-file-text" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+              <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+              <path d="M10 9H8" />
+              <path d="M16 13H8" />
+              <path d="M16 17H8" />
             </svg>
             <div>
               <strong>Consensos Terapéuticos y Simulación</strong>
@@ -1599,11 +1763,12 @@
       <div class="container">
         <div class="section-header reveal-on-scroll">
           <span class="section-eyebrow">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="7" height="7"></rect>
-              <rect x="14" y="3" width="7" height="7"></rect>
-              <rect x="14" y="14" width="7" height="7"></rect>
-              <rect x="3" y="14" width="7" height="7"></rect>
+            <!-- Lucide: layout-grid -->
+            <svg class="lucide lucide-layout-grid" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect width="7" height="7" x="3" y="3" rx="1" />
+              <rect width="7" height="7" x="14" y="3" rx="1" />
+              <rect width="7" height="7" x="14" y="14" rx="1" />
+              <rect width="7" height="7" x="3" y="14" rx="1" />
             </svg>
             Explorador Clínico Interactivo
           </span>
@@ -1625,14 +1790,17 @@
                 aria-label="Buscar enfermedades en el atlas"
                 autocomplete="off"
               />
-              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <!-- Lucide: search -->
+              <svg class="search-icon lucide lucide-search" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
               </svg>
-              <button type="button" id="clear-search-btn" class="search-clear-btn" aria-label="Limpiar texto de búsqueda">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
+              <!-- Botón solo-icono con aria-label -->
+              <button type="button" id="clear-search-btn" class="search-clear-btn" aria-label="Limpiar texto de búsqueda" title="Limpiar búsqueda">
+                <!-- Lucide: x -->
+                <svg class="lucide lucide-x" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
                 </svg>
               </button>
             </div>
@@ -1640,12 +1808,13 @@
 
           <div class="filter-status-bar">
             <span id="results-counter-text">Mostrando el catálogo clínico completo</span>
-            <button type="button" id="reset-all-btn" class="reset-filters-btn">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
-                <path d="M3 3v5h5"></path>
+            <button type="button" id="reset-all-btn" class="reset-filters-btn" aria-label="Restablecer todos los filtros">
+              <!-- Lucide: rotate-ccw -->
+              <svg class="lucide lucide-rotate-ccw" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                <path d="M3 3v5h5" />
               </svg>
-              Restablecer filtros
+              <span>Restablecer filtros</span>
             </button>
           </div>
 
@@ -1653,12 +1822,20 @@
           <div class="filter-block">
             <div class="filter-block-label">
               <span class="filter-label-left">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                <!-- Lucide: activity -->
+                <svg class="lucide lucide-activity" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" />
                 </svg>
-                Filtrar por Área Clínica
+                <span>Filtrar por Área Clínica</span>
               </span>
-              <span class="swipe-hint">Desliza &rarr;</span>
+              <span class="swipe-hint">
+                <span>Desliza</span>
+                <!-- Lucide: arrow-right -->
+                <svg class="lucide lucide-arrow-right" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </span>
             </div>
             <div class="chips-container" id="area-chips-container" role="group" aria-label="Filtros por área clínica"></div>
           </div>
@@ -1667,15 +1844,23 @@
           <div class="filter-block">
             <div class="filter-block-label">
               <span class="filter-label-left">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-                  <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                  <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                <!-- Lucide: paw-print -->
+                <svg class="lucide lucide-paw-print" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="11" cy="4" r="2" />
+                  <circle cx="18" cy="8" r="2" />
+                  <circle cx="20" cy="16" r="2" />
+                  <path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z" />
                 </svg>
-                Filtrar por Especie Diana
+                <span>Filtrar por Especie Diana</span>
               </span>
-              <span class="swipe-hint">Desliza &rarr;</span>
+              <span class="swipe-hint">
+                <span>Desliza</span>
+                <!-- Lucide: arrow-right -->
+                <svg class="lucide lucide-arrow-right" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </span>
             </div>
             <div class="chips-container" id="species-chips-container" role="group" aria-label="Filtros por especie"></div>
           </div>
@@ -1691,10 +1876,11 @@
       <div class="container">
         <div class="section-header reveal-on-scroll">
           <span class="section-eyebrow">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-              <polyline points="2 17 12 22 22 17"></polyline>
-              <polyline points="2 12 12 17 22 12"></polyline>
+            <!-- Lucide: layers -->
+            <svg class="lucide lucide-layers" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
+              <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
+              <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
             </svg>
             Estructura Departamental
           </span>
@@ -1714,6 +1900,9 @@
     <div class="container footer-inner">
       <p class="footer-legal">
         AMC VetAtlas · Animal Medical Center, Santa Rosa (Ecuador). Guías didácticas preparadas por Andreé, médico veterinario. Contenido educativo, no sustituye la consulta clínica.
+      </p>
+      <p class="footer-credits">
+        Iconografía de interfaz por <a href="https://lucide.dev" target="_blank" rel="noopener noreferrer">Lucide</a> (licencia ISC).
       </p>
     </div>
   </footer>
@@ -1806,31 +1995,31 @@
     ];
 
     /* =========================================================================
-       2. ICONOGRAFÍA VECTORIAL SVG (CERO EMOJIS)
+       2. ICONOGRAFÍA VECTORIAL LUCIDE INLINE (SVG 20-24PX, STROKE 1.75, CERO EMOJIS)
     ========================================================================= */
     const AREA_ICONS = {
-      'Todas': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>`,
-      'Neurología': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04Z"/></svg>`,
-      'Infecciosas': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5M4.93 4.93l3.54 3.54M15.54 15.54l3.54 3.54M19.07 4.93l-3.54 3.54M8.46 15.54l-3.54 3.54"/></svg>`,
-      'Metabólicas/Endocrinas': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 19 6 19 14 12 18 5 14 5 6 12 2"/><path d="M12 18v4M5 10h14"/></svg>`,
-      'Dermatología': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12c3-2 6-2 9 0s6 2 9 0"/><path d="M2 17c3-2 6-2 9 0s6 2 9 0"/><path d="M12 3c0 4-3 6-3 9"/></svg>`,
-      'Cardiorrespiratorio': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
-      'Gastroenterología': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3v5a4 4 0 0 0 4 4h2a4 4 0 0 1 4 4v5"/><path d="M15 3a4 4 0 0 1 4 4v2a4 4 0 0 1-4 4H9a4 4 0 0 0-4 4v4"/></svg>`,
-      'Nefro-urología': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 4c-3 0-5 2.5-5 6 0 4.5 2.5 9 6 9 2 0 3-1.5 3-3.5S10.5 12 10.5 10c0-2 1.5-3 1.5-4.5S10 4 8 4z"/><path d="M16 4c3 0 5 2.5 5 6 0 4.5-2.5 9-6 9-2 0-3-1.5-3-3.5s1.5-3.5 1.5-5.5c0-2-1.5-3-1.5-4.5S14 4 16 4z"/></svg>`,
-      'Oncología': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="6"/><circle cx="15" cy="15" r="5"/><circle cx="10" cy="10" r="2"/></svg>`,
-      'Reproducción': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="5"/><path d="M12 14v8M9 19h6"/></svg>`,
-      'Toxicología': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.31L4.72 18.55A2 2 0 0 0 6.45 21.5h11.1a2 2 0 0 0 1.73-2.95L14 9.31V2"/><path d="M8.5 2h7M7 15h10"/></svg>`
+      'Todas': `<svg class="lucide lucide-layout-grid" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>`,
+      'Neurología': `<svg class="lucide lucide-brain" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M19.938 10.5a4 4 0 0 1 .585.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M19.967 17.484A4 4 0 0 1 18 18"/></svg>`,
+      'Infecciosas': `<svg class="lucide lucide-microscope" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg>`,
+      'Metabólicas/Endocrinas': `<svg class="lucide lucide-atom" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"/></svg>`,
+      'Dermatología': `<svg class="lucide lucide-waves" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>`,
+      'Cardiorrespiratorio': `<svg class="lucide lucide-heart-pulse" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>`,
+      'Gastroenterología': `<svg class="lucide lucide-stethoscope" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg>`,
+      'Nefro-urología': `<svg class="lucide lucide-droplets" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>`,
+      'Oncología': `<svg class="lucide lucide-dna" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 16 1.5 1.5"/><path d="m14 8-1.5-1.5"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m16.5 10.5 1 1"/><path d="m17 6-2.891-2.891"/><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="m20 9 .891.891"/><path d="M3.109 14.109 4 15"/><path d="m6.5 12.5 1 1"/><path d="m7 18 2.891 2.891"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/></svg>`,
+      'Reproducción': `<svg class="lucide lucide-circle-dot" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg>`,
+      'Toxicología': `<svg class="lucide lucide-flask-conical" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></svg>`
     };
 
     const SPECIES_ICONS = {
-      'Todas': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8"/></svg>`,
-      'Caninos': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309"/></svg>`,
-      'Felinos': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5M16 14v.5M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>`,
-      'Equinos': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3l-5 3-5 6 3 3 4-2 1 8h5V9l-3-6z"/><circle cx="14.5" cy="8.5" r="1"/></svg>`,
-      'Porcinos': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="13" rx="8" ry="6"/><ellipse cx="12" cy="14.5" rx="3.2" ry="2.2"/><path d="M6 8L4 4l4 2M18 8l2-4-4 2"/><line x1="11" y1="14.5" x2="11.01" y2="14.5"/><line x1="13" y1="14.5" x2="13.01" y2="14.5"/></svg>`,
-      'Rumiantes': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5c0 4 3 6 5 6h6c2 0 5-2 5-6"/><path d="M7 11l1 9h8l1-9"/><path d="M3 9h4M17 9h4"/></svg>`,
-      'Aves': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 7h.01"/><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/><path d="m20 7 2 .5-2 .5"/></svg>`,
-      'Conejos': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 10V4a2 2 0 0 1 4 0v6"/><path d="M13 10V5a2 2 0 0 1 4 0v6"/><circle cx="12" cy="15" r="5"/><circle cx="10.5" cy="14" r="0.8"/></svg>`
+      'Todas': `<svg class="lucide lucide-globe" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>`,
+      'Caninos': `<svg class="lucide lucide-dog" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.17-.166-2.28-.484-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306"/></svg>`,
+      'Felinos': `<svg class="lucide lucide-cat" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>`,
+      'Equinos': `<svg class="lucide lucide-magnet" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 15-4-4 6.75-6.77a7.79 7.79 0 0 1 11 11L13 22l-4-4 6.39-6.36a2.14 2.14 0 0 0-3-3L6 15"/><path d="m5 8 4 4"/><path d="m12 15 4 4"/></svg>`,
+      'Porcinos': `<svg class="lucide lucide-piggy-bank" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2V5z"/><path d="M2 9v1c0 1.1.9 2 2 2h1"/><path d="M16 11h.01"/></svg>`,
+      'Rumiantes': `<svg class="lucide lucide-wheat" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 22 16 8"/><path d="M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/><path d="M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/><path d="M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/><path d="M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z"/><path d="M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"/><path d="M15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"/><path d="M19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"/></svg>`,
+      'Aves': `<svg class="lucide lucide-bird" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h.01"/><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/><path d="m20 7 2 .5-2 .5"/><path d="M10 18v3"/><path d="M14 17.75V21"/><path d="M7 18a6 6 0 0 0 3.84-10.61"/></svg>`,
+      'Conejos': `<svg class="lucide lucide-rabbit" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/></svg>`
     };
 
 
@@ -2264,12 +2453,14 @@
     const audioBtn = document.getElementById('audio-toggle-btn');
     const audioStatusLabel = document.getElementById('audio-status-label');
     const audioWavesPath = document.getElementById('audio-waves');
+    const audioMuteX = document.getElementById('audio-mute-x');
 
     function syncAudioButtonUI(active) {
       audioBtn.classList.toggle('muted', !active);
       audioBtn.setAttribute('aria-pressed', String(active));
       audioStatusLabel.textContent = active ? 'Audio: ON' : 'Silenciado';
-      audioWavesPath.style.display = active ? 'block' : 'none';
+      if (audioWavesPath) audioWavesPath.style.display = active ? 'block' : 'none';
+      if (audioMuteX) audioMuteX.style.display = active ? 'none' : 'block';
     }
 
     syncAudioButtonUI(sound.enabled);
@@ -2441,7 +2632,7 @@
       const fechaLabel = disease.fecha || 'Edición 2026';
       const areaIcon = AREA_ICONS[disease.area] || AREA_ICONS['Todas'];
       const speciesPills = (disease.especies || []).map(sp => `
-        <span class="species-pill">
+        <span class="species-pill" data-species-pill="${sp}">
           ${SPECIES_ICONS[sp] || ''}
           <span>${sp}</span>
         </span>
@@ -2466,9 +2657,9 @@
             </div>
             <a href="${disease.url}" class="card-cta">
               <span>Abrir módulo interactivo</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
+              <svg class="lucide lucide-arrow-right" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
               </svg>
             </a>
           </div>
@@ -2486,7 +2677,13 @@
                 ${areaIcon}
                 <span>${areaName}</span>
               </span>
-              <span class="coming-soon-pill">Próximamente</span>
+              <span class="coming-soon-pill">
+                <svg class="lucide lucide-clock" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                <span>Próximamente</span>
+              </span>
             </div>
             <h3 class="card-title">Módulos de ${areaName}</h3>
             <p class="card-summary">
@@ -2495,7 +2692,16 @@
           </div>
           <div>
             <div class="card-species-list">
-              <span class="species-pill">En desarrollo editorial y modelado 3D</span>
+              <span class="species-pill">
+                <svg class="lucide lucide-sparkles" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+                  <path d="M20 3v4" />
+                  <path d="M22 5h-4" />
+                  <path d="M4 17v2" />
+                  <path d="M5 18H3" />
+                </svg>
+                <span>En desarrollo editorial y modelado 3D</span>
+              </span>
             </div>
           </div>
         </article>
@@ -2539,7 +2745,15 @@
             <article class="disease-card coming-soon-card reveal-on-scroll is-visible" style="grid-column: 1 / -1;">
               <div>
                 <div class="card-top-meta">
-                  <span class="coming-soon-pill">Sin coincidencias</span>
+                  <span class="coming-soon-pill">
+                    <svg class="lucide lucide-search-x" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="m13.5 8.5-5 5" />
+                      <path d="m8.5 8.5 5 5" />
+                      <circle cx="11" cy="11" r="8" />
+                      <path d="m21 21-4.3-4.3" />
+                    </svg>
+                    <span>Sin coincidencias</span>
+                  </span>
                 </div>
                 <h3 class="card-title">Próximamente nuevos módulos para esta combinación</h3>
                 <p class="card-summary">
