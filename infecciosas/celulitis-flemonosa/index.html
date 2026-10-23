@@ -215,11 +215,29 @@
       color: var(--accent-emerald);
       background: rgba(16, 185, 129, 0.12);
     }
+    .lucide {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+      vertical-align: middle;
+    }
     .btn-action svg {
-      width: 17px;
-      height: 17px;
+      width: 20px;
+      height: 20px;
       flex-shrink: 0;
     }
+    .tab-btn[data-species="caninos"]:not(.active) .lucide { color: var(--accent-cyan); }
+    .tab-btn[data-species="felinos"]:not(.active) .lucide { color: var(--accent-violet); }
+    .tab-btn[data-species="equinos"]:not(.active) .lucide { color: var(--accent-amber); }
+    .tab-btn[data-species="porcinos"]:not(.active) .lucide { color: var(--accent-crimson); }
+    .tab-btn[data-species="rumiantes"]:not(.active) .lucide { color: var(--accent-emerald); }
+    .tab-btn[data-species="aves"]:not(.active) .lucide { color: var(--accent-blue); }
+    .tab-btn[data-species="conejos"]:not(.active) .lucide { color: var(--accent-amber); }
     .mobile-menu-btn {
       display: none;
     }
@@ -1132,28 +1150,28 @@
       </div>
       <div class="header-actions">
         <button id="mobileNavBtn" class="btn-action mobile-menu-btn" type="button" aria-label="Abrir índice de módulos">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 6h16M4 12h16M4 18h16"/>
+          <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
           </svg>
           <span>Módulos</span>
         </button>
         <button id="themeToggleBtn" class="btn-action" type="button" aria-label="Cambiar entre modo claro y oscuro">
-          <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5"/>
-            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          <svg id="themeIcon" class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
           </svg>
           <span id="themeLabel">Tema</span>
         </button>
         <button id="audioToggleBtn" class="btn-action active-sound" type="button" aria-label="Alternar sonido arcade futurista">
-          <svg id="audioIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+          <svg id="audioIcon" class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
           </svg>
           <span id="audioLabel">Audio: ON</span>
         </button>
         <a href="../../" class="btn-action">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
           </svg>
           <span>Volver a VetAtlas</span>
         </a>
@@ -1167,8 +1185,8 @@
     <div class="hero-overlay">
       <div>
         <div class="hero-badge">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/>
+          <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/>
           </svg>
           <span>Guía Didáctica Interactiva · Infecciones de Tejidos Blandos</span>
         </div>
@@ -1230,20 +1248,20 @@
     <aside id="sidebarNav" class="sidebar-nav" aria-label="Navegación de módulos">
       <div class="sidebar-heading">Índice del Atlas</div>
       <ul class="nav-list">
-        <li><a class="nav-link active" href="#especies-tabs"><span class="nav-num">ESP</span><span>Explorador por Especie</span></a></li>
-        <li><a class="nav-link" href="#mod-01"><span class="nav-num">01</span><span>Definición y Diferenciales</span></a></li>
-        <li><a class="nav-link" href="#mod-02"><span class="nav-num">02</span><span>Etiología y Virulencia</span></a></li>
-        <li><a class="nav-link" href="#mod-03"><span class="nav-num">03</span><span>Fisiopatología Paso a Paso</span></a></li>
-        <li><a class="nav-link" href="#mod-04"><span class="nav-num">04</span><span>Predisponentes y E. canis</span></a></li>
-        <li><a class="nav-link" href="#mod-05"><span class="nav-num">05</span><span>Signos y Fenotipo Lesional</span></a></li>
-        <li><a class="nav-link" href="#mod-06"><span class="nav-num">06</span><span>Diagnóstico Multimodal</span></a></li>
-        <li><a class="nav-link" href="#mod-07"><span class="nav-num">07</span><span>Directrices ISCAID y Cirugía</span></a></li>
-        <li><a class="nav-link" href="#mod-08"><span class="nav-num">08</span><span>Uso Prudente Antimicrobiano</span></a></li>
-        <li><a class="nav-link" href="#mod-09"><span class="nav-num">09</span><span>Pronóstico y Cuadro Integral</span></a></li>
-        <li><a class="nav-link" href="#mod-3d"><span class="nav-num">3D</span><span>Modelo 3D Capas y Linfático</span></a></li>
-        <li><a class="nav-link" href="#mod-juegos"><span class="nav-num">SIM</span><span>Simulador y Emparejamiento</span></a></li>
-        <li><a class="nav-link" href="#mod-quiz"><span class="nav-num">EVA</span><span>Autoevaluación y Certificado</span></a></li>
-        <li><a class="nav-link" href="#mod-galeria"><span class="nav-num">IMG</span><span>Galería Clínica Commons</span></a></li>
+        <li><a class="nav-link active" href="#especies-tabs"><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg><span class="nav-num">ESP</span><span>Explorador por Especie</span></a></li>
+        <li><a class="nav-link" href="#mod-01"><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span class="nav-num">01</span><span>Definición y Diferenciales</span></a></li>
+        <li><a class="nav-link" href="#mod-02"><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg><span class="nav-num">02</span><span>Etiología y Virulencia</span></a></li>
+        <li><a class="nav-link" href="#mod-03"><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg><span class="nav-num">03</span><span>Fisiopatología Paso a Paso</span></a></li>
+        <li><a class="nav-link" href="#mod-04"><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span class="nav-num">04</span><span>Predisponentes y E. canis</span></a></li>
+        <li><a class="nav-link" href="#mod-05"><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg><span class="nav-num">05</span><span>Signos y Fenotipo Lesional</span></a></li>
+        <li><a class="nav-link" href="#mod-06"><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2v17.5c0 1.4-1.1 2.5-2.5 2.5c-1.4 0-2.5-1.1-2.5-2.5V2"/><path d="M8.5 2h7"/><path d="M14.5 16h-5"/></svg><span class="nav-num">06</span><span>Diagnóstico Multimodal</span></a></li>
+        <li><a class="nav-link" href="#mod-07"><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg><span class="nav-num">07</span><span>Directrices ISCAID y Cirugía</span></a></li>
+        <li><a class="nav-link" href="#mod-08"><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><span class="nav-num">08</span><span>Uso Prudente Antimicrobiano</span></a></li>
+        <li><a class="nav-link" href="#mod-09"><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/></svg><span class="nav-num">09</span><span>Pronóstico y Cuadro Integral</span></a></li>
+        <li><a class="nav-link" href="#mod-3d"><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg><span class="nav-num">3D</span><span>Modelo 3D Capas y Linfático</span></a></li>
+        <li><a class="nav-link" href="#mod-juegos"><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="2"/></svg><span class="nav-num">SIM</span><span>Simulador y Emparejamiento</span></a></li>
+        <li><a class="nav-link" href="#mod-quiz"><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg><span class="nav-num">EVA</span><span>Autoevaluación y Certificado</span></a></li>
+        <li><a class="nav-link" href="#mod-galeria"><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span class="nav-num">IMG</span><span>Galería Clínica Commons</span></a></li>
       </ul>
     </aside>
 
@@ -1261,13 +1279,34 @@
         </div>
 
         <div class="tabs-bar" id="speciesTabButtons" role="tablist">
-          <button class="tab-btn active" data-species="caninos" type="button">Caninos (Foco)</button>
-          <button class="tab-btn" data-species="felinos" type="button">Felinos (Foco)</button>
-          <button class="tab-btn" data-species="equinos" type="button">Equinos</button>
-          <button class="tab-btn" data-species="porcinos" type="button">Porcinos</button>
-          <button class="tab-btn" data-species="rumiantes" type="button">Rumiantes</button>
-          <button class="tab-btn" data-species="aves" type="button">Aves</button>
-          <button class="tab-btn" data-species="conejos" type="button">Conejos</button>
+          <button class="tab-btn active" data-species="caninos" type="button">
+            <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.25 16.25h1.5L12 17z"/><path d="M16 14v.5"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444a11.702 11.702 0 0 0-.493-3.309"/><path d="M8 14v.5"/><path d="M8.5 8.5c-.384 1.05-1.083 2.028-2.344 2.5-1.931.722-3.576-.297-3.656-1-.113-.994 1.177-6.53 4-7 1.923-.321 3.651.845 3.651 2.235A7.497 7.497 0 0 1 14 5.277c0-1.39 1.844-2.598 3.767-2.277 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/></svg>
+            <span>Caninos (Foco)</span>
+          </button>
+          <button class="tab-btn" data-species="felinos" type="button">
+            <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>
+            <span>Felinos (Foco)</span>
+          </button>
+          <button class="tab-btn" data-species="equinos" type="button">
+            <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>
+            <span>Equinos</span>
+          </button>
+          <button class="tab-btn" data-species="porcinos" type="button">
+            <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg>
+            <span>Porcinos</span>
+          </button>
+          <button class="tab-btn" data-species="rumiantes" type="button">
+            <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+            <span>Rumiantes</span>
+          </button>
+          <button class="tab-btn" data-species="aves" type="button">
+            <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h.01"/><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/><path d="m20 7 2 .5-2 .5"/><path d="M10 18v3"/><path d="M14 17.75V21"/><path d="M7 18a6 6 0 0 0 3.84-10.61"/></svg>
+            <span>Aves</span>
+          </button>
+          <button class="tab-btn" data-species="conejos" type="button">
+            <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/></svg>
+            <span>Conejos</span>
+          </button>
         </div>
 
         <div id="speciesTabContent"></div>
@@ -1287,19 +1326,19 @@
 
         <div class="species-grid" style="margin-bottom:1.25rem;">
           <div class="info-panel">
-            <h4>Absceso Subcutáneo</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg><span>Absceso Subcutáneo</span></h4>
             <p>Necrosis por licuefacción circunscrita, encapsulada por una pared de tejido de granulación rico en colágeno sintetizado por miofibroblastos ante señales quimioatrayentes sostenidas. En el flemón, las exoenzimas líticas superan esta contención y disecan en sábana la hipodermis.</p>
           </div>
           <div class="info-panel">
-            <h4>Celulitis Juvenil Canina (Puppy Strangles)</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span>Celulitis Juvenil Canina (Puppy Strangles)</span></h4>
             <p>Linfadenitis vesicular y paniculitis estéril juvenil: dermatosis idiopática e inmunomediada no infecciosa primaria. Histológicamente cursa como paniculitis y dermatitis piogranulomatosa estéril centrada en el folículo piloso. Los antimicrobianos solos fracasan; exige inmunosupresión glucocorticoidea sistémica agresiva inmediata.</p>
           </div>
           <div class="info-panel">
-            <h4>Fascitis Necrotizante (FN)</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span>Fascitis Necrotizante (FN)</span></h4>
             <p>Involucra necrosis isquémica rápida y licuefacción de la fascia superficial, grasa subcutánea y aponeurosis profunda por oclusión trombótica microvascular generalizada. Produce denervación sensorial con anestesia cutánea secundaria, exudado acuoso serosanguinolento («agua de fregar platos» o <em>dishwater fluid</em>) sin pus franco y choque tóxico.</p>
           </div>
           <div class="info-panel">
-            <h4>Linfangitis Séptica Primaria</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg><span>Linfangitis Séptica Primaria</span></h4>
             <p>Circunscrita al endotelio y luz de colectores linfáticos. Exhibe engrosamiento cordoniforme ascendente, linfadenitis satélite temprana y edema distal por falla mecánica del drenaje. En el flemón, el foco primario reside en el intersticio laxo y no en la luz vascular linfática.</p>
           </div>
         </div>
@@ -1372,7 +1411,7 @@
         </div>
         <div class="species-grid">
           <div class="info-panel">
-            <h4>Caninos: S. pseudintermedius, S. canis y Gram negativos</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg><span>Caninos: S. pseudintermedius, S. canis y Gram negativos</span></h4>
             <ul>
               <li><strong>Staphylococcus pseudintermedius:</strong> Agente más frecuente. Produce coagulasa libre, termonucleasa, proteasas serínicas, hialuronidasa y leucocidinas bicomponentes (<strong>LukS-I y LukF-I</strong>) que lisan neutrófilos. Las cepas <strong>MRSP</strong> portan el casete <em>SCCmec</em> con el gen <em>mecA</em>, expresando <strong>PBP2a</strong> y resistencia cruzada absoluta a todos los betalactámicos convencionales.</li>
               <li><strong>Streptococcus canis (Grupo G β-hemolítico):</strong> Segundo agente en perros, alta propagación flemónica. Expresa estreptoquinasa (activa plasminógeno a plasmina y degrada redes de fibrina), hialuronidasa tisular, estreptolisina O (citotóxica para leucocitos y cardiomiocitos), proteína M (bloquea opsonización C3b) y profagos con superantígenos pirógenos causantes de síndrome de choque tóxico estreptocócico (STSS).</li>
@@ -1380,7 +1419,7 @@
             </ul>
           </div>
           <div class="info-panel">
-            <h4>Felinos: Ecosistema Polimicrobiano Sinérgico</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></svg><span>Felinos: Ecosistema Polimicrobiano Sinérgico</span></h4>
             <ul>
               <li>Secundario a mordeduras y arañazos profundos que inoculan microbiota orofaríngea felina.</li>
               <li><strong>Pasteurella multocida (subsp. multocida y septica):</strong> Patógeno predominante. Posee cápsula de mucopolisacáridos rica en ácido hialurónico (inhibe fagocitosis) y endotoxinas lipopolisacarídicas dermonecróticas.</li>
@@ -1388,7 +1427,7 @@
             </ul>
           </div>
           <div class="info-panel">
-            <h4>Equinos, Rumiantes y Porcinos</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></svg><span>Equinos, Rumiantes y Porcinos</span></h4>
             <ul>
               <li><strong>Equinos:</strong> <em>Streptococcus equi</em> subsp. <em>zooepidemicus</em> (Grupo C β-hemolítico) y <em>Staphylococcus aureus</em>. Tras laceraciones de casco/cuartilla o inyecciones contaminadas: <em>E. coli, Klebsiella pneumoniae, P. aeruginosa</em> y <em>Fusobacterium necrophorum</em> (microtromboflebitis séptica de plexos digitales).</li>
               <li><strong>Rumiantes:</strong> Sinergia de <em>Fusobacterium necrophorum</em> subsp. <em>necrophorum</em> (leucotoxina lítica para neutrófilos y coagulación intravascular local) y <em>Trueperella pyogenes</em> (piolisina <strong>PLO</strong> dependiente de colesterol). En bovinos de ceba y leche, <em>Mycoplasma bovis</em> causa celulitis necrosupurativa difusa y tenosinovitis de miembros y prepucio.</li>
@@ -1396,7 +1435,7 @@
             </ul>
           </div>
           <div class="info-panel">
-            <h4>Aves y Conejos</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m17 6-2.5-2.5"/><path d="m14 8-1-1"/><path d="m7 18 2.5 2.5"/><path d="m3.5 14.5.5.5"/><path d="m20 9 .5.5"/><path d="m6.5 12.5 1 1"/><path d="m16.5 10.5 1 1"/><path d="m10 16 1.5 1.5"/></svg><span>Aves y Conejos</span></h4>
             <ul>
               <li><strong>Aves de producción y ornato:</strong> Cepas patógenas aviares de <em>Escherichia coli</em> (<strong>APEC</strong>) portadoras del plásmido <strong>ColV</strong>, sistema de aerobactina para quelación de hierro férrico y adhesinas fimbriales <strong>F11</strong>; también se reporta <em>Enterococcus</em> spp.</li>
               <li><strong>Conejos (Oryctolagus cuniculus):</strong> <em>Pasteurella multocida, Staphylococcus aureus</em> y <em>Pseudomonas aeruginosa</em> predominan en flemones orofaciales odontogénicos y pododermatíticos.</li>
@@ -1573,39 +1612,39 @@
 
         <div class="species-grid" style="margin-bottom:1.5rem;">
           <div class="info-panel">
-            <h4>Endocrinopatías en Caninos y Felinos</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg><span>Endocrinopatías en Caninos y Felinos</span></h4>
             <p>El <strong>hiperadrenocorticismo</strong> (hipofisario, adrenal o iatrogénico) y la <strong>diabetes mellitus descompensada</strong> deterioran severamente la quimiotaxis, la adhesión endotelial y la desgranulación de neutrófilos, además de provocar angiogénesis anómala por el estado catabólico.</p>
           </div>
           <div class="info-panel">
-            <h4>Síndrome Metabólico Equino y PPID</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg><span>Síndrome Metabólico Equino y PPID</span></h4>
             <p>En equinos, el <strong>síndrome metabólico equino (EMS)</strong> y la <strong>disfunción de la pars intermedia de la hipófisis (PPID)</strong> predisponen a celulitis recurrentes o recalcitrantes de las extremidades debido a microangiopatía periférica y disregulación de citocinas basales.</p>
           </div>
           <div class="info-panel">
-            <h4>Retrovirus Felinos (FIV y FeLV)</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m14.5 9.5-5 5"/><path d="m9.5 9.5 5 5"/></svg><span>Retrovirus Felinos (FIV y FeLV)</span></h4>
             <p>Las infecciones crónicas por el <strong>Virus de la Inmunodeficiencia Felina (FIV)</strong> y el <strong>Virus de la Leucemia Felina (FeLV)</strong> reducen la subpoblación de linfocitos T CD4+, desarticulando la inmunidad adaptativa frente a patógenos orales inoculados en mordeduras territoriales.</p>
           </div>
         </div>
 
         <div class="ehrlichia-highlight-box" style="background:linear-gradient(135deg, rgba(239,68,68,0.12), rgba(15,23,42,0.9));border:1px solid rgba(239,68,68,0.4);border-radius:var(--radius-md);padding:1.35rem;">
-          <h3 class="ehrlichia-title" style="font-size:1.15rem;color:#fca5a5;margin-bottom:0.65rem;">Fisiopatología de la Coinfección con Ehrlichia canis</h3>
+          <h3 class="ehrlichia-title" style="font-size:1.15rem;color:#fca5a5;margin-bottom:0.65rem;display:flex;align-items:center;gap:0.5rem;"><svg class="lucide" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></svg><span>Fisiopatología de la Coinfección con Ehrlichia canis</span></h3>
           <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:1rem;">
             La rickettsia intracelular obligada <em>Ehrlichia canis</em>, transmitida por la garrapata café del perro (<em>Rhipicephalus sanguineus</em>), compromete la competencia inmune y la microvasculatura del paciente canino mediante cuatro mecanismos sinérgicos:
           </p>
           <div class="species-grid">
             <div class="info-panel">
-              <h4>1. Mielosupresión e Inmunodeficiencia Innata</h4>
+              <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg><span>1. Mielosupresión e Inmunodeficiencia Innata</span></h4>
               <p>En fase subaguda y crónica grave, lesiona células progenitoras hematopoyéticas medulares causando hipoplasia o aplasia mieloide y pancitopenia. La <strong>neutropenia absoluta</strong> resultante permite que inoculaciones menores de <em>S. pseudintermedius</em> o estreptococos diseminen sin oposición celular.</p>
             </div>
             <div class="info-panel">
-              <h4>2. Agotamiento Adaptativo Th1</h4>
+              <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span>2. Agotamiento Adaptativo Th1</span></h4>
               <p>Disminuye la inmunocompetencia de linfocitos T colaboradores (<strong>Th1</strong>) por agotamiento celular sostenido e induce activación policlonal inespecífica de linfocitos B con hipergammaglobulinemia carente de anticuerpos opsonizantes protectores frente a bacterias cutáneas.</p>
             </div>
             <div class="info-panel">
-              <h4>3. Vasculitis Inmunomediada e Hipoperfusión</h4>
+              <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg><span>3. Vasculitis Inmunomediada e Hipoperfusión</span></h4>
               <p>El depósito de inmunocomplejos solubles en arteriolas dérmicas y subcutáneas activa el complemento e induce <strong>vasculitis necrotizante</strong>, generando isquemia focal basal, hipoxia y permeabilidad vascular aumentada que nutre a las bacterias invasoras.</p>
             </div>
             <div class="info-panel">
-              <h4>4. Estado Proinflamatorio Basal y Choque</h4>
+              <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg><span>4. Estado Proinflamatorio Basal y Choque</span></h4>
               <p>Mantiene niveles basales elevados de <strong>TNF-α, IL-1β, IL-6 e IFN-γ</strong> con agotamiento regulador de <strong>IL-10</strong>. Ante sobreinfección bacteriana piógena, amplifica la necrosis colateral y acelera el choque séptico hiperdinámico con coagulación intravascular diseminada (CID).</p>
             </div>
           </div>
@@ -1622,19 +1661,19 @@
         </div>
         <div class="species-grid">
           <div class="info-panel">
-            <h4>Caninos y Felinos</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg><span>Caninos y Felinos</span></h4>
             <p>Tumefacción difusa de márgenes indistintos, induración empastada no fluctuante, calor local, eritema y dolor urente agudo con vocalización o claudicación sin apoyo. Entre <strong>24 y 48 h postinoculación</strong> la piel se tensa, brilla y drena exudado serosanguinolento o fibrinopurulento por múltiples fístulas sin colección central evacuable. En gatos, la piel se torna violácea marmórea o grisácea y se esfacela por trombosis del plexo subdérmico. Hay crepitación enfisematosa si participan bacterias productoras de gas.</p>
           </div>
           <div class="info-panel">
-            <h4>Equinos («Pata de Elefante»)</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg><span>Equinos («Pata de Elefante»)</span></h4>
             <p>Presentación hiperaguda en extremidades (predominio pelviano): aumento de volumen masivo, circunferencial y cilíndrico desde menudillo o corona hasta corvejón e ingle. Claudicación <strong>grado 4/5 a 5/5</strong>, exudación transcutánea de suero ámbar («sudoración de suero»), necrosis epidérmica por desprendimiento laminar, hipertermia <strong>&gt; 39,5 °C</strong>, taquicardia y anorexia.</p>
           </div>
           <div class="info-panel">
-            <h4>Rumiantes y Porcinos</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg><span>Rumiantes y Porcinos</span></h4>
             <p>En bovinos predomina en el espacio interdigital (panadizo interdigital) con tumefacción asimétrica de corona y cuartilla, divergencia de dedos pezuñarios, fisuras necróticas de olor pútrido por <em>F. necrophorum</em> y anorexia álgica; o flemón muscular en cuello/anca tras inyecciones sépticas. En porcinos, flemones faciales, periorbitarios o perineales posmordedura/caudofagia o poscastración que evolucionan hacia fibrosis.</p>
           </div>
           <div class="info-panel" style="border-color:var(--accent-amber);">
-            <h4>Fenotipo Caseoso en Aves y Conejos (Heterófilos)</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span>Fenotipo Caseoso en Aves y Conejos (Heterófilos)</span></h4>
             <p>En aves (<em>Gallus gallus</em>, psitácidos, paseriformes) y conejos (<em>Oryctolagus cuniculus</em>), los <strong>heterófilos carecen funcionalmente de mieloperoxidasa activa cuantificable</strong> y tienen mínimas enzimas proteolíticas hidrosolubles. Sin digestión licuefactiva, el exudado se deseca e inspisa en un material sólido o semisólido laminado blanquecino-amarillento («caseoso»). Se palpa como placa o masa firme, indurada, adherida, fría y no fluctuante, simulando granulomas micóticos, esteatonecrosis o neoplasias.</p>
           </div>
         </div>
@@ -1651,19 +1690,19 @@
 
         <div class="species-grid" style="margin-bottom:1.25rem;">
           <div class="info-panel">
-            <h4>Citopatología por PAAF (21–23G)</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/><path d="m14 4 6 6"/></svg><span>Citopatología por PAAF (21–23G)</span></h4>
             <p>Procedimiento confirmatorio inicial mandatorio en márgenes de induración activa previa antisepsia. La tinción Romanowsky muestra fondo proteináceo basófilo, fibrina acelular y <strong>&gt; 85–90% de neutrófilos degenerados</strong> (cariolisis, cariorrexis, vacuolización tóxica) con <strong>bacterias intracitoplasmáticas fagocitadas</strong> (cocos en racimos o cadenas, bacilos pleomórficos o Gram negativos).</p>
           </div>
           <div class="info-panel">
-            <h4>Cultivo Cuantitativo y CMI (CLSI VET)</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2v17.5c0 1.4-1.1 2.5-2.5 2.5c-1.4 0-2.5-1.1-2.5-2.5V2"/><path d="M8.5 2h7"/><path d="M14.5 16h-5"/></svg><span>Cultivo Cuantitativo y CMI (CLSI VET)</span></h4>
             <p>El hisopado superficial está proscrito por aislar saprófitos. Se exige aspirado profundo estéril o biopsia <em>punch</em> para cultivo aerobio y anaerobio obligado. Susceptibilidad basada en <strong>Concentración Mínima Inhibitoria (CMI en μg/mL)</strong> bajo estándares CLSI VET-series, incluyendo obligatoriamente <strong>cefoxitina u oxacilina</strong> para detectar resistencia mediada por <em>mecA</em> (MRSP).</p>
           </div>
           <div class="info-panel">
-            <h4>Ecografía POCUS (Signo del Empedrado)</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h2"/><path d="M6 8v8"/><path d="M10 4v16"/><path d="M14 6v12"/><path d="M18 9v6"/><path d="M22 12h-2"/></svg><span>Ecografía POCUS (Signo del Empedrado)</span></h4>
             <p>Con transductor lineal (7,5–15 MHz), el hallazgo cardinal es el <strong>signo del empedrado (cobblestone sign)</strong>: lobulillos grasos hipodérmicos aumentados e hiperecoicos disecados por bandas anecoicas/hipoecoicas de edema intersticial. Diferencia abscesos encapsulados, detecta gas libre (cola de cometa/sombra sucia) y evalúa perfusión en Doppler color (ausencia de flujo indica trombosis y necrosis).</p>
           </div>
           <div class="info-panel">
-            <h4>Biomarcadores y Lactato Sérico</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg><span>Biomarcadores y Lactato Sérico</span></h4>
             <p><strong>Proteínas de fase aguda:</strong> Proteína C Reactiva (<strong>PCR</strong>) en caninos y cerdos; Amiloide A Sérico (<strong>SAA</strong>) en équidos y gatos (suben en &lt; 24 h). <strong>Lactato sérico:</strong> alerta de hipoperfusión si <strong>&gt; 2,5 mmol/L</strong> (pequeños animales) o <strong>&gt; 2,0 mmol/L</strong> (équidos); valores refractarios <strong>&gt; 4,0 mmol/L</strong> predicen colapso cardiovascular y alta mortalidad.</p>
           </div>
         </div>
@@ -1731,11 +1770,11 @@
 
         <div class="species-grid" style="margin-bottom:1.25rem;">
           <div class="info-panel">
-            <h4>Terapia Empírica vs. Dirigida</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg><span>Terapia Empírica vs. Dirigida</span></h4>
             <p>Iniciar terapia parenteral inmediatamente tras recolectar muestras profundas para citología y cultivo. En pequeños animales, primera línea empírica: <strong>amoxicilina-ácido clavulánico</strong> o cefalosporinas de 1.ª generación (<strong>cefalexina, cefadroxilo</strong>). Ante anaerobios (mordeduras felinas o exudados fétidos): <strong>clindamicina</strong> o amoxicilina-clavulánico. Utilizar el rango superior de la ventana terapéutica para penetrar tejido edematizado e hipoperfundido.</p>
           </div>
           <div class="info-panel">
-            <h4>Duración del Tratamiento (Consenso ISCAID)</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Duración del Tratamiento (Consenso ISCAID)</span></h4>
             <p>Las directrices actualizadas de la <em>ISCAID Guidelines for Canine Pyoderma</em> <strong>suprimen el postulado tradicional de extender el antibiótico 2 a 3 semanas más allá de la curación aparente</strong>. El tratamiento debe mantenerse estrictamente hasta la desaparición de los signos clínicos de infección (remisión del edema, dolor e induración, ausencia de secreción y cierre de fístulas) respaldada por normalización citológica.</p>
           </div>
         </div>
@@ -1881,7 +1920,7 @@
               <tr>
                 <td><strong>Conejo</strong></td>
                 <td>Advertencia Formal: Betalactámicos orales</td>
-                <td><span class="mono-badge" style="background:rgba(239,68,68,0.25);color:#fecaca;">CONTRAINDICADOS</span></td>
+                <td><span class="mono-badge" style="background:rgba(239,68,68,0.25);color:#fecaca;display:inline-flex;align-items:center;gap:0.3rem;"><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>CONTRAINDICADOS</span></td>
                 <td>Penicilinas, cefalosporinas o clindamicina orales provocan enterotoxemia fatal por sobrecrecimiento de <em>Clostridium spiroforme</em>.</td>
               </tr>
               <tr>
@@ -1902,7 +1941,7 @@
 
         <div class="species-grid">
           <div class="info-panel">
-            <h4>Criterios Quirúrgicos y Drenajes</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></svg><span>Criterios Quirúrgicos y Drenajes</span></h4>
             <ul>
               <li><strong>Necrosectomía radical precoz:</strong> Obligatoria ante máculas violáceas frías, escaras negruzcas insensibles o desvitalización dérmica, escindiendo hasta bordes con sangrado capilar uniforme y contracción muscular.</li>
               <li><strong>Fasciotomía descompresiva longitudinal:</strong> Inmediata cuando la presión intracompartimental supera los <strong>30 mmHg</strong> en miembros distales de pequeños animales y equinos.</li>
@@ -1913,7 +1952,7 @@
           </div>
 
           <div class="info-panel">
-            <h4>Analgesia Multimodal</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/><path d="m14 4 6 6"/></svg><span>Analgesia Multimodal</span></h4>
             <ul>
               <li><strong>Opioides μ puros (caninos y felinos):</strong> Metadona <span class="mono-badge">0,2–0,4 mg/kg IV o IM c/4–6h</span> o Fentanilo en infusión continua <span class="mono-badge">2–5 μg/kg/h</span>.</li>
               <li><strong>Infusión continua MLK (exclusiva caninos):</strong> Morfina <span class="mono-badge">0,1–0,2 mg/kg/h</span> + Lidocaína <span class="mono-badge">1–2 mg/kg/h</span> + Ketamina <span class="mono-badge">0,1–0,3 mg/kg/h</span> (bloqueo NMDA contra alodinia y sensibilización central). <strong>La lidocaína IV está rigurosamente contraindicada en felinos</strong> por cardiodepresión y neurotoxicidad.</li>
@@ -1923,7 +1962,7 @@
           </div>
 
           <div class="info-panel">
-            <h4>Reanimación Hemodinámica y Sepsis</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg><span>Reanimación Hemodinámica y Sepsis</span></h4>
             <ul>
               <li><strong>Cristaloides isotónicos balanceados (Ringer Lactato / Plasmalyte-A):</strong> Bolos de <span class="mono-badge">10–20 mL/kg en 15–20 min</span> en caninos; <span class="mono-badge">5–10 mL/kg en 20–30 min</span> en felinos (cuidando complacencia miocárdica); e infusión continua de <span class="mono-badge">60–100 mL/kg/día</span> en equinos.</li>
               <li><strong>Metas fisiológicas:</strong> PAM <strong>&gt; 65–70 mmHg</strong>, diuresis en sistema cerrado <strong>&gt; 1–2 mL/kg/h</strong> y depuración de lactato sérico <strong>≥ 50% en 4–6 h</strong>.</li>
@@ -1944,15 +1983,15 @@
         </div>
         <div class="species-grid">
           <div class="info-panel">
-            <h4>Restricción de Fármacos Críticos</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span>Restricción de Fármacos Críticos</span></h4>
             <p>Las <strong>fluoroquinolonas</strong> (enrofloxacina, marbofloxacina, pradofloxacina) y las <strong>cefalosporinas de 3.ª generación de depósito (cefovecina) o 4.ª generación</strong> son antimicrobianos de importancia crítica. Su prescripción empírica indiscriminada está proscrita; solo se emplean cuando el antibiograma demuestra refractariedad a primera línea o en choque séptico con bacteriemia citológica por bacilos Gram negativos.</p>
           </div>
           <div class="info-panel">
-            <h4>Manejo de MRSP (Gen mecA / PBP2a)</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m17 6-2.5-2.5"/><path d="m14 8-1-1"/><path d="m7 18 2.5 2.5"/><path d="m3.5 14.5.5.5"/><path d="m20 9 .5.5"/><path d="m6.5 12.5 1 1"/><path d="m16.5 10.5 1 1"/><path d="m10 16 1.5 1.5"/></svg><span>Manejo de MRSP (Gen mecA / PBP2a)</span></h4>
             <p>Frente a <em>Staphylococcus pseudintermedius</em> resistente a meticilina (MRSP), <strong>todos los betalactámicos (incluyendo cefalosporinas de cualquier generación y carbapenémicos) son ineficaces</strong>. La selección terapéutica debe guiarse estrictamente por la CMI hacia opciones no betalactámicas (doxiciclina, minociclina, trimetoprima-sulfonamida o amikacina).</p>
           </div>
           <div class="info-panel">
-            <h4>Fin de las Prolongaciones Arbitrarias</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><span>Fin de las Prolongaciones Arbitrarias</span></h4>
             <p>Suspender la terapia al alcanzar la resolución clínica y citológica evita la presión selectiva innecesaria sobre la microbiota comensal mucocutánea y entérica, reduciendo la emergencia de cepas BLEE y MRSP.</p>
           </div>
         </div>
@@ -1968,11 +2007,11 @@
         </div>
         <div class="species-grid" style="margin-bottom:1.25rem;">
           <div class="info-panel">
-            <h4>Indicadores Pronósticos</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/></svg><span>Indicadores Pronósticos</span></h4>
             <p><strong>Favorable:</strong> Respuesta precoz a betalactámicos de 1.ª línea, normovolemia, lactato sérico <strong>&lt; 2,0 mmol/L</strong> y ausencia de comorbilidades. <strong>Fatal / Infausto:</strong> Conversión a fascitis necrotizante (mortalidad del <strong>100%</strong> sin desbridamiento y <strong>20–30%</strong> con terapia intensiva agresiva), CID con trombocitopenia de consumo, neutropenia degenerativa, lactato persistente <strong>&gt; 4,0 mmol/L</strong> e infecciones por MRSP panrresistentes o productores de carbapenemasas.</p>
           </div>
           <div class="info-panel">
-            <h4>Secuelas Críticas por Especie</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span>Secuelas Críticas por Especie</span></h4>
             <p><strong>Caninos y Felinos:</strong> Escaras masivas que requieren colgajos o injertos, amputación por gangrena isquémica y SDRA/ARDS séptico. <strong>Equinos:</strong> <strong>Laminitis de apoyo contralateral</strong> (<em>support limb laminitis</em>) con rotación/hundimiento de la 3.ª falange, trombosis digital, esfacelo del casco (<em>sloughing</em>) y fibroedema crónico. <strong>Rumiantes:</strong> Necrosis de ligamentos interdigitales y artritis séptica interfalángica distal (amputación de dígito). <strong>Aves y Conejos:</strong> Osteomielitis profunda y lisis cortical.</p>
           </div>
         </div>
@@ -2099,9 +2138,18 @@
             </div>
 
             <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-              <button id="explode3dBtn" class="btn-action" type="button">Vista Expandida Capas</button>
-              <button id="toggleLabels3dBtn" class="btn-action" type="button">Etiquetas ON/OFF</button>
-              <button id="resetCam3dBtn" class="btn-action" type="button">Restablecer Cámara</button>
+              <button id="explode3dBtn" class="btn-action" type="button">
+                <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
+                <span>Vista Expandida Capas</span>
+              </button>
+              <button id="toggleLabels3dBtn" class="btn-action" type="button">
+                <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+                <span>Etiquetas ON/OFF</span>
+              </button>
+              <button id="resetCam3dBtn" class="btn-action" type="button">
+                <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                <span>Restablecer Cámara</span>
+              </button>
             </div>
           </div>
         </div>
@@ -2124,7 +2172,10 @@
               <div>Tiempo Etapa: <span id="simTimer" style="color:var(--accent-amber);font-weight:700;">45s</span></div>
               <div>Racha: <span id="simStreak" class="mono-badge">x0</span></div>
               <div>Puntaje Clínico: <span id="simScore" style="color:var(--accent-emerald);font-weight:700;">0 / 400</span></div>
-              <button id="simRestartBtn" class="btn-action" type="button">Reiniciar Caso</button>
+              <button id="simRestartBtn" class="btn-action" type="button">
+                <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                <span>Reiniciar Caso</span>
+              </button>
             </div>
             <div style="width:100%;height:6px;background:var(--bg-elevated);border-radius:999px;overflow:hidden;margin-bottom:1rem;">
               <div id="simTimerBar" style="width:100%;height:100%;background:linear-gradient(90deg,var(--accent-emerald),var(--accent-cyan));transition:width 0.3s linear;"></div>
@@ -2137,7 +2188,10 @@
             <div class="sim-hud">
               <div><strong>Juego 2:</strong> Emparejar Patógeno / Especie con Antimicrobiano o Mecanismo (Pulsa o Arrastra con el Pulgar)</div>
               <div>Aciertos: <span id="ddScore" style="color:var(--accent-cyan);font-weight:700;">0 / 6</span></div>
-              <button id="ddResetBtn" class="btn-action" type="button">Reiniciar Tablero</button>
+              <button id="ddResetBtn" class="btn-action" type="button">
+                <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                <span>Reiniciar Tablero</span>
+              </button>
             </div>
             <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.75rem;">
               Modo táctil rápido: toca una tarjeta de la primera columna para iluminarla y luego toca su pareja en la segunda columna (o arrástrala directamente).
@@ -2162,9 +2216,18 @@
         <div id="quizContainer"></div>
 
         <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1.25rem;">
-          <button id="submitQuizBtn" class="btn-action" style="border-color:var(--accent-cyan);background:rgba(6,182,212,0.2);" type="button">Calificar Evaluación</button>
-          <button id="filterErrorsBtn" class="btn-action" style="display:none;" type="button">Ver Solo Errores para Repaso</button>
-          <button id="resetQuizBtn" class="btn-action" type="button">Reiniciar Evaluación</button>
+          <button id="submitQuizBtn" class="btn-action" style="border-color:var(--accent-cyan);background:rgba(6,182,212,0.2);" type="button">
+            <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            <span>Calificar Evaluación</span>
+          </button>
+          <button id="filterErrorsBtn" class="btn-action" style="display:none;" type="button">
+            <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            <span>Ver Solo Errores para Repaso</span>
+          </button>
+          <button id="resetQuizBtn" class="btn-action" type="button">
+            <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            <span>Reiniciar Evaluación</span>
+          </button>
         </div>
 
         <div id="quizResultBox" style="display:none;margin-top:1.5rem;" class="info-panel">
@@ -2174,8 +2237,14 @@
             <div class="cert-controls">
               <label for="certNameInput">Nombre para el Certificado:</label>
               <input id="certNameInput" type="text" maxlength="80" autocomplete="name" placeholder="Ej. Dr. / Dra. Nombre Apellido" value="Profesional Veterinario" />
-              <button id="renderCertBtn" class="btn-action" type="button">Actualizar Certificado</button>
-              <button id="downloadCertBtn" class="btn-action active-sound" type="button">Descargar Certificado PNG</button>
+              <button id="renderCertBtn" class="btn-action" type="button">
+                <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                <span>Actualizar Certificado</span>
+              </button>
+              <button id="downloadCertBtn" class="btn-action active-sound" type="button">
+                <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <span>Descargar Certificado PNG</span>
+              </button>
             </div>
             <div class="cert-stage">
               <canvas id="certCanvas" width="1600" height="1131" role="img" aria-label="Certificado de AMC VetAtlas"></canvas>
@@ -2277,7 +2346,10 @@
         <div style="font-size:0.92rem;font-weight:600;color:var(--text-primary);">
           Guía didáctica preparada por Andreé, médico veterinario.
         </div>
-        <a href="../../" class="btn-action">Volver a VetAtlas (../../)</a>
+        <a href="../../" class="btn-action">
+          <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+          <span>Volver a VetAtlas (../../)</span>
+        </a>
       </div>
 
       <div>
@@ -2322,6 +2394,7 @@
           <li><a href="https://www.askjpc.org/wsco/POLA/2007/POLA2007.pdf" target="_blank" rel="noopener">https://www.askjpc.org/wsco/POLA/2007/POLA2007.pdf</a></li>
           <li><a href="https://www.esvp-ecvp-estp-congress.eu/resources/media/ESVP_ECVP/ESVP-ECVP-ESVCP-ECVCP_Proceedingsbook_Lissabon_2023_FINAL_V4.pdf" target="_blank" rel="noopener">https://www.esvp-ecvp-estp-congress.eu/resources/media/ESVP_ECVP/...2023_FINAL_V4.pdf</a></li>
         </ol>
+        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:1rem;">Iconos: <a href="https://lucide.dev" target="_blank" rel="noopener">Lucide</a> (licencia ISC)</p>
       </div>
     </div>
   </footer>
@@ -2493,18 +2566,18 @@
       if (themeToggleBtn) {
         if (theme === 'light') {
           themeToggleBtn.innerHTML = `
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            <svg id="themeIcon" class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
             </svg>
-            <span>Modo: Claro</span>
+            <span id="themeLabel">Modo: Claro</span>
           `;
         } else {
           themeToggleBtn.innerHTML = `
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="5"/>
-              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            <svg id="themeIcon" class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
             </svg>
-            <span>Modo: Oscuro</span>
+            <span id="themeLabel">Modo: Oscuro</span>
           `;
         }
       }
@@ -2692,12 +2765,19 @@
 
     function syncAudioButtonUI() {
       if (!audioToggleBtn || !audioLabel) return;
+      const audioIcon = document.getElementById('audioIcon');
       if (SoundEngine.enabled) {
         audioToggleBtn.classList.add('active-sound');
         audioLabel.textContent = 'Audio: ON';
+        if (audioIcon) {
+          audioIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>';
+        }
       } else {
         audioToggleBtn.classList.remove('active-sound');
         audioLabel.textContent = 'Audio: MUTE';
+        if (audioIcon) {
+          audioIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" x2="16" y1="9" y2="15"/><line x1="16" x2="22" y1="9" y2="15"/>';
+        }
       }
     }
     syncAudioButtonUI();
@@ -3056,24 +3136,25 @@
         <h3 style="font-size:1.15rem;color:var(--text-primary);margin-bottom:0.9rem;">${data.title}</h3>
         <div class="species-grid">
           <div class="info-panel">
-            <h4>Diferencias Clave y Particularidades</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><path d="M11 18H8a2 2 0 0 1-2-2V9"/></svg><span>Diferencias Clave y Particularidades</span></h4>
             <ul>${data.differences.map(d => `<li>${d}</li>`).join('')}</ul>
           </div>
           <div class="info-panel">
-            <h4>Etiología y Factores de Virulencia</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg><span>Etiología y Factores de Virulencia</span></h4>
             <ul>${data.etiology.map(e => `<li>${e}</li>`).join('')}</ul>
           </div>
           <div class="info-panel">
-            <h4>Presentación Clínica y Lesional</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg><span>Presentación Clínica y Lesional</span></h4>
             <ul>${data.presentation.map(p => `<li>${p}</li>`).join('')}</ul>
           </div>
           <div class="info-panel">
-            <h4>Tratamiento y Posología con Fuente</h4>
+            <h4><svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg><span>Tratamiento y Posología con Fuente</span></h4>
             <ul>${data.doses.map(ds => `<li>${ds}</li>`).join('')}</ul>
           </div>
         </div>
-        <div class="${key === 'conejos' ? 'contra-alert' : 'evidence-alert'}">
-          <strong>Respaldo Documental y Alcance de Evidencia:</strong> ${data.sourceNote}
+        <div class="${key === 'conejos' ? 'contra-alert' : 'evidence-alert'}" style="display:flex;align-items:flex-start;gap:0.55rem;">
+          <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-top:0.12rem;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+          <div><strong>Respaldo Documental y Alcance de Evidencia:</strong> ${data.sourceNote}</div>
         </div>
       `;
     }
@@ -3313,7 +3394,7 @@
         dermMesh.position.y = isExploded3d ? 1.3 : 1.1;
         fasciaMesh.position.y = isExploded3d ? -0.75 : -0.52;
         muscMesh.position.y = isExploded3d ? -1.45 : -1.02;
-        explode3dBtn.textContent = isExploded3d ? 'Unir Capas Anatómicas' : 'Vista Expandida Capas';
+        explode3dBtn.innerHTML = `<svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg><span>${isExploded3d ? 'Unir Capas Anatómicas' : 'Vista Expandida Capas'}</span>`;
       });
     }
 
@@ -3490,7 +3571,10 @@
           ${st.options.map((o, i) => `<button class="sim-opt-btn" data-idx="${i}" type="button">${o.text}</button>`).join('')}
         </div>
         <div id="simFeedback" style="display:none;margin-top:0.85rem;"></div>
-        <button id="simNextBtn" class="btn-action" style="display:none;margin-top:0.85rem;" type="button">Siguiente Etapa</button>
+        <button id="simNextBtn" class="btn-action" style="display:none;margin-top:0.85rem;" type="button">
+          <span>Siguiente Etapa</span>
+          <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
       `;
 
       if (simHasEnteredViewport) {
@@ -3912,7 +3996,7 @@
     document.getElementById('filterErrorsBtn').addEventListener('click', (e) => {
       SoundEngine.click();
       showingOnlyErrors = !showingOnlyErrors;
-      e.currentTarget.textContent = showingOnlyErrors ? 'Mostrar Todas las Preguntas' : 'Ver Solo Errores para Repaso';
+      e.currentTarget.innerHTML = `<svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg><span>${showingOnlyErrors ? 'Mostrar Todas las Preguntas' : 'Ver Solo Errores para Repaso'}</span>`;
       renderQuiz();
     });
 
