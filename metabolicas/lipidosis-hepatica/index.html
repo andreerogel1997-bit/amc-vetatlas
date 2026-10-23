@@ -258,11 +258,12 @@
       color: var(--accent-rose);
     }
 
+    .lucide,
     .icon-svg {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       stroke: currentColor;
-      stroke-width: 2;
+      stroke-width: 1.75;
       fill: none;
       stroke-linecap: round;
       stroke-linejoin: round;
@@ -2526,28 +2527,28 @@
     </div>
 
     <div class="header-actions">
-      <button type="button" id="mobileDrawerBtn" class="icon-btn mobile-only-btn" aria-expanded="false" aria-controls="sidebarNavDrawer" title="Abrir índice de módulos">
-        <svg class="icon-svg" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <button type="button" id="mobileDrawerBtn" class="icon-btn mobile-only-btn" aria-expanded="false" aria-controls="sidebarNavDrawer" aria-label="Abrir índice de módulos" title="Abrir índice de módulos">
+        <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
         <span class="mobile-drawer-label">Módulos</span>
       </button>
 
-      <a href="../../" class="btn-back-atlas" title="Volver al índice principal de VetAtlas">
-        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <a href="../../" class="btn-back-atlas" aria-label="Volver al índice principal de VetAtlas" title="Volver al índice principal de VetAtlas">
+        <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
         <span>Volver a VetAtlas</span>
       </a>
 
-      <button type="button" id="audioToggleBtn" class="icon-btn" aria-pressed="false" title="Silenciar o activar efectos de sonido">
-        <svg class="icon-svg" id="audioIconSvg" viewBox="0 0 24 24">
+      <button type="button" id="audioToggleBtn" class="icon-btn" aria-pressed="false" aria-label="Silenciar o activar efectos de sonido" title="Silenciar o activar efectos de sonido">
+        <svg class="lucide icon-svg" id="audioIconSvg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
           <path id="audioWavesPath" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"></path>
         </svg>
         <span id="audioToggleLabel">Audio ON</span>
       </button>
 
-      <button type="button" id="themeToggleBtn" class="icon-btn" title="Cambiar entre modo oscuro y claro">
-        <svg class="icon-svg" id="themeIconSvg" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="5"></circle>
-          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+      <button type="button" id="themeToggleBtn" class="icon-btn" aria-label="Cambiar entre modo oscuro y claro" title="Cambiar entre modo oscuro y claro">
+        <svg class="lucide icon-svg" id="themeIconSvg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
         </svg>
         <span id="themeToggleLabel">Tema</span>
       </button>
@@ -2597,11 +2598,17 @@
 
         <div class="hero-cta-row">
           <a href="#mod-especies" class="btn-primary">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
             Protocolos por Especie
           </a>
-          <a href="#mod-tratamiento" class="btn-secondary">Calculadora RER</a>
-          <a href="#mod-3d" class="btn-secondary">Laboratorio 3D</a>
+          <a href="#mod-tratamiento" class="btn-secondary">
+            <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+            Calculadora RER
+          </a>
+          <a href="#mod-3d" class="btn-secondary">
+            <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            Laboratorio 3D
+          </a>
         </div>
       </div>
 
@@ -2653,15 +2660,15 @@
     <div class="quick-access-inner">
       <div class="quick-links-group">
         <a href="#mod-especies" class="quick-pill-link">
-          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/></svg>
+          <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>
           <span>Dosis por especie</span>
         </a>
         <a href="#mod-tratamiento" class="quick-pill-link cyan">
-          <svg class="icon-svg" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+          <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
           <span>Calculadora RER</span>
         </a>
         <a href="#mod-evaluacion" class="quick-pill-link emerald">
-          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           <span>Examen</span>
         </a>
       </div>
@@ -2714,7 +2721,7 @@
         <div class="grid-2">
           <div class="clinical-card" style="border-top:3px solid var(--accent-cyan);">
             <h3>
-              <svg class="icon-svg" viewBox="0 0 24 24" style="color:var(--accent-cyan-light);"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--accent-cyan-light);"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
               Forma Idiopática Primaria (&lt; 10% - 15% de los casos)
             </h3>
             <p>
@@ -2725,7 +2732,7 @@
 
           <div class="clinical-card" style="border-top:3px solid var(--accent-gold);">
             <h3>
-              <svg class="icon-svg" viewBox="0 0 24 24" style="color:var(--accent-gold-light);"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--accent-gold-light);"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
               Forma Secundaria (&gt; 85% - 90% de los diagnósticos)
             </h3>
             <p>
@@ -2737,7 +2744,7 @@
 
         <div class="callout-box info">
           <div class="callout-title">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>
             Umbral Crítico de Instauración en el Paciente Felino
           </div>
           <p style="font-size:0.9rem;color:var(--text-secondary);">
@@ -2830,31 +2837,31 @@
 
         <div class="species-tabs-bar" role="tablist" aria-label="Pestañas por especie veterinaria">
           <button type="button" class="species-tab-btn active" role="tab" aria-selected="true" data-species-target="sp-felinos">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/></svg>
+            <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>
             Felinos (Foco)
           </button>
           <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-target="sp-caninos">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309"/></svg>
+            <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309"/></svg>
             Caninos (Toy)
           </button>
           <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-target="sp-equinos">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M22 10c0-4-3-7-7-7-2 0-3.5 1-4.5 2.5L4 12l2 5 4-2v6h4v-5l3.5-1.5C20 13.5 22 12 22 10Z"/></svg>
+            <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>
             Equinos (Ponis/Asnos)
           </button>
           <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-target="sp-rumiantes">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 7c3 0 5 2 5 5v6H4v-6c0-1.5-1-3-3-3V7h2Z"/><path d="M21 7c-3 0-5 2-5 5v6h4v-6c0-1.5 1-3 3-3V7h-2Z"/><circle cx="12" cy="12" r="5"/></svg>
+            <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 22 16 8"/><path d="M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/><path d="M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/><path d="M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/><path d="M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z"/><path d="M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"/><path d="M15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"/><path d="M19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"/></svg>
             Rumiantes
           </button>
           <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-target="sp-camelidos">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M7 3v10c0 2 2 4 5 4h5v4M7 7H4l2-4h3v4Z"/></svg>
+            <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
             Camélidos
           </button>
           <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-target="sp-exoticos">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 2c1.5 2 2 5 1 8 2 0 4 1 5 3 1-3 2.5-6 4-8"/><circle cx="12" cy="16" r="5"/></svg>
+            <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/></svg>
             Conejos y Hurones
           </button>
           <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-target="sp-aves">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 7h.01M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/><path d="m20 7 2 .5-2 .5"/></svg>
+            <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h.01"/><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/><path d="m20 7 2 .5-2 .5"/><path d="M10 18v3"/><path d="M14 17.75V21"/><path d="M7 18a6 6 0 0 0 3.84-10.61"/></svg>
             Aves Psitácidas
           </button>
         </div>
@@ -2891,7 +2898,10 @@
           </div>
 
           <div class="callout-box danger">
-            <div class="callout-title">Reglas de Oro en la Estabilización Felina (Consensos ISFM / ACVIM / WSAVA)</div>
+            <div class="callout-title">
+              <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--accent-rose);"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+              Reglas de Oro en la Estabilización Felina (Consensos ISFM / ACVIM / WSAVA)
+            </div>
             <p style="font-size:0.88rem;color:var(--text-secondary);">
               1) <strong>Prohibido el force-feeding con jeringa oral</strong> (genera aversión alimentaria condicionada irreversible y neumonía por aspiración). 2) <strong>Prohibidas las soluciones dextrosadas de mantenimiento</strong> (estimulan insulina, elevan malonil-CoA, inhiben CPT-1 y agravan la esteatosis) y <strong>evitar Ringer Lactato</strong> (deficiente aclaramiento hepático de L-lactato). 3) Administrar <strong>Tiamina (B1) y Vitamina K1</strong> antes del sondaje y de la primera toma enteral.
             </p>
@@ -3815,7 +3825,8 @@
         <!-- CALCULADORA INTERACTIVA DE RER Y PLAN DE REALIMENTACIÓN -->
         <div class="calc-grid" aria-label="Calculadora interactiva de Requerimiento Energético de Reposo y plan progresivo de realimentación">
           <div>
-            <h3 style="font-family:var(--font-display);font-size:1.2rem;margin-bottom:0.5rem;color:var(--accent-gold-light);">
+            <h3 style="font-family:var(--font-display);font-size:1.2rem;margin-bottom:0.5rem;color:var(--accent-gold-light);display:flex;align-items:center;gap:0.5rem;">
+              <svg class="lucide icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
               Calculadora Alométrica de RER y Plan por Días
             </h3>
             <p style="font-size:0.84rem;color:var(--text-secondary);margin-bottom:1rem;">
@@ -3975,11 +3986,11 @@
         <div class="viewer-3d-topbar">
           <div class="viewer-3d-mode-switch" role="group" aria-label="Escala anatómica del modelo 3D">
             <button type="button" class="mode-3d-btn active" id="btnViewCell" data-view-mode="cell">
-              <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg>
+              <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg>
               <span>Hepatocito Translúcido (Ultraestructura)</span>
             </button>
             <button type="button" class="mode-3d-btn" id="btnViewLobule" data-view-mode="lobule">
-              <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="12 2 21 7 21 17 12 22 3 17 3 7 12 2"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
               <span>Lobulillo Hexagonal (Tríadas y Sinusoides)</span>
             </button>
           </div>
@@ -3994,7 +4005,7 @@
           <canvas id="hepatocyte3DCanvas" aria-label="Modelo 3D interactivo de lipidosis hepática"></canvas>
 
           <div class="viewer-3d-gesture-hint" id="viewer3DGestureHint">
-            <svg class="icon-svg" viewBox="0 0 24 24" style="width:14px;height:14px;"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
+            <svg class="lucide icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px;"><path d="M12 2v20"/><path d="m15 19-3 3-3-3"/><path d="m19 9 3 3-3 3"/><path d="M2 12h20"/><path d="m5 9-3 3 3 3"/><path d="m9 5 3-3 3 3"/></svg>
             <span>Giro horizontal o 2 dedos · Zoom cambia entre lobulillo y célula</span>
           </div>
 
@@ -4079,7 +4090,10 @@
             <div style="display:flex;align-items:center;gap:0.75rem;">
               <span style="font-family:var(--font-mono);font-size:0.85rem;color:var(--accent-cyan-light);" id="simTimerDisplay">Tiempo: 60s</span>
               <span style="font-family:var(--font-mono);font-size:0.85rem;color:var(--accent-gold-light);" id="simScoreDisplay">Puntaje: 0 / 5</span>
-              <button type="button" class="btn-secondary" id="simRestartBtn" style="padding:0.45rem 0.85rem;font-size:0.8rem;">Reiniciar Caso</button>
+              <button type="button" class="btn-secondary" id="simRestartBtn" style="padding:0.45rem 0.85rem;font-size:0.8rem;">
+                <svg class="lucide icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                <span>Reiniciar Caso</span>
+              </button>
             </div>
           </div>
 
@@ -4106,7 +4120,10 @@
             <p id="simScenarioPrompt" style="font-size:0.96rem;color:var(--text-primary);font-weight:600;margin-bottom:1rem;"></p>
             <div id="simOptionsList"></div>
             <div id="simFeedbackBox" class="callout-box" style="display:none;margin-top:1rem;"></div>
-            <button type="button" class="btn-primary" id="simNextStepBtn" style="display:none;margin-top:0.75rem;">Siguiente Decisión Clínica</button>
+            <button type="button" class="btn-primary" id="simNextStepBtn" style="display:none;margin-top:0.75rem;">
+              <span>Siguiente Decisión Clínica</span>
+              <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
           </div>
         </div>
 
@@ -4119,7 +4136,10 @@
             </div>
             <div style="display:flex;align-items:center;gap:0.75rem;">
               <span style="font-family:var(--font-mono);font-size:0.85rem;color:var(--accent-emerald);" id="ddScoreText">Aciertos: 0 / 8</span>
-              <button type="button" class="btn-secondary" id="ddResetBtn" style="padding:0.45rem 0.85rem;font-size:0.8rem;">Barajar de Nuevo</button>
+              <button type="button" class="btn-secondary" id="ddResetBtn" style="padding:0.45rem 0.85rem;font-size:0.8rem;">
+                <svg class="lucide icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></svg>
+                <span>Barajar de Nuevo</span>
+              </button>
             </div>
           </div>
 
@@ -4225,10 +4245,13 @@
 
           <div class="quiz-streak-badges">
             <span class="streak-pill" id="quizStreakBadge" title="Racha actual de respuestas correctas seguidas">
-              <svg class="icon-svg" viewBox="0 0 24 24" style="color:var(--accent-gold-light);"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--accent-gold-light);"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
               <span>Racha: <strong id="quizStreakVal">0</strong></span>
             </span>
-            <button type="button" class="btn-secondary" id="quizShuffleBtn" style="padding:0.45rem 0.85rem;font-size:0.8rem;">Reiniciar y Barajar</button>
+            <button type="button" class="btn-secondary" id="quizShuffleBtn" style="padding:0.45rem 0.85rem;font-size:0.8rem;">
+              <svg class="lucide icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></svg>
+              <span>Reiniciar y Barajar</span>
+            </button>
           </div>
         </div>
 
@@ -4251,8 +4274,8 @@
           <!-- Estado 1: Bloqueado antes de calificar el examen -->
           <div class="cert-locked-card" id="certLockedCard">
             <div class="cert-lock-icon-wrap">
-              <svg class="icon-svg" viewBox="0 0 24 24" style="width:32px;height:32px;color:var(--accent-gold-light);">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <svg class="lucide icon-svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:32px;height:32px;color:var(--accent-gold-light);">
+                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
               </svg>
             </div>
@@ -4274,17 +4297,17 @@
             </div>
 
             <button type="button" id="renderCertBtn" class="btn-primary">
-              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 15l-2 5l9-9l-9-9l2 5l-7 4l7 4z"/></svg>
+              <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></svg>
               <span>Generar certificado</span>
             </button>
 
             <button type="button" id="downloadCertBtn" class="btn-primary" disabled style="display:none;">
-              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
               <span>Descargar PNG</span>
             </button>
 
             <button type="button" id="editCertNameBtn" class="btn-secondary" style="display:none;">
-              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"/></svg>
               <span>Editar nombre</span>
             </button>
           </div>
@@ -4301,7 +4324,7 @@
   <!-- (11) PIE DE PÁGINA INSTITUCIONAL Y FUENTES DEL INFORME -->
 <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
   <button type="button" class="scroll-top-fab" id="scrollTopFab" aria-label="Volver al principio de la página" title="Subir al inicio">
-    <span aria-hidden="true">↑</span>
+    <svg class="lucide icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
   </button>
 
     <footer class="site-footer">
@@ -4317,8 +4340,8 @@
           </div>
         </div>
 
-        <a href="../../" class="btn-back-atlas">
-          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <a href="../../" class="btn-back-atlas" aria-label="Volver al índice principal de VetAtlas">
+          <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
           <span>Volver a VetAtlas</span>
         </a>
       </div>
@@ -4350,6 +4373,10 @@
           <a class="source-tag" href="https://www.semanticscholar.org/paper/Hepatic-lipidosis%3A-Clinical-review-drawn-from-Webb/b92ab64a451051cd631de2bb636c66f947befda8" target="_blank" rel="noopener">Semantic Scholar · Webb (2018) Hepatic lipidosis review</a>
         </div>
       </div>
+
+      <p style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);padding-top:1rem;border-top:1px solid var(--border-subtle);">
+        Iconos: <a href="https://lucide.dev" target="_blank" rel="noopener" style="color:var(--accent-cyan-light);text-decoration:underline;">Lucide</a> (licencia ISC)
+      </p>
     </div>
   </footer>
 
@@ -6575,7 +6602,7 @@
       draggablesCol.innerHTML = shuffledDrugs.map(item => `
         <button type="button" class="dd-pill" draggable="true" data-drug-id="${item.id}" aria-pressed="false">
           <span>${item.drug}</span>
-          <svg class="icon-svg" viewBox="0 0 24 24" style="width:16px;height:16px;opacity:0.65;"><circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/></svg>
+          <svg class="lucide icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:16px;height:16px;opacity:0.65;"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg>
         </button>
       `).join('');
 
@@ -6638,7 +6665,7 @@
       if (drugId === targetId && matchedPair) {
         zoneElem.classList.add('filled-ok');
         zoneElem.disabled = true;
-        zoneElem.innerHTML = `<strong style="color:var(--accent-emerald);">${matchedPair.drug} ✓</strong> <span>${matchedPair.target}</span>`;
+        zoneElem.innerHTML = `<strong style="color:var(--accent-emerald);display:inline-flex;align-items:center;gap:0.3rem;">${matchedPair.drug} <svg class="lucide icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:16px;height:16px;"><path d="M20 6 9 17l-5-5"/></svg></strong> <span>${matchedPair.target}</span>`;
         const pill = pillElem || document.querySelector(`[data-drug-id="${drugId}"]`);
         if (pill) {
           pill.classList.add('matched');
@@ -6658,9 +6685,10 @@
           const victoryBanner = document.getElementById('ddVictoryBanner');
           if (victoryBanner) {
             victoryBanner.style.display = 'flex';
+            const starSvg = `<svg class="lucide icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:18px;height:18px;color:var(--accent-gold-light);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
             victoryBanner.innerHTML = `
               <div>
-                <strong style="font-size:1.1rem;color:var(--accent-gold-light);">⭐⭐⭐ en ${finalSec} s · ¡Dominio Farmacológico Completo!</strong>
+                <strong style="font-size:1.1rem;color:var(--accent-gold-light);display:inline-flex;align-items:center;gap:0.25rem;">${starSvg}${starSvg}${starSvg} <span style="margin-left:0.25rem;">en ${finalSec} s · ¡Dominio Farmacológico Completo!</span></strong>
                 <p style="font-size:0.84rem;color:var(--text-secondary);">Mejor tiempo histórico: <strong>${bestSec} s</strong></p>
               </div>
               <span class="badge-pill emerald">8 / 8 Emparejados</span>
@@ -6891,14 +6919,14 @@
       let optsHtml = '';
       item.options.forEach((opt, oIdx) => {
         let stateClass = '';
-        let iconHtml = `<svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>`;
+        let iconHtml = `<svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>`;
         if (isAnswered) {
           if (opt.correct) {
             stateClass = 'opt-correct';
-            iconHtml = `<svg class="icon-svg" viewBox="0 0 24 24" style="color:var(--accent-emerald);"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
+            iconHtml = `<svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--accent-emerald);"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>`;
           } else if (oIdx === answeredIdx && !opt.correct) {
             stateClass = 'opt-wrong';
-            iconHtml = `<svg class="icon-svg" viewBox="0 0 24 24" style="color:var(--accent-rose);"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
+            iconHtml = `<svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--accent-rose);"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>`;
           }
         }
 
@@ -6918,8 +6946,8 @@
           <div class="callout-box ${ok ? 'success' : 'danger'}" style="margin-top:0.9rem;">
             <div class="callout-title">
               ${ok
-                ? `<svg class="icon-svg" viewBox="0 0 24 24" style="color:var(--accent-emerald);"><polyline points="20 6 9 17 4 12"/></svg> ¡Respuesta Correcta!`
-                : `<svg class="icon-svg" viewBox="0 0 24 24" style="color:var(--accent-rose);"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Respuesta Incorrecta`}
+                ? `<svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--accent-emerald);"><path d="M20 6 9 17l-5-5"/></svg> ¡Respuesta Correcta!`
+                : `<svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--accent-rose);"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg> Respuesta Incorrecta`}
             </div>
             <p style="font-size:0.88rem;color:var(--text-secondary);">${item.explanation}</p>
           </div>
@@ -6935,11 +6963,12 @@
           ${feedbackHtml}
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.65rem;margin-top:1.1rem;">
             <button type="button" class="btn-secondary" id="quizPrevBtn" ${quizActiveIndex === 0 ? 'disabled style="opacity:0.45;pointer-events:none;"' : ''}>
-              ← Anterior
+              <svg class="lucide icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+              <span>Anterior</span>
             </button>
             ${!isLastQuestion
-              ? `<button type="button" class="btn-primary" id="quizNextBtn" ${!isAnswered ? 'disabled style="opacity:0.5;pointer-events:none;"' : ''}>Siguiente pregunta →</button>`
-              : `<button type="button" class="btn-primary" id="quizGradeBtn" ${!isAnswered ? 'disabled style="opacity:0.5;pointer-events:none;"' : ''}>Calificar Evaluación</button>`
+              ? `<button type="button" class="btn-primary" id="quizNextBtn" ${!isAnswered ? 'disabled style="opacity:0.5;pointer-events:none;"' : ''}><span>Siguiente pregunta</span><svg class="lucide icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>`
+              : `<button type="button" class="btn-primary" id="quizGradeBtn" ${!isAnswered ? 'disabled style="opacity:0.5;pointer-events:none;"' : ''}><svg class="lucide icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Calificar Evaluación</span></button>`
             }
           </div>
         </div>
@@ -7280,8 +7309,16 @@
         if (!link.querySelector('.nav-check-icon')) {
           const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
           svg.setAttribute('viewBox', '0 0 24 24');
-          svg.setAttribute('class', 'icon-svg nav-check-icon');
-          svg.innerHTML = '<polyline points="20 6 9 17 4 12"></polyline>';
+          svg.setAttribute('width', '16');
+          svg.setAttribute('height', '16');
+          svg.setAttribute('fill', 'none');
+          svg.setAttribute('stroke', 'currentColor');
+          svg.setAttribute('stroke-width', '1.75');
+          svg.setAttribute('stroke-linecap', 'round');
+          svg.setAttribute('stroke-linejoin', 'round');
+          svg.setAttribute('aria-hidden', 'true');
+          svg.setAttribute('class', 'lucide icon-svg nav-check-icon');
+          svg.innerHTML = '<path d="M20 6 9 17l-5-5"></path>';
           link.appendChild(svg);
         }
         link.classList.toggle('completed', completedModulesSet.has(modId));
@@ -7317,7 +7354,7 @@
         box30.className = 'quick-30s-box';
         box30.innerHTML = `
           <div class="quick-30s-header">
-            <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <span>En 30 segundos · Puntos Clave</span>
           </div>
           <ul class="quick-30s-list">
@@ -7334,10 +7371,10 @@
           details.innerHTML = `
             <summary>
               <span style="display:inline-flex;align-items:center;gap:0.45rem;">
-                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                 Profundizar en fisiopatología, clínica y tablas del módulo
               </span>
-              <svg class="icon-svg chevron-svg" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              <svg class="lucide icon-svg chevron-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
             </summary>
             <div class="deep-dive-body"></div>
           `;
@@ -7359,7 +7396,7 @@
         chBox.innerHTML = `
           <div class="mini-challenge-header">
             <span style="display:inline-flex;align-items:center;gap:0.4rem;">
-              <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
               Reto Rápido del Módulo
             </span>
             <span class="challenge-status-badge">${completedModulesSet.has(modId) ? 'Completado' : '1 pregunta'}</span>
@@ -7368,7 +7405,7 @@
           <div class="mini-challenge-opts">
             ${shuffledOpts.map((o, idx) => `
               <button type="button" class="mini-challenge-opt" data-ok="${o.ok}">
-                <svg class="icon-svg" viewBox="0 0 24 24" style="width:16px;height:16px;"><circle cx="12" cy="12" r="9"/></svg>
+                <svg class="lucide icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:16px;height:16px;"><circle cx="12" cy="12" r="10"/></svg>
                 <span>${o.t}</span>
               </button>
             `).join('')}
@@ -7484,7 +7521,10 @@
       <div class="vet-lightbox-dialog">
         <div class="vet-lightbox-header">
           <strong id="vetLightboxTitle" style="font-family:var(--font-display);font-size:0.98rem;color:var(--accent-gold-light);">Vista Ampliada</strong>
-          <button type="button" class="icon-btn" id="vetLightboxCloseBtn" aria-label="Cerrar vista ampliada">✕ Cerrar</button>
+          <button type="button" class="icon-btn" id="vetLightboxCloseBtn" aria-label="Cerrar vista ampliada">
+            <svg class="lucide icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            <span>Cerrar</span>
+          </button>
         </div>
         <div class="vet-lightbox-body" id="vetLightboxBody"></div>
       </div>
@@ -7555,9 +7595,12 @@
       const toolbar = document.createElement('div');
       toolbar.className = 'svg-diagram-toolbar';
       toolbar.innerHTML = `
-        <span class="svg-swipe-hint">↔ desliza para explorar el diagrama</span>
+        <span class="svg-swipe-hint">
+          <svg class="lucide icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px;"><polyline points="18 8 22 12 18 16"/><polyline points="6 8 2 12 6 16"/><line x1="2" x2="22" y1="12" y2="12"/></svg>
+          <span>desliza para explorar el diagrama</span>
+        </span>
         <button type="button" class="btn-secondary svg-expand-btn" style="padding:0.35rem 0.75rem;font-size:0.78rem;margin-left:auto;">
-          <svg class="icon-svg" viewBox="0 0 24 24" style="width:15px;height:15px;"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+          <svg class="lucide icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:15px;height:15px;"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" x2="14" y1="3" y2="10"/><line x1="3" x2="10" y1="21" y2="14"/></svg>
           <span>Ampliar</span>
         </button>
       `;
