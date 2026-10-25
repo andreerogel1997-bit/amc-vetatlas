@@ -1353,6 +1353,20 @@
         height: 360px;
       }
     }
+    .lucide {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      vertical-align: -0.15em;
+      flex-shrink: 0;
+    }
+  
+    /* Iconos Lucide en línea con el texto (el reset global pone svg en display:block) */
+    svg.lucide { display: inline-block; }
   </style>
 </head>
 <body>
@@ -1380,35 +1394,42 @@
 
       <div class="header-actions">
         <a href="../../" class="btn-back" title="Volver a VetAtlas">
-          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <svg class="icon-svg lucide lucide-arrow-left" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
           <span>Volver a VetAtlas</span>
         </a>
 
         <button type="button" id="audioToggleBtn" class="btn-icon" aria-pressed="false" title="Activar/Silenciar efectos de sonido">
-          <svg id="audioIconOn" class="icon-svg" viewBox="0 0 24 24">
+          <svg id="audioIconOn" class="icon-svg lucide lucide-volume-2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
           </svg>
-          <svg id="audioIconOff" class="icon-svg" viewBox="0 0 24 24" style="display:none;">
+          <svg id="audioIconOff" class="icon-svg lucide lucide-volume-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <line x1="23" y1="9" x2="17" y2="15"></line>
-            <line x1="17" y1="9" x2="23" y2="15"></line>
+            <line x1="22" y1="9" x2="16" y2="15"></line>
+            <line x1="16" y1="9" x2="22" y2="15"></line>
           </svg>
         </button>
 
         <button type="button" id="themeToggleBtn" class="btn-icon" title="Cambiar modo claro/oscuro">
-          <svg class="icon-svg" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="5"></circle>
-            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+          <svg class="icon-svg lucide lucide-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
           </svg>
         </button>
 
         <button type="button" id="mobileMenuBtn" class="btn-icon mobile-menu-btn" aria-label="Abrir menú móvil">
-          <svg class="icon-svg" viewBox="0 0 24 24">
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
+          <svg class="icon-svg lucide lucide-menu" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="4" y1="6" x2="20" y2="6"></line>
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+            <line x1="4" y1="18" x2="20" y2="18"></line>
           </svg>
         </button>
       </div>
@@ -1473,9 +1494,9 @@
       <div class="hero-bottom-bar">
         <div class="hero-controls-panel">
           <span style="font-size:0.74rem;font-weight:700;color:#94a3b8;">Variante Anatómica:</span>
-          <button type="button" id="heroBtnClosed" class="hero-btn danger active">Cuello Cerrado (Distensión)</button>
-          <button type="button" id="heroBtnOpen" class="hero-btn">Cuello Abierto (Descarga)</button>
-          <button type="button" id="heroBtnPulseLps" class="hero-btn" title="Liberar pulso de endotoxina">Pulso Endotóxico (LPS)</button>
+          <button type="button" id="heroBtnClosed" class="hero-btn danger active"><svg class="lucide lucide-lock" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Cuello Cerrado (Distensión)</button>
+          <button type="button" id="heroBtnOpen" class="hero-btn"><svg class="lucide lucide-droplets" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg> Cuello Abierto (Descarga)</button>
+          <button type="button" id="heroBtnPulseLps" class="hero-btn" title="Liberar pulso de endotoxina"><svg class="lucide lucide-zap" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg> Pulso Endotóxico (LPS)</button>
         </div>
 
         <div class="hero-legend">
@@ -1499,15 +1520,15 @@
 
       <div class="species-tabs-nav" role="tablist">
         <button type="button" class="species-tab-btn active" role="tab" aria-selected="true" data-species-tab="caninos">
-          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306"/></svg>
+          <svg class="icon-svg lucide lucide-dog" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306"/></svg>
           Caninos (Foco Principal)
         </button>
         <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-tab="felinos">
-          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/></svg>
+          <svg class="icon-svg lucide lucide-cat" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>
           Felinos (Gata Doméstica)
         </button>
         <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-tab="otras">
-          <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <svg class="icon-svg lucide lucide-info" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
           Otras Especies (Conejas, Yeguas, Vacas, Cerdas, Aves y Otras)
         </button>
       </div>
@@ -1631,7 +1652,7 @@
       <div id="species-otras" class="species-panel" role="tabpanel">
         <div class="callout callout-warning" style="margin-bottom:1.25rem;">
           <div class="callout-title">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <svg class="icon-svg lucide lucide-triangle-alert" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
             Declaración de Honestidad Científica sobre Evidencia y Posología en el Informe
           </div>
           <p>
@@ -2525,7 +2546,7 @@
           <!-- Mini Juego 1: Simulador de Caso Clínico Contrarreloj -->
           <div class="game-card">
             <div class="card-header">
-              <span class="card-title">1. Simulador de Guardia: Emergencia Séptica</span>
+              <span class="card-title"><svg class="lucide lucide-siren" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18v-6a5 5 0 1 1 10 0v6"/><path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z"/><path d="M21 12h1"/><path d="M18.5 4.5 18 5"/><path d="M2 12h1"/><path d="M12 2v1"/><path d="m4.929 4.929.707.707"/><path d="M12 12v6"/></svg> 1. Simulador de Guardia: Emergencia Séptica</span>
               <span id="simTimerBadge" class="badge badge-danger mono">Tiempo: 45s</span>
             </div>
             <p style="font-size:0.84rem;color:var(--text-secondary);margin-bottom:0.8rem;">
@@ -2543,15 +2564,15 @@
             </div>
 
             <div style="display:flex;justify-content:space-between;gap:0.5rem;">
-              <button type="button" id="simRestartBtn" class="btn-icon">Reiniciar Caso</button>
-              <button type="button" id="simNextBtn" class="btn-primary" style="display:none;">Siguiente Decisión</button>
+              <button type="button" id="simRestartBtn" class="btn-icon"><svg class="lucide lucide-rotate-ccw" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Reiniciar Caso</button>
+              <button type="button" id="simNextBtn" class="btn-primary" style="display:none;">Siguiente Decisión <svg class="lucide lucide-arrow-right" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
             </div>
           </div>
 
           <!-- Mini Juego 2: Emparejar Arrastrando y con Toque -->
           <div class="game-card">
             <div class="card-header">
-              <span class="card-title">2. Relaciona Concepto / Fármaco con su Diana</span>
+              <span class="card-title"><svg class="lucide lucide-puzzle" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.315 8.685a.98.98 0 0 1 .837-.276c.47.07.802.48.968.925a2.501 2.501 0 1 0 3.214-3.214c-.446-.166-.855-.497-.925-.968a.979.979 0 0 1 .276-.837l1.61-1.61a2.404 2.404 0 0 1 1.705-.707c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02Z"/></svg> 2. Relaciona Concepto / Fármaco con su Diana</span>
               <span id="matchScoreBadge" class="badge badge-cyan mono">0 / 6 Pares</span>
             </div>
             <p style="font-size:0.84rem;color:var(--text-secondary);margin-bottom:0.8rem;">
@@ -2565,7 +2586,7 @@
 
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.85rem;">
               <span id="matchStatusMsg" style="font-size:0.8rem;color:var(--text-muted);">Selecciona o arrastra un término para comenzar.</span>
-              <button type="button" id="matchResetBtn" class="btn-icon">Barajar de Nuevo</button>
+              <button type="button" id="matchResetBtn" class="btn-icon"><svg class="lucide lucide-shuffle" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></svg> Barajar de Nuevo</button>
             </div>
           </div>
         </div>
@@ -2662,7 +2683,7 @@
           <div id="quizExplanationBox" class="callout" style="display:none;margin-top:0.85rem;"></div>
 
           <div style="display:flex;justify-content:flex-end;margin-top:1rem;">
-            <button type="button" id="quizNextQuestionBtn" class="btn-primary" style="display:none;">Siguiente Pregunta</button>
+            <button type="button" id="quizNextQuestionBtn" class="btn-primary" style="display:none;">Siguiente Pregunta <svg class="lucide lucide-arrow-right" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
           </div>
         </div>
 
@@ -2678,7 +2699,7 @@
             <div id="quizMistakesList" style="display:flex;flex-direction:column;gap:0.75rem;"></div>
           </div>
 
-          <button type="button" id="quizRetryBtn" class="btn-icon" style="margin-bottom:1.25rem;">Reintentar Autoevaluación (Barajar)</button>
+          <button type="button" id="quizRetryBtn" class="btn-icon" style="margin-bottom:1.25rem;"><svg class="lucide lucide-rotate-ccw" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Reintentar Autoevaluación (Barajar)</button>
         </div>
 
         <!-- (7) MÓDULO DE CERTIFICADO COMPARTIDO -->
@@ -2690,8 +2711,8 @@
 
           <div class="cert-controls">
             <input type="text" id="certNameInput" class="form-control" maxlength="80" autocomplete="name" placeholder="Ej. Dr. / Dra. Nombre Apellido" value="Profesional Veterinario" style="flex:1;min-width:220px;" />
-            <button type="button" id="renderCertBtn" class="btn-primary">Generar Certificado</button>
-            <button type="button" id="downloadCertBtn" class="btn-icon" style="display:none;">Descargar PNG</button>
+            <button type="button" id="renderCertBtn" class="btn-primary"><svg class="lucide lucide-award" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></svg> Generar Certificado</button>
+            <button type="button" id="downloadCertBtn" class="btn-icon" style="display:none;"><svg class="lucide lucide-download" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Descargar PNG</button>
           </div>
 
           <div id="certStage" class="cert-stage">
@@ -2715,7 +2736,7 @@
           </div>
         </div>
         <a href="../../" class="btn-back">
-          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <svg class="icon-svg lucide lucide-arrow-left" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
           <span>Volver a VetAtlas</span>
         </a>
       </div>
@@ -2760,6 +2781,7 @@
         <li>Veterian Key. (2020). Anesthesia in Patients with Concurrent Systemic Disease. <em>Veterian Key Clinical Compendium</em>. <a href="https://veteriankey.com/anesthesia-in-patients-with-concurrent-disease/" target="_blank" rel="noopener">Enlace</a></li>
         <li>Woods, B., et al. (2023). Chronic pyometra secondary to cervical adhesion in two mares. <em>Clinical Theriogenology</em>, 15, 14412. <a href="https://clinicaltheriogenology.net/index.php/CT/article/view/14412/21785" target="_blank" rel="noopener">Enlace</a></li>
       </ol>
+      <p style="margin-top:1.25rem;font-size:0.78rem;color:var(--text-muted);">Iconos: Lucide (licencia ISC)</p>
     </div>
   </footer>
 
