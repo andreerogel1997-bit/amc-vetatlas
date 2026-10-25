@@ -1643,6 +1643,16 @@
         font-size: 0.7rem;
       }
     }
+    .lucide {
+      display: inline-block;
+      vertical-align: -0.15em;
+      stroke: currentColor;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
@@ -1659,23 +1669,23 @@
 
     <div class="header-actions">
       <a href="../../" class="back-link" aria-label="Volver a VetAtlas">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        <svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
         <span>Volver a VetAtlas</span>
       </a>
 
       <button type="button" id="audioToggleBtn" class="icon-btn" aria-pressed="false" title="Alternar efectos de sonido">
-        <svg id="audioIconOn" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
-        <svg id="audioIconOff" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        <svg id="audioIconOn" class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        <svg id="audioIconOff" class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
         <span id="audioBtnLabel">SFX</span>
       </button>
 
       <button type="button" id="themeToggleBtn" class="icon-btn" title="Cambiar modo claro u oscuro">
-        <svg id="themeIconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+        <svg id="themeIconSun" class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
         <span id="themeBtnLabel">Tema</span>
       </button>
 
       <button type="button" id="mobileMenuBtn" class="icon-btn mobile-menu-btn" aria-expanded="false" aria-label="Abrir índice de módulos">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
       </button>
     </div>
   </header>
@@ -1747,9 +1757,9 @@
             <span id="heroPhaseLabel">Ciclo Completo</span>
           </div>
           <div class="hero-phase-btns" role="group" aria-label="Fase de animación en el hero">
-            <button type="button" class="hero-phase-btn active" data-hero-mode="cycle">Ciclo Dinámico</button>
-            <button type="button" class="hero-phase-btn" data-hero-mode="progression">Trasplante y Mitosis</button>
-            <button type="button" class="hero-phase-btn" data-hero-mode="regression">Ataque TIL / IFN-gamma</button>
+            <button type="button" class="hero-phase-btn active" data-hero-mode="cycle"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg> Ciclo Dinámico</button>
+            <button type="button" class="hero-phase-btn" data-hero-mode="progression"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg> Trasplante y Mitosis</button>
+            <button type="button" class="hero-phase-btn" data-hero-mode="regression"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg> Ataque TIL / IFN-gamma</button>
           </div>
           <div class="hero-legend-row">
             <span class="legend-item"><i class="legend-swatch" style="background:#f43f5e"></i>Clon CTVT (vacuolas lipídicas)</span>
@@ -1795,15 +1805,15 @@
 
         <div class="species-tabs-bar" role="tablist" aria-label="Pestañas por especie">
           <button type="button" class="species-tab-btn active" role="tab" aria-selected="true" data-species-tab="caninos">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306"/></svg>
+            <svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306"/></svg>
             Caninos (Foco Principal)
           </button>
           <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-tab="felinos-canidos">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/></svg>
+            <svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>
             Felinos y Cánidos Silvestres
           </button>
           <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-tab="otras-especies">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
             Otras Especies y Cánceres Clonales
           </button>
         </div>
@@ -1812,7 +1822,7 @@
         <div id="tab-caninos" class="species-panel active" role="tabpanel">
           <div class="grid-2">
             <div class="info-card">
-              <h3 class="info-card-title">Reservorio y Presentación Clínica en <em>Canis lupus familiaris</em></h3>
+              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg> Reservorio y Presentación Clínica en <em>Canis lupus familiaris</em></h3>
               <p>
                 El perro doméstico constituye el reservorio epidemiológico principal a escala global (endémico en al menos 90 naciones). Se transmite por contacto físico directo de células exfoliables viables durante el coito (trauma por fricción durante el abotonamiento) y mediante conductas sociales de olfateo anogenital, lamido o mordeduras.
               </p>
@@ -1825,7 +1835,7 @@
             </div>
 
             <div class="info-card">
-              <h3 class="info-card-title">Diagnóstico, Tratamiento y Dosis Exactas en Caninos</h3>
+              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/><path d="m14 4 6 6"/></svg> Diagnóstico, Tratamiento y Dosis Exactas en Caninos</h3>
               <ul>
                 <li><strong>Diagnóstico:</strong> Citología exfoliativa/CAAF (células redondas con vacuolas lipídicas periféricas en "sacabocado"; subtipos linfocitoide, plasmocitoide y mixto), Histopatología H&amp;E (&gt;3–5 mitosis/campo), IHQ (Vimentina+, CD18+, Lisozima+) y PCR confirmatoria <strong>LINE-1/c-myc</strong> (amplicón 340–550 pb).</li>
                 <li><strong>Primera Elección (Sulfato de Vincristina):</strong> <code>0,5 a 0,7 mg/m²</code> IV estricta (o <code>0,025 mg/kg</code> si peso &lt; 10 kg), cada 7 días por 4 a 8 ciclos, manteniendo 1 a 2 sesiones adicionales tras remisión macroscópica y citológica total (éxito &gt;90–95%).</li>
@@ -1841,7 +1851,7 @@
         <div id="tab-felinos-canidos" class="species-panel" role="tabpanel">
           <div class="grid-2">
             <div class="info-card">
-              <h3 class="info-card-title">Cánidos Silvestres: Susceptibilidad Demostrada</h3>
+              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg> Cánidos Silvestres: Susceptibilidad Demostrada</h3>
               <p>
                 El informe documenta transmisión natural y susceptibilidad experimental reproducible en cánidos silvestres emparentados filogenéticamente con el perro doméstico:
               </p>
@@ -1854,7 +1864,7 @@
             </div>
 
             <div class="info-card">
-              <h3 class="info-card-title">Felinos Domésticos (<em>Felis catus</em>): Resistencia Natural y Rechazo</h3>
+              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m4.2 4.2 15.6 15.6"/></svg> Felinos Domésticos (<em>Felis catus</em>): Resistencia Natural y Rechazo</h3>
               <div class="alert-box danger" style="margin-top:0">
                 <div class="alert-title">Ausencia de Enfermedad Natural en Felinos</div>
                 <p>
@@ -1881,7 +1891,7 @@
 
           <div class="grid-2" style="margin-bottom: 1.15rem;">
             <div class="info-card">
-              <h3 class="info-card-title">Mecanismos de Resistencia Xenogénica Absoluta</h3>
+              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg> Mecanismos de Resistencia Xenogénica Absoluta</h3>
               <p>La refractariedad total de equinos, porcinos, rumiantes, aves y lagomorfos obedece a tres barreras biológicas insalvables descritas en el informe:</p>
               <ul>
                 <li><strong>Anticuerpos naturales preexistentes:</strong> Presencia sérica de anticuerpos dirigidos contra determinantes antigénicos glicosilados propios de los carnívoros, tales como epítopos dependientes de <strong>galactosa-alfa-1,3-galactosa</strong>.</li>
@@ -1892,7 +1902,7 @@
             </div>
 
             <div class="info-card">
-              <h3 class="info-card-title">Contraste con Otros Cánceres Clonales Transmisibles</h3>
+              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><path d="M11 18H8a2 2 0 0 1-2-2V9"/></svg> Contraste con Otros Cánceres Clonales Transmisibles</h3>
               <p>El CTVT comparte su naturaleza de neoplasia clonal transmisible únicamente con un grupo muy reducido de enfermedades en la naturaleza:</p>
               <ul>
                 <li><strong>Tumor Facial del Demonio de Tasmania (DFTD):</strong> Dos linajes independientes (DFTD-1 y DFTD-2) en el marsupial <em>Sarcophilus harrisii</em>. Estirpe de células de Schwann mielinizantes periféricas. Se transmite por mordeduras faciales territoriales; letalidad cercana al 100% por silenciamiento epigenético irreversible de MHC-I, beta2-microglobulina y transportadores TAP-1 y TAP-2.</li>
@@ -1961,7 +1971,7 @@
 
         <div class="grid-3">
           <div class="info-card">
-            <h3 class="info-card-title">Origen Evolutivo (~11.000 años)</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg> Origen Evolutivo (~11.000 años)</h3>
             <p>
               Los análisis filogenómicos de genoma completo sitúan el origen del linaje hace aproximadamente <strong>11.000 años</strong> (rango estimado de 4.000 a 11.000 años), convirtiéndolo en el clon somático continuo más antiguo conocido. Surgió en un cánido fundador con baja heterocigosidad genómica y perfil intermedio entre lobos ancestrales y razas caninas primitivas semejantes a perros árticos modernos.
             </p>
@@ -1972,7 +1982,7 @@
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">Arquitectura Genómica y Captura Mitocondrial</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 16 1.5 1.5"/><path d="m14 8-1.5-1.5"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m16.5 10.5 1 1"/><path d="m17 6-2.891-2.891"/><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="m20 9 .891.891"/><path d="M3.109 14.109 4 15"/><path d="m6.5 12.5 1 1"/><path d="m7 18 2.891 2.891"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/></svg> Arquitectura Genómica y Captura Mitocondrial</h3>
             <p>
               El cariotipo del CTVT acumula más de <strong>1,9 millones de sustituciones somáticas</strong> (frente a las 1.000–5.000 habituales en cánceres humanos), retiene impronta mutacional de exposición temprana a radiación ultravioleta, presenta deleción de más de <strong>646 genes</strong> y mutaciones no sinónimas en más de <strong>10.000 secuencias codificantes</strong>.
             </p>
@@ -1983,7 +1993,7 @@
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">Cariotipo (57–59) y Firma LINE-1/c-myc</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg> Cariotipo (57–59) y Firma LINE-1/c-myc</h3>
             <p>
               Mientras que la célula diploide normal de <em>Canis lupus familiaris</em> posee <strong>2n = 78 cromosomas</strong> acrocéntricos (salvo X e Y), el CTVT presenta un cariotipo aneuploide y pseudodiploide estable de <strong>57 a 59 cromosomas</strong> (media de 59), destacando entre <strong>13 y 17 cromosomas metacéntricos y submetacéntricos</strong> grandes originados por fusiones robertsonianas y translocaciones conservadas.
             </p>
@@ -2049,7 +2059,7 @@
 
         <div class="grid-4" style="margin-bottom: 1.25rem;">
           <div class="info-card">
-            <h3 class="info-card-title">Estado Gonadal</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg> Estado Gonadal</h3>
             <p>
               Afecta primordialmente a <strong>caninos enteros</strong> debido a la actividad cópula-dependiente y a las conductas territoriales y de cortejo no suprimidas.
             </p>
@@ -2057,7 +2067,7 @@
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">Deambulación y Bioseguridad</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg> Deambulación y Bioseguridad</h3>
             <p>
               Alta incidencia en perros en situación de calle, perros comunitarios o con propietarios que permiten deambulación libre, así como en refugios con hacinamiento y deficiente triaje sanitario.
             </p>
@@ -2065,7 +2075,7 @@
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">Edad Biológica (2–5 años)</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg> Edad Biológica (2–5 años)</h3>
             <p>
               Mayor casuística concentrada en pacientes jóvenes y adultos en plenitud reproductiva, con una ventana de máxima frecuencia clínica situada entre los <strong>2 y los 5 años de edad</strong>.
             </p>
@@ -2073,7 +2083,7 @@
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">Sexo y Conformación Racial</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Sexo y Conformación Racial</h3>
             <p>
               Susceptibilidad celular equitativa entre machos y hembras. No existe predisposición genética ligada a razas puras, pero los <strong>caninos mestizos</strong> están estadísticamente sobrerrepresentados por mayor exposición comunitaria.
             </p>
@@ -2083,7 +2093,7 @@
 
         <div class="grid-2">
           <div class="info-card">
-            <h3 class="info-card-title">Región Sierra y Distrito Metropolitano de Quito</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg> Región Sierra y Distrito Metropolitano de Quito</h3>
             <p>
               En Sudamérica (con especial preponderancia en Brasil, Colombia, México y Ecuador), el CTVT constituye una de las principales causas de morbilidad urogenital y consulta oncológica veterinaria.
             </p>
@@ -2095,7 +2105,7 @@
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">Región Costa, Cuenca del Guayas y Esmeraldas</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg> Región Costa, Cuenca del Guayas y Esmeraldas</h3>
             <p>
               En zonas costeras de clima cálido y alta humedad relativa (<strong>Guayaquil, Durán y provincia de Esmeraldas</strong>), el CTVT es un hallazgo patológico cotidiano durante las campañas de esterilización comunitaria:
             </p>
@@ -2204,7 +2214,7 @@
         <!-- DETALLE DE LAS 4 FASES -->
         <div class="grid-2">
           <div class="info-card">
-            <h3 class="info-card-title">1. Fase de Inoculación e Implantación Mecánica</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> 1. Fase de Inoculación e Implantación Mecánica</h3>
             <p>
               Se inicia tras la pérdida de continuidad de la barrera epitelial o mucosa por fricción coital (abotonamiento) o microtrauma físico. Las células exfoliadas del tumor donante expresan moléculas de adhesión que se anclan a la matriz extracelular expuesta. El <strong>periodo de latencia</strong> antes de formar nódulos clínicamente detectables oscila entre <strong>15 y 60 días</strong> post-inoculación.
             </p>
@@ -2212,7 +2222,7 @@
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">2. Fase Progresiva de Crecimiento (Fase P)</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg> 2. Fase Progresiva de Crecimiento (Fase P)</h3>
             <p>
               Prolongada por semanas o meses con proliferación activa. El clon evita el rechazo alogénico mediante dos pilares moleculares:
             </p>
@@ -2224,7 +2234,7 @@
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">3. Fase Estacionaria o de Meseta (Fase S)</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="10" x2="10" y1="15" y2="9"/><line x1="14" x2="14" y1="15" y2="9"/></svg> 3. Fase Estacionaria o de Meseta (Fase S)</h3>
             <p>
               La tasa mitótica del clon se equilibra con focos de <strong>necrosis coagulativa central</strong> inducidos por hipoxia y aporte vascular insuficiente de un estroma conectivo delicado. La secreción de TGF-beta se estabiliza, permitiendo la migración progresiva de monocitos, macrófagos y células presentadoras de antígeno (APCs) hacia la periferia tumoral, iniciando el procesamiento y presentación cruzada de neoantígenos alogénicos.
             </p>
@@ -2232,7 +2242,7 @@
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">4. Fase de Regresión Inmunomediada (Fase R)</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg> 4. Fase de Regresión Inmunomediada (Fase R)</h3>
             <p>
               En ensayos experimentales y hospedadores inmunocompetentes sin factores debilitantes, ocurre el rechazo curativo del aloinjerto:
             </p>
@@ -2307,7 +2317,7 @@
 
         <div class="grid-2" style="margin-bottom: 1.15rem;">
           <div class="info-card">
-            <h3 class="info-card-title">Presentación Genital en el Macho</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg> Presentación Genital en el Macho</h3>
             <ul>
               <li><strong>Topografía anatómica:</strong> Tejido submucoso de la base del pene, corona del glande y bulbo del glande (<em>bulbus glandis</em>), con progresión hacia el fórnix prepucial y la mucosa del prepucio.</li>
               <li><strong>Morfología lesional:</strong> Inicia como pápulas o nódulos eritematosos de <strong>1 a 3 mm</strong> que coalescen rápidamente formando masas exuberantes multilobulares en <strong>"coliflor"</strong>, consistencia friable y color rojo-cereza a rosado oscuro que sangran fácilmente a la palpación o erección.</li>
@@ -2317,7 +2327,7 @@
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">Presentación Genital en la Hembra</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg> Presentación Genital en la Hembra</h3>
             <ul>
               <li><strong>Topografía anatómica:</strong> Mucosa del vestíbulo vaginal y tercio caudal de la vagina, pudiendo proyectarse al meato uretral o protruir por las comisuras vulvares.</li>
               <li><strong>Morfología y signos:</strong> Masas nodulares friables que provocan deformación y edema marcado de los labios vulvares, tenesmo perivulvar, lamido compulsivo e invasión obstructiva con retención urinaria.</li>
@@ -2330,28 +2340,28 @@
         <h3 style="font-family:var(--font-display); font-size:1.12rem; margin: 1.25rem 0 0.75rem;">Formas Extragenitales Anatómicas y Vías de Metástasis</h3>
         <div class="grid-4" style="margin-bottom: 1.25rem;">
           <div class="info-card">
-            <h4 class="info-card-title">Nasal y Nasofaríngea</h4>
+            <h4 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg> Nasal y Nasofaríngea</h4>
             <p>
               Lisis de turbinas nasales y perforación de láminas cribosas o bóveda nasal. Cursa con epistaxis profusa recurrente (uni o bilateral), descarga mucopurulenta fétida, deformidad maxilofacial, estornudos, respiración estertorosa y <strong>fístulas oronasales</strong>.
             </p>
           </div>
 
           <div class="info-card">
-            <h4 class="info-card-title">Oral y Bucal</h4>
+            <h4 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg> Oral y Bucal</h4>
             <p>
               Compromete encías, paladar duro y blando, lengua y lecho periamigdalino. Produce sialorrea hemorrágica, halitosis grave, disfagia mecánica, <strong>aflojamiento patológico de piezas dentales</strong> y deformación ósea de ramas mandibulares.
             </p>
           </div>
 
           <div class="info-card">
-            <h4 class="info-card-title">Ocular y Conjuntival</h4>
+            <h4 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg> Ocular y Conjuntival</h4>
             <p>
               Asienta en fondo de saco conjuntival, membrana nictitante (tercer párpado) o limbo esclerocorneal. Genera epífora serosanguinolenta, blefarospasmo, quemosis, protrusión nodular rojiza, queratitis ulcerativa y <strong>exoftalmos unilateral</strong> en invasión retrobulbar.
             </p>
           </div>
 
           <div class="info-card">
-            <h4 class="info-card-title">Cutánea y Diseminación (1–17%)</h4>
+            <h4 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg> Cutánea y Diseminación (1–17%)</h4>
             <p>
               Nódulos ulcerados en cara, tronco y periné por mordeduras o rascado. La metástasis ocurre en el <strong>1% al 17%</strong> (mayor en cachorros, seniles, malnutridos o con distémper, leishmaniasis o ehrlichiosis) hacia linfonodos regionales, vísceras (bazo, hígado, riñón, pulmón, peritoneo, médula ósea) y <strong>SNC</strong> (cuerpo calloso, corteza, cerebelo).
             </p>
@@ -2513,7 +2523,7 @@
 
         <div class="grid-3" style="margin: 1.25rem 0;">
           <div class="info-card">
-            <h3 class="info-card-title">Histopatología Tisular (H&amp;E)</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg> Histopatología Tisular (H&amp;E)</h3>
             <p>
               Neoplasia celular densa, desprovista de cápsula propia, que infiltra la lámina propia mucosa o la dermis papilar y reticular. Crece en sábanas continuas, nidos densos o cordones soportados por un estroma fibroconectivo fino.
             </p>
@@ -2523,7 +2533,7 @@
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">Inmunohistoquímica (IHQ)</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></svg> Inmunohistoquímica (IHQ)</h3>
             <ul>
               <li><strong>Reactividad Positiva (+):</strong> Expresión difusa intensa de <strong>Vimentina</strong> (filamentos intermedios mesenquimatosos), <strong>CD18</strong> (subunidad beta2-integrina leucocitaria que confirma estirpe histiocítica mieloide), <strong>Lisozima</strong> (función monocito-macrofágica), y reactividad variable a <strong>Alfa-1-antitripsina</strong> y <strong>Enolasa Neurona Específica (NSE)</strong>.</li>
               <li><strong>Reactividad Negativa (-):</strong> Negativo a pancitoqueratinas (<strong>AE1/AE3</strong>), <strong>CD3</strong> (solo marca TILs reactivos no neoplásicos), <strong>CD79a y PAX-5</strong> (descarta linfoma B/plasmocitoma), <strong>CD117/c-kit</strong> (descarta mastocitoma) y <strong>Melan-A / S-100</strong> (descarta melanoma amelanótico).</li>
@@ -2531,7 +2541,7 @@
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">Estándar de Oro: PCR LINE-1/c-myc</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 16 1.5 1.5"/><path d="m14 8-1.5-1.5"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m16.5 10.5 1 1"/><path d="m17 6-2.891-2.891"/><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="m20 9 .891.891"/><path d="M3.109 14.109 4 15"/><path d="m6.5 12.5 1 1"/><path d="m7 18 2.891 2.891"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/></svg> Estándar de Oro: PCR LINE-1/c-myc</h3>
             <p>
               Amplifica la unión patognomónica entre el retrotransposón LINE-1 y el promotor 5' del gen <em>c-myc</em>. Esencial en masas extragenitales aberrantes (retrobulbares, cutáneas solitarias, SNC) o con inflamación piogranulomatosa severa:
             </p>
@@ -2673,7 +2683,7 @@
 
         <div class="grid-3" style="margin-top: 1rem;">
           <div class="info-card">
-            <h3 class="info-card-title">Criterios de Respuesta Terapéutica</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg> Criterios de Respuesta Terapéutica</h3>
             <ul>
               <li><strong>Respuesta Completa (RC):</strong> Regresión del 100% de la masa neoplásica con cicatrización epitelial normal y frotis citológicos seriados libres de células de CTVT.</li>
               <li><strong>Respuesta Parcial (RP):</strong> Reducción <code>&ge;50%</code> en la suma de los diámetros mayores de las masas iniciales.</li>
@@ -2682,14 +2692,14 @@
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">Regla de Oro de Finalización</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></svg> Regla de Oro de Finalización</h3>
             <p>
               El tratamiento con sulfato de vincristina <strong>jamás debe suspenderse en el instante en que desaparece visualmente la masa</strong>. Es obligatorio administrar <strong>1 a 2 sesiones semanales adicionales</strong> después de confirmar tanto la remisión macroscópica completa como la negatividad citológica absoluta en frotis de control.
             </p>
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">Cirugía Paliativa y Crioterapia</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></svg> Cirugía Paliativa y Crioterapia</h3>
             <p>
               La cirugía convencional tiene un <strong>30%–50% de recidiva</strong> y se limita a citorreducción paliativa ante obstrucción uretral o estenosis nasal crítica. La <strong>crioterapia</strong> con nitrógeno líquido (ciclos de congelación ultrarrápida a <strong>-196 °C</strong> y descongelación lenta) se emplea como coadyuvante post-quimioterapia en focos residuales superficiales.
             </p>
@@ -2770,7 +2780,7 @@
         <!-- PROTOCOLO DE EXTRAVASACIÓN Y MONITOREO HEMATOLÓGICO -->
         <div class="grid-2" style="margin-top: 1.25rem;">
           <div class="info-card">
-            <h3 class="info-card-title">Protocolo Secuencial ante Extravasación de Vincristina</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Protocolo Secuencial ante Extravasación de Vincristina</h3>
             <p>
               La vincristina es un potente <strong>agente vesicante</strong> que causa celulitis química severa, flemón estéril, isquemia microangiopática, ulceración de espesor completo y necrosis coagulativa con esfacelo. Ante dolor agudo, tumefacción o resistencia al émbolo:
             </p>
@@ -2784,7 +2794,7 @@
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">Monitoreo Hematológico Pre-Quimioterapia (24–48 h antes)</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg> Monitoreo Hematológico Pre-Quimioterapia (24–48 h antes)</h3>
             <p>
               Es obligatorio realizar un hemograma completo con recuento manual dentro de las <strong>24 a 48 horas previas</strong> a cada ciclo semanal de vincristina:
             </p>
@@ -2808,7 +2818,7 @@
 
         <div class="grid-2" style="margin-bottom: 1.25rem;">
           <div class="info-card">
-            <h3 class="info-card-title">Escenarios con Pronóstico Desfavorable o Grave</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg> Escenarios con Pronóstico Desfavorable o Grave</h3>
             <ul>
               <li><strong>Metástasis en el Sistema Nervioso Central (SNC):</strong> Compromiso de cerebelo, cuerpo calloso o corteza cerebral, donde la barrera hematoencefálica intacta impide la difusión de los agentes quimioterapéuticos convencionales.</li>
               <li><strong>Compromiso Sistémico e Inmunosupresión:</strong> Caquexia tumoral avanzada o metástasis viscerales parenquimatosas múltiples (hígado, bazo, riñones, pulmones) en pacientes geriátricos, malnutridos o inmunosuprimidos.</li>
@@ -2818,7 +2828,7 @@
           </div>
 
           <div class="info-card">
-            <h3 class="info-card-title">Estrategias de Control Poblacional y Profilaxis</h3>
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M9 12h6"/><path d="M12 9v6"/></svg> Estrategias de Control Poblacional y Profilaxis</h3>
             <ul>
               <li><strong>Esterilización Quirúrgica Temprana (OVH y Orquiectomía):</strong> La castración masiva y sistemática de perros de refugio, callejeros y domiciliados suprime la libido, el cortejo y la cópula, interrumpiendo mecánicamente la transmisión del aloinjerto.</li>
               <li><strong>Control de Poblaciones de Vida Libre:</strong> En regiones endémicas como el Ecuador, reducir la densidad de caninos no domiciliados en la vía pública disminuye el reservorio epidemiológico del clon.</li>
@@ -2854,11 +2864,11 @@
         </div>
 
         <div class="viewer-3d-labels">
-          <button type="button" class="label-3d-chip" data-cam-focus="mass">Masa Multilobular en Coliflor</button>
-          <button type="button" class="label-3d-chip" data-cam-focus="cells">Células Redondas y Vacuolas en Sacabocado</button>
-          <button type="button" class="label-3d-chip" data-cam-focus="tils">Infiltrado TILs (CD8+ / NK) y Apoptosis</button>
-          <button type="button" class="label-3d-chip" data-cam-focus="mucosa">Lecho Mucoso y Red Vascular</button>
-          <button type="button" class="label-3d-chip" data-cam-focus="reset">Vista Panorámica</button>
+          <button type="button" class="label-3d-chip" data-cam-focus="mass"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg> Masa Multilobular en Coliflor</button>
+          <button type="button" class="label-3d-chip" data-cam-focus="cells"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg> Células Redondas y Vacuolas en Sacabocado</button>
+          <button type="button" class="label-3d-chip" data-cam-focus="tils"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg> Infiltrado TILs (CD8+ / NK) y Apoptosis</button>
+          <button type="button" class="label-3d-chip" data-cam-focus="mucosa"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg> Lecho Mucoso y Red Vascular</button>
+          <button type="button" class="label-3d-chip" data-cam-focus="reset"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" x2="14" y1="3" y2="10"/><line x1="3" x2="10" y1="21" y2="14"/></svg> Vista Panorámica</button>
         </div>
 
         <div class="slider-control-card">
@@ -2907,8 +2917,8 @@
               <div id="simOptionsList"></div>
               <div id="simFeedbackBox" class="alert-box" style="display:none; margin-top:0.75rem;"></div>
               <div style="display:flex; gap:0.5rem; margin-top:0.85rem; flex-wrap:wrap;">
-                <button type="button" id="simNextBtn" class="btn-primary" style="display:none;">Siguiente Decisión</button>
-                <button type="button" id="simRestartBtn" class="btn-secondary">Reiniciar Caso</button>
+                <button type="button" id="simNextBtn" class="btn-primary" style="display:none;"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> Siguiente Decisión</button>
+                <button type="button" id="simRestartBtn" class="btn-secondary"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Reiniciar Caso</button>
               </div>
             </div>
           </div>
@@ -2918,7 +2928,7 @@
             <div class="sim-top-bar">
               <span>EMPAREJAMIENTO ONCOLÓGICO</span>
               <span>ACIERTOS: <strong id="matchScoreDisplay" style="color:var(--accent-emerald)">0 / 6</strong></span>
-              <button type="button" id="matchResetBtn" class="icon-btn" style="height:28px; font-size:0.72rem;">Barajar</button>
+              <button type="button" id="matchResetBtn" class="icon-btn" style="height:28px; font-size:0.72rem;"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8"/><path d="m18 14 4 4-4 4"/></svg> Barajar</button>
             </div>
             <p style="font-size:0.84rem; color:var(--text-secondary); margin-bottom:0.5rem;">
               Arrastra cada concepto o fármaco hacia su hallazgo o función exacta del informe (en pantallas táctiles o celular: toca primero el término izquierdo y luego su casilla de destino derecha).
@@ -2957,7 +2967,7 @@
           <div class="sim-top-bar">
             <span>PREGUNTA <strong id="quizProgressText">1 de 14</strong></span>
             <span>ACIERTOS ACTUALES: <strong id="quizCurrentScore" style="color:var(--accent-emerald)">0</strong></span>
-            <button type="button" id="quizRestartBtn" class="icon-btn" style="height:28px; font-size:0.72rem;">Reiniciar Evaluación</button>
+            <button type="button" id="quizRestartBtn" class="icon-btn" style="height:28px; font-size:0.72rem;"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Reiniciar Evaluación</button>
           </div>
 
           <div id="quizQuestionView">
@@ -2965,7 +2975,7 @@
             <div id="quizOptionsContainer"></div>
             <div id="quizExplanationBox" class="alert-box" style="display:none;"></div>
             <div style="margin-top:0.9rem; display:flex; justify-content:flex-end;">
-              <button type="button" id="quizNextBtn" class="btn-primary" style="display:none;">Siguiente Pregunta</button>
+              <button type="button" id="quizNextBtn" class="btn-primary" style="display:none;"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg> Siguiente Pregunta</button>
             </div>
           </div>
 
@@ -2995,11 +3005,11 @@
               <input type="text" id="certNameInput" class="form-input" maxlength="80" autocomplete="name" placeholder="Ej. Dr. / Dra. Nombre Apellido" value="Profesional Veterinario" />
             </div>
             <button type="button" id="renderCertBtn" class="btn-primary">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15l-2 5l9-9l-9-9l2 5l-9 4l9 4z"/></svg>
+              <svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></svg>
               Generar Certificado
             </button>
             <button type="button" id="downloadCertBtn" class="btn-secondary" disabled>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               Descargar PNG
             </button>
           </div>
@@ -3103,8 +3113,8 @@
           </div>
         </div>
         <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
-          <a href="../../" class="back-link">Volver a VetAtlas</a>
-          <a href="#hero" class="btn-secondary" style="padding:0.42rem 0.8rem; font-size:0.8rem;">Ir arriba</a>
+          <a href="../../" class="back-link"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg> Volver a VetAtlas</a>
+          <a href="#hero" class="btn-secondary" style="padding:0.42rem 0.8rem; font-size:0.8rem;"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg> Ir arriba</a>
         </div>
       </div>
 
@@ -3202,6 +3212,7 @@
           <a class="source-link-item" href="https://www.mpi.govt.nz/dmsdocument/2796/send" target="_blank" rel="noopener noreferrer">87. mpi.govt.nz/dmsdocument/2796/send</a>
         </div>
       </div>
+      <p style="margin-top:0.75rem; font-size:0.78rem; color:var(--text-secondary);">Iconos: Lucide (licencia ISC)</p>
     </div>
   </footer>
 
@@ -4832,7 +4843,7 @@
             selectedMatchItem.classList.remove('selected');
             selectedMatchItem.classList.add('matched');
             slot.classList.add('matched');
-            slot.innerHTML = `<strong style="color:var(--accent-emerald);">✔ ${selectedMatchItem.textContent}</strong><span style="font-size:0.78rem; color:var(--text-secondary);">${item.target}</span>`;
+            slot.innerHTML = `<strong style="color:var(--accent-emerald);"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> ${selectedMatchItem.textContent}</strong><span style="font-size:0.78rem; color:var(--text-secondary);">${item.target}</span>`;
             selectedMatchItem = null;
             matchedCount++;
             matchScoreDisplay.textContent = `${matchedCount} / ${matchPairs.length}`;
