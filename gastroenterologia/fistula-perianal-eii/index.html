@@ -294,6 +294,46 @@
       display: none;
     }
 
+    /* Progreso de lectura y módulo activo */
+    .read-progress {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 3px;
+      pointer-events: none;
+    }
+
+    .read-progress span {
+      display: block;
+      height: 100%;
+      width: 100%;
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-rose));
+    }
+
+    .mobile-drawer a.active {
+      border-color: var(--accent-cyan);
+      color: var(--text-primary);
+      background: rgba(6, 182, 212, 0.14);
+    }
+
+    .table-responsive.fade-r {
+      -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 36px), transparent);
+      mask-image: linear-gradient(to right, #000 calc(100% - 36px), transparent);
+    }
+
+    .table-responsive.fade-l {
+      -webkit-mask-image: linear-gradient(to left, #000 calc(100% - 36px), transparent);
+      mask-image: linear-gradient(to left, #000 calc(100% - 36px), transparent);
+    }
+
+    .table-responsive.fade-l.fade-r {
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 36px, #000 calc(100% - 36px), transparent);
+      mask-image: linear-gradient(to right, transparent, #000 36px, #000 calc(100% - 36px), transparent);
+    }
+
     /* DRAWER MÓVIL */
     .mobile-drawer {
       position: fixed;
@@ -338,11 +378,12 @@
     .hero-section {
       position: relative;
       margin-top: var(--header-h);
-      min-height: 540px;
+      min-height: 600px;
+      min-height: clamp(580px, 76vh, 700px);
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      padding: 1.25rem;
+      padding: 1rem 1.25rem;
       overflow: hidden;
       border-bottom: 1px solid var(--border-glass);
     }
@@ -372,18 +413,18 @@
 
     .hero-glass-panel {
       pointer-events: auto;
-      background: rgba(8, 13, 25, 0.58);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(8, 13, 25, 0.5);
+      backdrop-filter: blur(12px) saturate(1.15);
+      -webkit-backdrop-filter: blur(12px) saturate(1.15);
       border: 1px solid rgba(148, 163, 184, 0.22);
       border-radius: var(--radius-md);
-      padding: 0.95rem 1.15rem;
-      max-width: 560px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+      padding: 0.75rem 0.95rem;
+      max-width: 440px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
     }
 
     html[data-theme="light"] .hero-glass-panel {
-      background: rgba(255, 255, 255, 0.68);
+      background: rgba(255, 255, 255, 0.62);
       border-color: rgba(15, 23, 42, 0.16);
       box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
     }
@@ -405,26 +446,37 @@
       margin-bottom: 0.45rem;
     }
 
+    .hero-section .hero-kicker {
+      font-size: 0.64rem;
+      padding: 0.16rem 0.5rem;
+      margin-bottom: 0.32rem;
+    }
+
     .hero-title {
       font-family: var(--font-display);
-      font-size: clamp(1.35rem, 2.7vw, 2.05rem);
+      font-size: clamp(1.2rem, 1.75vw, 1.5rem);
       font-weight: 800;
-      line-height: 1.18;
-      margin-bottom: 0.45rem;
+      line-height: 1.16;
+      margin-bottom: 0.32rem;
       letter-spacing: -0.02em;
     }
 
     .hero-subtitle {
-      font-size: 0.84rem;
+      font-size: 0.76rem;
       color: var(--text-secondary);
-      line-height: 1.48;
-      margin-bottom: 0.65rem;
+      line-height: 1.36;
+      margin-bottom: 0.45rem;
     }
 
     .hero-badges {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
+      gap: 0.3rem;
+    }
+
+    .hero-badges .mini-badge {
+      font-size: 0.62rem;
+      padding: 0.12rem 0.4rem;
     }
 
     .mini-badge {
@@ -451,13 +503,14 @@
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(148, 163, 184, 0.22);
       border-radius: var(--radius-md);
-      padding: 0.8rem 0.95rem;
-      width: 320px;
+      padding: 0.6rem 0.75rem;
+      width: 300px;
       max-width: 100%;
     }
 
     html[data-theme="light"] .hero-controls-card {
-      background: rgba(255, 255, 255, 0.68);
+      background: rgba(255, 255, 255, 0.62);
+      border-color: rgba(15, 23, 42, 0.16);
     }
 
     .hero-controls-title {
@@ -469,19 +522,21 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 0.45rem;
+      gap: 0.4rem;
+      margin-bottom: 0.4rem;
     }
 
     .hero-ctrl-btns {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0.35rem;
-      margin-bottom: 0.5rem;
+      gap: 0.3rem;
+      margin-bottom: 0.4rem;
     }
 
     .hero-ctrl-btn {
-      padding: 0.36rem 0.4rem;
-      font-size: 0.72rem;
+      padding: 0.32rem 0.35rem;
+      font-size: 0.68rem;
+      line-height: 1.2;
       font-weight: 700;
       border-radius: 8px;
       border: 1px solid var(--border-glass);
@@ -505,8 +560,9 @@
     .hero-legend {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 0.28rem 0.5rem;
-      font-size: 0.7rem;
+      gap: 0.14rem 0.45rem;
+      font-size: 0.64rem;
+      line-height: 1.3;
       color: var(--text-secondary);
     }
 
@@ -1025,13 +1081,49 @@
 
     /* VISOR 3D THREE.JS */
     .viewer3d-wrapper {
+      --v3d-bg: radial-gradient(circle at 50% 42%, #1b2745 0%, #0a1020 62%, #060a13 100%);
+      --v3d-panel: rgba(8, 13, 25, 0.74);
+      --v3d-panel-border: rgba(148, 163, 184, 0.3);
+      --v3d-text: #eef2f7;
+      --v3d-text-soft: #cbd5e1;
+      --v3d-accent: #22d3ee;
+      --v3d-btn: rgba(15, 23, 42, 0.8);
+      --v3d-btn-primary: #0e7490;
+      --v3d-pin-bg: rgba(7, 11, 20, 0.88);
+      --v3d-pin-border: rgba(56, 189, 248, 0.6);
+      --v3d-pin-text: #f8fafc;
+      --v3d-line: rgba(226, 232, 240, 0.85);
       position: relative;
       width: 100%;
-      height: 460px;
+      display: flex;
+      flex-direction: column;
       border-radius: var(--radius-lg);
       overflow: hidden;
       border: 1px solid var(--border-highlight);
-      background: radial-gradient(circle at 50% 45%, #13203d 0%, #070b14 100%);
+      background: var(--v3d-bg);
+      color: var(--v3d-text);
+    }
+
+    html[data-theme="light"] .viewer3d-wrapper {
+      --v3d-bg: radial-gradient(circle at 50% 40%, #ffffff 0%, #eef3f9 55%, #d8e2ee 100%);
+      --v3d-panel: rgba(255, 255, 255, 0.82);
+      --v3d-panel-border: rgba(15, 23, 42, 0.18);
+      --v3d-text: #0f172a;
+      --v3d-text-soft: #334155;
+      --v3d-accent: #0e7490;
+      --v3d-btn: rgba(255, 255, 255, 0.92);
+      --v3d-btn-primary: #0e7490;
+      --v3d-pin-bg: rgba(255, 255, 255, 0.95);
+      --v3d-pin-border: rgba(14, 116, 144, 0.55);
+      --v3d-pin-text: #0f172a;
+      --v3d-line: rgba(15, 23, 42, 0.72);
+    }
+
+    .viewer3d-stage {
+      position: relative;
+      width: 100%;
+      height: 560px;
+      height: clamp(460px, 64vh, 620px);
     }
 
     #threeCanvas {
@@ -1047,39 +1139,120 @@
 
     .hud-3d-top {
       position: absolute;
-      top: 0.75rem;
-      left: 0.75rem;
-      right: 0.75rem;
+      top: 0.6rem;
+      left: 0.6rem;
+      right: 0.6rem;
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 0.5rem;
+      gap: 0.45rem;
       pointer-events: none;
       z-index: 5;
     }
 
-    .hud-3d-bottom {
-      position: absolute;
-      bottom: 0.75rem;
-      left: 0.75rem;
-      right: 0.75rem;
-      background: rgba(8, 13, 25, 0.78);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(148, 163, 184, 0.24);
-      border-radius: var(--radius-md);
-      padding: 0.65rem 0.9rem;
+    .hud-3d-btns {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
+      gap: 0.4rem;
+    }
+
+    .hud-3d-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.3rem;
+    }
+
+    .viewer3d-wrapper .icon-btn {
+      height: 34px;
+      background: var(--v3d-btn);
+      color: var(--v3d-text);
+      border-color: var(--v3d-panel-border);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .viewer3d-wrapper .icon-btn.btn-3d-primary {
+      background: var(--v3d-btn-primary);
+      border-color: var(--v3d-btn-primary);
+      color: #ffffff;
+    }
+
+    .viewer3d-wrapper .icon-btn[aria-pressed="false"] {
+      color: var(--v3d-text-soft);
+    }
+
+    .viewer3d-wrapper .mini-badge {
+      background: var(--v3d-btn);
+      color: var(--v3d-text);
+      border-color: var(--v3d-panel-border);
+    }
+
+    .btn-short {
+      display: none;
+    }
+
+    .hud-3d-hint {
+      font-size: 0.7rem;
+      line-height: 1.3;
+      color: var(--v3d-text-soft);
+      background: var(--v3d-panel);
+      border: 1px solid var(--v3d-panel-border);
+      padding: 0.16rem 0.55rem;
+      border-radius: 999px;
+    }
+
+    .hud-3d-bottom {
+      position: absolute;
+      bottom: 0.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(calc(100% - 1.2rem), 780px);
+      background: var(--v3d-panel);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--v3d-panel-border);
+      border-radius: 14px;
+      padding: 0.42rem 0.85rem;
+      color: var(--v3d-text);
       z-index: 5;
     }
 
     .hud-3d-top > *, .hud-3d-bottom > * {
       pointer-events: auto;
+    }
+
+    .sev-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .sev-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.74rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    #severity3dSlider {
+      flex: 1 1 140px;
+      min-width: 110px;
+      accent-color: var(--accent-rose);
+      cursor: pointer;
+    }
+
+    .sev-value {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--v3d-accent);
+      min-width: 33ch;
+      text-align: right;
+      white-space: nowrap;
     }
 
     .labels-3d-layer {
@@ -1088,25 +1261,118 @@
       pointer-events: none;
       overflow: hidden;
       z-index: 4;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .labels-3d-layer.ready {
+      opacity: 1;
+    }
+
+    .labels-3d-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      overflow: visible;
+    }
+
+    .labels-3d-lines polyline {
+      fill: none;
+      stroke: var(--v3d-line);
+      stroke-width: 1.2;
+    }
+
+    .labels-3d-lines circle {
+      fill: var(--v3d-pin-bg);
+      stroke: var(--v3d-line);
+      stroke-width: 1.6;
     }
 
     .label-3d-pin {
       position: absolute;
-      transform: translate(-50%, -50%);
-      background: rgba(7, 11, 20, 0.82);
-      border: 1px solid rgba(56, 189, 248, 0.55);
-      color: #f8fafc;
+      left: 0;
+      top: 0;
+      background: var(--v3d-pin-bg);
+      border: 1px solid var(--v3d-pin-border);
+      color: var(--v3d-pin-text);
       font-family: var(--font-mono);
       font-size: 0.68rem;
       font-weight: 600;
-      padding: 0.18rem 0.46rem;
+      line-height: 1.3;
+      padding: 0.22rem 0.5rem;
       border-radius: 6px;
-      white-space: nowrap;
-      max-width: 46vw;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+      white-space: normal;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       transition: opacity 0.15s ease;
+      will-change: transform;
+    }
+
+    .pin3d-num {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: var(--v3d-btn-primary);
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+      opacity: 0;
+    }
+
+    .viewer3d-wrapper.labels-numbered .label-3d-pin {
+      display: none;
+    }
+
+    .labels-3d-legend {
+      display: none;
+      list-style: none;
+      margin: 0;
+      padding: 0.5rem 0.7rem;
+      gap: 0.3rem 0.9rem;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      font-size: 0.74rem;
+      line-height: 1.3;
+      color: var(--v3d-text);
+      background: var(--v3d-panel);
+      border-top: 1px solid var(--v3d-panel-border);
+    }
+
+    .labels-3d-legend li {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .labels-3d-legend .pin3d-num {
+      position: static;
+      opacity: 1;
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      font-size: 0.66rem;
+    }
+
+    .viewer3d-wrapper.labels-numbered:not(.labels-off) .labels-3d-legend {
+      display: grid;
+    }
+
+    .viewer3d-wrapper.labels-numbered .hud-3d-bottom {
+      position: static;
+      transform: none;
+      width: auto;
+      border-radius: 0;
+      border: 0;
+      border-top: 1px solid var(--v3d-panel-border);
     }
 
     /* MINI JUEGOS Y QUIZ */
@@ -1286,33 +1552,127 @@
       }
     }
 
-    @media (max-width: 720px) {
+    /* Hero apilado: animación arriba y paneles debajo del lienzo */
+    @media (max-width: 900px) {
       .hero-section {
-        min-height: 510px;
-        padding: 0.75rem;
+        display: block;
+        min-height: 0;
+        padding: 0;
+      }
+      #heroCanvas {
+        position: relative;
+        inset: auto;
+        height: 440px;
+        height: clamp(300px, 48svh, 460px);
+      }
+      .hero-overlay-grid {
+        padding: 0.7rem;
+        gap: 0.6rem;
+        align-items: stretch;
       }
       .hero-glass-panel {
-        padding: 0.75rem 0.85rem;
+        max-width: none;
+        flex: 1 1 340px;
+      }
+      .hero-controls-card {
+        flex: 1 1 280px;
+        width: auto;
+      }
+    }
+
+    @media (max-width: 720px) {
+      #heroCanvas {
+        height: 360px;
+        height: clamp(300px, 46svh, 420px);
+      }
+      .hero-overlay-grid {
+        padding: 0.6rem;
+        gap: 0.5rem;
+      }
+      .hero-glass-panel {
+        padding: 0.65rem 0.75rem;
       }
       .hero-title {
-        font-size: 1.22rem;
-      }
-      .hero-subtitle {
-        font-size: 0.78rem;
-        margin-bottom: 0.45rem;
+        font-size: 1.14rem;
       }
       .hero-controls-card {
         width: 100%;
-        padding: 0.65rem 0.75rem;
+        padding: 0.55rem 0.7rem;
+      }
+      .hud-3d-top {
+        position: static;
+        padding: 0.5rem;
+        align-items: center;
+        background: var(--v3d-panel);
+        border-bottom: 1px solid var(--v3d-panel-border);
+      }
+      .hud-3d-meta {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+      }
+      .viewer3d-wrapper .icon-btn {
+        height: 36px;
+        padding: 0 0.6rem;
+        font-size: 0.74rem;
+      }
+      #toggle3dViewText {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+      }
+      .btn-short {
+        display: inline;
+      }
+      .hud-3d-hint {
+        font-size: 0.66rem;
+        background: none;
+        border: 0;
+        padding: 0;
+      }
+      .viewer3d-wrapper .mini-badge {
+        font-size: 0.62rem;
+      }
+      .viewer3d-stage {
+        height: 480px;
+        height: clamp(340px, 64svh, 640px);
+      }
+      .hud-3d-bottom {
+        position: static;
+        transform: none;
+        width: auto;
+        border-radius: 0;
+        border: 0;
+        border-top: 1px solid var(--v3d-panel-border);
+        padding: 0.5rem 0.7rem 0.6rem;
+      }
+      .sev-row {
+        flex-wrap: wrap;
+        gap: 0.2rem 0.6rem;
+      }
+      .sev-title {
+        white-space: normal;
+        font-size: 0.72rem;
+        flex: 1 1 auto;
+      }
+      .sev-value {
+        min-width: 0;
+      }
+      #severity3dSlider {
+        order: 3;
+        flex-basis: 100%;
+        height: 28px;
       }
       .clock-interactive-layout {
         grid-template-columns: 1fr;
       }
       .module-card {
         padding: 1.05rem;
-      }
-      .viewer3d-wrapper {
-        height: 390px;
       }
       .brand-seal {
         font-size: 0.64rem;
@@ -1340,10 +1700,9 @@
       .mobile-drawer-grid {
         grid-template-columns: 1fr;
       }
-      .label-3d-pin {
-        font-size: 0.62rem;
-        padding: 0.14rem 0.35rem;
-        max-width: 42vw;
+      .labels-3d-legend {
+        grid-template-columns: 1fr;
+        font-size: 0.72rem;
       }
     }
   
@@ -1393,6 +1752,7 @@
         <i data-lucide="menu"></i>
       </button>
     </div>
+    <div class="read-progress" aria-hidden="true"><span id="readProgressBar"></span></div>
   </header>
 
   <!-- MENÚ MÓVIL DESPLEGABLE -->
@@ -2578,35 +2938,37 @@
 
           <div class="viewer3d-wrapper" id="viewer3dContainer">
             <div class="hud-3d-top">
-              <div style="display:flex; flex-wrap:wrap; gap:0.4rem;">
-                <button type="button" id="toggle3dViewBtn" class="icon-btn" style="background:rgba(6,182,212,0.22); border-color:var(--accent-cyan);">
+              <div class="hud-3d-btns">
+                <button type="button" id="toggle3dViewBtn" class="icon-btn btn-3d-primary">
                   <i data-lucide="repeat"></i>
                   <span id="toggle3dViewText">Alternar a Segmento de Colon 3D (EII)</span>
+                  <span class="btn-short" aria-hidden="true">Colon (EII)</span>
                 </button>
-                <button type="button" id="toggle3dLabelsBtn" class="icon-btn">
+                <button type="button" id="toggle3dLabelsBtn" class="icon-btn" aria-pressed="true">
                   <i data-lucide="tag"></i>
                   <span>Etiquetas</span>
                 </button>
-                <button type="button" id="reset3dCamBtn" class="icon-btn" title="Centrar cámara">
+                <button type="button" id="reset3dCamBtn" class="icon-btn" title="Centrar cámara" aria-label="Centrar cámara">
                   <i data-lucide="rotate-ccw"></i>
                 </button>
               </div>
-              <span class="mini-badge" id="model3dModeBadge">Vista: Bloque Anoperineal 3D</span>
+              <div class="hud-3d-meta">
+                <span class="mini-badge" id="model3dModeBadge">Vista: Bloque Anoperineal 3D</span>
+                <span class="hud-3d-hint">Arrastra para rotar 360° · Pellizca o usa rueda para zoom</span>
+              </div>
             </div>
 
-            <canvas id="threeCanvas"></canvas>
-            <div id="labels3dLayer" class="labels-3d-layer"></div>
+            <div class="viewer3d-stage" id="viewer3dStage">
+              <canvas id="threeCanvas"></canvas>
+              <div id="labels3dLayer" class="labels-3d-layer"></div>
+            </div>
+            <ol id="labels3dLegend" class="labels-3d-legend" aria-label="Estructuras señaladas en el modelo 3D"></ol>
 
             <div class="hud-3d-bottom">
-              <div style="flex:1; min-width:210px;">
-                <div style="display:flex; justify-content:space-between; font-size:0.76rem; font-weight:700; margin-bottom:0.25rem;">
-                  <span><i data-lucide="sliders"></i> Progresión Patológica (Slider 0% a 100%)</span>
-                  <span id="severity3dLabel" style="color:var(--accent-cyan); font-family:var(--font-mono);">Sano (0%)</span>
-                </div>
-                <input type="range" id="severity3dSlider" min="0" max="100" value="65" style="width:100%; accent-color:var(--accent-rose); cursor:pointer;" />
-              </div>
-              <div style="font-size:0.74rem; color:var(--text-secondary);">
-                Arrastra para rotar 360° · Pellizca o usa rueda para zoom
+              <div class="sev-row">
+                <label for="severity3dSlider" class="sev-title"><i data-lucide="sliders"></i> Progresión Patológica (Slider 0% a 100%)</label>
+                <input type="range" id="severity3dSlider" min="0" max="100" value="65" />
+                <span id="severity3dLabel" class="sev-value" aria-live="polite">Sano (0%)</span>
               </div>
             </div>
           </div>
@@ -2897,6 +3259,7 @@
   <script type="module">
     let THREE = null;
     let OrbitControls = null;
+    let RoomEnvironment = null;
 
     /* =========================================================================
        (8) MOTOR DE SONIDO FUTURISTA ARCADE (WEB AUDIO API) + MUTE COMPARTIDO
@@ -3066,16 +3429,51 @@
       .map(link => document.querySelector(link.getAttribute('href')))
       .filter(Boolean);
 
+    const navPills = Array.from(document.querySelectorAll('.nav-pill, .mobile-drawer a'));
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const id = '#' + entry.target.id;
           tocLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === id));
+          navPills.forEach(l => {
+            const on = l.getAttribute('href') === id;
+            l.classList.toggle('active', on);
+            if (on) l.setAttribute('aria-current', 'location'); else l.removeAttribute('aria-current');
+          });
         }
       });
     }, { rootMargin: '-22% 0px -68% 0px', threshold: 0.05 });
 
     moduleSections.forEach(sec => observer.observe(sec));
+    const especiesSec = document.getElementById('especies');
+    if (especiesSec) observer.observe(especiesSec);
+
+    // Barra de progreso de lectura (encabezado)
+    const readProgressBar = document.getElementById('readProgressBar');
+    let readProgressQueued = false;
+    function updateReadProgress() {
+      readProgressQueued = false;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      if (readProgressBar) readProgressBar.style.transform = `scaleX(${p.toFixed(4)})`;
+    }
+    window.addEventListener('scroll', () => {
+      if (!readProgressQueued) { readProgressQueued = true; requestAnimationFrame(updateReadProgress); }
+    }, { passive: true });
+    window.addEventListener('resize', updateReadProgress);
+    updateReadProgress();
+
+    // Tablas largas: desvanecido lateral que indica que hay más contenido al desplazar
+    document.querySelectorAll('.table-responsive').forEach(box => {
+      const sync = () => {
+        const max = box.scrollWidth - box.clientWidth;
+        box.classList.toggle('fade-r', max > 2 && box.scrollLeft < max - 2);
+        box.classList.toggle('fade-l', max > 2 && box.scrollLeft > 2);
+      };
+      box.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', sync);
+      sync();
+    });
 
     /* =========================================================================
        (1) HERO INMERSIVO ANIMADO EN CANVAS 2D (EJE INTESTINO-PIEL)
@@ -3085,48 +3483,89 @@
     let heroMode = 'active';
     let heroW = 0;
     let heroH = 0;
+    let heroBandBottom = 0;
+    let heroVisible = true;
 
     const gutToSkinParticles = [];
     const suppurativeParticles = [];
+    const heroHairs = [];
+    const heroCells = [];
+    const heroBacteria = [];
+
+    function heroRng(seed) {
+      let a = seed >>> 0;
+      return function () {
+        a = (a + 0x6D2B79F5) | 0;
+        let t = Math.imul(a ^ (a >>> 15), 1 | a);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
 
     function initHeroParticles() {
       gutToSkinParticles.length = 0;
       suppurativeParticles.length = 0;
-      for (let i = 0; i < 42; i++) {
+      for (let i = 0; i < 72; i++) {
         gutToSkinParticles.push({
           t: Math.random(),
-          speed: 0.0022 + Math.random() * 0.0028,
-          offsetY: (Math.random() - 0.5) * 70,
+          speed: 0.0022 + Math.random() * 0.0026,
+          offsetY: (Math.random() - 0.5) * 1.6,
           type: i % 3 === 0 ? 'tcell' : 'cytokine',
-          radius: i % 3 === 0 ? 5.5 : 3.2
+          radius: i % 3 === 0 ? 7 : 4.2,
+          spin: Math.random() * 6.28
         });
       }
-      for (let i = 0; i < 55; i++) {
-        const tractAngles = [0.55, 1.15, 2.1, 2.75, 3.65, 4.4, 5.5];
-        const baseAngle = tractAngles[i % tractAngles.length];
+      const tractHours = [3, 8, 3.6, 8.6, 4.4, 9.4, 2.2, 10];
+      for (let i = 0; i < 96; i++) {
         suppurativeParticles.push({
-          angle: baseAngle + (Math.random() - 0.5) * 0.16,
-          dist: 34 + Math.random() * 58,
-          speed: 0.35 + Math.random() * 0.65,
-          alpha: 0.3 + Math.random() * 0.7,
-          size: 2 + Math.random() * 3.2
+          tract: i % tractHours.length,
+          spread: (Math.random() - 0.5) * 0.5,
+          dist: Math.random(),
+          speed: 0.004 + Math.random() * 0.006,
+          alpha: 0.45 + Math.random() * 0.55,
+          size: 2.4 + Math.random() * 2.4
         });
       }
+      const rnd = heroRng(4242);
+      heroHairs.length = 0;
+      for (let i = 0; i < 700; i++) {
+        const a = rnd() * Math.PI * 2;
+        heroHairs.push({ a, r: 0.6 + rnd() * 0.4, len: 0.05 + rnd() * 0.08, bend: (rnd() - 0.5) * 0.6, dark: rnd() < 0.18 + 0.62 * Math.max(0, -Math.sin(a)) });
+      }
+      heroCells.length = 0;
+      for (let i = 0; i < 80; i++) heroCells.push({ x: rnd(), y: rnd(), r: 0.6 + rnd() * 0.5, ph: rnd() * 6.28 });
+      heroBacteria.length = 0;
+      for (let i = 0; i < 16; i++) heroBacteria.push({ x: rnd(), y: rnd(), a: rnd() * 6.28, ph: rnd() * 6.28 });
+    }
+
+    function measureHeroBand() {
+      const cRect = heroCanvas.getBoundingClientRect();
+      let freeBottom = heroH;
+      document.querySelectorAll('.hero-glass-panel, .hero-controls-card').forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.height && r.bottom > cRect.top + 4 && r.top < cRect.bottom - 4) freeBottom = Math.min(freeBottom, r.top - cRect.top);
+      });
+      heroBandBottom = Math.max(heroH * 0.42, freeBottom - 4);
     }
 
     function resizeHeroCanvas() {
-      const rect = heroCanvas.parentElement.getBoundingClientRect();
+      const rect = heroCanvas.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       heroW = rect.width;
       heroH = rect.height;
-      heroCanvas.width = heroW * dpr;
-      heroCanvas.height = heroH * dpr;
+      heroCanvas.width = Math.round(heroW * dpr);
+      heroCanvas.height = Math.round(heroH * dpr);
       heroCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      measureHeroBand();
     }
 
     window.addEventListener('resize', resizeHeroCanvas);
+    if ('ResizeObserver' in window) new ResizeObserver(resizeHeroCanvas).observe(heroCanvas);
     resizeHeroCanvas();
     initHeroParticles();
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(en => { heroVisible = en[en.length - 1].isIntersecting; }).observe(heroCanvas);
+    }
 
     document.querySelectorAll('[data-hero-mode]').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -3143,192 +3582,387 @@
       });
     });
 
+    // Transición suave entre modos (0 = ciclosporina, 1 = brote activo, 2 = tormenta MMP)
+    let heroLevel = 1;
+
     function drawHeroFrame(timestamp) {
+      requestAnimationFrame(drawHeroFrame);
+      if (!heroVisible || !heroW || !heroH) return;
       const time = timestamp * 0.001;
       const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      const ctx = heroCtx;
+      const targetLevel = heroMode === 'cyclosporine' ? 0 : heroMode === 'hyper' ? 2 : 1;
+      heroLevel += (targetLevel - heroLevel) * 0.06;
+      const inflam = Math.min(1, heroLevel);          // 0 en ciclosporina, 1 en brote
+      const storm = Math.max(0, heroLevel - 1);       // 0..1 en tormenta MMP
+      const calm = 1 - inflam;                        // 1 en ciclosporina
 
-      heroCtx.clearRect(0, 0, heroW, heroH);
-
-      // Fondo estilizado
-      const bgGrad = heroCtx.createLinearGradient(0, 0, heroW, heroH);
+      ctx.clearRect(0, 0, heroW, heroH);
+      const bgGrad = ctx.createLinearGradient(0, 0, heroW, heroH);
       if (isLight) {
-        bgGrad.addColorStop(0, '#e2ecf8');
-        bgGrad.addColorStop(0.5, '#eef4fb');
-        bgGrad.addColorStop(1, '#dce7f5');
+        bgGrad.addColorStop(0, '#e6eef8');
+        bgGrad.addColorStop(0.5, '#f3f7fc');
+        bgGrad.addColorStop(1, '#e2e9f4');
       } else {
         bgGrad.addColorStop(0, '#070c18');
         bgGrad.addColorStop(0.5, '#0b1426');
         bgGrad.addColorStop(1, '#120d20');
       }
-      heroCtx.fillStyle = bgGrad;
-      heroCtx.fillRect(0, 0, heroW, heroH);
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, heroW, heroH);
 
-      // Coordenadas clave adaptativas (escritorio vs móvil)
+      // Composición dentro de la franja libre (no tapada por los paneles)
+      const bandH = heroBandBottom;
       const isCompact = heroW < 680;
-      const colonX = isCompact ? heroW * 0.22 : heroW * 0.23;
-      const colonY = isCompact ? heroH * 0.28 : heroH * 0.42;
-      const perianalX = isCompact ? heroW * 0.75 : heroW * 0.73;
-      const perianalY = isCompact ? heroH * 0.28 : heroH * 0.42;
-      const radiusScale = isCompact ? 0.72 : 1.0;
+      const S = Math.max(0.5, Math.min(1.35, Math.min(bandH / 330, heroW / (isCompact ? 520 : 1080))));
+      const colonX = heroW * (isCompact ? 0.19 : 0.22);
+      const perianalX = heroW * (isCompact ? 0.72 : 0.72);
+      const midY = bandH * 0.54;
+      const colonY = midY;
+      const perianalY = midY + 4 * S;
+      const PR = 104 * S;
+      const fontPx = Math.max(10, Math.round(11 * S + 2));
 
-      // 1. PARED DE COLON CON CRIPTAS Y TIGHT JUNCTIONS (IZQUIERDA)
-      heroCtx.save();
-      heroCtx.translate(colonX, colonY);
-      const wallH = 190 * radiusScale;
-      const wallW = 95 * radiusScale;
-
-      heroCtx.fillStyle = isLight ? 'rgba(20, 184, 166, 0.15)' : 'rgba(20, 184, 166, 0.12)';
-      heroCtx.strokeStyle = '#14b8a6';
-      heroCtx.lineWidth = 2;
-      heroCtx.beginPath();
-      heroCtx.roundRect(-wallW * 0.6, -wallH * 0.5, wallW, wallH, 16);
-      heroCtx.fill();
-      heroCtx.stroke();
-
-      // Criptas colónicas estilizadas y brechas epiteliales
-      const cryptCount = 5;
-      for (let i = 0; i < cryptCount; i++) {
-        const cy = -wallH * 0.38 + (i * (wallH * 0.76)) / (cryptCount - 1);
-        const pulse = Math.sin(time * 2.5 + i) * 3;
-        heroCtx.fillStyle = heroMode === 'cyclosporine' ? 'rgba(16, 185, 129, 0.42)' : 'rgba(244, 63, 94, 0.38)';
-        heroCtx.beginPath();
-        heroCtx.ellipse(0, cy, 24 * radiusScale + pulse, 10 * radiusScale, 0, 0, Math.PI * 2);
-        heroCtx.fill();
+      // ===== 1. PARED COLÓNICA (corte histológico): luz con bacterias, epitelio, criptas, lámina propia, capas =====
+      const CW = 124 * S, CH = 226 * S;
+      const x0 = colonX - CW / 2, y0 = colonY - CH / 2;
+      ctx.save();
+      ctx.beginPath();
+      ctx.roundRect(x0, y0, CW, CH, 14 * S);
+      ctx.clip();
+      const layers = [[0, 0.5, isLight ? '#eab0aa' : '#d9918c'], [0.5, 0.56, '#9c4a52'], [0.56, 0.78, isLight ? '#f4e0d6' : '#e6cbbf'], [0.78, 1, '#9a3a3e']];
+      layers.forEach(([a, b, col]) => { ctx.fillStyle = col; ctx.fillRect(x0 + a * CW, y0, (b - a) * CW + 1, CH); });
+      ctx.fillStyle = `rgba(190,30,50,${(0.12 + 0.35 * inflam + 0.15 * storm).toFixed(3)})`;   // hiperemia de la lámina propia
+      ctx.fillRect(x0, y0, CW * 0.5, CH);
+      for (let y = y0 + 4; y < y0 + CH; y += 4 * S) {   // fibras de la muscular externa
+        ctx.fillStyle = 'rgba(70,14,18,0.35)';
+        ctx.fillRect(x0 + CW * 0.78, y, CW * 0.22, 1);
       }
+      // criptas de Lieberkühn abiertas a la luz (izquierda)
+      const cryptN = 6;
+      for (let i = 0; i < cryptN; i++) {
+        const cy = y0 + CH * (0.1 + (i * 0.8) / (cryptN - 1));
+        const len = CW * 0.4, cwid = 11 * S;
+        ctx.fillStyle = isLight ? '#f7e6e2' : '#f1d6d1';
+        ctx.beginPath();
+        ctx.roundRect(x0 - 2, cy - cwid / 2, len, cwid, cwid / 2);
+        ctx.fill();
+        ctx.strokeStyle = '#a2475a';
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+        for (let k = 0; k < 4; k++) {   // células caliciformes
+          ctx.fillStyle = 'rgba(255,255,255,0.85)';
+          ctx.beginPath();
+          ctx.ellipse(x0 + len * (0.25 + k * 0.18), cy + (k % 2 ? 2.4 : -2.4) * S, 2.6 * S, 1.6 * S, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        if (storm > 0.05 && i % 2 === 0) {   // abscesos de cripta en la tormenta MMP
+          ctx.fillStyle = `rgba(245,190,60,${(0.9 * storm).toFixed(3)})`;
+          ctx.beginPath();
+          ctx.ellipse(x0 + len * 0.7, cy, 5 * S * storm + 1, 3.2 * S, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      // linfocitos y plasmocitos de la lámina propia
+      const cellCount = Math.round(18 + 44 * inflam + 26 * storm);
+      for (let i = 0; i < cellCount && i < heroCells.length; i++) {
+        const c = heroCells[i];
+        const cx = x0 + CW * (0.08 + c.x * 0.44) + Math.sin(time * 1.4 + c.ph) * 1.5;
+        const cy = y0 + CH * (0.04 + c.y * 0.92);
+        ctx.fillStyle = calm > 0.5 ? '#10b981' : (isLight ? '#1d4ed8' : '#60a5fa');
+        ctx.beginPath();
+        ctx.arc(cx, cy, 2.6 * S * c.r + 0.6, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+      ctx.strokeStyle = isLight ? '#0f766e' : '#2dd4bf';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.roundRect(x0, y0, CW, CH, 14 * S);
+      ctx.stroke();
+      // epitelio de superficie con uniones estrechas (tight junctions)
+      const cellsN = 14;
+      const gapEvery = inflam < 0.35 ? 99 : storm > 0.5 ? 2 : 4;
+      for (let i = 0; i < cellsN; i++) {
+        const cy = y0 + 8 * S + (i * (CH - 16 * S)) / cellsN;
+        const hcell = (CH - 16 * S) / cellsN - 1.5;
+        const gap = i % gapEvery === 1;
+        ctx.fillStyle = calm > 0.5 ? 'rgba(16,185,129,0.85)' : (isLight ? '#f8d7d3' : '#f3c9c4');
+        ctx.fillRect(x0 - 8 * S, cy, 8 * S, hcell);
+        if (gap) {
+          const glow = 0.55 + 0.45 * Math.sin(time * 4 + i);
+          ctx.fillStyle = `rgba(244,63,94,${glow.toFixed(3)})`;
+          ctx.fillRect(x0 - 10 * S, cy + hcell, 12 * S, 3 * S);
+        }
+      }
+      // bacterias luminales (disbiosis) que translocan por las brechas
+      heroBacteria.forEach((bct, i) => {
+        const drift = (time * 0.15 + bct.ph) % 1;
+        const crossing = inflam > 0.35 && i % 3 === 0;
+        const bx = crossing ? x0 - 30 * S + drift * 46 * S : x0 - 16 * S - bct.x * 34 * S + Math.sin(time + bct.ph) * 3;
+        const by = y0 + CH * (0.08 + bct.y * 0.84);
+        ctx.save();
+        ctx.translate(bx, by);
+        ctx.rotate(bct.a + time * 0.3);
+        ctx.fillStyle = isLight ? '#7c3aed' : '#c084fc';
+        ctx.globalAlpha = crossing ? 0.95 : 0.7;
+        ctx.beginPath();
+        ctx.roundRect(-4 * S, -1.6 * S, 8 * S, 3.2 * S, 1.6 * S);
+        ctx.fill();
+        ctx.restore();
+      });
+      ctx.fillStyle = isLight ? '#0f766e' : '#5eead4';
+      ctx.font = `700 ${fontPx}px "JetBrains Mono", monospace`;
+      ctx.textAlign = 'center';
+      const colonLabelX = Math.max(ctx.measureText('MUCOSA COLÓNICA (EII)').width / 2 + 6, colonX);
+      ctx.fillText('MUCOSA COLÓNICA (EII)', colonLabelX, y0 - 10);
 
-      heroCtx.fillStyle = isLight ? '#0f172a' : '#5eead4';
-      heroCtx.font = `700 ${Math.round(11 * radiusScale + 2)}px "JetBrains Mono", monospace`;
-      heroCtx.textAlign = 'center';
-      heroCtx.fillText('MUCOSA COLÓNICA (EII)', 0, -wallH * 0.5 - 10);
-      heroCtx.restore();
-
-      // 2. CORRIENTE VASCULAR / HOMING LINFOCITARIO (EJE INTESTINO-PIEL)
-      const speedFactor = heroMode === 'cyclosporine' ? 0.3 : heroMode === 'hyper' ? 1.65 : 1.0;
-
-      heroCtx.save();
-      heroCtx.strokeStyle = heroMode === 'cyclosporine' ? 'rgba(16, 185, 129, 0.25)' : 'rgba(56, 189, 248, 0.25)';
-      heroCtx.lineWidth = 2;
-      heroCtx.setLineDash([6, 6]);
-      heroCtx.beginPath();
-      heroCtx.moveTo(colonX + 35 * radiusScale, colonY);
-      heroCtx.quadraticCurveTo((colonX + perianalX) * 0.5, colonY - 55 * radiusScale, perianalX - 85 * radiusScale, perianalY);
-      heroCtx.stroke();
-      heroCtx.restore();
-
-      gutToSkinParticles.forEach(p => {
+      // ===== 2. VÉNULA / HOMING LINFOCITARIO (EJE INTESTINO-PIEL) =====
+      const speedFactor = 0.32 + 0.68 * inflam + 0.85 * storm;
+      const sx = x0 + CW + 2, sy = colonY + CH * 0.12;
+      const ex = perianalX - PR * 1.12, ey = perianalY + PR * 0.1;
+      const cx1 = (sx + ex) / 2, cy1 = Math.min(sy, ey) - 70 * S;
+      const vesselW = 26 * S;
+      ctx.save();
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = isLight ? 'rgba(14,116,144,0.16)' : 'rgba(56,189,248,0.14)';
+      ctx.lineWidth = vesselW;
+      ctx.beginPath(); ctx.moveTo(sx, sy); ctx.quadraticCurveTo(cx1, cy1, ex, ey); ctx.stroke();
+      ctx.strokeStyle = calm > 0.5 ? 'rgba(16,185,129,0.55)' : (isLight ? 'rgba(14,116,144,0.55)' : 'rgba(56,189,248,0.45)');
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([7, 6]);
+      ctx.lineDashOffset = -time * 30 * speedFactor;
+      [-1, 1].forEach(side => {
+        ctx.beginPath();
+        ctx.moveTo(sx, sy + side * vesselW / 2);
+        ctx.quadraticCurveTo(cx1, cy1 + side * vesselW / 2, ex, ey + side * vesselW / 2);
+        ctx.stroke();
+      });
+      ctx.restore();
+      const qx = t => (1 - t) * (1 - t) * sx + 2 * (1 - t) * t * cx1 + t * t * ex;
+      const qy = t => (1 - t) * (1 - t) * sy + 2 * (1 - t) * t * cy1 + t * t * ey;
+      if (calm > 0.3) {   // bloqueo de calcineurina en mitad del trayecto
+        const bx = qx(0.5), by = qy(0.5);
+        ctx.save();
+        ctx.globalAlpha = Math.min(1, calm * 1.4);
+        ctx.fillStyle = isLight ? 'rgba(5,150,105,0.18)' : 'rgba(16,185,129,0.2)';
+        ctx.strokeStyle = '#10b981';
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        ctx.moveTo(bx, by - 20 * S);
+        ctx.lineTo(bx + 16 * S, by - 12 * S);
+        ctx.lineTo(bx + 13 * S, by + 10 * S);
+        ctx.lineTo(bx, by + 20 * S);
+        ctx.lineTo(bx - 13 * S, by + 10 * S);
+        ctx.lineTo(bx - 16 * S, by - 12 * S);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(bx - 7 * S, by - 7 * S); ctx.lineTo(bx + 7 * S, by + 7 * S);
+        ctx.moveTo(bx + 7 * S, by - 7 * S); ctx.lineTo(bx - 7 * S, by + 7 * S);
+        ctx.stroke();
+        ctx.restore();
+      }
+      const activeCount = Math.round(30 + 18 * inflam + 24 * storm);
+      gutToSkinParticles.forEach((p, i) => {
+        if (i >= activeCount) return;
         p.t += p.speed * speedFactor;
         if (p.t > 1) p.t -= 1;
-
-        const t = p.t;
-        const p0x = colonX + 30 * radiusScale;
-        const p0y = colonY + p.offsetY * radiusScale * 0.6;
-        const p1x = (colonX + perianalX) * 0.5;
-        const p1y = colonY - 60 * radiusScale + Math.sin(time * 2 + p.offsetY) * 18;
-        const p2x = perianalX - 65 * radiusScale;
-        const p2y = perianalY + p.offsetY * radiusScale * 0.5;
-
-        const x = (1 - t) * (1 - t) * p0x + 2 * (1 - t) * t * p1x + t * t * p2x;
-        const y = (1 - t) * (1 - t) * p0y + 2 * (1 - t) * t * p1y + t * t * p2y;
-
-        heroCtx.beginPath();
-        heroCtx.arc(x, y, p.radius * radiusScale, 0, Math.PI * 2);
-        if (heroMode === 'cyclosporine') {
-          heroCtx.fillStyle = p.type === 'tcell' ? '#10b981' : '#38bdf8';
+        let t = p.t;
+        let fade = 1;
+        if (calm > 0.3 && t > 0.5) { fade = Math.max(0, 1 - (t - 0.5) * 6 * calm); }   // no llegan a la piel
+        if (fade <= 0.02) return;
+        const nx = qx(Math.min(1, t + 0.01)) - qx(t), ny = qy(Math.min(1, t + 0.01)) - qy(t);
+        const nl = Math.hypot(nx, ny) || 1;
+        const x = qx(t) - (ny / nl) * p.offsetY * vesselW * 0.4;
+        const y = qy(t) + (nx / nl) * p.offsetY * vesselW * 0.4;
+        ctx.globalAlpha = fade;
+        if (p.type === 'tcell') {
+          const r = p.radius * S * (1 + 0.15 * storm);
+          ctx.fillStyle = calm > 0.5 ? '#10b981' : (isLight ? '#0284c7' : '#38bdf8');
+          ctx.shadowColor = ctx.fillStyle;
+          ctx.shadowBlur = 10;
+          ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+          ctx.shadowBlur = 0;
+          ctx.fillStyle = calm > 0.5 ? '#065f46' : (isLight ? '#0c4a6e' : '#0c3a5a');
+          ctx.beginPath(); ctx.arc(x + r * 0.15, y - r * 0.1, r * 0.55, 0, Math.PI * 2); ctx.fill();
         } else {
-          heroCtx.fillStyle = p.type === 'tcell' ? '#38bdf8' : '#f43f5e';
+          const r = p.radius * S * (0.8 + 0.4 * storm) * (calm > 0.5 ? 0.7 : 1);
+          p.spin += 0.05 * speedFactor;
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(p.spin);
+          ctx.fillStyle = storm > 0.4 && i % 2 ? '#f97316' : (isLight ? '#e11d48' : '#fb7185');
+          ctx.beginPath();
+          ctx.moveTo(0, -r); ctx.lineTo(r, 0); ctx.lineTo(0, r); ctx.lineTo(-r, 0);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
         }
-        heroCtx.shadowColor = heroCtx.fillStyle;
-        heroCtx.shadowBlur = 8;
-        heroCtx.fill();
-        heroCtx.shadowBlur = 0;
+        ctx.globalAlpha = 1;
       });
 
-      // 3. REGIÓN PERIANAL DEL PASTOR ALEMÁN CON TRAYECTOS FISTULOSOS QUE SUPURAN (DERECHA)
-      heroCtx.save();
-      heroCtx.translate(perianalX, perianalY);
-
-      // Silueta estilizada de la base caudal ancha del Pastor Alemán
-      heroCtx.fillStyle = isLight ? 'rgba(180, 130, 80, 0.22)' : 'rgba(146, 94, 48, 0.24)';
-      heroCtx.strokeStyle = isLight ? 'rgba(120, 75, 35, 0.45)' : 'rgba(217, 155, 82, 0.42)';
-      heroCtx.lineWidth = 2;
-      heroCtx.beginPath();
-      heroCtx.arc(0, 0, 102 * radiusScale, 0, Math.PI * 2);
-      heroCtx.fill();
-      heroCtx.stroke();
-
-      // Arco dorsal de la base caudal ancha
-      heroCtx.fillStyle = isLight ? 'rgba(92, 64, 40, 0.35)' : 'rgba(68, 46, 29, 0.65)';
-      heroCtx.beginPath();
-      heroCtx.arc(0, -18 * radiusScale, 88 * radiusScale, Math.PI * 1.12, Math.PI * 1.88);
-      heroCtx.quadraticCurveTo(0, -58 * radiusScale, -82 * radiusScale, -32 * radiusScale);
-      heroCtx.fill();
-
-      // Zona anocutánea y esfínter anal externo
-      const sphRadius = 56 * radiusScale;
-      heroCtx.fillStyle = heroMode === 'cyclosporine' ? 'rgba(16, 185, 129, 0.22)' : 'rgba(244, 63, 94, 0.26)';
-      heroCtx.strokeStyle = heroMode === 'cyclosporine' ? '#10b981' : '#f43f5e';
-      heroCtx.lineWidth = 2.2;
-      heroCtx.beginPath();
-      heroCtx.arc(0, 10 * radiusScale, sphRadius, 0, Math.PI * 2);
-      heroCtx.fill();
-      heroCtx.stroke();
-
-      // Lumen anal central
-      heroCtx.fillStyle = '#09050d';
-      heroCtx.beginPath();
-      heroCtx.arc(0, 10 * radiusScale, 16 * radiusScale, 0, Math.PI * 2);
-      heroCtx.fill();
-
-      // Trayectos fistulosos sinusales ciegos que se abren y supuran
-      const sinusAngles = [0.55, 1.15, 2.1, 2.75, 3.65, 4.4, 5.5];
-      const tractOpenFactor = heroMode === 'cyclosporine' ? 0.35 : heroMode === 'hyper' ? 1.35 : 1.0;
-
-      sinusAngles.forEach((ang, idx) => {
-        const pulseOpen = (0.75 + 0.25 * Math.sin(time * 3.2 + idx * 1.1)) * tractOpenFactor;
-        const rStart = 24 * radiusScale;
-        const rEnd = (32 + 38 * pulseOpen) * radiusScale;
-        const sx = Math.cos(ang) * rStart;
-        const sy = 10 * radiusScale + Math.sin(ang) * rStart;
-        const ex = Math.cos(ang) * rEnd;
-        const ey = 10 * radiusScale + Math.sin(ang) * rEnd;
-
-        heroCtx.strokeStyle = heroMode === 'cyclosporine' ? 'rgba(52, 211, 153, 0.65)' : 'rgba(244, 63, 94, 0.88)';
-        heroCtx.lineWidth = (4.5 * pulseOpen + 1.5) * radiusScale;
-        heroCtx.lineCap = 'round';
-        heroCtx.beginPath();
-        heroCtx.moveTo(sx, sy);
-        heroCtx.lineTo(ex, ey);
-        heroCtx.stroke();
-
-        // Orificio ulcerado sinusal
-        heroCtx.fillStyle = heroMode === 'cyclosporine' ? '#10b981' : '#fbbf24';
-        heroCtx.beginPath();
-        heroCtx.arc(ex, ey, (4.2 * pulseOpen + 1.2) * radiusScale, 0, Math.PI * 2);
-        heroCtx.fill();
+      // ===== 3. REGIÓN PERIANAL DEL PASTOR ALEMÁN (vista caudal) =====
+      ctx.save();
+      ctx.translate(perianalX, perianalY);
+      // base de la cola
+      const tailG = ctx.createLinearGradient(0, -PR * 1.3, 0, -PR * 0.7);
+      tailG.addColorStop(0, isLight ? '#2a1d16' : '#1a110b');
+      tailG.addColorStop(1, isLight ? '#5a3a24' : '#3a2616');
+      ctx.fillStyle = tailG;
+      ctx.beginPath();
+      ctx.ellipse(0, -PR * 0.9, PR * 0.6, PR * 0.4, 0, Math.PI, 0);
+      ctx.lineTo(PR * 0.6, -PR * 0.7);
+      ctx.lineTo(-PR * 0.6, -PR * 0.7);
+      ctx.closePath();
+      ctx.fill();
+      // piel perianal
+      const skinG = ctx.createRadialGradient(0, 0, PR * 0.2, 0, 0, PR);
+      skinG.addColorStop(0, isLight ? '#7a5852' : '#5b413c');
+      skinG.addColorStop(1, isLight ? '#c79b8b' : '#8f6a5f');
+      ctx.fillStyle = skinG;
+      ctx.beginPath(); ctx.arc(0, 0, PR, 0, Math.PI * 2); ctx.fill();
+      // pelo negro-fuego radial
+      ctx.lineCap = 'round';
+      heroHairs.forEach(h => {
+        const r0 = h.r * PR, r1 = (h.r + h.len) * PR;
+        const a1 = h.a + h.bend * 0.12;
+        ctx.strokeStyle = h.dark ? '#1d1512' : (isLight ? '#a86a30' : '#b8803f');
+        ctx.lineWidth = 0.9 * S + 0.3;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(h.a) * r0, Math.sin(h.a) * r0);
+        ctx.lineTo(Math.cos(a1) * r1, Math.sin(a1) * r1 + 2 * S);
+        ctx.stroke();
       });
-
-      // Partículas de supuración piogranulomatosa emergiendo de los trayectos
-      suppurativeParticles.forEach(sp => {
-        sp.dist += sp.speed * tractOpenFactor;
-        if (sp.dist > 96) sp.dist = 28;
-        const px = Math.cos(sp.angle) * sp.dist * radiusScale;
-        const py = 10 * radiusScale + Math.sin(sp.angle) * sp.dist * radiusScale;
-
-        heroCtx.beginPath();
-        heroCtx.arc(px, py, sp.size * radiusScale, 0, Math.PI * 2);
-        heroCtx.fillStyle = heroMode === 'cyclosporine'
-          ? `rgba(16, 185, 129, ${sp.alpha * 0.45})`
-          : `rgba(245, 158, 11, ${sp.alpha * 0.85})`;
-        heroCtx.fill();
+      // zona perianal pigmentada y eritema
+      ctx.fillStyle = isLight ? '#4b3536' : '#3a2829';
+      ctx.beginPath(); ctx.arc(0, 0, PR * 0.46, 0, Math.PI * 2); ctx.fill();
+      const ery = ctx.createRadialGradient(0, 0, PR * 0.2, 0, 0, PR * 0.9);
+      ery.addColorStop(0, `rgba(220,38,60,${(0.1 + 0.4 * inflam + 0.2 * storm).toFixed(3)})`);
+      ery.addColorStop(1, 'rgba(220,38,60,0)');
+      ctx.fillStyle = ery;
+      ctx.beginPath(); ctx.arc(0, 0, PR * 0.9, 0, Math.PI * 2); ctx.fill();
+      // esfínter anal externo (anillo estriado) y sacos anales a las 4 h y 8 h
+      ctx.strokeStyle = 'rgba(160,40,48,0.85)';
+      ctx.lineWidth = PR * 0.1;
+      ctx.beginPath(); ctx.arc(0, 0, PR * 0.27, 0, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,200,200,0.35)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < 36; i++) {
+        const a = (i / 36) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a) * PR * 0.22, Math.sin(a) * PR * 0.22);
+        ctx.lineTo(Math.cos(a) * PR * 0.32, Math.sin(a) * PR * 0.32);
+        ctx.stroke();
+      }
+      const clockXY = (h, r) => { const a = (-90 + h * 30) * Math.PI / 180; return [Math.cos(a) * r, Math.sin(a) * r]; };
+      [4, 8].forEach(h => {
+        const [sx2, sy2] = clockXY(h, PR * 0.36);
+        ctx.fillStyle = '#8e7b6e';
+        ctx.strokeStyle = '#5b4a40';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.ellipse(sx2, sy2, PR * 0.075, PR * 0.055, (h === 4 ? 0.5 : -0.5), 0, Math.PI * 2); ctx.fill(); ctx.stroke();
       });
+      // ano con pliegues radiales
+      ctx.fillStyle = '#1a0b0e';
+      ctx.beginPath(); ctx.arc(0, 0, PR * 0.1, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = 'rgba(214,140,150,0.75)';
+      ctx.lineWidth = 1.2;
+      for (let i = 0; i < 12; i++) {
+        const a = (i / 12) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a) * PR * 0.04, Math.sin(a) * PR * 0.04);
+        ctx.lineTo(Math.cos(a) * PR * 0.16, Math.sin(a) * PR * 0.16);
+        ctx.stroke();
+      }
+      // ulceración circunferencial (tormenta MMP)
+      if (storm > 0.05) {
+        ctx.strokeStyle = `rgba(200,24,44,${(0.75 * storm).toFixed(3)})`;
+        ctx.lineWidth = PR * (0.1 + 0.08 * storm) * (0.9 + 0.1 * Math.sin(time * 5));
+        ctx.beginPath(); ctx.arc(0, 0, PR * 0.52, 0, Math.PI * 2); ctx.stroke();
+      }
+      // trayectos sinusales ciegos y sus orificios
+      const tractHours = [3, 8, 3.6, 8.6, 4.4, 9.4, 2.2, 10];
+      const tractsShown = Math.round(4 + 1 * inflam + 3 * storm);
+      const tractSize = 0.45 + 0.55 * inflam + 0.7 * storm;
+      tractHours.forEach((h, idx) => {
+        if (idx >= tractsShown) return;
+        const pulse = 0.85 + 0.15 * Math.sin(time * 3.2 + idx * 1.1) * (0.3 + inflam);
+        const rOpen = PR * (0.62 + (idx % 3) * 0.08);
+        const [ox, oy] = clockXY(h, rOpen);
+        const [ix, iy] = clockXY(h + 0.3, PR * 0.3);
+        ctx.strokeStyle = calm > 0.5 ? 'rgba(244,160,170,0.5)' : `rgba(150,16,30,${(0.55 + 0.3 * storm).toFixed(3)})`;   // trayecto bajo la piel
+        ctx.lineWidth = (3 + 4 * tractSize) * S;
+        ctx.setLineDash([4 * S, 3 * S]);
+        ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ix, iy); ctx.stroke();
+        ctx.setLineDash([]);
+        const R = (5 + 7 * tractSize) * S * pulse;
+        const halo = ctx.createRadialGradient(ox, oy, 0, ox, oy, R * 2.2);
+        halo.addColorStop(0, calm > 0.5 ? 'rgba(244,170,180,0.6)' : 'rgba(225,29,72,0.75)');
+        halo.addColorStop(1, 'rgba(225,29,72,0)');
+        ctx.fillStyle = halo;
+        ctx.beginPath(); ctx.arc(ox, oy, R * 2.2, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = calm > 0.5 ? '#e8a0a8' : '#c81e3c';
+        ctx.beginPath(); ctx.arc(ox, oy, R, 0, Math.PI * 2); ctx.fill();
+        if (calm < 0.5) {
+          ctx.fillStyle = '#facc15';
+          ctx.beginPath(); ctx.arc(ox + R * 0.1, oy - R * 0.1, R * 0.45 * (0.6 + storm * 0.5), 0, Math.PI * 2); ctx.fill();
+        }
+        ctx.fillStyle = '#1a0508';
+        ctx.beginPath(); ctx.arc(ox, oy, Math.max(1.5, R * 0.25), 0, Math.PI * 2); ctx.fill();
+      });
+      // supuración piogranulomatosa que emerge de los orificios
+      const pusCount = Math.round(24 + 36 * inflam + 36 * storm - 18 * calm);
+      suppurativeParticles.forEach((sp, i) => {
+        if (i >= pusCount || sp.tract >= tractsShown) return;
+        sp.dist += sp.speed * (0.4 + 0.6 * inflam + storm);
+        if (sp.dist > 1) sp.dist -= 1;
+        const h = tractHours[sp.tract] + sp.spread;
+        const r = PR * (0.62 + (sp.tract % 3) * 0.08 + sp.dist * 0.34);
+        const [px2, py2] = clockXY(h, r);
+        ctx.fillStyle = calm > 0.5 ? `rgba(16,185,129,${(sp.alpha * 0.5 * (1 - sp.dist)).toFixed(3)})` : `rgba(245,158,11,${(sp.alpha * (1 - sp.dist * 0.8)).toFixed(3)})`;
+        ctx.beginPath(); ctx.arc(px2, py2, sp.size * S, 0, Math.PI * 2); ctx.fill();
+      });
+      // metaloproteinasas MMP-2/9 (tormenta)
+      if (storm > 0.05) {
+        for (let i = 0; i < 14; i++) {
+          const a = (i / 14) * Math.PI * 2 + time * 0.6;
+          const r = PR * (0.56 + 0.1 * Math.sin(time * 2 + i));
+          const mx = Math.cos(a) * r, my = Math.sin(a) * r;
+          ctx.save();
+          ctx.translate(mx, my);
+          ctx.rotate(time * 3 + i);
+          ctx.fillStyle = `rgba(249,115,22,${(0.9 * storm).toFixed(3)})`;
+          ctx.beginPath();
+          for (let k = 0; k < 10; k++) {
+            const rr = k % 2 ? 2.4 * S : 6 * S;
+            const aa = (k / 10) * Math.PI * 2;
+            if (k === 0) ctx.moveTo(Math.cos(aa) * rr, Math.sin(aa) * rr); else ctx.lineTo(Math.cos(aa) * rr, Math.sin(aa) * rr);
+          }
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+      // halo verde de remisión con ciclosporina + tacrolimus
+      if (calm > 0.05) {
+        ctx.strokeStyle = `rgba(16,185,129,${(0.6 * calm).toFixed(3)})`;
+        ctx.lineWidth = 3;
+        ctx.setLineDash([6, 6]);
+        ctx.lineDashOffset = time * 12;
+        ctx.beginPath(); ctx.arc(0, 0, PR * 1.08, 0, Math.PI * 2); ctx.stroke();
+        ctx.setLineDash([]);
+      }
+      ctx.restore();
 
-      heroCtx.fillStyle = isLight ? '#0f172a' : '#fda4af';
-      heroCtx.font = `700 ${Math.round(11 * radiusScale + 2)}px "JetBrains Mono", monospace`;
-      heroCtx.textAlign = 'center';
-      heroCtx.fillText('PIEL ANOPERINEAL (SINUS CIEGOS)', 0, -102 * radiusScale - 10);
-      heroCtx.restore();
-
-      requestAnimationFrame(drawHeroFrame);
+      ctx.fillStyle = isLight ? '#be123c' : '#fda4af';
+      ctx.font = `700 ${fontPx}px "JetBrains Mono", monospace`;
+      ctx.textAlign = 'center';
+      const skinLabel = 'PIEL ANOPERINEAL (SINUS CIEGOS)';
+      const half = ctx.measureText(skinLabel).width / 2;
+      const labelX = Math.min(heroW - half - 6, Math.max(half + 6, perianalX));
+      ctx.fillText(skinLabel, labelX, Math.max(fontPx + 2, perianalY - PR * 1.42 - 6));
     }
 
     requestAnimationFrame(drawHeroFrame);
@@ -3866,242 +4500,1438 @@
     function init3DViewer() {
     const threeCanvas = document.getElementById('threeCanvas');
     const viewer3dContainer = document.getElementById('viewer3dContainer');
+    const viewer3dStage = document.getElementById('viewer3dStage') || viewer3dContainer;
     const labels3dLayer = document.getElementById('labels3dLayer');
+    const labels3dLegend = document.getElementById('labels3dLegend');
+    const hud3dTop = viewer3dContainer ? viewer3dContainer.querySelector('.hud-3d-top') : null;
+    const hud3dBottom = viewer3dContainer ? viewer3dContainer.querySelector('.hud-3d-bottom') : null;
+    const isPhone = window.matchMedia('(max-width: 720px), (pointer: coarse)').matches;
+    const TEX = isPhone ? 0.75 : 1;   // resolución de las texturas procedurales
+    const SWAY = 0.34;                // amplitud del balanceo automático (rad)
 
+    // ---- Utilidades con semilla fija: el modelo sale idéntico en todas las cargas ----
+    function mulberry32(seed) {
+      let a = seed >>> 0;
+      return function () {
+        a = (a + 0x6D2B79F5) | 0;
+        let t = Math.imul(a ^ (a >>> 15), 1 | a);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const smooth = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+    function hash2(ix, iy) {
+      let h = (Math.imul(ix, 374761393) + Math.imul(iy, 668265263)) | 0;
+      h = Math.imul(h ^ (h >>> 13), 1274126177);
+      return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+    }
+    function vnoise(x, y) {
+      const ix = Math.floor(x), iy = Math.floor(y);
+      const fx = x - ix, fy = y - iy;
+      const ux = fx * fx * (3 - 2 * fx), uy = fy * fy * (3 - 2 * fy);
+      return lerp(lerp(hash2(ix, iy), hash2(ix + 1, iy), ux), lerp(hash2(ix, iy + 1), hash2(ix + 1, iy + 1), ux), uy);
+    }
+    const fbm = (x, y) => vnoise(x, y) * 0.55 + vnoise(x * 2.1 + 17, y * 2.1 + 9) * 0.3 + vnoise(x * 4.3 + 5, y * 4.3 + 31) * 0.15;
+    function makeCanvas(w, h) {
+      const c = document.createElement('canvas');
+      c.width = Math.round(w);
+      c.height = Math.round(h);
+      return c;
+    }
+    function blobPath(ctx, cx, cy, rx, ry, seed, jag) {
+      const rnd = mulberry32(seed);
+      const ph = rnd() * 6.283, k1 = 2 + Math.floor(rnd() * 3);
+      ctx.beginPath();
+      for (let i = 0; i <= 24; i++) {
+        const a = (i / 24) * Math.PI * 2;
+        const f = 1 + jag * (Math.sin(a * k1 + ph) * 0.6 + Math.sin(a * 5 + ph * 2.3) * 0.4);
+        const x = cx + Math.cos(a) * rx * f, y = cy + Math.sin(a) * ry * f;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+    }
+    function dot(ctx, x, y, r, color) {
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // ---- Escena, cámara y renderizador ----
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    camera.position.set(0, 2.6, 6.8);
+    const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 200);
+    camera.position.set(0, 1, 10);
 
-    const renderer = new THREE.WebGLRenderer({ canvas: threeCanvas, antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    const renderer = new THREE.WebGLRenderer({ canvas: threeCanvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isPhone ? 1.5 : 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
+    renderer.toneMappingExposure = 1.0;
+    renderer.localClippingEnabled = true;
+    const maxAniso = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    function canvasTexture(c, isColor) {
+      const t = new THREE.CanvasTexture(c);
+      if (isColor) t.colorSpace = THREE.SRGBColorSpace;
+      t.anisotropy = maxAniso;
+      return t;
+    }
+
+    // Iluminación de estudio: entorno PMREM (RoomEnvironment) + luz principal, de relleno y de contorno
+    if (RoomEnvironment) {
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+      pmrem.dispose();
+    }
+    scene.add(new THREE.HemisphereLight(0xfff4ec, 0x30222a, 0.55));
+    const keyLight = new THREE.DirectionalLight(0xfff1e4, 2.1);
+    keyLight.position.set(3.2, 5.5, 6.5);
+    scene.add(keyLight);
+    const rimLight = new THREE.DirectionalLight(0xd6e6ff, 1.3);
+    rimLight.position.set(-5.5, 3, -5);
+    scene.add(rimLight);
+    const fillLight = new THREE.DirectionalLight(0xffe0d2, 0.55);
+    fillLight.position.set(-4, -2.5, 5);
+    scene.add(fillLight);
 
     const controls = new OrbitControls(camera, threeCanvas);
     controls.enableDamping = true;
-    controls.dampingFactor = 0.06;
-    controls.maxDistance = 12;
-    controls.minDistance = 3.2;
+    controls.dampingFactor = 0.07;
+    controls.rotateSpeed = 0.85;
     threeCanvas.style.touchAction = 'pan-y'; /* celular: deslizar vertical = scroll de la página */
 
-    // Iluminación cuidada de estudio anatómico
-    const ambientLight = new THREE.AmbientLight(0xdbeafe, 0.85);
-    scene.add(ambientLight);
+    // Patrón de tejido de granulación (rojo granular) reutilizable
+    const granTile = makeCanvas(48, 48);
+    (function () {
+      const c = granTile.getContext('2d'), rnd = mulberry32(77);
+      c.fillStyle = '#a3212a';
+      c.fillRect(0, 0, 48, 48);
+      for (let i = 0; i < 90; i++) {
+        dot(c, rnd() * 48, rnd() * 48, 1 + rnd() * 2.6, rnd() < 0.62 ? 'rgba(226,78,86,0.92)' : 'rgba(112,14,22,0.75)');
+      }
+    })();
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.65);
-    keyLight.position.set(4, 6, 5);
-    scene.add(keyLight);
-
-    const rimLight = new THREE.PointLight(0x06b6d4, 2.1, 15);
-    rimLight.position.set(-4, 3, -3);
-    scene.add(rimLight);
-
-    const warmLight = new THREE.PointLight(0xf43f5e, 1.5, 12);
-    warmLight.position.set(3, -3, 4);
-    scene.add(warmLight);
-
-    // GRUPO 1: CORTE EN BLOQUE 3D DE LA REGIÓN ANAL-PERIANAL
+    /* =====================================================================
+       GRUPO 1 · BLOQUE ANOPERINEAL (vista caudal de Pastor Alemán, corte de atlas)
+       Ejes del modelo: +z = superficie cutánea (caudal), +y = dorsal (cola), +x = 3 h.
+       Se retira una cuña ventral de 120° (de 4 h a 8 h) que expone dos caras de corte.
+       ===================================================================== */
     const perianalGroup = new THREE.Group();
     scene.add(perianalGroup);
+    const perianalModel = new THREE.Group();
+    perianalModel.rotation.x = -0.42;  // leve inclinación para ver las caras de corte ventrales
+    perianalGroup.add(perianalModel);
 
-    // Bloque dérmico/subcutáneo (fosa isquiorrectal)
-    const dermisMat = new THREE.MeshPhysicalMaterial({
-      color: 0xb45309,
-      roughness: 0.55,
-      metalness: 0.05,
-      transparent: true,
-      opacity: 0.42,
-      roughnessMap: null
-    });
-    const dermisBlock = new THREE.Mesh(new THREE.BoxGeometry(4.4, 2.5, 2.8), dermisMat);
-    dermisBlock.position.set(0, -0.1, -0.3);
-    perianalGroup.add(dermisBlock);
-
-    // Placa cutánea perianal anterior
-    const skinMat = new THREE.MeshStandardMaterial({
-      color: 0xd97706,
-      roughness: 0.48,
-      metalness: 0.08
-    });
-    const skinPlate = new THREE.Mesh(new THREE.BoxGeometry(4.42, 2.52, 0.28), skinMat);
-    skinPlate.position.set(0, -0.1, 1.05);
-    perianalGroup.add(skinPlate);
-
-    // Canal anorrectal central
-    const rectumMat = new THREE.MeshStandardMaterial({
-      color: 0xbe123c,
-      roughness: 0.38,
-      metalness: 0.1,
-      side: THREE.DoubleSide
-    });
-    const rectumTube = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.52, 3.1, 32, 1, true), rectumMat);
-    rectumTube.rotation.x = Math.PI / 2;
-    rectumTube.position.set(0, 0, -0.2);
-    perianalGroup.add(rectumTube);
-
-    // Esfínter anal externo (anillo muscular estriado)
-    const sphincterMat = new THREE.MeshStandardMaterial({
-      color: 0x9f1239,
-      roughness: 0.42,
-      metalness: 0.12
-    });
-    const sphincterTorus = new THREE.Mesh(new THREE.TorusGeometry(0.75, 0.24, 24, 48), sphincterMat);
-    sphincterTorus.position.set(0, 0, 0.85);
-    perianalGroup.add(sphincterTorus);
-
-    // Sacos anales bilaterales (posición horaria 4 y 8)
-    const sacMat = new THREE.MeshPhysicalMaterial({
-      color: 0x06b6d4,
-      roughness: 0.25,
-      metalness: 0.1,
-      clearcoat: 0.6
-    });
-    const leftAnalSac = new THREE.Mesh(new THREE.SphereGeometry(0.42, 24, 24), sacMat);
-    leftAnalSac.scale.set(0.85, 1.25, 0.9);
-    leftAnalSac.position.set(-1.35, -0.55, 0.35);
-    perianalGroup.add(leftAnalSac);
-
-    const rightAnalSac = leftAnalSac.clone();
-    rightAnalSac.position.set(1.35, -0.55, 0.35);
-    perianalGroup.add(rightAnalSac);
-
-    // Folículos pilosos y glándulas sudoríparas apocrinas perianales
-    const follicleGroup = new THREE.Group();
-    const apocrineMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.25 });
-    for (let i = 0; i < 8; i++) {
-      const angle = (i / 8) * Math.PI * 2;
-      const fx = Math.cos(angle) * 1.38;
-      const fy = Math.sin(angle) * 0.95;
-      const foll = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.06, 0.65, 12), apocrineMat);
-      foll.rotation.x = Math.PI / 2;
-      foll.position.set(fx, fy, 0.95);
-      const gland = new THREE.Mesh(new THREE.SphereGeometry(0.11, 16, 16), apocrineMat);
-      gland.position.set(fx * 1.05, fy * 1.05, 0.62);
-      follicleGroup.add(foll, gland);
+    const R_OUT = 2.05, DEPTH = 2.3, ZTOP = 0.75;
+    const PHI_A = -Math.PI / 6;               // cara de corte a las 4 h
+    const PHI_B = PHI_A + (Math.PI * 4) / 3;  // cara de corte a las 8 h
+    function hourToPhi(h) {
+      let p = Math.PI / 2 - (h * Math.PI) / 6;
+      while (p < PHI_A - 1e-6) p += Math.PI * 2;
+      while (p > PHI_A + Math.PI * 2 - 1e-6) p -= Math.PI * 2;
+      return p;
     }
-    perianalGroup.add(follicleGroup);
 
-    // Trayectos fistulosos sinusales ciegos que progresan con el slider
-    const sinusTractsMeshes = [];
-    const sinusMat = new THREE.MeshStandardMaterial({
-      color: 0xf43f5e,
-      emissive: 0xe11d48,
-      emissiveIntensity: 0.55,
-      roughness: 0.3
+    // Perfil (r, z): canal anal profundo → zona columnar → zona intermedia → zona cutánea → labio anal → piel perianal
+    const profCurve = new THREE.CatmullRomCurve3([
+      [0.25, -DEPTH], [0.25, -1.5], [0.255, -0.75], [0.265, -0.15], [0.285, 0.2], [0.33, 0.42], [0.44, 0.56],
+      [0.6, 0.6], [0.82, 0.55], [1.15, 0.45], [1.5, 0.32], [1.8, 0.18], [R_OUT, 0.06]
+    ].map(p => new THREE.Vector3(p[0], p[1], 0)), false, 'centripetal');
+    const NS = isPhone ? 96 : 132;
+    const prof = profCurve.getSpacedPoints(NS - 1).map(v => ({ r: v.x, z: v.y }));
+    prof[0].r = 0.25; prof[0].z = -DEPTH;
+    prof[NS - 1].r = R_OUT;
+    let iMC = prof.findIndex(p => p.z >= 0.22);            // unión mucocutánea
+    if (iMC < 2) iMC = Math.round(NS * 0.45);
+    let iLip = iMC;
+    prof.forEach((p, i) => { if (p.z > prof[iLip].z) iLip = i; });
+
+    function skinRelief(r, phi, z) {
+      if (r <= 0.46) return z;
+      const c = Math.cos(phi), s = Math.sin(phi);
+      let dz = (fbm(c * r * 2.4 + 7.3, s * r * 2.4 + 3.1) - 0.5) * 0.06 * smooth(0.5, 1.0, r);
+      dz += Math.cos(phi * 18) * 0.009 * smooth(0.46, 0.56, r) * (1 - smooth(0.7, 1.05, r)); // pliegues radiales perianales
+      return z + dz;
+    }
+    function foldDepth(phi, z) {   // pliegues radiales de la mucosa anal (columnas anales)
+      const w = smooth(-1.4, -0.7, z) * (1 - smooth(0.4, 0.58, z));
+      const c = 0.5 + 0.5 * Math.cos(phi * 11);
+      return w * 0.045 * c * c;
+    }
+    function surfPoint(i, phi, out) {
+      const p = prof[i];
+      const r = p.r - foldDepth(phi, p.z);
+      return out.set(r * Math.cos(phi), r * Math.sin(phi), skinRelief(p.r, phi, p.z));
+    }
+    function profZ(r) {
+      let i = iLip;
+      while (i < NS - 2 && prof[i + 1].r < r) i++;
+      const a = prof[i], b = prof[i + 1];
+      return lerp(a.z, b.z, Math.min(1, Math.max(0, (r - a.r) / ((b.r - a.r) || 1))));
+    }
+    const skinZ = (r, phi) => skinRelief(r, phi, profZ(r));
+
+    function buildProfileSurface(i0, i1, nPhi, planarUV) {
+      const cols = nPhi + 1, rows = i1 - i0 + 1;
+      const pos = new Float32Array(cols * rows * 3), uv = new Float32Array(cols * rows * 2);
+      const v = new THREE.Vector3();
+      let k = 0;
+      for (let i = i0; i <= i1; i++) {
+        for (let j = 0; j <= nPhi; j++) {
+          surfPoint(i, PHI_A + ((PHI_B - PHI_A) * j) / nPhi, v);
+          pos[k * 3] = v.x; pos[k * 3 + 1] = v.y; pos[k * 3 + 2] = v.z;
+          if (planarUV) { uv[k * 2] = v.x / (2 * R_OUT) + 0.5; uv[k * 2 + 1] = v.y / (2 * R_OUT) + 0.5; }
+          else { uv[k * 2] = j / nPhi; uv[k * 2 + 1] = (i - i0) / (i1 - i0); }
+          k++;
+        }
+      }
+      const idx = [];
+      for (let i = 0; i < rows - 1; i++) {
+        for (let j = 0; j < nPhi; j++) {
+          const a = i * cols + j, b = a + 1, c = a + cols, d = c + 1;
+          idx.push(a, c, b, b, c, d);
+        }
+      }
+      const g = new THREE.BufferGeometry();
+      g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      g.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
+      g.setIndex(idx);
+      g.computeVertexNormals();
+      return g;
+    }
+    const NPHI = isPhone ? 150 : 210;
+
+    // ---- Piel perianal: pigmento moteado (CanvasTexture) + relieve (bump) ----
+    const SK = Math.round(1024 * TEX);
+    const skinPx = SK / (2 * R_OUT);
+    const toSkin = (x, y) => [(x / (2 * R_OUT) + 0.5) * SK, (0.5 - y / (2 * R_OUT)) * SK];
+    const skinBase = makeCanvas(SK, SK), skinBumpBase = makeCanvas(SK, SK);
+    (function paintSkinBase() {
+      const ctx = skinBase.getContext('2d'), b = skinBumpBase.getContext('2d');
+      const rnd = mulberry32(1307);
+      const [cx, cy] = toSkin(0, 0);
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R_OUT * skinPx);
+      g.addColorStop(0, '#3a2a2c'); g.addColorStop(0.24, '#463334'); g.addColorStop(0.33, '#6a504f');
+      g.addColorStop(0.5, '#8c6d68'); g.addColorStop(1, '#9a7b73');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, SK, SK);
+      b.fillStyle = '#808080';
+      b.fillRect(0, 0, SK, SK);
+      for (let i = 0; i < 1100; i++) {   // pigmento melánico moteado
+        const a = rnd() * Math.PI * 2, r = 0.3 + Math.sqrt(rnd()) * R_OUT;
+        const [x, y] = toSkin(Math.cos(a) * r, Math.sin(a) * r);
+        const rad = (0.015 + rnd() * 0.08) * skinPx;
+        ctx.fillStyle = `rgba(${(46 + rnd() * 22) | 0},${(32 + rnd() * 14) | 0},${(34 + rnd() * 12) | 0},${(0.08 + rnd() * 0.24).toFixed(2)})`;
+        ctx.beginPath();
+        ctx.ellipse(x, y, rad, rad * (0.55 + rnd() * 0.5), rnd() * 3, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      for (let i = 0; i < 44; i++) {     // pliegues radiales de la piel perianal
+        const a = (i / 44) * Math.PI * 2 + rnd() * 0.05;
+        const r0 = 0.46, r1 = 0.72 + rnd() * 0.32;
+        const p0 = toSkin(Math.cos(a) * r0, Math.sin(a) * r0), p1 = toSkin(Math.cos(a) * r1, Math.sin(a) * r1);
+        ctx.strokeStyle = 'rgba(36,22,24,0.38)';
+        ctx.lineWidth = (0.005 + rnd() * 0.006) * skinPx;
+        ctx.beginPath(); ctx.moveTo(p0[0], p0[1]); ctx.lineTo(p1[0], p1[1]); ctx.stroke();
+        b.strokeStyle = 'rgba(40,40,40,0.55)';
+        b.lineWidth = ctx.lineWidth * 1.6;
+        b.beginPath(); b.moveTo(p0[0], p0[1]); b.lineTo(p1[0], p1[1]); b.stroke();
+      }
+      for (let i = 0; i < 4200; i++) {   // poros foliculares y microrrelieve
+        const a = rnd() * Math.PI * 2, r = 0.55 + Math.sqrt(rnd()) * (R_OUT - 0.5);
+        const [x, y] = toSkin(Math.cos(a) * r, Math.sin(a) * r);
+        dot(ctx, x, y, 0.6 + rnd() * 0.8, 'rgba(34,22,22,0.35)');
+        dot(b, x, y, 0.8 + rnd() * 0.9, rnd() < 0.7 ? 'rgba(60,60,60,0.7)' : 'rgba(170,170,170,0.5)');
+      }
+    })();
+    const skinCanvas = makeCanvas(SK, SK), skinBumpCanvas = makeCanvas(SK, SK);
+    const skinTex = canvasTexture(skinCanvas, true), skinBumpTex = canvasTexture(skinBumpCanvas, false);
+    const skinMat = new THREE.MeshPhysicalMaterial({
+      map: skinTex, bumpMap: skinBumpTex, bumpScale: 2.2, roughness: 0.62, metalness: 0,
+      sheen: 0.6, sheenRoughness: 0.55, sheenColor: new THREE.Color(0xd9958c),  // subsuperficie simulada
+      clearcoat: 0.12, clearcoatRoughness: 0.55, envMapIntensity: 0.55
+    });
+    const skinMesh = new THREE.Mesh(buildProfileSurface(iMC, NS - 1, NPHI, true), skinMat);
+    perianalModel.add(skinMesh);
+
+    // ---- Canal anal: mucosa húmeda con zonas columnar, intermedia y cutánea ----
+    const canalGeo = buildProfileSurface(0, iMC, NPHI, false);
+    (function colorCanal() {
+      const pos = canalGeo.attributes.position, cols = new Float32Array(pos.count * 3);
+      const cCol = new THREE.Color(0xb24c5a), cRect = new THREE.Color(0xc4646f), cInt = new THREE.Color(0xc98a86), cCut = new THREE.Color(0x4a3536);
+      const tmp = new THREE.Color();
+      for (let k = 0; k < pos.count; k++) {
+        const x = pos.getX(k), y = pos.getY(k), z = pos.getZ(k);
+        const phi = Math.atan2(y, x);
+        tmp.copy(cRect).lerp(cCol, smooth(-1.6, -0.9, z));
+        tmp.lerp(cInt, smooth(0.06, 0.16, z));
+        tmp.lerp(cCut, smooth(0.2, 0.3, z));
+        const ridge = 0.5 + 0.5 * Math.cos(phi * 11);
+        tmp.multiplyScalar(0.82 + 0.3 * ridge * ridge);
+        cols[k * 3] = tmp.r; cols[k * 3 + 1] = tmp.g; cols[k * 3 + 2] = tmp.b;
+      }
+      canalGeo.setAttribute('color', new THREE.BufferAttribute(cols, 3));
+    })();
+    const canalMat = new THREE.MeshPhysicalMaterial({
+      vertexColors: true, roughness: 0.36, clearcoat: 0.85, clearcoatRoughness: 0.2,
+      sheen: 0.35, sheenColor: new THREE.Color(0xffc8c8), side: THREE.DoubleSide, envMapIntensity: 0.7
+    });
+    perianalModel.add(new THREE.Mesh(canalGeo, canalMat));
+
+    // ---- Caras de corte: estratos (epidermis, dermis, grasa isquiorrectal, músculo, mucosa) ----
+    const FW = Math.round(640 * TEX), FH = Math.round(FW * (ZTOP + DEPTH) / R_OUT), FS = FW / R_OUT;
+    const fx = r => r * FS, fy = z => (ZTOP - z) * FS;
+    const SAC_R = 0.68, SAC_Z = -0.42, SAC_AR = 0.2, SAC_AZ = 0.3, SAC_AT = 0.22;
+
+    function facePoints(phi) {
+      const tmp = new THREE.Vector3();
+      const pts = [];
+      for (let i = 0; i < NS; i++) {
+        surfPoint(i, phi, tmp);
+        pts.push([Math.hypot(tmp.x, tmp.y), tmp.z]);
+      }
+      return pts;
+    }
+    function offsetPoly(pts, d) {   // desplaza el contorno hacia el interior del tejido
+      return pts.map((p, k) => {
+        const a = pts[Math.max(0, k - 1)], b = pts[Math.min(pts.length - 1, k + 1)];
+        let tr = b[0] - a[0], tz = b[1] - a[1];
+        const L = Math.hypot(tr, tz) || 1;
+        tr /= L; tz /= L;
+        return [p[0] + tz * d, p[1] - tr * d];
+      });
+    }
+    function bandPath(ctx, pts, d0, d1) {
+      const A = offsetPoly(pts, d0), B = offsetPoly(pts, d1).reverse();
+      ctx.beginPath();
+      A.concat(B).forEach((p, k) => { if (k === 0) ctx.moveTo(fx(p[0]), fy(p[1])); else ctx.lineTo(fx(p[0]), fy(p[1])); });
+      ctx.closePath();
+    }
+    function polyPath(ctx, pts) {
+      ctx.beginPath();
+      pts.forEach((p, k) => { if (k === 0) ctx.moveTo(fx(p[0]), fy(p[1])); else ctx.lineTo(fx(p[0]), fy(p[1])); });
+      ctx.closePath();
+    }
+    function roundRectPath(ctx, r0, r1, z0, z1, rad) {
+      ctx.beginPath();
+      ctx.roundRect(fx(r0), fy(z1), fx(r1) - fx(r0), fy(z0) - fy(z1), rad * FS);
+    }
+    function paintFat(ctx, w, h, sx, sy, seed, count) {
+      const rnd = mulberry32(seed);
+      ctx.fillStyle = '#e6cd8c';
+      ctx.fillRect(0, 0, w, h);
+      for (let i = 0; i < count; i++) {
+        const x = rnd() * w, y = rnd() * h, rad = 0.012 + rnd() * 0.022;
+        ctx.beginPath();
+        ctx.ellipse(x, y, rad * sx, rad * sy, rnd() * 3, 0, Math.PI * 2);
+        ctx.fillStyle = rnd() < 0.5 ? 'rgba(255,243,200,0.35)' : 'rgba(222,190,118,0.3)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(168,128,62,0.42)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+    function paintMuscleFibers(ctx, w, h, angle, color, seed) {
+      const rnd = mulberry32(seed);
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1;
+      const n = Math.round((w + h) / 4);
+      for (let i = 0; i < n; i++) {
+        const off = (i / n) * (w + h) * 1.6 - (w + h) * 0.3;
+        ctx.globalAlpha = 0.25 + rnd() * 0.35;
+        ctx.beginPath();
+        ctx.moveTo(off, -10);
+        ctx.lineTo(off + Math.cos(angle) * (w + h) * 2, -10 + Math.sin(angle) * (w + h) * 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function paintFaceBase(canvas, phi, seed) {
+      const ctx = canvas.getContext('2d');
+      const rnd = mulberry32(seed);
+      const pts = facePoints(phi);
+      const canal = pts.slice(0, iMC + 1), skin = pts.slice(iMC);
+      // 1. Grasa isquiorrectal lobulillar
+      paintFat(ctx, FW, FH, FS, FS, seed + 1, Math.round(FW * FH / 110));
+      // 2. Músculo profundo (elevador del ano / coccígeo), fibras oblicuas
+      ctx.save();
+      polyPath(ctx, [[0.46, -1.36], [0.9, -1.48], [1.4, -1.66], [R_OUT + 0.05, -1.86], [R_OUT + 0.05, -DEPTH - 0.1], [0.46, -DEPTH - 0.1]]);
+      ctx.fillStyle = '#7a2629';
+      ctx.fill();
+      ctx.clip();
+      paintMuscleFibers(ctx, FW, FH, 0.35, '#a33a3e', seed + 2);
+      ctx.restore();
+      // 3. Pared del canal: esfínter anal interno (músculo liso), submucosa y mucosa
+      const iasTop = canal.filter(p => p[1] <= 0.16);
+      ctx.save();
+      bandPath(ctx, iasTop, 0.1, 0.215);
+      ctx.fillStyle = '#b25d5c';
+      ctx.fill();
+      ctx.clip();
+      paintMuscleFibers(ctx, FW, FH, Math.PI / 2, 'rgba(150,64,64,0.8)', seed + 3);
+      ctx.restore();
+      bandPath(ctx, canal, 0.052, 0.104);
+      ctx.fillStyle = '#e4b8ae';
+      ctx.fill();
+      bandPath(ctx, canal, -0.02, 0.054);
+      ctx.fillStyle = '#c05667';
+      ctx.fill();
+      for (let k = 2; k < canal.length - 1; k += 2) {   // criptas de la mucosa rectal
+        const p = offsetPoly(canal, 0.0)[k], q = offsetPoly(canal, 0.045)[k];
+        ctx.strokeStyle = 'rgba(130,40,56,0.55)';
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(fx(p[0]), fy(p[1])); ctx.lineTo(fx(q[0]), fy(q[1])); ctx.stroke();
+      }
+      // 4. Esfínter anal externo (músculo estriado): fascículos cortados transversalmente
+      ctx.save();
+      roundRectPath(ctx, 0.52, 1.07, -1.28, 0.27, 0.13);
+      ctx.fillStyle = '#5e1b1f';
+      ctx.fill();
+      ctx.clip();
+      const step = 0.024 * FS;
+      for (let y = fy(0.3); y < fy(-1.32); y += step * 0.86) {
+        for (let x = fx(0.5) + ((Math.round(y / step) % 2) * step) / 2; x < fx(1.1); x += step) {
+          ctx.fillStyle = ['#a8393d', '#9b3337', '#b5464a', '#93302f'][(rnd() * 4) | 0];
+          ctx.beginPath();
+          ctx.ellipse(x + (rnd() - 0.5) * 2, y + (rnd() - 0.5) * 2, step * 0.44, step * 0.38, rnd() * 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      ctx.restore();
+      ctx.strokeStyle = 'rgba(240,215,200,0.55)';   // epimisio
+      ctx.lineWidth = 0.008 * FS;
+      roundRectPath(ctx, 0.52, 1.07, -1.28, 0.27, 0.13);
+      ctx.stroke();
+      // 5. Saco anal seccionado: cápsula, pared y conducto hacia la unión mucocutánea
+      ctx.beginPath();
+      ctx.ellipse(fx(SAC_R), fy(SAC_Z), (SAC_AR + 0.035) * FS, (SAC_AZ + 0.035) * FS, 0, 0, Math.PI * 2);
+      ctx.fillStyle = '#d9c5b2';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(fx(SAC_R), fy(SAC_Z), (SAC_AR + 0.014) * FS, (SAC_AZ + 0.014) * FS, 0, 0, Math.PI * 2);
+      ctx.fillStyle = '#7d6a5f';
+      ctx.fill();
+      const ductStart = [SAC_R - 0.1, SAC_Z + 0.27], ductEnd = [0.315, 0.22];
+      [[0.034, '#d9c5b2'], [0.022, '#7d6a5f'], [0.01, '#2c1f1a']].forEach(([wd, col]) => {
+        ctx.strokeStyle = col;
+        ctx.lineWidth = wd * FS;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(fx(ductStart[0]), fy(ductStart[1]));
+        ctx.quadraticCurveTo(fx(0.47), fy(0.02), fx(ductEnd[0]), fy(ductEnd[1]));
+        ctx.stroke();
+      });
+      // 6. Piel: dermis con folículos, glándulas sebáceas/apocrinas y glándulas circumanales (hepatoides)
+      bandPath(ctx, skin, 0.016, 0.165);
+      ctx.fillStyle = '#d3a090';
+      ctx.fill();
+      bandPath(ctx, skin, 0.14, 0.2);
+      ctx.fillStyle = 'rgba(226,200,150,0.75)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(160,96,86,0.28)';
+      ctx.lineWidth = 1;
+      for (let k = 0; k < 7; k++) {   // haces de colágeno
+        const off = offsetPoly(skin, 0.03 + k * 0.018);
+        ctx.beginPath();
+        off.forEach((p, i) => { const yy = fy(p[1]) + Math.sin(i * 1.7 + k) * 1.2; if (i === 0) ctx.moveTo(fx(p[0]), yy); else ctx.lineTo(fx(p[0]), yy); });
+        ctx.stroke();
+      }
+      for (let c = 0; c < 9; c++) {   // glándulas circumanales (hepatoides) en lóbulos
+        const r0 = 0.44 + rnd() * 0.5;
+        const z0 = profZ(Math.max(r0, 0.62)) - 0.08 - rnd() * 0.12;
+        for (let l = 0; l < 6; l++) {
+          const rr = r0 + (rnd() - 0.5) * 0.08, zz = z0 + (rnd() - 0.5) * 0.06;
+          if (rr > 0.5 && rr < 1.07 && zz < 0.27 && zz > -0.2) continue;
+          ctx.beginPath();
+          ctx.ellipse(fx(rr), fy(zz), (0.012 + rnd() * 0.01) * FS, (0.01 + rnd() * 0.008) * FS, rnd() * 3, 0, Math.PI * 2);
+          ctx.fillStyle = '#ecc8ae';
+          ctx.fill();
+          ctx.strokeStyle = 'rgba(176,128,108,0.85)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+      for (let r = 0.66 + rnd() * 0.04; r < R_OUT - 0.04; r += 0.05 + rnd() * 0.03) {   // folículos pilosos oblicuos
+        const zs = profZ(r) - 0.012;
+        const ang = -Math.PI / 2 + 0.55;   // inclinados hacia lateral
+        const len = 0.12 + rnd() * 0.04;
+        const ex = r - Math.cos(ang) * len * 0.6, ez = zs - len;
+        ctx.strokeStyle = '#4c3022';
+        ctx.lineWidth = 0.007 * FS;
+        ctx.beginPath(); ctx.moveTo(fx(r), fy(zs)); ctx.lineTo(fx(ex), fy(ez)); ctx.stroke();
+        dot(ctx, fx(ex), fy(ez), 0.011 * FS, '#3f2418');
+        ctx.beginPath();
+        ctx.ellipse(fx(r - 0.02), fy(zs - 0.05), 0.013 * FS, 0.009 * FS, 0.6, 0, Math.PI * 2);
+        ctx.fillStyle = '#f0d7a4'; ctx.fill();
+        for (let q = 0; q < 3; q++) dot(ctx, fx(ex - 0.012 + q * 0.012), fy(ez - 0.03 - (q % 2) * 0.012), 0.007 * FS, '#e2a99c');
+        ctx.beginPath();   // pelo que emerge de la superficie
+        ctx.moveTo(fx(r), fy(zs + 0.012));
+        ctx.quadraticCurveTo(fx(r + 0.03), fy(zs + 0.06), fx(r + 0.09), fy(zs + 0.07));
+        ctx.strokeStyle = rnd() < 0.3 ? '#1f1712' : '#9a6332';
+        ctx.lineWidth = 0.006 * FS;
+        ctx.stroke();
+      }
+      // Epidermis pigmentada
+      ctx.beginPath();
+      offsetPoly(skin, 0.008).forEach((p, k) => { if (k === 0) ctx.moveTo(fx(p[0]), fy(p[1])); else ctx.lineTo(fx(p[0]), fy(p[1])); });
+      ctx.strokeStyle = '#3a2829';
+      ctx.lineWidth = 0.018 * FS;
+      ctx.lineCap = 'butt';
+      ctx.stroke();
+      // 7. Vasos rectales caudales y nervio pudendo en la fosa isquiorrectal
+      [[1.32, -1.05, 'a'], [1.42, -1.12, 'v'], [1.5, -1.0, 'n'], [1.76, -0.62, 'a'], [1.18, -0.42, 'v']].forEach(([r, z, t]) => {
+        const rad = (t === 'v' ? 0.035 : 0.025) * FS;
+        ctx.beginPath();
+        ctx.ellipse(fx(r), fy(z), rad, t === 'v' ? rad * 0.65 : rad, 0.3, 0, Math.PI * 2);
+        ctx.fillStyle = t === 'a' ? '#c2414a' : t === 'v' ? '#5a3f68' : '#efe2b8';
+        ctx.fill();
+        ctx.strokeStyle = t === 'a' ? '#f0b8b0' : 'rgba(60,40,40,0.6)';
+        ctx.lineWidth = 0.006 * FS;
+        ctx.stroke();
+      });
+      return { pts, skin };
+    }
+
+    function buildCutFace(phi) {
+      const pts = facePoints(phi);
+      const shape = new THREE.Shape();
+      pts.forEach((p, k) => { if (k === 0) shape.moveTo(p[0], p[1]); else shape.lineTo(p[0], p[1]); });
+      shape.lineTo(R_OUT, -DEPTH);
+      const hole = new THREE.Path();
+      hole.absellipse(SAC_R, SAC_Z, SAC_AR, SAC_AZ, 0, Math.PI * 2, true);
+      shape.holes.push(hole);
+      const geo = new THREE.ShapeGeometry(shape, 32);
+      const p = geo.attributes.position, uv = geo.attributes.uv;
+      const c = Math.cos(phi), s = Math.sin(phi);
+      for (let k = 0; k < p.count; k++) {
+        const r = p.getX(k), z = p.getY(k);
+        uv.setXY(k, r / R_OUT, (z + DEPTH) / (ZTOP + DEPTH));
+        p.setXYZ(k, r * c, r * s, z);
+      }
+      geo.computeVertexNormals();
+      return geo;
+    }
+
+    // Trayectos fistulosos visibles en cada cara de corte (r, z); z = null → nace en la superficie cutánea
+    const faceDefs = [
+      { hour: 4, seed: 401, tracts: [
+        { on: 0.34, pts: [[1.02, null], [1.1, 0.14], [1.3, -0.55], [1.42, -1.28]], branch: [[1.62, -0.72], [1.86, -1.02]] },
+        { on: 0.58, pts: [[0.72, null], [0.82, 0.22], [1.14, -0.18], [1.18, -0.95]], branch: null }
+      ] },
+      { hour: 8, seed: 801, tracts: [
+        { on: 0.24, pts: [[0.94, null], [1.02, 0.06], [1.22, -0.72], [1.3, -1.38]], branch: [[1.55, -0.95], [1.7, -1.22]] },
+        { on: 0.6, pts: [[1.42, null], [1.5, 0.02], [1.62, -0.5], [1.74, -1.05]], branch: null }
+      ] }
+    ];
+    const faceMats = [];
+    faceDefs.forEach(fd => {
+      fd.phi = hourToPhi(fd.hour);
+      fd.base = makeCanvas(FW, FH);
+      fd.canvas = makeCanvas(FW, FH);
+      paintFaceBase(fd.base, fd.phi, fd.seed);
+      fd.skin = facePoints(fd.phi).slice(iMC);
+      fd.tracts.forEach(t => { t.pts[0][1] = profZ(t.pts[0][0]); });
+      fd.tex = canvasTexture(fd.canvas, true);
+      const mat = new THREE.MeshPhysicalMaterial({
+        map: fd.tex, bumpMap: fd.tex, bumpScale: 0.9, roughness: 0.5, metalness: 0,
+        clearcoat: 0.35, clearcoatRoughness: 0.35, side: THREE.DoubleSide, envMapIntensity: 0.45
+      });
+      faceMats.push(mat);
+      perianalModel.add(new THREE.Mesh(buildCutFace(fd.phi), mat));
+    });
+    function bez(p, t) {
+      const u = 1 - t;
+      return [
+        u * u * u * p[0][0] + 3 * u * u * t * p[1][0] + 3 * u * t * t * p[2][0] + t * t * t * p[3][0],
+        u * u * u * p[0][1] + 3 * u * u * t * p[1][1] + 3 * u * t * t * p[2][1] + t * t * t * p[3][1]
+      ];
+    }
+    function strokeTract(ctx, path, w, pus, alpha) {
+      if (path.length < 2) return;
+      const layers = [[w * 3.6, `rgba(196,62,70,${0.32 * alpha})`], [w * 2.1, null], [w, '#36090e'], [w * 0.42 * pus, '#e2bd52']];
+      layers.forEach(([lw, col]) => {
+        if (lw <= 0.2) return;
+        ctx.lineWidth = lw;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = col || ctx.createPattern(granTile, 'repeat');
+        ctx.globalAlpha = col ? 1 : alpha;
+        ctx.beginPath();
+        path.forEach((p, k) => { if (k === 0) ctx.moveTo(fx(p[0]), fy(p[1])); else ctx.lineTo(fx(p[0]), fy(p[1])); });
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      });
+    }
+    function paintFace(fd, sev) {
+      const ctx = fd.canvas.getContext('2d');
+      ctx.drawImage(fd.base, 0, 0);
+      const pus = smooth(0.45, 0.88, sev), g4 = smooth(0.78, 1, sev);
+      fd.tracts.forEach(t => {
+        const appear = smooth(t.on, t.on + 0.07, sev);
+        if (appear <= 0) return;
+        const s0 = t.pts[0];
+        const halo = ctx.createRadialGradient(fx(s0[0]), fy(s0[1]), 0, fx(s0[0]), fy(s0[1]), (0.12 + 0.3 * sev) * FS);
+        halo.addColorStop(0, `rgba(186,44,56,${0.55 * appear})`);
+        halo.addColorStop(1, 'rgba(186,44,56,0)');
+        ctx.fillStyle = halo;
+        ctx.fillRect(0, 0, FW, FH);
+        const frac = appear * lerp(0.26, 1, smooth(0.42, 0.84, sev));   // superficial (I–II) → profundo (III–IV)
+        const w = (0.026 + 0.05 * smooth(0.2, 1, sev)) * FS;
+        const path = [];
+        for (let k = 0; k <= 48; k++) path.push(bez(t.pts, (k / 48) * frac));
+        strokeTract(ctx, path, w, pus, appear);
+        if (t.branch && g4 > 0) {   // ramificación del grado IV
+          const b0 = bez(t.pts, 0.55);
+          const bp = [b0, [lerp(b0[0], t.branch[0][0], 0.5), lerp(b0[1], t.branch[0][1], 0.3)], t.branch[0], t.branch[1]];
+          const bpath = [];
+          for (let k = 0; k <= 32; k++) bpath.push(bez(bp, (k / 32) * g4));
+          strokeTract(ctx, bpath, w * 0.75, pus, 1);
+        }
+      });
+      if (g4 > 0) {   // ulceración del borde anal (grado IV)
+        const reach = 0.3 + 0.62 * g4;
+        const seg = fd.skin.filter(p => p[0] <= reach);
+        if (seg.length > 2) {
+          ctx.save();
+          bandPath(ctx, seg, -0.01, 0.05 + 0.09 * g4);
+          ctx.fillStyle = ctx.createPattern(granTile, 'repeat');
+          ctx.globalAlpha = 0.5 + 0.5 * g4;
+          ctx.fill();
+          ctx.restore();
+          const rnd = mulberry32(fd.seed + 9);
+          seg.forEach((p, k) => { if (k % 4 === 0 && rnd() < 0.6) dot(ctx, fx(p[0]), fy(p[1] - 0.02), (0.008 + 0.014 * g4) * FS, '#e0b94c'); });
+        }
+      }
+      fd.tex.needsUpdate = true;
+    }
+
+    // ---- Pared lateral y fondo del bloque (también son superficies de corte) ----
+    const SWW = Math.round(2048 * TEX), SWH = Math.round(512 * TEX);
+    const swSy = SWH / (ZTOP + DEPTH), swSx = SWW / (R_OUT * (PHI_B - PHI_A));
+    const sideCanvas = makeCanvas(SWW, SWH);
+    (function paintSide() {
+      const ctx = sideCanvas.getContext('2d');
+      paintFat(ctx, SWW, SWH, swSx, swSy, 911, Math.round(SWW * SWH / 140));
+      const yOf = z => (ZTOP - z) * swSy;
+      const tmp = new THREE.Vector3();
+      const top = [];
+      for (let j = 0; j <= 128; j++) {
+        const u = j / 128;
+        surfPoint(NS - 1, PHI_A + (PHI_B - PHI_A) * u, tmp);
+        top.push([u * SWW, yOf(tmp.z)]);
+      }
+      ctx.save();   // músculo profundo
+      ctx.beginPath();
+      ctx.moveTo(0, SWH);
+      for (let j = 0; j <= 64; j++) ctx.lineTo((j / 64) * SWW, yOf(-1.78 + 0.07 * Math.sin(j * 0.9) + 0.04 * Math.sin(j * 2.3)));
+      ctx.lineTo(SWW, SWH);
+      ctx.closePath();
+      ctx.fillStyle = '#7a2629';
+      ctx.fill();
+      ctx.clip();
+      paintMuscleFibers(ctx, SWW, SWH, 0.08, '#a33a3e', 913);
+      ctx.restore();
+      ctx.beginPath();   // dermis
+      top.forEach((p, k) => { if (k === 0) ctx.moveTo(p[0], p[1]); else ctx.lineTo(p[0], p[1]); });
+      for (let k = top.length - 1; k >= 0; k--) ctx.lineTo(top[k][0], top[k][1] + 0.16 * swSy);
+      ctx.closePath();
+      ctx.fillStyle = '#d3a090';
+      ctx.fill();
+      const rnd = mulberry32(915);
+      for (let x = 4; x < SWW; x += 0.05 * swSx + rnd() * 6) {   // folículos
+        const k = Math.min(top.length - 1, Math.round((x / SWW) * 128));
+        const y0 = top[k][1] + 2;
+        ctx.strokeStyle = '#4c3022';
+        ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.moveTo(x, y0); ctx.lineTo(x - 0.03 * swSx, y0 + 0.12 * swSy); ctx.stroke();
+        dot(ctx, x - 0.03 * swSx, y0 + 0.12 * swSy, 2, '#3f2418');
+      }
+      ctx.beginPath();   // epidermis
+      top.forEach((p, k) => { if (k === 0) ctx.moveTo(p[0], p[1] + 0.008 * swSy); else ctx.lineTo(p[0], p[1] + 0.008 * swSy); });
+      ctx.strokeStyle = '#3a2829';
+      ctx.lineWidth = Math.max(2, 0.018 * swSy);
+      ctx.stroke();
+    })();
+    const sideTex = canvasTexture(sideCanvas, true);
+    const cutMatProps = { roughness: 0.52, metalness: 0, clearcoat: 0.3, clearcoatRoughness: 0.4, side: THREE.DoubleSide, envMapIntensity: 0.45 };
+    const sideMat = new THREE.MeshPhysicalMaterial(Object.assign({ map: sideTex, bumpMap: sideTex, bumpScale: 0.8 }, cutMatProps));
+    (function buildSide() {
+      const n = NPHI, pos = [], uv = [], idx = [];
+      const tmp = new THREE.Vector3();
+      for (let j = 0; j <= n; j++) {
+        const u = j / n, phi = PHI_A + (PHI_B - PHI_A) * u;
+        surfPoint(NS - 1, phi, tmp);
+        pos.push(tmp.x, tmp.y, tmp.z, R_OUT * Math.cos(phi), R_OUT * Math.sin(phi), -DEPTH);
+        uv.push(u, (tmp.z + DEPTH) / (ZTOP + DEPTH), u, 0);
+      }
+      for (let j = 0; j < n; j++) { const a = j * 2; idx.push(a, a + 1, a + 2, a + 2, a + 1, a + 3); }
+      const g = new THREE.BufferGeometry();
+      g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+      g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+      g.setIndex(idx);
+      g.computeVertexNormals();
+      perianalModel.add(new THREE.Mesh(g, sideMat));
+    })();
+
+    const BKW = Math.round(512 * TEX);
+    const backCanvas = makeCanvas(BKW, BKW);
+    (function paintBack() {
+      const ctx = backCanvas.getContext('2d'), s = BKW / (2 * R_OUT), c = BKW / 2;
+      ctx.fillStyle = '#7a2629';
+      ctx.fillRect(0, 0, BKW, BKW);
+      const rnd = mulberry32(933);
+      for (let i = 0; i < 260; i++) {   // fibras radiales del elevador del ano
+        const a = rnd() * Math.PI * 2, r0 = 0.5 + rnd() * 0.2, r1 = 1.2 + rnd() * 0.85;
+        ctx.strokeStyle = `rgba(170,64,66,${(0.25 + rnd() * 0.4).toFixed(2)})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(c + Math.cos(a) * r0 * s, c - Math.sin(a) * r0 * s); ctx.lineTo(c + Math.cos(a) * r1 * s, c - Math.sin(a) * r1 * s); ctx.stroke();
+      }
+      for (let i = 0; i < 26; i++) {   // islotes de grasa
+        const a = rnd() * Math.PI * 2, r = 1.0 + rnd() * 0.95;
+        ctx.beginPath();
+        ctx.ellipse(c + Math.cos(a) * r * s, c - Math.sin(a) * r * s, (0.05 + rnd() * 0.08) * s, (0.04 + rnd() * 0.06) * s, rnd() * 3, 0, Math.PI * 2);
+        ctx.fillStyle = '#e3c886';
+        ctx.fill();
+      }
+      [[0.5, '#b25d5c'], [0.355, '#e4b8ae'], [0.305, '#c05667']].forEach(([r, col]) => {
+        ctx.beginPath(); ctx.arc(c, c, r * s, 0, Math.PI * 2); ctx.fillStyle = col; ctx.fill();
+      });
+    })();
+    const backTex = canvasTexture(backCanvas, true);
+    const backMesh = new THREE.Mesh(
+      new THREE.RingGeometry(0.25, R_OUT, NPHI, 1, PHI_A, PHI_B - PHI_A),
+      new THREE.MeshPhysicalMaterial(Object.assign({ map: backTex, bumpMap: backTex, bumpScale: 0.6 }, cutMatProps))
+    );
+    backMesh.position.z = -DEPTH;
+    perianalModel.add(backMesh);
+
+    // ---- Sacos anales a las 4 h y 8 h: seccionados por las caras de corte (cavidad + secreción) ----
+    const sacClipPlanes = [];
+    [[4, 1], [8, -1]].forEach(([hour, solidSign]) => {
+      const phi = hourToPhi(hour), c = Math.cos(phi), s = Math.sin(phi);
+      const tangent = new THREE.Vector3(-s, c, 0).multiplyScalar(solidSign);
+      const local = new THREE.Plane(tangent.clone(), 0);
+      const world = local.clone();
+      sacClipPlanes.push({ local, world });
+      const center = new THREE.Vector3(SAC_R * c, SAC_R * s, SAC_Z);
+      const wall = new THREE.Mesh(new THREE.SphereGeometry(1, 40, 28), new THREE.MeshPhysicalMaterial({
+        color: 0x8e7b6e, roughness: 0.4, clearcoat: 0.6, clearcoatRoughness: 0.28,
+        sheen: 0.45, sheenColor: new THREE.Color(0xd9c3b0), side: THREE.BackSide, clippingPlanes: [world], envMapIntensity: 0.6
+      }));
+      wall.scale.set(SAC_AR, SAC_AT, SAC_AZ);
+      wall.rotation.z = phi;
+      wall.position.copy(center);
+      perianalModel.add(wall);
+      const paste = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 20), new THREE.MeshPhysicalMaterial({
+        color: 0x6b5644, roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.12,
+        sheen: 0.3, sheenColor: new THREE.Color(0xb59a7a), envMapIntensity: 0.8
+      }));
+      paste.scale.set(SAC_AR * 0.8, SAC_AT * 0.46, SAC_AZ * 0.78);
+      paste.rotation.z = phi;
+      paste.position.copy(center).addScaledVector(tangent, SAC_AT * 0.62);
+      perianalModel.add(paste);
     });
 
-    const tractAngles3D = [0.4, 1.1, 2.0, 2.7, 3.6, 4.3, 5.1, 5.8];
-    tractAngles3D.forEach((ang, idx) => {
-      const r = 1.02 + (idx % 2) * 0.22;
-      const tx = Math.cos(ang) * r;
-      const ty = Math.sin(ang) * (r * 0.78);
-      const curve = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(tx, ty, 1.22),
-        new THREE.Vector3(tx * 0.92, ty * 0.92, 0.55),
-        new THREE.Vector3(tx * 1.12, ty * 0.85, -0.35),
-        new THREE.Vector3(tx * 0.95, ty * 1.05, -1.15)
-      ]);
-      const geo = new THREE.TubeGeometry(curve, 24, 0.11, 12, false);
-      const mesh = new THREE.Mesh(geo, sinusMat);
-      perianalGroup.add(mesh);
-      sinusTractsMeshes.push(mesh);
-    });
+    // ---- Base de la cola (insinuada y cortada) con sección transversal ----
+    const tailAxis = new THREE.Vector3(0, Math.cos(0.42), Math.sin(0.42));
+    const tailBase = new THREE.Vector3(0, 1.5, -0.62);
+    const TAIL_LEN = 1.5, TAIL_R0 = 0.66, TAIL_R1 = 0.48;
+    const tailCanvas = makeCanvas(256 * TEX, 256 * TEX);
+    (function paintTailCut() {
+      const ctx = tailCanvas.getContext('2d'), W = tailCanvas.width, c = W / 2, s = W / 2;
+      ctx.fillStyle = '#2b211d'; ctx.fillRect(0, 0, W, W);
+      ctx.beginPath(); ctx.arc(c, c, s * 0.95, 0, Math.PI * 2); ctx.fillStyle = '#cf9c8d'; ctx.fill();
+      ctx.beginPath(); ctx.arc(c, c, s * 0.86, 0, Math.PI * 2); ctx.fillStyle = '#e4cb8d'; ctx.fill();
+      for (let q = 0; q < 4; q++) {   // músculos sacrocaudales e intertransversos
+        const a = Math.PI / 4 + (q * Math.PI) / 2;
+        ctx.beginPath();
+        ctx.ellipse(c + Math.cos(a) * s * 0.42, c + Math.sin(a) * s * 0.42, s * 0.3, s * 0.22, a, 0, Math.PI * 2);
+        ctx.fillStyle = '#8c2c30'; ctx.fill();
+        ctx.strokeStyle = 'rgba(240,210,200,0.5)'; ctx.lineWidth = 1.5; ctx.stroke();
+      }
+      ctx.beginPath(); ctx.arc(c, c, s * 0.24, 0, Math.PI * 2); ctx.fillStyle = '#efe6d2'; ctx.fill();
+      ctx.beginPath(); ctx.arc(c, c, s * 0.16, 0, Math.PI * 2); ctx.fillStyle = '#c9928a'; ctx.fill();
+      const rnd = mulberry32(55);
+      for (let i = 0; i < 40; i++) dot(ctx, c + (rnd() - 0.5) * s * 0.28, c + (rnd() - 0.5) * s * 0.28, 1.2, 'rgba(240,220,200,0.6)');
+      dot(ctx, c, c + s * 0.34, s * 0.04, '#b8323c');
+    })();
+    const tailSkinMat = new THREE.MeshPhysicalMaterial({ color: 0x2c221e, roughness: 0.8, sheen: 0.4, sheenColor: new THREE.Color(0x6b4a34), envMapIntensity: 0.4 });
+    const tailCutTex = canvasTexture(tailCanvas, true);
+    const tailCutMat = new THREE.MeshPhysicalMaterial(Object.assign({ map: tailCutTex, bumpMap: tailCutTex, bumpScale: 0.6 }, cutMatProps, { side: THREE.FrontSide }));
+    const tailMesh = new THREE.Mesh(new THREE.CylinderGeometry(TAIL_R1, TAIL_R0, TAIL_LEN, 40, 6), [tailSkinMat, tailCutMat, tailSkinMat]);
+    tailMesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), tailAxis);
+    tailMesh.position.copy(tailBase).addScaledVector(tailAxis, TAIL_LEN / 2);
+    tailMesh.updateMatrix();
+    perianalModel.add(tailMesh);
 
-    // GRUPO 2: SEGMENTO DE COLON 3D CON MUCOSA INFLAMADA (EII) Y CRIPTAS
+    // ---- Pelo perianal y de la cola: InstancedMesh, negro-fuego de Pastor Alemán ----
+    const HAIR_SKIN = isPhone ? 4200 : 8000, HAIR_TAIL = isPhone ? 1600 : 3000;
+    const hairGeo = new THREE.ConeGeometry(0.0048, 1, 3, 1, true);
+    hairGeo.translate(0, 0.5, 0);
+    const hairMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.58, metalness: 0, envMapIntensity: 0.45 });
+    const hairMesh = new THREE.InstancedMesh(hairGeo, hairMat, HAIR_SKIN + HAIR_TAIL);
+    const hairs = [];
+    const TAN = ['#8a5628', '#9c6631', '#b5844c', '#6f4320', '#a26a35'].map(c => new THREE.Color(c));
+    const BLACK = ['#191311', '#2a211c', '#3a2c23'].map(c => new THREE.Color(c));
+    const UP = new THREE.Vector3(0, 1, 0);
+    (function placeHair() {
+      const rnd = mulberry32(4242);
+      const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3(), n = new THREE.Vector3();
+      const pt = (r, phi, out) => out.set(r * Math.cos(phi), r * Math.sin(phi), skinZ(r, phi));
+      let guard = 0;
+      while (hairs.length < HAIR_SKIN && guard++ < HAIR_SKIN * 30) {
+        const r = Math.sqrt(lerp(0.62 * 0.62, (R_OUT * 0.985) ** 2, rnd()));
+        if (rnd() > smooth(0.6, 1.35, r)) continue;   // el pelo se ralea hacia el ano
+        const phi = lerp(PHI_A + 0.012, PHI_B - 0.012, rnd());
+        pt(r, phi, a); pt(r + 0.01, phi, b); pt(r, phi + 0.01, c);
+        n.copy(b).sub(a).cross(c.clone().sub(a)).normalize();
+        const er = new THREE.Vector3(Math.cos(phi), Math.sin(phi), 0);
+        const flat = er.clone().addScaledVector(n, -er.dot(n)).addScaledVector(n, 0.06).normalize();
+        const dir = n.clone().multiplyScalar(0.3).addScaledVector(flat, 0.9).add(new THREE.Vector3((rnd() - 0.5) * 0.35, -0.22 + (rnd() - 0.5) * 0.3, 0)).normalize();
+        const black = rnd() < 0.14 + 0.7 * smooth(0.9, 1.85, a.y);
+        hairs.push({
+          kind: 0, x: a.x, y: a.y, r, rand: rnd(),
+          pos: a.clone().addScaledVector(n, -0.004), dir, flat,
+          len: lerp(0.035, 0.1, smooth(0.6, 1.7, r)) * (0.7 + 0.6 * rnd()), w: 0.8 + 0.5 * rnd(),
+          col: (black ? BLACK[(rnd() * BLACK.length) | 0] : TAN[(rnd() * TAN.length) | 0]).clone()
+        });
+      }
+      const ventral = new THREE.Vector3(0, -Math.sin(0.42), Math.cos(0.42));
+      const m = tailMesh.matrix;
+      const nm = new THREE.Matrix3().getNormalMatrix(m);
+      guard = 0;
+      while (hairs.length < HAIR_SKIN + HAIR_TAIL && guard++ < HAIR_TAIL * 30) {
+        const t = rnd() * 0.9, th = rnd() * Math.PI * 2;
+        const rad = lerp(TAIL_R0, TAIL_R1, t);
+        const p = new THREE.Vector3(Math.cos(th) * rad, (t - 0.5) * TAIL_LEN, Math.sin(th) * rad).applyMatrix4(m);
+        const rr = Math.hypot(p.x, p.y);
+        if (rr < R_OUT && p.z < skinZ(Math.max(rr, 0.62), Math.atan2(p.y, p.x)) + 0.02 && p.z > -DEPTH) continue;   // dentro del bloque
+        const nn = new THREE.Vector3(Math.cos(th), (TAIL_R0 - TAIL_R1) / TAIL_LEN, Math.sin(th)).applyMatrix3(nm).normalize();
+        const dir = tailAxis.clone().multiplyScalar(0.92).addScaledVector(nn, 0.3).normalize();
+        const vd = nn.dot(ventral);
+        const black = vd < 0.25 + (rnd() - 0.5) * 0.5;
+        hairs.push({
+          kind: 1, pos: p.addScaledVector(nn, -0.004), dir, flat: dir,
+          len: (0.09 + rnd() * 0.08), w: 1 + 0.5 * rnd(), rand: rnd(),
+          col: (black ? BLACK[(rnd() * BLACK.length) | 0] : TAN[(rnd() * TAN.length) | 0]).clone()
+        });
+      }
+      hairMesh.count = hairs.length;
+    })();
+    perianalModel.add(hairMesh);
+
+    // ---- Lesiones cutáneas (reloj perianal: predominio 3–4 h y 8–9 h); [hora, r, tamaño, inicio] ----
+    const lesions = [
+      [3.6, 0.98, 0.1, 0.16], [8.0, 0.94, 0.09, 0.24], [4.0, 1.02, 0.09, 0.34],
+      [9.0, 1.05, 0.12, 0.46], [3.0, 1.3, 0.11, 0.5], [8.5, 1.22, 0.1, 0.54], [4.0, 0.72, 0.08, 0.58], [8.0, 1.42, 0.1, 0.6],
+      [2.3, 0.92, 0.1, 0.64], [9.7, 0.78, 0.09, 0.68], [3.4, 1.62, 0.09, 0.72],
+      [10.6, 1.2, 0.1, 0.8], [1.3, 1.0, 0.09, 0.83], [11.5, 0.84, 0.08, 0.86], [2.8, 0.7, 0.08, 0.89], [9.2, 1.6, 0.1, 0.92], [0.4, 1.35, 0.08, 0.95]
+    ].map(([h, r, size, on], k) => {
+      const phi = hourToPhi(h);
+      return { x: r * Math.cos(phi), y: r * Math.sin(phi), size, on, seed: 3100 + k * 17 };
+    });
+    const lesionRadius = (L, sev) => L.size * smooth(L.on, L.on + 0.14, sev) * (1 + 0.85 * smooth(0.45, 1, sev));
+    const ringOuter = (a, g4) => 0.5 + 0.55 * g4 * (0.72 + 0.4 * fbm(Math.cos(a) * 1.6 + 3, Math.sin(a) * 1.6 + 5));
+
+    function paintSkin(sev) {
+      const ctx = skinCanvas.getContext('2d'), b = skinBumpCanvas.getContext('2d');
+      ctx.drawImage(skinBase, 0, 0);
+      b.drawImage(skinBumpBase, 0, 0);
+      const pus = smooth(0.42, 0.85, sev), ulcer = smooth(0.4, 0.72, sev), g4 = smooth(0.78, 1, sev);
+      const [cx, cy] = toSkin(0, 0);
+      if (sev > 0.1) {   // eritema perianal difuso
+        const e = ctx.createRadialGradient(cx, cy, 0.4 * skinPx, cx, cy, 1.5 * skinPx);
+        e.addColorStop(0, `rgba(172,46,54,${(0.42 * smooth(0.1, 0.9, sev)).toFixed(3)})`);
+        e.addColorStop(1, 'rgba(172,46,54,0)');
+        ctx.fillStyle = e;
+        ctx.fillRect(0, 0, SK, SK);
+      }
+      if (g4 > 0) {   // ulceración casi circunferencial (360°) del grado IV
+        ctx.save();
+        ctx.beginPath();
+        for (let i = 0; i <= 140; i++) {
+          const a = (i / 140) * Math.PI * 2, r = ringOuter(a, g4);
+          const [x, y] = toSkin(Math.cos(a) * r, Math.sin(a) * r);
+          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.moveTo(cx + 0.44 * skinPx, cy);
+        ctx.arc(cx, cy, 0.44 * skinPx, 0, Math.PI * 2, true);
+        ctx.fillStyle = ctx.createPattern(granTile, 'repeat');
+        ctx.globalAlpha = 0.35 + 0.65 * g4;
+        ctx.fill('evenodd');
+        ctx.globalAlpha = 1;
+        ctx.strokeStyle = 'rgba(96,18,24,0.7)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.restore();
+        b.save();
+        b.beginPath();
+        b.arc(cx, cy, (0.5 + 0.5 * g4) * skinPx, 0, Math.PI * 2);
+        b.arc(cx, cy, 0.44 * skinPx, 0, Math.PI * 2, true);
+        b.fillStyle = `rgba(30,30,30,${(0.6 * g4).toFixed(3)})`;
+        b.fill('evenodd');
+        b.restore();
+        const rnd = mulberry32(5150);
+        for (let i = 0; i < 18; i++) {   // exudado purulento en el anillo
+          const a = rnd() * Math.PI * 2, r = lerp(0.52, ringOuter(a, g4) - 0.03, rnd());
+          const [x, y] = toSkin(Math.cos(a) * r, Math.sin(a) * r);
+          dot(ctx, x, y, (0.012 + rnd() * 0.022) * skinPx * g4, rnd() < 0.5 ? '#e6c35a' : '#d4a73f');
+        }
+      }
+      lesions.forEach(L => {
+        const rho = lesionRadius(L, sev);
+        if (rho <= 0.002) return;
+        const [x, y] = toSkin(L.x, L.y), R = rho * skinPx;
+        const hg = ctx.createRadialGradient(x, y, R * 0.3, x, y, R * 2.7);
+        hg.addColorStop(0, 'rgba(176,40,50,0.8)');
+        hg.addColorStop(1, 'rgba(176,40,50,0)');
+        ctx.fillStyle = hg;
+        ctx.beginPath(); ctx.arc(x, y, R * 2.7, 0, Math.PI * 2); ctx.fill();
+        const uR = R * (0.5 + 0.8 * ulcer);
+        blobPath(ctx, x, y, uR, uR * 0.82, L.seed, 0.2);
+        ctx.fillStyle = ctx.createPattern(granTile, 'repeat');
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(88,18,24,0.65)';
+        ctx.lineWidth = Math.max(1, R * 0.12);
+        ctx.stroke();
+        if (pus > 0) {
+          blobPath(ctx, x + R * 0.08, y - R * 0.05, uR * 0.55 * pus, uR * 0.45 * pus, L.seed + 1, 0.25);
+          const pg = ctx.createRadialGradient(x, y, 0, x, y, uR * 0.6);
+          pg.addColorStop(0, '#f2d872'); pg.addColorStop(1, '#c79b3a');
+          ctx.fillStyle = pg;
+          ctx.fill();
+        }
+        ctx.fillStyle = '#22070a';   // orificio del trayecto
+        ctx.beginPath(); ctx.ellipse(x, y, Math.max(1.4, R * 0.26), Math.max(1.2, R * 0.2), L.seed % 3, 0, Math.PI * 2); ctx.fill();
+        const bg = b.createRadialGradient(x, y, 0, x, y, uR * 1.25);
+        bg.addColorStop(0, 'rgba(10,10,10,1)'); bg.addColorStop(0.35, 'rgba(60,60,60,0.9)'); bg.addColorStop(1, 'rgba(128,128,128,0)');
+        b.fillStyle = bg;
+        b.beginPath(); b.arc(x, y, uR * 1.25, 0, Math.PI * 2); b.fill();
+      });
+      skinTex.needsUpdate = true;
+      skinBumpTex.needsUpdate = true;
+    }
+
+    const _m = new THREE.Matrix4(), _q = new THREE.Quaternion(), _s = new THREE.Vector3(), _d = new THREE.Vector3(), _c = new THREE.Color();
+    function updateHair(sev) {
+      const g4 = smooth(0.78, 1, sev);
+      const active = lesions.map(L => ({ L, rho: lesionRadius(L, sev) })).filter(o => o.rho > 0.002);
+      hairs.forEach((h, k) => {
+        let hide = false, mat = 0;
+        if (h.kind === 0) {
+          if (g4 > 0) {
+            const ro = ringOuter(Math.atan2(h.y, h.x), g4);
+            if (h.r < ro + 0.03) hide = true;
+            else if (h.r < ro + 0.24) mat = 1 - (h.r - ro - 0.03) / 0.21;
+          }
+          for (let i = 0; i < active.length && !hide; i++) {
+            const o = active[i], d = Math.hypot(h.x - o.L.x, h.y - o.L.y);
+            if (d < o.rho * 1.35) hide = true;
+            else if (d < o.rho * 2.8) mat = Math.max(mat, 1 - (d - o.rho * 1.35) / (o.rho * 1.45));
+          }
+          if (!hide && h.rand < 0.45 * smooth(0.5, 1, sev) * (1 - smooth(0.85, 1.5, h.r))) hide = true;   // alopecia perilesional
+        }
+        if (hide) {
+          _m.makeScale(0, 0, 0).setPosition(h.pos);
+        } else {
+          _d.copy(h.dir).lerp(h.flat, mat * 0.85).normalize();
+          _q.setFromUnitVectors(UP, _d);
+          _s.set(h.w, h.len * (1 - 0.35 * mat), h.w);
+          _m.compose(h.pos, _q, _s);
+        }
+        hairMesh.setMatrixAt(k, _m);
+        _c.copy(h.col).multiplyScalar(1 - 0.5 * mat);   // pelo apelmazado por exudado
+        if (mat > 0) _c.lerp(new THREE.Color(0x6b3a22), mat * 0.25);
+        hairMesh.setColorAt(k, _c);
+      });
+      hairMesh.instanceMatrix.needsUpdate = true;
+      if (hairMesh.instanceColor) hairMesh.instanceColor.needsUpdate = true;
+      hairMesh.computeBoundingSphere();
+    }
+
+    // ---- Sombra de contacto suave bajo el modelo ----
+    const shadowCanvas = makeCanvas(128, 128);
+    (function () {
+      const ctx = shadowCanvas.getContext('2d');
+      const g = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+      g.addColorStop(0, 'rgba(0,0,0,0.55)'); g.addColorStop(0.55, 'rgba(0,0,0,0.22)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, 128, 128);
+    })();
+    const shadowMat = new THREE.MeshBasicMaterial({ map: canvasTexture(shadowCanvas, false), transparent: true, depthWrite: false, opacity: 0.6 });
+    const contactShadow = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), shadowMat);
+    contactShadow.rotation.x = -Math.PI / 2;
+    contactShadow.renderOrder = -1;
+    scene.add(contactShadow);
+
+    /* =====================================================================
+       GRUPO 2 · SEGMENTO DE COLON ABIERTO LONGITUDINALMENTE (EII)
+       Pared en capas: mucosa con criptas, submucosa, muscular (circular y longitudinal) y serosa.
+       ===================================================================== */
     const colonGroup = new THREE.Group();
     colonGroup.visible = false;
     scene.add(colonGroup);
-
-    const serosaMat = new THREE.MeshStandardMaterial({
-      color: 0xf472b6,
-      roughness: 0.45,
-      side: THREE.DoubleSide
-    });
-    const colonOuter = new THREE.Mesh(
-      new THREE.CylinderGeometry(1.55, 1.55, 3.8, 36, 1, true, 0, Math.PI * 1.45),
-      serosaMat
-    );
-    colonOuter.rotation.z = Math.PI / 2;
-    colonOuter.rotation.x = -0.35;
-    colonGroup.add(colonOuter);
-
-    const mucosaMat = new THREE.MeshStandardMaterial({
-      color: 0xfb7185,
-      emissive: 0x881337,
-      emissiveIntensity: 0.25,
-      roughness: 0.35,
-      side: THREE.DoubleSide
-    });
-    const colonMucosa = new THREE.Mesh(
-      new THREE.CylinderGeometry(1.32, 1.32, 3.76, 36, 1, true, 0, Math.PI * 1.45),
-      mucosaMat
-    );
-    colonMucosa.rotation.z = Math.PI / 2;
-    colonMucosa.rotation.x = -0.35;
-    colonGroup.add(colonMucosa);
-
-    // Criptas intestinales e infiltrado linfoplasmocítico / úlceras en la lámina propia
-    const colonPlaques = [];
-    const plaqueMat = new THREE.MeshStandardMaterial({
-      color: 0xfacc15,
-      emissive: 0xe11d48,
-      emissiveIntensity: 0.6,
-      roughness: 0.25
-    });
-    const tCellMat = new THREE.MeshStandardMaterial({
-      color: 0x38bdf8,
-      emissive: 0x0284c7,
-      emissiveIntensity: 0.5
-    });
-
-    for (let i = 0; i < 26; i++) {
-      const xPos = (Math.random() - 0.5) * 3.1;
-      const theta = 0.3 + Math.random() * Math.PI * 0.95;
-      const rad = 1.22;
-      const py = Math.cos(theta) * rad;
-      const pz = Math.sin(theta) * rad;
-      const ulcer = new THREE.Mesh(new THREE.SphereGeometry(0.14, 16, 16), i % 2 === 0 ? plaqueMat : tCellMat);
-      ulcer.scale.set(1.3, 0.5, 1.0);
-      ulcer.position.set(xPos, py, pz);
-      colonGroup.add(ulcer);
-      colonPlaques.push(ulcer);
+    const colonModel = new THREE.Group();
+    colonModel.rotation.x = -1.02;   // la luz del segmento abierto mira hacia arriba y al observador
+    colonGroup.add(colonModel);
+    const CL = 4.2, CR = 1.6, CA = 1.3, CT = 0.24;
+    function colonPoint(u, v, depth, out) {
+      const x = (u - 0.5) * CL;
+      const a = (v - 0.5) * 2 * CA;
+      const rr = CR + depth + (fbm(u * 6 + 3, v * 5 + 11) - 0.5) * 0.07;
+      return out.set(x, rr * Math.sin(a), CR - rr * Math.cos(a) + 0.045 * x * x - 0.5);
+    }
+    function buildGrid(nu, nv, fn) {
+      const pos = [], uv = [], idx = [];
+      const v3 = new THREE.Vector3();
+      for (let j = 0; j <= nv; j++) {
+        for (let i = 0; i <= nu; i++) {
+          fn(i / nu, j / nv, v3);
+          pos.push(v3.x, v3.y, v3.z);
+          uv.push(i / nu, j / nv);
+        }
+      }
+      for (let j = 0; j < nv; j++) {
+        for (let i = 0; i < nu; i++) {
+          const a = j * (nu + 1) + i, b = a + 1, c = a + nu + 1, d = c + 1;
+          idx.push(a, b, c, b, d, c);
+        }
+      }
+      const g = new THREE.BufferGeometry();
+      g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+      g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+      g.setIndex(idx);
+      g.computeVertexNormals();
+      return g;
     }
 
-    // Etiquetas 3D ancladas que no se salen del encuadre en celular
+    const CM = Math.round(1024 * TEX), cmPx = CM / CL;
+    const cryptLayer = makeCanvas(CM, CM), vesselLayer = makeCanvas(CM, CM), granLayer = makeCanvas(CM, CM), blotchLayer = makeCanvas(CM, CM), cryptBump = makeCanvas(CM, CM);
+    (function paintColonLayers() {
+      const rnd = mulberry32(6060);
+      const cr = cryptLayer.getContext('2d'), cb = cryptBump.getContext('2d');
+      cb.fillStyle = '#808080';
+      cb.fillRect(0, 0, CM, CM);
+      const sp = 5.2 * TEX + 1.2;   // criptas de Lieberkühn: depresiones regulares
+      for (let y = 0, row = 0; y < CM + sp; y += sp * 0.87, row++) {
+        for (let x = (row % 2) * sp * 0.5; x < CM + sp; x += sp) {
+          const jx = x + (rnd() - 0.5) * 0.9, jy = y + (rnd() - 0.5) * 0.9;
+          dot(cr, jx, jy, sp * 0.3, 'rgba(255,224,220,0.35)');
+          dot(cr, jx, jy, sp * 0.17, 'rgba(128,44,58,0.7)');
+          dot(cb, jx, jy, sp * 0.22, 'rgba(25,25,25,0.85)');
+        }
+      }
+      const vl = vesselLayer.getContext('2d');   // patrón vascular submucoso visible en mucosa sana
+      function branch(x, y, ang, w, depth) {
+        let cx = x, cy = y;
+        const steps = 10 + Math.floor(rnd() * 14);
+        vl.lineWidth = w;
+        vl.strokeStyle = `rgba(${(150 + rnd() * 30) | 0},34,${(52 + rnd() * 20) | 0},${(0.35 + w * 0.12).toFixed(2)})`;
+        vl.beginPath();
+        vl.moveTo(cx, cy);
+        for (let i = 0; i < steps; i++) {
+          ang += (rnd() - 0.5) * 0.7;
+          cx += Math.cos(ang) * 9; cy += Math.sin(ang) * 9;
+          vl.lineTo(cx, cy);
+          if (depth < 4 && rnd() < 0.16) { vl.stroke(); branch(cx, cy, ang + (rnd() < 0.5 ? 0.9 : -0.9), w * 0.62, depth + 1); vl.lineWidth = w; vl.beginPath(); vl.moveTo(cx, cy); }
+        }
+        vl.stroke();
+      }
+      for (let i = 0; i < 16; i++) branch(rnd() * CM, rnd() * CM, rnd() * 6.28, 2.6 * TEX + 0.6, 0);
+      const gl = granLayer.getContext('2d');
+      for (let i = 0; i < 16000 * TEX; i++) dot(gl, rnd() * CM, rnd() * CM, 0.7 + rnd() * 1.5, rnd() < 0.55 ? 'rgba(232,90,96,0.6)' : 'rgba(120,20,34,0.5)');
+      const bl = blotchLayer.getContext('2d');
+      for (let i = 0; i < 260; i++) {
+        const x = rnd() * CM, y = rnd() * CM, r = (20 + rnd() * 70) * TEX;
+        const g = bl.createRadialGradient(x, y, 0, x, y, r);
+        g.addColorStop(0, 'rgba(176,24,40,0.5)'); g.addColorStop(1, 'rgba(176,24,40,0)');
+        bl.fillStyle = g;
+        bl.fillRect(x - r, y - r, r * 2, r * 2);
+      }
+    })();
+    const colonLesions = (function () {
+      const rnd = mulberry32(7171), out = [];
+      for (let i = 0; i < 170; i++) out.push({ t: 'p', u: rnd(), v: 0.04 + rnd() * 0.92, r: (1.2 + rnd() * 2.6) * TEX, on: 0.22 + rnd() * 0.6, seed: i });
+      for (let i = 0; i < 34; i++) out.push({ t: 'e', u: 0.05 + rnd() * 0.9, v: 0.1 + rnd() * 0.8, r: (9 + rnd() * 18) * TEX, on: 0.44 + rnd() * 0.42, seed: 900 + i });
+      for (let i = 0; i < 10; i++) out.push({ t: 'u', u: 0.1 + rnd() * 0.8, v: 0.18 + rnd() * 0.64, r: (18 + rnd() * 26) * TEX, on: 0.68 + rnd() * 0.28, seed: 990 + i });
+      return out;
+    })();
+    const mucosaCanvas = makeCanvas(CM, CM), mucosaBumpCanvas = makeCanvas(CM, CM);
+    const mucosaTex = canvasTexture(mucosaCanvas, true), mucosaBumpTex = canvasTexture(mucosaBumpCanvas, false);
+    const healthyMucosa = new THREE.Color('#d98f8c'), inflamedMucosa = new THREE.Color('#b0303f');
+    function paintColon(sev) {
+      const ctx = mucosaCanvas.getContext('2d'), b = mucosaBumpCanvas.getContext('2d');
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = '#' + healthyMucosa.clone().lerp(inflamedMucosa, smooth(0.08, 0.9, sev)).getHexString();
+      ctx.fillRect(0, 0, CM, CM);
+      ctx.globalAlpha = 1 - 0.9 * smooth(0.12, 0.7, sev); ctx.drawImage(vesselLayer, 0, 0);
+      ctx.globalAlpha = 0.9 * smooth(0.08, 0.8, sev); ctx.drawImage(blotchLayer, 0, 0);
+      ctx.globalAlpha = 1 - 0.6 * smooth(0.45, 1, sev); ctx.drawImage(cryptLayer, 0, 0);
+      ctx.globalAlpha = smooth(0.22, 0.85, sev); ctx.drawImage(granLayer, 0, 0);
+      ctx.globalAlpha = 1;
+      b.globalAlpha = 1;
+      b.fillStyle = '#808080';
+      b.fillRect(0, 0, CM, CM);
+      b.globalAlpha = 1 - 0.5 * smooth(0.45, 1, sev); b.drawImage(cryptBump, 0, 0);
+      b.globalAlpha = smooth(0.22, 0.85, sev) * 0.8; b.drawImage(granLayer, 0, 0);
+      b.globalAlpha = 1;
+      colonLesions.forEach(L => {
+        const g = smooth(L.on, L.on + 0.12, sev);
+        if (g <= 0) return;
+        const x = L.u * CM, y = (1 - L.v) * CM, r = L.r * (0.45 + 0.55 * g);
+        if (L.t === 'p') { dot(ctx, x, y, r * 1.3, `rgba(140,6,28,${(0.9 * g).toFixed(3)})`); return; }
+        if (L.t === 'e') {   // erosiones
+          blobPath(ctx, x, y, r, r * 0.6, L.seed, 0.3);
+          ctx.fillStyle = `rgba(206,30,46,${(0.9 * g).toFixed(3)})`;
+          ctx.fill();
+          blobPath(b, x, y, r, r * 0.6, L.seed, 0.3);
+          b.fillStyle = 'rgba(70,70,70,0.6)';
+          b.fill();
+          return;
+        }
+        blobPath(ctx, x, y, r * 1.35, r * 0.95, L.seed, 0.22);   // úlceras: borde rojo + lecho de fibrina
+        ctx.fillStyle = '#a5162a';
+        ctx.fill();
+        blobPath(ctx, x, y, r, r * 0.68, L.seed + 3, 0.2);
+        const fg = ctx.createRadialGradient(x, y, 0, x, y, r);
+        fg.addColorStop(0, '#efe3bd'); fg.addColorStop(1, '#d8c48e');
+        ctx.fillStyle = fg;
+        ctx.fill();
+        blobPath(b, x, y, r * 1.2, r * 0.85, L.seed, 0.22);
+        b.fillStyle = 'rgba(20,20,20,0.9)';
+        b.fill();
+      });
+      mucosaTex.needsUpdate = true;
+      mucosaBumpTex.needsUpdate = true;
+    }
+    const mucosaMat = new THREE.MeshPhysicalMaterial({
+      map: mucosaTex, bumpMap: mucosaBumpTex, bumpScale: 2.4, roughness: 0.45, metalness: 0,
+      clearcoat: 0.3, clearcoatRoughness: 0.38, sheen: 0.1, sheenColor: new THREE.Color(0xffc4c0), envMapIntensity: 0.25
+    });
+    const NU = isPhone ? 110 : 160, NV = isPhone ? 90 : 130;
+    const mucosaMesh = new THREE.Mesh(buildGrid(NU, NV, (u, v, o) => colonPoint(u, v, 0, o)), mucosaMat);
+    colonModel.add(mucosaMesh);
+
+    const serosaCanvas = makeCanvas(512 * TEX, 512 * TEX);
+    (function paintSerosa() {
+      const ctx = serosaCanvas.getContext('2d'), W = serosaCanvas.width, rnd = mulberry32(8080);
+      ctx.fillStyle = '#ecd2c8';
+      ctx.fillRect(0, 0, W, W);
+      for (let i = 0; i < 9; i++) {
+        let x = rnd() * W, y = rnd() * W, a = rnd() * 6.28;
+        ctx.strokeStyle = 'rgba(176,58,72,0.55)';
+        ctx.lineWidth = 1.5 + rnd() * 1.5;
+        ctx.beginPath(); ctx.moveTo(x, y);
+        for (let k = 0; k < 30; k++) { a += (rnd() - 0.5) * 0.6; x += Math.cos(a) * 8; y += Math.sin(a) * 8; ctx.lineTo(x, y); }
+        ctx.stroke();
+      }
+      for (let i = 0; i < 18; i++) {   // pequeños acúmulos de grasa mesentérica
+        ctx.beginPath();
+        ctx.ellipse(rnd() * W, rnd() * W, 4 + rnd() * 10, 3 + rnd() * 6, rnd() * 3, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(238,214,150,0.8)';
+        ctx.fill();
+      }
+    })();
+    const serosaTex = canvasTexture(serosaCanvas, true);
+    const serosaMat = new THREE.MeshPhysicalMaterial({ map: serosaTex, roughness: 0.34, clearcoat: 0.5, clearcoatRoughness: 0.25, side: THREE.DoubleSide, envMapIntensity: 0.45 });
+    colonModel.add(new THREE.Mesh(buildGrid(NU, NV, (u, v, o) => colonPoint(u, v, CT, o)), serosaMat));
+
+    // Bordes de corte con las capas de la pared
+    const strataCanvas = makeCanvas(1024 * TEX, 128);
+    const strataTex = canvasTexture(strataCanvas, true);
+    function paintStrata(sev) {
+      const ctx = strataCanvas.getContext('2d'), W = strataCanvas.width, H = 128, rnd = mulberry32(9090);
+      const band = (w0, w1, col) => { ctx.fillStyle = col; ctx.fillRect(0, (1 - w1) * H, W, (w1 - w0) * H); };
+      const muc = new THREE.Color('#c86070').lerp(new THREE.Color('#a8243a'), sev).getStyle();
+      band(0, 0.22, muc);
+      band(0.22, 0.26, '#8d3a44');
+      band(0.26, 0.5, '#efd4c8');
+      band(0.5, 0.75, '#9a3a3c');
+      band(0.75, 0.93, '#86302f');
+      band(0.93, 1, '#f1dbd2');
+      for (let x = 2; x < W; x += 5) {   // criptas en sección
+        ctx.strokeStyle = 'rgba(255,225,225,0.55)';
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(x, H); ctx.lineTo(x, (1 - 0.19) * H); ctx.stroke();
+      }
+      for (let i = 0; i < W * (0.15 + sev * 0.9); i++) {   // infiltrado linfoplasmocítico en lámina propia
+        dot(ctx, rnd() * W, H - rnd() * 0.24 * H, 1 + rnd() * 0.8, rnd() < 0.6 ? 'rgba(70,40,120,0.75)' : 'rgba(40,30,80,0.7)');
+      }
+      for (let i = 0; i < W / 18; i++) dot(ctx, rnd() * W, (1 - 0.3 - rnd() * 0.16) * H, 1.6 + rnd() * 1.6, 'rgba(180,40,60,0.7)');
+      for (let x = 0; x < W; x += 3) {   // fibras musculares
+        ctx.fillStyle = 'rgba(190,80,80,0.35)';
+        ctx.fillRect(x, (1 - 0.75) * H, 1, 0.25 * H);
+      }
+      for (let y = (1 - 0.93) * H; y < (1 - 0.75) * H; y += 3) {
+        ctx.fillStyle = 'rgba(70,16,16,0.35)';
+        ctx.fillRect(0, y, W, 1);
+      }
+      strataTex.needsUpdate = true;
+    }
+    const strataMat = new THREE.MeshPhysicalMaterial(Object.assign({ map: strataTex, bumpMap: strataTex, bumpScale: 0.6 }, cutMatProps));
+    [
+      [NU, (u, w, o) => colonPoint(u, 0, w * CT, o)], [NU, (u, w, o) => colonPoint(u, 1, w * CT, o)],
+      [NV, (v, w, o) => colonPoint(0, v, w * CT, o)], [NV, (v, w, o) => colonPoint(1, v, w * CT, o)]
+    ].forEach(([n, fn]) => colonModel.add(new THREE.Mesh(buildGrid(n, 2, fn), strataMat)));
+
+    // Puntos de infiltrado (agregados linfoides) que emergen con la severidad
+    const INF_N = isPhone ? 110 : 180;
+    const infMesh = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 10, 8), new THREE.MeshPhysicalMaterial({ color: 0xf1e2bd, roughness: 0.42, clearcoat: 0.6, envMapIntensity: 0.6 }), INF_N);
+    (function () {
+      const rnd = mulberry32(5353), p = new THREE.Vector3(), pu = new THREE.Vector3(), pv = new THREE.Vector3(), n = new THREE.Vector3();
+      for (let i = 0; i < INF_N; i++) {
+        const u = 0.04 + rnd() * 0.92, v = 0.08 + rnd() * 0.84;
+        colonPoint(u, v, 0, p); colonPoint(u + 0.004, v, 0, pu); colonPoint(u, v + 0.004, 0, pv);
+        n.copy(pu).sub(p).cross(pv.clone().sub(p)).normalize();
+        _q.setFromUnitVectors(new THREE.Vector3(0, 0, 1), n);
+        const s = 0.016 + rnd() * 0.014;
+        _m.compose(p, _q, new THREE.Vector3(s, s, s * 0.55));
+        infMesh.setMatrixAt(i, _m);
+      }
+      infMesh.instanceMatrix.needsUpdate = true;
+    })();
+    colonModel.add(infMesh);
+
+    // Moco y contenido luminal (disbiosis)
+    const mucusMat = new THREE.MeshPhysicalMaterial({ color: 0xe8dfc8, roughness: 0.12, clearcoat: 1, transparent: true, opacity: 0.55, envMapIntensity: 0.9 });
+    const mucusAnchor = new THREE.Vector3();
+    [[0.38, 0.5, 0.62, 0.42, 0.78, 0.55], [0.18, 0.3, 0.3, 0.36, 0.42, 0.28], [0.7, 0.72, 0.8, 0.66, 0.9, 0.74]].forEach((c, k) => {
+      const pts = [];
+      for (let i = 0; i < 3; i++) pts.push(colonPoint(c[i * 2], c[i * 2 + 1], -0.012, new THREE.Vector3()));
+      const curve = new THREE.CatmullRomCurve3(pts);
+      colonModel.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 40, 0.022 - k * 0.004, 8, false), mucusMat));
+      if (k === 0) mucusAnchor.copy(curve.getPoint(0.5));
+    });
+
+    // ---- Etiquetas 3D con líneas guía (mismos textos) ----
     let current3dMode = 'perianal';
     let show3dLabels = true;
-
+    const v3 = (h, r, z) => { const p = hourToPhi(h); return new THREE.Vector3(r * Math.cos(p), r * Math.sin(p), z); };
     const perianalPinsData = [
-      { text: 'Ano y Canal Anorrectal', pos: new THREE.Vector3(0, 0.1, 1.15) },
-      { text: 'Esfínter Anal Externo', pos: new THREE.Vector3(0, 0.82, 0.88) },
-      { text: 'Sacos Anales (4h y 8h)', pos: new THREE.Vector3(-1.38, -0.58, 0.5) },
-      { text: 'Folículos y Glánd. Apocrinas', pos: new THREE.Vector3(1.35, 0.85, 1.05) },
-      { text: 'Sinus Fistulosos Ciegos (MMP-2/9)', pos: new THREE.Vector3(1.15, -0.82, 1.15) }
+      { text: 'Ano y Canal Anorrectal', pos: new THREE.Vector3(0, 0.02, 0.32) },
+      { text: 'Esfínter Anal Externo', pos: v3(4, 0.86, -0.85) },
+      { text: 'Sacos Anales (4h y 8h)', pos: v3(8, SAC_R, SAC_Z) },
+      { text: 'Folículos y Glánd. Apocrinas', pos: v3(8, 1.55, profZ(1.55) - 0.08) },
+      { text: 'Sinus Fistulosos Ciegos (MMP-2/9)', pos: v3(3.6, 0.98, profZ(0.98)) }
     ];
-
     const colonPinsData = [
-      { text: 'Mucosa Colónica Friable (EII)', pos: new THREE.Vector3(-1.1, 0.85, 0.6) },
-      { text: 'Criptas y Disrupción Tight Junctions', pos: new THREE.Vector3(0.1, -0.85, 0.75) },
-      { text: 'Infiltrado Linfoplasmocítico (CD4+/CD8+)', pos: new THREE.Vector3(1.15, 0.55, 0.65) },
-      { text: 'Disbiosis (↓Faecalibacterium / ↑E. coli)', pos: new THREE.Vector3(0, 0.15, 0.1) }
+      { text: 'Mucosa Colónica Friable (EII)', pos: colonPoint(0.22, 0.64, 0, new THREE.Vector3()) },
+      { text: 'Criptas y Disrupción Tight Junctions', pos: colonPoint(0.66, 0.4, 0, new THREE.Vector3()) },
+      { text: 'Infiltrado Linfoplasmocítico (CD4+/CD8+)', pos: colonPoint(1, 0.3, CT * 0.25, new THREE.Vector3()) },
+      { text: 'Disbiosis (↓Faecalibacterium / ↑E. coli)', pos: mucusAnchor }
     ];
 
+    const SVG_NS = 'http://www.w3.org/2000/svg';
     const pinElements = [];
+    let pinSvg = null;
+    let labelsReady = false;
 
     function rebuild3dPins() {
       if (!labels3dLayer) return;
       labels3dLayer.innerHTML = '';
       pinElements.length = 0;
+      labelsReady = false;
+      if (labels3dLegend) labels3dLegend.innerHTML = '';
+      viewer3dContainer.classList.toggle('labels-off', !show3dLabels);
       if (!show3dLabels) return;
-
+      pinSvg = document.createElementNS(SVG_NS, 'svg');
+      pinSvg.setAttribute('class', 'labels-3d-lines');
+      pinSvg.setAttribute('aria-hidden', 'true');
+      labels3dLayer.appendChild(pinSvg);
       const list = current3dMode === 'perianal' ? perianalPinsData : colonPinsData;
-      list.forEach(item => {
+      list.forEach((item, i) => {
         const el = document.createElement('div');
         el.className = 'label-3d-pin';
         el.textContent = item.text;
+        const num = document.createElement('span');
+        num.className = 'pin3d-num';
+        num.textContent = String(i + 1);
+        num.setAttribute('aria-hidden', 'true');
+        const line = document.createElementNS(SVG_NS, 'polyline');
+        const anchor = document.createElementNS(SVG_NS, 'circle');
+        anchor.setAttribute('r', '3.2');
+        pinSvg.appendChild(line);
+        pinSvg.appendChild(anchor);
         labels3dLayer.appendChild(el);
-        pinElements.push({ el, pos: item.pos });
+        labels3dLayer.appendChild(num);
+        if (labels3dLegend) {
+          const li = document.createElement('li');
+          const b = document.createElement('span');
+          b.className = 'pin3d-num';
+          b.textContent = String(i + 1);
+          b.setAttribute('aria-hidden', 'true');
+          li.appendChild(b);
+          li.appendChild(document.createTextNode(item.text));
+          labels3dLegend.appendChild(li);
+        }
+        pinElements.push({ el, num, line, anchor, pos: item.pos, w: 0, h: 0 });
       });
+      layoutState.measured = false;
+    }
+
+    const layoutState = { mode: 'columns', w: 0, h: 0, top: 0, bottom: 0, colW: 200, measured: false };
+    function measureLayout() {
+      const w = viewer3dStage.clientWidth, h = viewer3dStage.clientHeight;
+      const sr = viewer3dStage.getBoundingClientRect();
+      let top = 10, bottom = 10;
+      [hud3dTop, hud3dBottom].forEach(el => {
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        if (r.height === 0 || r.bottom <= sr.top + 1 || r.top >= sr.bottom - 1) return;   // fuera del lienzo (celular)
+        if (r.top - sr.top < h / 2) top = Math.max(top, r.bottom - sr.top + 8);
+        else bottom = Math.max(bottom, sr.bottom - r.top + 8);
+      });
+      layoutState.w = w;
+      layoutState.h = h;
+      layoutState.top = top;
+      layoutState.bottom = bottom;
+      layoutState.mode = (w >= 760 && w / h >= 1.2) ? 'columns' : 'numbers';
+      viewer3dContainer.classList.toggle('labels-numbered', layoutState.mode === 'numbers');
+      layoutState.colW = Math.round(Math.min(220, w * 0.23));
+      pinElements.forEach(p => {
+        p.el.style.maxWidth = layoutState.colW + 'px';
+        p.w = p.el.offsetWidth;
+        p.h = p.el.offsetHeight;
+      });
+      layoutState.measured = true;
+    }
+
+    const _pv = new THREE.Vector3();
+    function layoutPins() {
+      if (!show3dLabels || !pinElements.length) return;
+      if (!layoutState.measured) measureLayout();
+      const { w, h, top, bottom, mode, colW } = layoutState;
+      const model = current3dMode === 'perianal' ? perianalModel : colonModel;
+      const pad = 10;
+      const proj = pinElements.map(p => {
+        _pv.copy(p.pos).applyMatrix4(model.matrixWorld).project(camera);
+        return { p, x: (_pv.x * 0.5 + 0.5) * w, y: (-_pv.y * 0.5 + 0.5) * h, ok: _pv.z < 1 && Math.abs(_pv.x) < 1.2 && Math.abs(_pv.y) < 1.2 };
+      });
+      if (mode === 'numbers') {
+        const placed = [];
+        proj.forEach(o => {
+          let x = Math.max(14, Math.min(w - 14, o.x)), y = Math.max(14, Math.min(h - 14, o.y));
+          placed.forEach(q => { if (Math.abs(q.x - x) < 24 && Math.abs(q.y - y) < 24) y = q.y + (y >= q.y ? 24 : -24); });
+          y = Math.max(14, Math.min(h - 14, y));
+          placed.push({ x, y });
+          o.p.num.style.transform = `translate(${(x - 11).toFixed(1)}px, ${(y - 11).toFixed(1)}px)`;
+          o.p.num.style.opacity = o.ok ? '1' : '0';
+          o.p.el.style.opacity = '0';
+          o.p.line.setAttribute('points', '');
+          o.p.anchor.setAttribute('r', '0');
+        });
+      } else {
+        const sides = { L: [], R: [] };
+        proj.forEach(o => sides[o.x < w / 2 ? 'L' : 'R'].push(o));
+        ['L', 'R'].forEach(side => {
+          const arr = sides[side].sort((a, b) => a.y - b.y);
+          arr.forEach(o => { o.ly = Math.max(top, Math.min(h - bottom - o.p.h, o.y - o.p.h / 2)); });
+          for (let i = 1; i < arr.length; i++) arr[i].ly = Math.max(arr[i].ly, arr[i - 1].ly + arr[i - 1].p.h + 8);
+          for (let i = arr.length - 1; i >= 0; i--) {
+            const limit = i === arr.length - 1 ? h - bottom - arr[i].p.h : arr[i + 1].ly - arr[i].p.h - 8;
+            arr[i].ly = Math.max(top, Math.min(arr[i].ly, limit));
+          }
+          arr.forEach(o => {
+            const lx = side === 'L' ? pad : w - pad - o.p.w;
+            o.p.el.style.transform = `translate(${lx.toFixed(1)}px, ${o.ly.toFixed(1)}px)`;
+            o.p.el.style.opacity = o.ok ? '1' : '0';
+            o.p.num.style.opacity = '0';
+            const ex = side === 'L' ? lx + o.p.w : lx, ey = o.ly + o.p.h / 2;
+            const ax = Math.max(4, Math.min(w - 4, o.x)), ay = Math.max(4, Math.min(h - 4, o.y));
+            const kx = ex + (side === 'L' ? 14 : -14);
+            o.p.line.setAttribute('points', o.ok ? `${ex.toFixed(1)},${ey.toFixed(1)} ${kx.toFixed(1)},${ey.toFixed(1)} ${ax.toFixed(1)},${ay.toFixed(1)}` : '');
+            o.p.anchor.setAttribute('cx', ax.toFixed(1));
+            o.p.anchor.setAttribute('cy', ay.toFixed(1));
+            o.p.anchor.setAttribute('r', o.ok ? '3.2' : '0');
+          });
+        });
+      }
+      if (!labelsReady) {
+        labelsReady = true;
+        labels3dLayer.classList.add('ready');
+      }
+    }
+
+    // ---- Encuadre adaptable: Box3 del grupo activo, ~6 % de margen ----
+    const VIEW_DIR = { perianal: new THREE.Vector3(0, 0.16, 1).normalize(), colon: new THREE.Vector3(0.38, 0.5, 1).normalize() };
+    const frameMeshes = { perianal: [], colon: [] };
+    perianalModel.children.forEach(o => { if (o.isMesh && !o.isInstancedMesh) frameMeshes.perianal.push(o); });
+    colonModel.children.forEach(o => { if (o.isMesh && !o.isInstancedMesh) frameMeshes.colon.push(o); });
+    const home = { pos: new THREE.Vector3(), target: new THREE.Vector3() };
+    let userMoved = false;
+    function fitCamera() {
+      const group = current3dMode === 'perianal' ? perianalGroup : colonGroup;
+      const keepYaw = group.rotation.y;
+      const corners = [];   // muestra de vértices reales: encuadre ajustado a la silueta
+      [-SWAY, 0, SWAY].forEach(yaw => {
+        group.rotation.y = yaw;
+        group.updateMatrixWorld(true);
+        frameMeshes[current3dMode].forEach(m => {
+          const pos = m.geometry.attributes.position;
+          const step = Math.max(1, Math.floor(pos.count / 700));
+          for (let i = 0; i < pos.count; i += step) corners.push(new THREE.Vector3().fromBufferAttribute(pos, i).applyMatrix4(m.matrixWorld));
+        });
+      });
+      group.rotation.y = keepYaw;
+      group.updateMatrixWorld(true);
+      const all = new THREE.Box3().setFromPoints(corners);
+      const center = all.getCenter(new THREE.Vector3());
+      contactShadow.visible = current3dMode === 'perianal';
+      contactShadow.position.set(center.x, all.min.y - 0.02, center.z);
+      contactShadow.scale.set((all.max.x - all.min.x) * 1.1, (all.max.z - all.min.z) * 1.1, 1);
+      const { w, h, top, bottom, mode, colW } = layoutState;
+      const LIM = 0.88;
+      const limX = mode === 'columns' && show3dLabels ? Math.min(LIM, (w - 2 * (colW + 26)) / w) : LIM;
+      const bandH = Math.max(0.3 * h, h - top - bottom);
+      const limY = LIM * (bandH / h);
+      camera.clearViewOffset();
+      camera.aspect = w / Math.max(1, h);
+      camera.updateProjectionMatrix();
+      const dir = VIEW_DIR[current3dMode];
+      const pv = new THREE.Vector3();
+      let lo = 1, hi = 80;
+      for (let it = 0; it < 32; it++) {
+        const d = (lo + hi) / 2;
+        camera.position.copy(center).addScaledVector(dir, d);
+        camera.lookAt(center);
+        camera.updateMatrixWorld();
+        const fits = corners.every(c => { pv.copy(c).project(camera); return pv.z < 1 && Math.abs(pv.x) <= limX && Math.abs(pv.y) <= limY; });
+        if (fits) hi = d; else lo = d;
+      }
+      camera.position.copy(center).addScaledVector(dir, hi);
+      camera.lookAt(center);
+      const bandCenter = top + bandH / 2;
+      if (Math.abs(bandCenter - h / 2) > 1) camera.setViewOffset(w, h, 0, h / 2 - bandCenter, w, h);
+      camera.updateProjectionMatrix();
+      controls.target.copy(center);
+      controls.minDistance = hi * 0.45;
+      controls.maxDistance = hi * 2.4;
+      controls.update();
+      home.pos.copy(camera.position);
+      home.target.copy(center);
+    }
+
+    // ---- Severidad: crecimiento continuo y animado de las lesiones ----
+    let sevTarget = 0.65, sevShown = -1;
+    const dirty = { perianal: true, colon: true };
+    function renderSeverity(sev) {
+      if (current3dMode === 'perianal') {
+        paintSkin(sev);
+        faceDefs.forEach(fd => paintFace(fd, sev));
+        updateHair(sev);
+        canalMat.color.setRGB(1, 1 - 0.18 * sev, 1 - 0.2 * sev);
+        dirty.perianal = false;
+        dirty.colon = true;
+      } else {
+        paintColon(sev);
+        paintStrata(sev);
+        infMesh.count = Math.round(INF_N * smooth(0.28, 1, sev));
+        dirty.colon = false;
+        dirty.perianal = true;
+      }
     }
 
     function apply3dSeverity(val) {
@@ -4113,32 +5943,11 @@
         else if (norm < 0.78) lbl.textContent = `Grado III Sinus Profundos (${val}%)`;
         else lbl.textContent = `Grado IV Furunculosis 360° (${val}%)`;
       }
-
-      // Actualizar progresión en bloque perianal
-      sinusTractsMeshes.forEach((m, idx) => {
-        const threshold = (idx / sinusTractsMeshes.length) * 0.75;
-        if (norm <= 0.05) {
-          m.visible = false;
-        } else {
-          m.visible = norm >= threshold;
-          const sc = Math.max(0.15, Math.min(1.35, (norm - threshold * 0.5) * 1.45));
-          m.scale.set(sc, sc, Math.max(0.2, norm * 1.25));
-        }
-      });
-
-      sinusMat.emissiveIntensity = 0.2 + norm * 0.85;
-      skinMat.color.lerpColors(new THREE.Color(0xd97706), new THREE.Color(0x991b1b), norm * 0.7);
-      sphincterMat.color.lerpColors(new THREE.Color(0xbe123c), new THREE.Color(0x7f1d1d), norm);
-
-      // Actualizar progresión en segmento de colon (EII)
-      colonPlaques.forEach((p, idx) => {
-        const show = norm * colonPlaques.length >= idx;
-        p.visible = show;
-        const s = 0.5 + norm * 0.95;
-        p.scale.set(1.3 * s, 0.5 * s, 1.0 * s);
-      });
-      mucosaMat.color.lerpColors(new THREE.Color(0xfda4af), new THREE.Color(0xbe123c), norm);
-      mucosaMat.emissiveIntensity = 0.15 + norm * 0.65;
+      sevTarget = norm;
+      if (sevShown < 0) {
+        sevShown = norm;
+        renderSeverity(sevShown);
+      }
     }
 
     document.getElementById('severity3dSlider')?.addEventListener('input', e => {
@@ -4158,74 +5967,94 @@
           ? 'Alternar a Segmento de Colon 3D (EII)'
           : 'Alternar a Bloque Anoperineal 3D';
       }
+      const shortTxt = document.querySelector('#toggle3dViewBtn .btn-short');
+      if (shortTxt) shortTxt.textContent = current3dMode === 'perianal' ? 'Colon (EII)' : 'Bloque anal';
       if (badge) {
         badge.textContent = current3dMode === 'perianal'
           ? 'Vista: Bloque Anoperineal 3D'
           : 'Vista: Colon Inflamado 3D (EII)';
       }
+      if (dirty[current3dMode]) renderSeverity(sevShown);
       rebuild3dPins();
+      measureLayout();
+      (current3dMode === 'perianal' ? perianalGroup : colonGroup).rotation.y = 0;
+      swayStart = performance.now();
+      autoSway = true;
+      userMoved = false;
+      fitCamera();
     });
 
     document.getElementById('toggle3dLabelsBtn')?.addEventListener('click', () => {
       playArcadeSound('click');
       show3dLabels = !show3dLabels;
+      document.getElementById('toggle3dLabelsBtn')?.setAttribute('aria-pressed', String(show3dLabels));
       rebuild3dPins();
+      measureLayout();
+      if (!userMoved) fitCamera();
     });
+
+    let autoSway = true, swayStart = performance.now();
+    controls.addEventListener('start', () => { autoSway = false; userMoved = true; });
 
     document.getElementById('reset3dCamBtn')?.addEventListener('click', () => {
       playArcadeSound('click');
-      camera.position.set(0, 2.6, 6.8);
-      controls.target.set(0, 0, 0);
-      controls.update();
+      perianalGroup.rotation.y = 0;
+      colonGroup.rotation.y = 0;
+      swayStart = performance.now();
+      autoSway = true;
+      userMoved = false;
+      measureLayout();
+      fitCamera();
     });
 
+    function syncThemeLook() {
+      const light = document.documentElement.getAttribute('data-theme') === 'light';
+      shadowMat.opacity = light ? 0.42 : 0.65;
+      renderer.toneMappingExposure = light ? 1.06 : 1.0;
+    }
+    new MutationObserver(syncThemeLook).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    syncThemeLook();
+
     function resize3DViewer() {
-      if (!viewer3dContainer) return;
-      const w = viewer3dContainer.clientWidth;
-      const h = viewer3dContainer.clientHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
+      if (!viewer3dStage) return;
+      const w = viewer3dStage.clientWidth;
+      const h = viewer3dStage.clientHeight;
+      if (!w || !h) return;
+      renderer.setSize(w, h, false);
+      measureLayout();
+      if (!userMoved) {
+        fitCamera();
+      } else {
+        camera.aspect = w / h;
+        camera.clearViewOffset();
+        camera.updateProjectionMatrix();
+      }
     }
 
-    window.addEventListener('resize', resize3DViewer);
-    resize3DViewer();
+    if ('ResizeObserver' in window) new ResizeObserver(resize3DViewer).observe(viewer3dStage);
+    else window.addEventListener('resize', resize3DViewer);
     rebuild3dPins();
-    apply3dSeverity(65);
+    apply3dSeverity(Number(document.getElementById('severity3dSlider')?.value || 65));
+    resize3DViewer();
 
+    let lastFrameMs = performance.now();
     function animate3DScene(timeMs) {
       requestAnimationFrame(animate3DScene);
-      const t = timeMs * 0.001;
+      if (!lab3DVisible) return;
+      const activeGroup = current3dMode === 'perianal' ? perianalGroup : colonGroup;
+      if (autoSway) activeGroup.rotation.y = Math.sin(((timeMs - swayStart) / 1000) * 0.3) * SWAY;
+      const dt = Math.min(0.25, Math.max(0, (timeMs - lastFrameMs) / 1000));
+      lastFrameMs = timeMs;
+      if (Math.abs(sevTarget - sevShown) > 0.0015) {
+        sevShown += (sevTarget - sevShown) * (1 - Math.exp(-dt * 9));
+        if (Math.abs(sevTarget - sevShown) < 0.003) sevShown = sevTarget;
+        renderSeverity(sevShown);
+      }
       controls.update();
-
-      if (perianalGroup.visible) {
-        perianalGroup.rotation.y = Math.sin(t * 0.35) * 0.18;
-      }
-      if (colonGroup.visible) {
-        colonGroup.rotation.y = Math.sin(t * 0.35) * 0.22;
-      }
-
-      // Proyectar etiquetas 3D con límites seguros (clamping) para pantallas móviles
-      if (show3dLabels && viewer3dContainer) {
-        const w = viewer3dContainer.clientWidth;
-        const h = viewer3dContainer.clientHeight;
-        const activeGroup = current3dMode === 'perianal' ? perianalGroup : colonGroup;
-
-        pinElements.forEach(item => {
-          const worldVec = item.pos.clone().applyMatrix4(activeGroup.matrixWorld);
-          worldVec.project(camera);
-          const x = (worldVec.x * 0.5 + 0.5) * w;
-          const y = (-worldVec.y * 0.5 + 0.5) * h;
-
-          const clampedX = Math.max(68, Math.min(w - 68, x));
-          const clampedY = Math.max(58, Math.min(h - 76, y));
-          item.el.style.left = `${clampedX}px`;
-          item.el.style.top = `${clampedY}px`;
-          item.el.style.opacity = worldVec.z > 1 ? '0' : '1';
-        });
-      }
-
-      if (lab3DVisible) renderer.render(scene, camera);
+      scene.updateMatrixWorld();
+      sacClipPlanes.forEach(cp => cp.world.copy(cp.local).applyMatrix4(perianalModel.matrixWorld));
+      layoutPins();
+      renderer.render(scene, camera);
     }
     requestAnimationFrame(animate3DScene);
     }
@@ -4249,10 +6078,11 @@
     function load3DLab() {
       if (lab3DPromise) return lab3DPromise;
       set3DLabLoading('loading');
-      lab3DPromise = Promise.all([import('three'), import('three/addons/controls/OrbitControls.js')])
-        .then(([threeMod, orbitMod]) => {
+      lab3DPromise = Promise.all([import('three'), import('three/addons/controls/OrbitControls.js'), import('three/addons/environments/RoomEnvironment.js')])
+        .then(([threeMod, orbitMod, envMod]) => {
           THREE = threeMod;
           OrbitControls = orbitMod.OrbitControls;
+          RoomEnvironment = envMod.RoomEnvironment;
           init3DViewer();
           set3DLabLoading('ready');
           if (window.lucide) window.lucide.createIcons();
