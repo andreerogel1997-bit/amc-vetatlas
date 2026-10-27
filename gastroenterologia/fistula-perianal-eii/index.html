@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Fístulas Perianales (Furunculosis Anal) y Enteropatía Inflamatoria Crónica | AMC VetAtlas</title>
+  <script src="../../assets/vetatlas-audio-unlock.js"></script>
   <meta name="description" content="Guía didáctica interactiva sobre furunculosis anal canina, fístulas perianales y su relación fisiopatológica con la enteropatía inflamatoria crónica (EII). AMC VetAtlas · Animal Medical Center." />
   <link rel="icon" type="image/svg+xml" href="../../assets/amc-logo.svg" />
   <link rel="icon" type="image/png" sizes="512x512" href="../../assets/amc-logo.png" />
@@ -3276,7 +3277,8 @@
           audioCtx = new AudioContextClass();
         }
       }
-      if (audioCtx && audioCtx.state === 'suspended') {
+      // 'interrupted': iOS tras una llamada o al volver de otra app
+      if (audioCtx && (audioCtx.state === 'suspended' || audioCtx.state === 'interrupted')) {
         audioCtx.resume().catch(() => {});
       }
       return audioCtx;
@@ -3544,12 +3546,22 @@
       window.setPageAudioMuted(!isAudioMuted);
     });
 
-    // Desbloqueo automático de Web Audio en la primera interacción del usuario
-    ['pointerdown', 'keydown'].forEach(evtName => {
-      window.addEventListener(evtName, () => {
-        sfxUserGesture = true;
-        if (!isAudioMuted) ensureAudioContext();
-      }, { once: true, passive: true });
+    // Desbloqueo de Web Audio con la interacción del usuario. iOS solo lo permite en
+    // touchend/click (resume + buffer silencioso, ver vetatlas-audio-unlock.js), así que
+    // los listeners siguen activos hasta que el contexto está 'running'.
+    const SFX_UNLOCK_EVENTS = ['pointerdown', 'touchstart', 'touchend', 'click', 'keydown'];
+    function onSfxUnlockGesture() {
+      sfxUserGesture = true;
+      if (isAudioMuted) return;
+      const ctx = ensureAudioContext();
+      if (!ctx) return;
+      if (window.VetAtlasAudio) window.VetAtlasAudio.unlock(ctx);
+      if (ctx.state === 'running') {
+        SFX_UNLOCK_EVENTS.forEach(evtName => window.removeEventListener(evtName, onSfxUnlockGesture));
+      }
+    }
+    SFX_UNLOCK_EVENTS.forEach(evtName => {
+      window.addEventListener(evtName, onSfxUnlockGesture, { passive: true });
     });
 
     /* =========================================================================
@@ -7156,8 +7168,14 @@
         if (muted) { if (typeof m.stop === 'function') m.stop(); }
         else if (typeof m.start === 'function') m.start();
       }
+      // Se sincroniza dentro del mismo clic (iOS solo deja arrancar el audio dentro del gesto).
+      // Captura: el botón puede rehacer su innerHTML y en burbujeo e.target ya estaría desconectado.
+      var toggleClicked = false;
       document.addEventListener('click', function (e) {
-        if (e.target && e.target.closest && e.target.closest('#audioToggleBtn')) setTimeout(syncMusic, 0);
+        toggleClicked = Boolean(e.target && e.target.closest && e.target.closest('#audioToggleBtn'));
+      }, true);
+      document.addEventListener('click', function () {
+        if (toggleClicked) { toggleClicked = false; syncMusic(); }
       });
     })();
   </script>

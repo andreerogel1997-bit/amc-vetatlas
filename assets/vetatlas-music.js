@@ -4,6 +4,7 @@
  * de forma síncrona, así window.VetAtlasMusic existe igual que antes.
  *   - vetatlas-music-epic.js      (épica espacial, 145 BPM)
  *   - vetatlas-music-chiptune.js  (chiptune 8 bits)
+ * Antes carga vetatlas-audio-unlock.js si la página aún no lo tiene.
  * La portada carga directamente vetatlas-music-epic.js.
  */
 (function (window, document) {
@@ -14,11 +15,16 @@
   var track = TRACKS[Math.floor(Math.random() * TRACKS.length)];
   var src = base + 'vetatlas-music-' + track + '.js';
   window.VetAtlasMusicTrack = track;
-  if (document.readyState === 'loading') {
-    document.write('<script src="' + src + '"><' + '/script>');
-  } else {
-    var s = document.createElement('script');
-    s.src = src;
-    document.head.appendChild(s);
-  }
+  // Desbloqueo de Web Audio para iOS, por si la página no lo cargó en el <head>
+  var srcs = window.VetAtlasAudio ? [src] : [base + 'vetatlas-audio-unlock.js', src];
+  srcs.forEach(function (url) {
+    if (document.readyState === 'loading') {
+      document.write('<script src="' + url + '"><' + '/script>');
+    } else {
+      var s = document.createElement('script');
+      s.src = url;
+      s.async = false;
+      document.head.appendChild(s);
+    }
+  });
 })(window, document);
