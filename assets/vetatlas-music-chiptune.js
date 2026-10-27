@@ -338,6 +338,7 @@
 
     try {
       ctx = new AudioCtx();
+      if (window.VetAtlasAudio) window.VetAtlasAudio.register(ctx);
 
       compressor = ctx.createDynamicsCompressor();
       compressor.threshold.setValueAtTime(-12, ctx.currentTime);
@@ -662,8 +663,8 @@
     if (!userInteracted) return false;
     if (!initAudio()) return false;
 
-    if (ctx.state === 'suspended') {
-      ctx.resume().catch(function () {});
+    if (ctx.state !== 'running') {
+      unlockContext();
     }
 
     const now = ctx.currentTime;
@@ -677,6 +678,16 @@
       schedulerTick();
     }
     return true;
+  }
+
+  // iOS: resume() + buffer silencioso de 1 muestra dentro del gesto (vetatlas-audio-unlock.js)
+  function unlockContext() {
+    if (!ctx || ctx.state === 'running' || ctx.state === 'closed') return;
+    if (window.VetAtlasAudio) {
+      window.VetAtlasAudio.unlock(ctx);
+    } else {
+      ctx.resume().catch(function () {});
+    }
   }
 
   function pausePlaybackInternal() {
@@ -760,22 +771,32 @@
     return Boolean(e.target.closest('#audio-toggle-btn'));
   }
 
-  function onFirstUserGesture(e) {
-    userInteracted = true;
+  // iOS solo desbloquea Web Audio en touchend/click: no se quitan hasta que el contexto suene
+  const GESTURE_EVENTS = ['pointerdown', 'touchstart', 'touchend', 'keydown'];
 
-    if (!isEventOnAudioToggle(e) && !isMutedInStorage()) {
-      shouldResumeOnVisible = true;
-      beginPlaybackInternal();
-    }
-
-    window.removeEventListener('pointerdown', onFirstUserGesture, true);
-    window.removeEventListener('touchstart', onFirstUserGesture, true);
-    window.removeEventListener('keydown', onFirstUserGesture, true);
+  function releaseGestureListenersIfRunning() {
+    if (!ctx || ctx.state !== 'running') return;
+    GESTURE_EVENTS.forEach(function (evt) {
+      window.removeEventListener(evt, onUserGesture, true);
+    });
   }
 
-  window.addEventListener('pointerdown', onFirstUserGesture, { capture: true, passive: true });
-  window.addEventListener('touchstart', onFirstUserGesture, { capture: true, passive: true });
-  window.addEventListener('keydown', onFirstUserGesture, { capture: true, passive: true });
+  function onUserGesture(e) {
+    if (!userInteracted) {
+      userInteracted = true;
+      if (!isEventOnAudioToggle(e) && !isMutedInStorage()) {
+        shouldResumeOnVisible = true;
+        beginPlaybackInternal();
+      }
+    }
+
+    if (!isMutedInStorage()) unlockContext();
+    releaseGestureListenersIfRunning();
+  }
+
+  GESTURE_EVENTS.forEach(function (evt) {
+    window.addEventListener(evt, onUserGesture, { capture: true, passive: true });
+  });
 
   // 1) FASE DE CAPTURA en window: corre SIEMPRE ANTES que el listener bubble de index.html
   window.addEventListener('click', function (e) {
@@ -795,6 +816,9 @@
       pendingToggleMuted = targetMuted;
       applyMuteState(targetMuted);
     }
+
+    if (!isMutedInStorage()) unlockContext();
+    releaseGestureListenersIfRunning();
   }, true);
 
   // 2) FASE DE BURBUJEO en window: corre SIEMPRE DESPUÉS que el listener bubble de index.html

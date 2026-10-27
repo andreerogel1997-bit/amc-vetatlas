@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Tumor Venéreo Transmisible (TVT) | AMC VetAtlas · Oncología</title>
+  <script src="../../assets/vetatlas-audio-unlock.js"></script>
   <meta name="description" content="Guía didáctica interactiva de Oncología Veterinaria sobre el Tumor Venéreo Transmisible Canino (CTVT): biología clonal, fisiopatología, diagnóstico molecular y manejo clínico. AMC VetAtlas." />
   <link rel="icon" type="image/svg+xml" href="../../assets/amc-logo.svg" />
   <link rel="icon" type="image/png" sizes="512x512" href="../../assets/amc-logo.png" />
@@ -5279,8 +5280,14 @@
         if (muted) { if (typeof m.stop === 'function') m.stop(); }
         else if (typeof m.start === 'function') m.start();
       }
+      // Se sincroniza dentro del mismo clic (iOS solo deja arrancar el audio dentro del gesto).
+      // Captura: el botón puede rehacer su innerHTML y en burbujeo e.target ya estaría desconectado.
+      var toggleClicked = false;
       document.addEventListener('click', function (e) {
-        if (e.target && e.target.closest && e.target.closest('#audioToggleBtn')) setTimeout(syncMusic, 0);
+        toggleClicked = Boolean(e.target && e.target.closest && e.target.closest('#audioToggleBtn'));
+      }, true);
+      document.addEventListener('click', function () {
+        if (toggleClicked) { toggleClicked = false; syncMusic(); }
       });
     })();
   </script>
