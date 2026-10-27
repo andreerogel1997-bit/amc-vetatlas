@@ -3286,10 +3286,11 @@
 
     /* -------------------------------------------------------------------------
        SFX 8 BITS ORIGINALES (estilo consola portátil retro, compuestos en código)
-       Todo pasa por un bus maestro propio (sfxBus); la música compartida usa su
-       propio AudioContext y no se toca. Al silenciar, el bus se corta y se suelta.
+       Todo pasa por un bus maestro propio (sfxBus); la música usa su propio
+       AudioContext y solo se baja un momento (duck) mientras suena un efecto largo.
+       Al silenciar, el bus se corta y se suelta.
        ------------------------------------------------------------------------- */
-    const SFX_MASTER_VOLUME = 0.6;
+    const SFX_MASTER_VOLUME = 0.85;
     let sfxBus = null;
     let sfxNoiseBuffer = null;
     let sfxUserGesture = false;
@@ -3399,64 +3400,103 @@
       return t;
     }
 
+    // Duración aproximada (s) de cada efecto largo: la música (vetatlas-music-gbbattle.js) se baja ese tiempo
+    const SFX_DUCK_SECONDS = { wild: 1.9, capture: 1.6, levelup: 2.5, fanfare: 1.0 };
+
+    function duckMusicFor(seconds) {
+      const m = window.VetAtlasMusic;
+      if (m && typeof m.duck === 'function') {
+        try { m.duck(seconds); } catch (e) {}
+      }
+    }
+
     function playRetroSfx(ctx, type, t0) {
       const bus = getSfxBus(ctx);
 
       if (type === 'menu') {
-        // Bip de menú: pulso 25 % agudo, ~50 ms, volumen bajo
-        sfxNote(ctx, bus, { freq: 1975.5, start: t0, dur: 0.05, wave: 'pulse25', vol: 0.045, release: 0.02 });
-      } else if (type === 'levelup') {
-        // «Subiste de nivel»: dos arpegios ascendentes (G y A) que resuelven en un acorde de B sostenido
-        const step = 0.072;
-        const tEnd = sfxSequence(ctx, bus, t0,
-          [[67, step], [71, step], [74, step], [79, step], [69, step], [73, step], [76, step], [81, step]],
-          { wave: 'pulse25', vol: 0.09, release: 0.02 });
-        sfxSequence(ctx, bus, t0 + step * 0.5,
-          [[55, step * 4], [57, step * 3.5]],
-          { wave: 'triangle', vol: 0.12 });
-        sfxNote(ctx, bus, { freq: midiToFreq(83), start: tEnd, dur: 0.6, wave: 'pulse25', vol: 0.1, vibrato: 0.012, release: 0.2 });
-        sfxNote(ctx, bus, { freq: midiToFreq(78), start: tEnd, dur: 0.6, wave: 'pulse12', vol: 0.06, release: 0.2 });
-        sfxNote(ctx, bus, { freq: midiToFreq(75), start: tEnd, dur: 0.6, wave: 'pulse12', vol: 0.05, release: 0.2 });
-        sfxNote(ctx, bus, { freq: midiToFreq(47), start: tEnd, dur: 0.6, wave: 'triangle', vol: 0.14, release: 0.2 });
+        // Bip de menú: doble tono corto (Sol6 -> Do7) en pulso 25 %
+        sfxNote(ctx, bus, { freq: midiToFreq(91), start: t0, dur: 0.045, wave: 'pulse25', vol: 0.11, release: 0.015 });
+        sfxNote(ctx, bus, { freq: midiToFreq(96), start: t0 + 0.055, dur: 0.06, wave: 'pulse25', vol: 0.1, release: 0.025 });
       } else if (type === 'wild') {
-        // «¡Apareció un caso salvaje!»: trémolo grave en barrido ascendente + motivo tenso que sube
-        const trem = 0.034;
-        for (let i = 0; i < 13; i++) {
-          const base = 40 + i * 0.6;
+        // «¡Apareció un caso salvaje!» (~1,8 s): trémolo grave que sube + barrido, golpe,
+        // arpegio rápido ascendente y acorde tenso sostenido
+        const trem = 0.026;
+        for (let i = 0; i < 23; i++) {
+          const base = 38 + i * 0.6;
           sfxNote(ctx, bus, {
             freq: midiToFreq(i % 2 ? base + 1 : base),
-            start: t0 + i * trem, dur: trem * 0.9, wave: 'square', vol: 0.07, release: 0.01
+            start: t0 + i * trem, dur: trem * 0.9, wave: 'square', vol: 0.09, release: 0.008
           });
         }
-        sfxNote(ctx, bus, { freq: 0.6, start: t0, dur: 0.42, wave: 'noise', vol: 0.025, release: 0.12 });
-        const tMotif = t0 + 13 * trem + 0.02;
-        const tHold = sfxSequence(ctx, bus, tMotif,
-          [[64, 0.075], [67, 0.075], [70, 0.075]],
-          { wave: 'pulse25', vol: 0.09, release: 0.015 });
-        sfxNote(ctx, bus, { freq: midiToFreq(71), start: tHold, dur: 0.3, wave: 'pulse25', vol: 0.1, vibrato: 0.015, release: 0.12 });
-        sfxNote(ctx, bus, { freq: midiToFreq(47), start: tMotif, dur: tHold - tMotif + 0.3, wave: 'triangle', vol: 0.13, release: 0.12 });
+        sfxNote(ctx, bus, { freq: 196, slideTo: 1568, start: t0, dur: 0.6, wave: 'pulse12', vol: 0.07, release: 0.04 });
+        sfxNote(ctx, bus, { freq: 0.35, start: t0 + 0.1, dur: 0.5, wave: 'noise', vol: 0.05, attack: 0.45, release: 0.03 });
+        const tHit = t0 + 0.6;
+        sfxNote(ctx, bus, { freq: 1, start: tHit, dur: 0.4, wave: 'noise', vol: 0.12, release: 0.3 });
+        sfxNote(ctx, bus, { freq: 160, slideTo: 45, start: tHit, dur: 0.18, wave: 'triangle', vol: 0.22, release: 0.08 });
+        const tArp = tHit + 0.03;
+        const tHold = sfxSequence(ctx, bus, tArp,
+          [[64, 0.04], [67, 0.04], [71, 0.04], [76, 0.04], [79, 0.04], [83, 0.04], [88, 0.06]],
+          { wave: 'pulse25', vol: 0.11, release: 0.012 });
+        sfxSequence(ctx, bus, tArp + 0.02,
+          [[52, 0.04], [55, 0.04], [59, 0.04], [64, 0.04], [67, 0.04], [71, 0.06]],
+          { wave: 'pulse12', vol: 0.06, release: 0.012 });
+        sfxNote(ctx, bus, { freq: midiToFreq(83), start: tHold, dur: 0.85, wave: 'pulse25', vol: 0.12, vibrato: 0.018, release: 0.3 });
+        sfxNote(ctx, bus, { freq: midiToFreq(77), start: tHold, dur: 0.85, wave: 'pulse12', vol: 0.07, vibrato: 0.012, release: 0.3 });
+        for (let i = 0; i < 8; i++) {
+          sfxNote(ctx, bus, { freq: midiToFreq(i % 2 ? 47 : 40), start: tHold + i * 0.1, dur: 0.09, wave: 'triangle', vol: 0.18, release: 0.03 });
+        }
       } else if (type === 'capture') {
-        // «Captura»: tres bamboleos, clic de cierre y tintineo de éxito
-        [0, 0.17, 0.34].forEach(off => {
-          sfxNote(ctx, bus, { freq: 392, slideTo: 262, start: t0 + off, dur: 0.07, wave: 'square', vol: 0.06, release: 0.02 });
-          sfxNote(ctx, bus, { freq: 294, slideTo: 392, start: t0 + off + 0.07, dur: 0.05, wave: 'square', vol: 0.045, release: 0.02 });
+        // «Captura» (~1,5 s): tres sacudidas con traqueteo, clic de cierre y mini fanfarria
+        [0, 0.3, 0.6].forEach(off => {
+          sfxNote(ctx, bus, { freq: 2.2, start: t0 + off, dur: 0.03, wave: 'noise', vol: 0.06, release: 0.015 });
+          sfxNote(ctx, bus, { freq: 440, slideTo: 262, start: t0 + off, dur: 0.09, wave: 'square', vol: 0.09, release: 0.02 });
+          sfxNote(ctx, bus, { freq: 294, slideTo: 440, start: t0 + off + 0.09, dur: 0.07, wave: 'square', vol: 0.07, release: 0.02 });
+          sfxNote(ctx, bus, { freq: 2.2, start: t0 + off + 0.16, dur: 0.025, wave: 'noise', vol: 0.045, release: 0.012 });
         });
-        const tLock = t0 + 0.53;
-        sfxNote(ctx, bus, { freq: 3, start: tLock, dur: 0.025, wave: 'noise', vol: 0.07, release: 0.012 });
-        sfxNote(ctx, bus, { freq: 1318.5, start: tLock, dur: 0.02, wave: 'square', vol: 0.05, release: 0.01 });
-        sfxSequence(ctx, bus, tLock + 0.06,
-          [[88, 0.06], [95, 0.16]],
-          { wave: 'pulse12', vol: 0.07, release: 0.1 });
+        const tLock = t0 + 0.9;
+        sfxNote(ctx, bus, { freq: 3, start: tLock, dur: 0.035, wave: 'noise', vol: 0.14, release: 0.015 });
+        sfxNote(ctx, bus, { freq: 1318.5, start: tLock, dur: 0.03, wave: 'square', vol: 0.08, release: 0.012 });
+        sfxNote(ctx, bus, { freq: 110, slideTo: 55, start: tLock, dur: 0.08, wave: 'triangle', vol: 0.18, release: 0.03 });
+        const tFan = tLock + 0.08;
+        sfxSequence(ctx, bus, tFan,
+          [[72, 0.08], [76, 0.08], [79, 0.08], [84, 0.3]],
+          { wave: 'pulse25', vol: 0.11, release: 0.03 });
+        sfxSequence(ctx, bus, tFan,
+          [[67, 0.08], [72, 0.08], [76, 0.08], [79, 0.3]],
+          { wave: 'pulse12', vol: 0.06, release: 0.03 });
+        sfxSequence(ctx, bus, tFan, [[48, 0.24], [55, 0.3]], { wave: 'triangle', vol: 0.15 });
+      } else if (type === 'levelup') {
+        // «Subiste de nivel» (~2,4 s): arpegios ascendentes de Do, Re y Mi, subida escalonada
+        // y acorde final de Do sostenido con vibrato y platillo
+        const step = 0.06;
+        const tStabs = sfxSequence(ctx, bus, t0,
+          [[60, step], [64, step], [67, step], [72, step],
+           [62, step], [66, step], [69, step], [74, step],
+           [64, step], [68, step], [71, step], [76, step]],
+          { wave: 'pulse25', vol: 0.11, release: 0.015 });
+        sfxSequence(ctx, bus, t0, [[48, step * 4], [50, step * 4], [52, step * 4]], { wave: 'triangle', vol: 0.16 });
+        const tFinal = sfxSequence(ctx, bus, tStabs,
+          [[76, 0.12], [79, 0.12], [81, 0.2], [83, 0.2]],
+          { wave: 'pulse25', vol: 0.11, release: 0.03 });
+        sfxSequence(ctx, bus, tStabs,
+          [[72, 0.12], [76, 0.12], [77, 0.2], [79, 0.2]],
+          { wave: 'pulse12', vol: 0.06, release: 0.03 });
+        sfxSequence(ctx, bus, tStabs, [[48, 0.24], [43, 0.4]], { wave: 'triangle', vol: 0.16 });
+        sfxNote(ctx, bus, { freq: midiToFreq(84), start: tFinal, dur: 1.0, wave: 'pulse25', vol: 0.12, vibrato: 0.014, release: 0.4 });
+        sfxNote(ctx, bus, { freq: midiToFreq(79), start: tFinal, dur: 1.0, wave: 'pulse12', vol: 0.07, release: 0.4 });
+        sfxNote(ctx, bus, { freq: midiToFreq(76), start: tFinal, dur: 1.0, wave: 'pulse12', vol: 0.05, release: 0.4 });
+        sfxNote(ctx, bus, { freq: midiToFreq(48), start: tFinal, dur: 1.0, wave: 'triangle', vol: 0.17, release: 0.4 });
+        sfxNote(ctx, bus, { freq: 1, start: tFinal, dur: 0.7, wave: 'noise', vol: 0.06, release: 0.6 });
       } else if (type === 'fanfare') {
         // Fanfarria corta al completar todas las parejas
         const tEnd = sfxSequence(ctx, bus, t0,
           [[72, 0.09], [76, 0.09], [79, 0.09], [84, 0.09], [81, 0.09]],
-          { wave: 'pulse25', vol: 0.09, release: 0.02 });
-        sfxSequence(ctx, bus, t0, [[48, 0.18], [53, 0.27]], { wave: 'triangle', vol: 0.12 });
-        sfxNote(ctx, bus, { freq: midiToFreq(84), start: tEnd, dur: 0.45, wave: 'pulse25', vol: 0.1, vibrato: 0.012, release: 0.18 });
+          { wave: 'pulse25', vol: 0.1, release: 0.02 });
+        sfxSequence(ctx, bus, t0, [[48, 0.18], [53, 0.27]], { wave: 'triangle', vol: 0.13 });
+        sfxNote(ctx, bus, { freq: midiToFreq(84), start: tEnd, dur: 0.45, wave: 'pulse25', vol: 0.11, vibrato: 0.012, release: 0.18 });
         sfxNote(ctx, bus, { freq: midiToFreq(79), start: tEnd, dur: 0.45, wave: 'pulse12', vol: 0.06, release: 0.18 });
         sfxNote(ctx, bus, { freq: midiToFreq(76), start: tEnd, dur: 0.45, wave: 'pulse12', vol: 0.05, release: 0.18 });
-        sfxNote(ctx, bus, { freq: midiToFreq(48), start: tEnd, dur: 0.45, wave: 'triangle', vol: 0.14, release: 0.18 });
+        sfxNote(ctx, bus, { freq: midiToFreq(48), start: tEnd, dur: 0.45, wave: 'triangle', vol: 0.15, release: 0.18 });
       }
     }
 
@@ -3470,6 +3510,7 @@
       // El 'click' clásico ahora es el bip de menú de 8 bits
       if (type === 'click') type = 'menu';
       if (['menu', 'levelup', 'wild', 'capture', 'fanfare'].includes(type)) {
+        if (SFX_DUCK_SECONDS[type]) duckMusicFor(delay + SFX_DUCK_SECONDS[type]);
         playRetroSfx(ctx, type, ctx.currentTime + 0.005 + delay);
         return;
       }
@@ -6682,7 +6723,7 @@
         selectedMatchId = null;
         matchedCount++;
         playArcadeSound('capture');
-        if (matchedCount === matchingPairsData.length) playArcadeSound('fanfare', 0.85);
+        if (matchedCount === matchingPairsData.length) playArcadeSound('fanfare', 1.6);
         if (scoreTxt) scoreTxt.textContent = `${matchedCount} / ${matchingPairsData.length}`;
         if (msgEl) {
           msgEl.style.color = 'var(--accent-emerald)';
@@ -7154,8 +7195,8 @@
     });
   </script>
 
-  <!-- Música de fondo arcade espacial original (AMC VetAtlas) -->
-  <script src="../../assets/vetatlas-music.js"></script>
+  <!-- Música de fondo original: batalla RPG de consola portátil 8 bits (solo esta página) -->
+  <script src="../../assets/vetatlas-music-gbbattle.js"></script>
   <script>
     /* Puente genérico: el botón de sonido de esta página también controla la música (API window.VetAtlasMusic). */
     (function () {
