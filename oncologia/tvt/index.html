@@ -1733,6 +1733,217 @@
       fill: none;
       flex-shrink: 0;
     }
+    /* PLEGABLES NATIVOS (<details>) CON ASPECTO DE TARJETA */
+    .fold-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin: 1rem 0;
+      transition: border-color 0.2s ease;
+    }
+
+    .fold-card:hover,
+    .fold-card[open] {
+      border-color: rgba(6, 182, 212, 0.45);
+    }
+
+    .fold-card > summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.9rem 1.05rem;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      border-radius: var(--radius-md);
+    }
+
+    .fold-card > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .fold-card > summary:focus-visible {
+      outline: 2px solid var(--accent-cyan);
+      outline-offset: 2px;
+    }
+
+    .fold-card > summary > .lucide {
+      flex-shrink: 0;
+    }
+
+    .fold-card > summary .fold-chevron {
+      margin-left: auto;
+      color: var(--text-secondary);
+      transition: transform 0.2s ease;
+    }
+
+    .fold-card[open] > summary .fold-chevron {
+      transform: rotate(180deg);
+    }
+
+    .fold-body {
+      padding: 0 1.05rem 1.05rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 0;
+    }
+
+    .fold-body p, .fold-body li {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+    }
+
+    .fold-body ul {
+      padding-left: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .fold-body .table-wrap {
+      margin: 0.25rem 0;
+    }
+
+    /* Alerta roja plegable (extravasación) */
+    .fold-card.danger {
+      border-color: var(--accent-rose);
+      border-left-width: 4px;
+      background: var(--accent-rose-soft);
+    }
+
+    .fold-card.danger > summary,
+    .fold-card.danger > summary .fold-chevron {
+      color: var(--accent-rose);
+    }
+
+    html[data-theme="light"] .fold-card.danger > summary,
+    html[data-theme="light"] .fold-card.danger > summary .fold-chevron {
+      color: #be123c;
+    }
+
+    .fold-card.danger .fold-body p, .fold-card.danger .fold-body li {
+      color: var(--text-primary);
+    }
+
+    /* PESTAÑAS "TABLA RESUMEN / TEXTO DETALLADO" */
+    .subsection-title {
+      font-family: var(--font-display);
+      font-size: 1.12rem;
+      margin: 1.25rem 0 0.75rem;
+    }
+
+    .view-tabs-bar {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.4rem;
+      padding: 0.35rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      max-width: 420px;
+    }
+
+    .view-tab-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      min-width: 0;
+      padding: 0.55rem 0.45rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-weight: 700;
+      font-size: clamp(0.78rem, 2.4vw, 0.86rem);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .view-tab-btn:hover {
+      color: var(--accent-cyan);
+    }
+
+    .view-tab-btn[aria-selected="true"] {
+      background: var(--bg-tertiary);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .view-tab-btn:focus-visible,
+    .view-tab-panel:focus-visible {
+      outline: 2px solid var(--accent-cyan);
+      outline-offset: 2px;
+    }
+
+    .view-tab-panel {
+      border-radius: var(--radius-md);
+      animation: fadeInPanel 0.3s ease;
+    }
+
+    .view-tab-panel[hidden] {
+      display: none;
+    }
+
+    .view-tab-panel > .info-card {
+      margin: 1rem 0;
+    }
+
+    /* CONSULTA RÁPIDA (MÓDULO 06) */
+    .quick-ref {
+      background: var(--bg-secondary);
+      border: 1px solid var(--accent-cyan);
+      border-radius: var(--radius-md);
+      padding: 1.05rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .quick-ref-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+      gap: 0.6rem;
+      margin: 0;
+    }
+
+    .quick-ref-list > div {
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.75rem;
+      min-width: 0;
+    }
+
+    .quick-ref-list dt {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--accent-cyan);
+      margin-bottom: 0.25rem;
+    }
+
+    .quick-ref-list dd {
+      margin: 0;
+      font-size: 0.88rem;
+      color: var(--text-primary);
+    }
+
+    /* ENLACES CRUZADOS EN PESTAÑAS POR ESPECIE */
+    .cross-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -1892,16 +2103,19 @@
             <p>
               La marcada endogamia basal amortiguó la diversidad de antígenos leucocitarios caninos (DLA/MHC), evitando el rechazo alogénico temprano. El ancestro común más reciente de las cepas globales actuales divergió hace <strong>200 a 2.500 años</strong>, expandiéndose intercontinentalmente por el comercio marítimo de los últimos cinco siglos.
             </p>
+            <p>
+              Una célula canina normal vive lo que vive su hospedador y se divide por mitosis coordinada en su propio tejido; el clon, en cambio, se disemina como aloinjerto celular contagioso de un individuo a otro a través de las mucosas.
+            </p>
             <span class="cite-pill">Fuente: Murchison et al., Science 2014</span>
           </div>
 
           <div class="info-card">
             <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 16 1.5 1.5"/><path d="m14 8-1.5-1.5"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m16.5 10.5 1 1"/><path d="m17 6-2.891-2.891"/><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="m20 9 .891.891"/><path d="M3.109 14.109 4 15"/><path d="m6.5 12.5 1 1"/><path d="m7 18 2.891 2.891"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/></svg> Arquitectura Genómica y Captura Mitocondrial</h3>
             <p>
-              El cariotipo del CTVT acumula más de <strong>1,9 millones de sustituciones somáticas</strong> (frente a las 1.000–5.000 habituales en cánceres humanos), retiene impronta mutacional de exposición temprana a radiación ultravioleta, presenta deleción de más de <strong>646 genes</strong> y mutaciones no sinónimas en más de <strong>10.000 secuencias codificantes</strong>.
+              El cariotipo del CTVT acumula más de <strong>1,9 millones de sustituciones somáticas</strong> (&gt;1.900.000; frente a la tasa basal fisiológica de la célula normal y a las 1.000–5.000 habituales en cánceres humanos), retiene impronta mutacional de exposición temprana a radiación ultravioleta, presenta deleción de más de <strong>646 genes</strong> y mutaciones no sinónimas en más de <strong>10.000 secuencias codificantes</strong>.
             </p>
             <p>
-              Para evitar el colapso de la fosforilación oxidativa por acumulación mutacional en su ADN mitocondrial, el clon ejecuta <strong>captura mitocondrial horizontal</strong>: incorpora y recombina el mtDNA de células sanas de sus hospedadores, evento documentado en al menos <strong>cinco ocasiones independientes</strong> en su filogenia.
+              Para evitar el colapso de la fosforilación oxidativa por acumulación mutacional en su ADN mitocondrial, el clon ejecuta <strong>captura mitocondrial horizontal</strong>: incorpora y recombina periódicamente el mtDNA de células sanas de sus hospedadores, evento documentado en al menos <strong>cinco ocasiones independientes</strong> (&ge;5 eventos) en su filogenia. En la célula normal, el mtDNA es homoplásmico, endógeno y de herencia materna.
             </p>
             <span class="cite-pill">Fuente: Filogenia y Captura de mtDNA (Sección 1)</span>
           </div>
@@ -1912,54 +2126,10 @@
               Mientras que la célula diploide normal de <em>Canis lupus familiaris</em> posee <strong>2n = 78 cromosomas</strong> acrocéntricos (salvo X e Y), el CTVT presenta un cariotipo aneuploide y pseudodiploide estable de <strong>57 a 59 cromosomas</strong> (media de 59), destacando entre <strong>13 y 17 cromosomas metacéntricos y submetacéntricos</strong> grandes originados por fusiones robertsonianas y translocaciones conservadas.
             </p>
             <p>
-              Su alteración molecular patognomónica es la inserción de un retrotransposón <strong>LINE-1</strong> en la región promotora 5' del protooncogén <strong>c-myc</strong>, situado exactamente entre las cajas TATA del promotor, impulsando la síntesis constitutiva de la oncoproteína c-Myc.
+              Su alteración molecular patognomónica es la inserción de un retrotransposón <strong>LINE-1</strong> en la región promotora 5' del protooncogén <strong>c-myc</strong>, situado exactamente entre las cajas TATA del promotor, impulsando la síntesis constitutiva de la oncoproteína c-Myc. La célula normal conserva el locus <em>c-myc</em> silvestre, sin inserciones.
             </p>
             <span class="cite-pill">Fuente: Citogenética y Firma LINE-1/c-myc</span>
           </div>
-        </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Parámetro Biológico</th>
-                <th>Célula Canina Normal (<em>Canis lupus familiaris</em>)</th>
-                <th>Célula Neoplásica del Clon CTVT</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Dotación Cromosómica</strong></td>
-                <td><code>2n = 78</code> cromosomas acrocéntricos (excepto sexuales X e Y)</td>
-                <td><code>57 a 59</code> cromosomas (media 59; <code>13 a 17</code> metacéntricos/submetacéntricos por fusiones robertsonianas)</td>
-              </tr>
-              <tr>
-                <td><strong>Edad del Linaje Somático</strong></td>
-                <td>Tiempo de vida biológico del hospedador individual</td>
-                <td><code>~11.000 años</code> (rango 4.000–11.000 años) de transmisión continua</td>
-              </tr>
-              <tr>
-                <td><strong>Carga Mutacional Somática</strong></td>
-                <td>Tasa basal fisiológica</td>
-                <td><code>&gt;1.900.000</code> sustituciones somáticas; &gt;646 genes delecionados; &gt;10.000 mutaciones no sinónimas</td>
-              </tr>
-              <tr>
-                <td><strong>Firma Molecular Patognomónica</strong></td>
-                <td>Locus <em>c-myc</em> silvestre sin inserciones</td>
-                <td>Reordenamiento por transposición <code>LINE-1/c-myc</code> en promotor 5' (entre cajas TATA)</td>
-              </tr>
-              <tr>
-                <td><strong>Origen del Genoma Mitocondrial</strong></td>
-                <td>Homoplásmico endógeno materno del individuo</td>
-                <td>Captura horizontal y recombinación periódica de mtDNA de hospedadores (&ge;5 eventos)</td>
-              </tr>
-              <tr>
-                <td><strong>Modo de Diseminación</strong></td>
-                <td>Mitosis celular coordinada en tejido propio</td>
-                <td>Aloinjerto celular contagioso interindividual a través de mucosas</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </section>
 
@@ -2017,7 +2187,7 @@
               <li>En evaluaciones retrospectivas de casuística oncológica en centros veterinarios y programas de bienestar animal de <strong>Quito</strong>, el CTVT representa hasta el <strong>16% de la totalidad de las neoplasias diagnosticadas</strong> en caninos de refugio y animales mestizos.</li>
               <li>En esta zona geográfica compite directamente en frecuencia diagnóstica con las neoplasias mamarias y los mastocitomas cutáneos.</li>
             </ul>
-            <span class="cite-pill">Fuente del informe: Casuística Oncológica en Quito, Ecuador</span>
+            <span class="cite-pill">Fuente: Casuística Oncológica en Quito, Ecuador</span>
           </div>
 
           <div class="info-card">
@@ -2029,7 +2199,7 @@
               <li>En albergues del norte de <strong>Guayaquil</strong>, el tumor compromete preferentemente a ejemplares de rescate no esterilizados con antecedentes de vida callejera, presentándose con frecuencia como masas ulceradas complicadas con <strong>miasis o sepsis local</strong>.</li>
               <li>En cantones del litoral norte como <strong>Esmeraldas</strong>, el muestreo clínico documenta una expansión sostenida asociada a la ausencia de programas sistemáticos de control demográfico y tenencia responsable.</li>
             </ul>
-            <span class="cite-pill">Fuente del informe: Epidemiología en Guayas y Esmeraldas</span>
+            <span class="cite-pill">Fuente: Epidemiología en Guayas y Esmeraldas</span>
           </div>
         </div>
       </section>
@@ -2328,7 +2498,7 @@
           </div>
 
           <div class="info-card">
-            <h4 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg> Cutánea y Diseminación (1–17%)</h4>
+            <h4 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg> Cutánea/Subcutánea y Diseminación (1–17%)</h4>
             <p>
               Nódulos ulcerados en cara, tronco y periné por mordeduras o rascado. La metástasis ocurre en el <strong>1% al 17%</strong> (mayor en cachorros, seniles, malnutridos o con distémper, leishmaniasis o ehrlichiosis) hacia linfonodos regionales, vísceras (bazo, hígado, riñón, pulmón, peritoneo, médula ósea) y <strong>SNC</strong> (cuerpo calloso, corteza, cerebelo).
             </p>
@@ -2488,8 +2658,7 @@
           </table>
         </div>
 
-        <div class="grid-3" style="margin: 1.25rem 0;">
-          <div class="info-card">
+        <div class="info-card" style="margin: 1.25rem 0;">
             <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg> Histopatología Tisular (H&amp;E)</h3>
             <p>
               Neoplasia celular densa, desprovista de cápsula propia, que infiltra la lámina propia mucosa o la dermis papilar y reticular. Crece en sábanas continuas, nidos densos o cordones soportados por un estroma fibroconectivo fino.
@@ -2497,18 +2666,80 @@
             <p>
               Células redondas o poligonales con citoplasma finamente acidófilo/eosinófilo, núcleos voluminosos con cromatina periférica e índice mitótico muy elevado (<strong>&gt;3 a 5 mitosis por campo de inmersión</strong>), con hemorragia intersticial, microtrombosis, necrosis coagulativa e infiltrado marginal de linfocitos y células plasmáticas.
             </p>
-          </div>
+        </div>
 
-          <div class="info-card">
-            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></svg> Inmunohistoquímica (IHQ)</h3>
-            <ul>
-              <li><strong>Reactividad Positiva (+):</strong> Expresión difusa intensa de <strong>Vimentina</strong> (filamentos intermedios mesenquimatosos), <strong>CD18</strong> (subunidad beta2-integrina leucocitaria que confirma estirpe histiocítica mieloide), <strong>Lisozima</strong> (función monocito-macrofágica), y reactividad variable a <strong>Alfa-1-antitripsina</strong> y <strong>Enolasa Neurona Específica (NSE)</strong>.</li>
-              <li><strong>Reactividad Negativa (-):</strong> Negativo a pancitoqueratinas (<strong>AE1/AE3</strong>), <strong>CD3</strong> (solo marca TILs reactivos no neoplásicos), <strong>CD79a y PAX-5</strong> (descarta linfoma B/plasmocitoma), <strong>CD117/c-kit</strong> (descarta mastocitoma) y <strong>Melan-A / S-100</strong> (descarta melanoma amelanótico).</li>
-            </ul>
+        <h3 class="subsection-title">Inmunohistoquímica y Diagnóstico Diferencial de Neoplasias de Células Redondas</h3>
+        <div class="view-tabs" data-view-tabs>
+          <div class="view-tabs-bar" role="tablist" aria-label="Formato de IHQ y diagnóstico diferencial">
+            <button type="button" class="view-tab-btn" role="tab" id="dxTabTable" aria-controls="dxPanelTable" aria-selected="true" tabindex="0"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg> Tabla resumen</button>
+            <button type="button" class="view-tab-btn" role="tab" id="dxTabText" aria-controls="dxPanelText" aria-selected="false" tabindex="-1"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 6.1H3"/><path d="M21 12.1H3"/><path d="M15.1 18H3"/></svg> Texto detallado</button>
           </div>
+          <div class="view-tab-panel" role="tabpanel" id="dxPanelTable" aria-labelledby="dxTabTable" tabindex="0">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Neoplasia</th>
+                    <th>Localización Habitual</th>
+                    <th>Hallazgos Citomorfológicos Clave</th>
+                    <th>Perfil Inmunohistoquímico y Diferencial</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>CTVT (Sarcoma de Sticker)</strong></td>
+                    <td>Genitales externos, fosas nasales, piel, cavidad oral, conjuntiva</td>
+                    <td>Células redondas individuales, abundantes vacuolas lipídicas periféricas en "sacabocado", mitosis típicas y atípicas</td>
+                    <td><code>Vimentina (+)</code>, <code>CD18 (+)</code>, <code>Lisozima (+)</code>, PCR <code>LINE-1/c-myc</code> positiva (340–550 pb)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Histiocitoma Cutáneo</strong></td>
+                    <td>Piel de animales jóvenes (cabeza, pabellón auricular)</td>
+                    <td>Células de citoplasma claro y pálido, sin vacuolación lipídica periférica conspicua</td>
+                    <td><code>CD18 (+)</code>, <code>CD1a (+)</code>, <code>E-cadherina (+)</code>, ausencia de reordenamiento <code>LINE-1/c-myc</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mastocitoma (MCT)</strong></td>
+                    <td>Dermis profunda, tejido subcutáneo, uniones mucocutáneas</td>
+                    <td>Abundante granulación intracitoplasmática metacromática púrpura; eosinófilos acompañantes</td>
+                    <td><code>CD117 / c-kit (+)</code>, Triptasa de mastocitos (+), metacromasia con Azul de Toluidina</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Linfoma Extranodal</strong></td>
+                    <td>Mucosa genital, cavidad oral, piel, linfonodos</td>
+                    <td>Células redondas de escaso citoplasma basófilo; microcuerpos linfoglandulares en el fondo</td>
+                    <td>Marcaje linfocítico neoplásico positivo para <code>CD3</code> (linfoma T) o <code>CD79a / CD20 / PAX-5</code> (linfoma B)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Plasmocitoma Cutáneo</strong></td>
+                    <td>Mucosa gingival, labio, pabellón auricular</td>
+                    <td>Células plasmocitoides con marcado halo claro perinuclear (complejo de Golgi hipertrófico)</td>
+                    <td>Inmunomarcaje selectivo positivo para <code>MUM-1</code> y <code>CD138</code>; cadenas ligeras de inmunoglobulinas</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Melanoma Amelanótico</strong></td>
+                    <td>Mucosa bucal, uniones mucocutáneas, lecho ungueal</td>
+                    <td>Células marcadamente anaplásicas con núcleos gigantes; ausencia de gránulos de melanina</td>
+                    <td><code>Melan-A (+)</code>, <code>S-100 (+)</code>, <code>PNL-2 (+)</code>, <code>Tirosinasa (+)</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="view-tab-panel" role="tabpanel" id="dxPanelText" aria-labelledby="dxTabText" tabindex="0" hidden>
+              <div class="info-card">
+                <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></svg> Inmunohistoquímica (IHQ)</h3>
+                <ul>
+                  <li><strong>Reactividad Positiva (+):</strong> Expresión difusa intensa de <strong>Vimentina</strong> (filamentos intermedios mesenquimatosos), <strong>CD18</strong> (subunidad beta2-integrina leucocitaria que confirma estirpe histiocítica mieloide), <strong>Lisozima</strong> (función monocito-macrofágica), y reactividad variable a <strong>Alfa-1-antitripsina</strong> y <strong>Enolasa Neurona Específica (NSE)</strong>.</li>
+                  <li><strong>Reactividad Negativa (-):</strong> Negativo a pancitoqueratinas (<strong>AE1/AE3</strong>), <strong>CD3</strong> (solo marca TILs reactivos no neoplásicos), <strong>CD79a y PAX-5</strong> (descarta linfoma B/plasmocitoma), <strong>CD117/c-kit</strong> (descarta mastocitoma) y <strong>Melan-A / S-100</strong> (descarta melanoma amelanótico).</li>
+                </ul>
+              </div>
+          </div>
+        </div>
 
-          <div class="info-card">
-            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 16 1.5 1.5"/><path d="m14 8-1.5-1.5"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m16.5 10.5 1 1"/><path d="m17 6-2.891-2.891"/><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="m20 9 .891.891"/><path d="M3.109 14.109 4 15"/><path d="m6.5 12.5 1 1"/><path d="m7 18 2.891 2.891"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/></svg> Estándar de Oro: PCR LINE-1/c-myc</h3>
+        <details class="fold-card">
+          <summary><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 16 1.5 1.5"/><path d="m14 8-1.5-1.5"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m16.5 10.5 1 1"/><path d="m17 6-2.891-2.891"/><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="m20 9 .891.891"/><path d="M3.109 14.109 4 15"/><path d="m6.5 12.5 1 1"/><path d="m7 18 2.891 2.891"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/></svg> <span>Estándar de Oro: PCR LINE-1/c-myc y Cebadores</span><svg class="lucide fold-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fold-body">
             <p>
               Amplifica la unión patognomónica entre el retrotransposón LINE-1 y el promotor 5' del gen <em>c-myc</em>. Esencial en masas extragenitales aberrantes (retrobulbares, cutáneas solitarias, SNC) o con inflamación piogranulomatosa severa:
             </p>
@@ -2518,59 +2749,7 @@
               <li><strong>Amplicón diagnóstico universal:</strong> Banda electroforética de <strong>340 a 550 pares de bases (pb)</strong>.</li>
             </ul>
           </div>
-        </div>
-
-        <h3 style="font-family:var(--font-display); font-size:1.12rem; margin: 1.25rem 0 0.75rem;">Tabla de Diagnóstico Diferencial de Neoplasias de Células Redondas</h3>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Neoplasia</th>
-                <th>Localización Habitual</th>
-                <th>Hallazgos Citomorfológicos Clave</th>
-                <th>Perfil Inmunohistoquímico y Diferencial</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>CTVT (Sarcoma de Sticker)</strong></td>
-                <td>Genitales externos, fosas nasales, piel, cavidad oral, conjuntiva</td>
-                <td>Células redondas individuales, abundantes vacuolas lipídicas periféricas en "sacabocado", mitosis típicas y atípicas</td>
-                <td><code>Vimentina (+)</code>, <code>CD18 (+)</code>, <code>Lisozima (+)</code>, PCR <code>LINE-1/c-myc</code> positiva (340–550 pb)</td>
-              </tr>
-              <tr>
-                <td><strong>Histiocitoma Cutáneo</strong></td>
-                <td>Piel de animales jóvenes (cabeza, pabellón auricular)</td>
-                <td>Células de citoplasma claro y pálido, sin vacuolación lipídica periférica conspicua</td>
-                <td><code>CD18 (+)</code>, <code>CD1a (+)</code>, <code>E-cadherina (+)</code>, ausencia de reordenamiento <code>LINE-1/c-myc</code></td>
-              </tr>
-              <tr>
-                <td><strong>Mastocitoma (MCT)</strong></td>
-                <td>Dermis profunda, tejido subcutáneo, uniones mucocutáneas</td>
-                <td>Abundante granulación intracitoplasmática metacromática púrpura; eosinófilos acompañantes</td>
-                <td><code>CD117 / c-kit (+)</code>, Triptasa de mastocitos (+), metacromasia con Azul de Toluidina</td>
-              </tr>
-              <tr>
-                <td><strong>Linfoma Extranodal</strong></td>
-                <td>Mucosa genital, cavidad oral, piel, linfonodos</td>
-                <td>Células redondas de escaso citoplasma basófilo; microcuerpos linfoglandulares en el fondo</td>
-                <td>Marcaje linfocítico neoplásico positivo para <code>CD3</code> (linfoma T) o <code>CD79a / CD20 / PAX-5</code> (linfoma B)</td>
-              </tr>
-              <tr>
-                <td><strong>Plasmocitoma Cutáneo</strong></td>
-                <td>Mucosa gingival, labio, pabellón auricular</td>
-                <td>Células plasmocitoides con marcado halo claro perinuclear (complejo de Golgi hipertrófico)</td>
-                <td>Inmunomarcaje selectivo positivo para <code>MUM-1</code> y <code>CD138</code>; cadenas ligeras de inmunoglobulinas</td>
-              </tr>
-              <tr>
-                <td><strong>Melanoma Amelanótico</strong></td>
-                <td>Mucosa bucal, uniones mucocutáneas, lecho ungueal</td>
-                <td>Células marcadamente anaplásicas con núcleos gigantes; ausencia de gránulos de melanina</td>
-                <td><code>Melan-A (+)</code>, <code>S-100 (+)</code>, <code>PNL-2 (+)</code>, <code>Tirosinasa (+)</code></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        </details>
       </section>
 
       <!-- MÓDULO 06: ESTRATEGIAS TERAPÉUTICAS, CALCULADORA DE DOSIS, EXTRAVASACIÓN Y MONITOREO -->
@@ -2583,12 +2762,21 @@
           El tratamiento de elección para el CTVT es la <strong>quimioterapia sistémica citostática</strong>. La cirugía excisional aislada está desaconsejada debido a una tasa de recidiva del <strong>30% al 50%</strong> provocada por la exfoliación y microimplantación intraoperatoria de células viables en los bordes cruentos del lecho quirúrgico.
         </p>
 
+        <div class="quick-ref" role="note" aria-labelledby="quickRefTitle">
+          <h3 class="info-card-title" id="quickRefTitle"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg> Consulta Rápida · Sulfato de Vincristina</h3>
+          <dl class="quick-ref-list">
+            <div><dt>Dosis</dt><dd><code>0,5–0,7 mg/m²</code> Intravenosa estricta (IV), semanal (cada 7 días)</dd></div>
+            <div><dt>Antes de cada dosis</dt><dd><strong>ANC &ge; 1.500 / uL</strong></dd></div>
+            <div><dt>Tras la remisión</dt><dd><strong>1 a 2 sesiones semanales adicionales</strong> después de confirmar la remisión macroscópica completa y la negatividad citológica</dd></div>
+          </dl>
+        </div>
+
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
                 <th>Modalidad Terapéutica</th>
-                <th>Dosis Específica del Informe</th>
+                <th>Dosis</th>
                 <th>Vía y Método de Administración</th>
                 <th>Frecuencia y Duración</th>
                 <th>Indicación Clínica y Tasa de Éxito</th>
@@ -2668,7 +2856,7 @@
           <div class="info-card">
             <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></svg> Cirugía Paliativa y Crioterapia</h3>
             <p>
-              La cirugía convencional tiene un <strong>30%–50% de recidiva</strong> y se limita a citorreducción paliativa ante obstrucción uretral o estenosis nasal crítica. La <strong>crioterapia</strong> con nitrógeno líquido (ciclos de congelación ultrarrápida a <strong>-196 °C</strong> y descongelación lenta) se emplea como coadyuvante post-quimioterapia en focos residuales superficiales.
+              Por esa recidiva, la cirugía convencional se limita a citorreducción paliativa ante obstrucción uretral o estenosis nasal crítica. La <strong>crioterapia</strong> con nitrógeno líquido (ciclos de congelación ultrarrápida a <strong>-196 °C</strong> y descongelación lenta) se emplea como coadyuvante post-quimioterapia en focos residuales superficiales.
             </p>
           </div>
         </div>
@@ -2677,7 +2865,7 @@
         <div class="calc-panel" id="calculadoraDosis">
           <div class="svg-diagram-title" style="margin-bottom:0.85rem;">
             <span>Calculadora Interactiva Posológica y de Ajuste Hematológico (Especie Canina)</span>
-            <span>Usa estrictamente las dosis y umbrales del informe</span>
+            <span>Usa solo las dosis y umbrales de la tabla de tratamiento</span>
           </div>
 
           <div class="calc-form-grid">
@@ -2687,7 +2875,7 @@
             </div>
 
             <div class="input-group">
-              <label for="calcDrug">Agente antineoplásico (Informe)</label>
+              <label for="calcDrug">Agente antineoplásico</label>
               <select id="calcDrug" class="form-select">
                 <option value="vincristina">Sulfato de Vincristina (1ra Elección)</option>
                 <option value="doxorrubicina">Clorhidrato de Doxorrubicina (Rescate P-gp)</option>
@@ -2731,7 +2919,7 @@
             </div>
 
             <div class="calc-res-box">
-              <span class="hero-kpi-lbl">Dosis por Peso / Esquema Alternativo del Informe</span>
+              <span class="hero-kpi-lbl">Dosis por Peso / Esquema Alternativo</span>
               <div class="calc-res-val" id="resDoseKg">Usar dosis por m² (&ge;10 kg)</div>
               <span class="hero-kpi-lbl" id="resDoseKgFormula">En &lt;10 kg: 0,025 mg/kg IV</span>
             </div>
@@ -2745,9 +2933,9 @@
         </div>
 
         <!-- PROTOCOLO DE EXTRAVASACIÓN Y MONITOREO HEMATOLÓGICO -->
-        <div class="grid-2" style="margin-top: 1.25rem;">
-          <div class="info-card">
-            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Protocolo Secuencial ante Extravasación de Vincristina</h3>
+        <details class="fold-card danger">
+          <summary><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> <span>Protocolo Secuencial ante Extravasación de Vincristina</span><svg class="lucide fold-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <div class="fold-body">
             <p>
               La vincristina es un potente <strong>agente vesicante</strong> que causa celulitis química severa, flemón estéril, isquemia microangiopática, ulceración de espesor completo y necrosis coagulativa con esfacelo. Ante dolor agudo, tumefacción o resistencia al émbolo:
             </p>
@@ -2759,19 +2947,19 @@
               <li><strong>5. Manejo adyuvante:</strong> Elevar la extremidad, aplicar pinceladas tópicas de <strong>DMSO al 99%</strong> (neutraliza radicales libres), analgesia multimodal y collar isabelino.</li>
             </ul>
           </div>
+        </details>
 
-          <div class="info-card">
-            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg> Monitoreo Hematológico Pre-Quimioterapia (24–48 h antes)</h3>
-            <p>
-              Es obligatorio realizar un hemograma completo con recuento manual dentro de las <strong>24 a 48 horas previas</strong> a cada ciclo semanal de vincristina:
-            </p>
-            <ul>
-              <li><strong>ANC &ge; 1.500 / uL:</strong> Rango de seguridad medular; proceder con el <strong>100% de la dosis</strong> calculada.</li>
-              <li><strong>ANC entre 1.000 y 1.499 / uL (Neutropenia Grado II):</strong> Posponer la sesión de quimioterapia durante <strong>3 a 5 días</strong> y reevaluar el hemograma antes de reinstaurar.</li>
-              <li><strong>ANC &lt; 1.000 / uL (Neutropenia Grado III–IV) o neutropenia febril:</strong> Suspender inmediatamente la quimioterapia, instaurar fluidoterapia y antibioterapia sistémica parenteral de amplio espectro. Una vez recuperada la médula a valores <code>&ge;1.500/uL</code>, <strong>reducir la dosis de vincristina en un 20% a 25%</strong> para todos los ciclos subsiguientes (por ejemplo, descender de <code>0,7 mg/m²</code> a <code>0,5 mg/m²</code>).</li>
-              <li><strong>Recuento de Plaquetas:</strong> Verificar valores <strong>&gt; 100.000 / uL</strong>. Dado que la vincristina estimula la liberación fisiológica de IL-6 e induce trombopoyesis compensatoria, la trombocitopenia aislada es infrecuente.</li>
-            </ul>
-          </div>
+        <div class="info-card" style="margin-top: 1rem;">
+          <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg> Monitoreo Hematológico Pre-Quimioterapia (24–48 h antes)</h3>
+          <p>
+            Es obligatorio realizar un hemograma completo con recuento manual dentro de las <strong>24 a 48 horas previas</strong> a cada ciclo semanal de vincristina:
+          </p>
+          <ul>
+            <li><strong>ANC &ge; 1.500 / uL:</strong> Rango de seguridad medular; proceder con el <strong>100% de la dosis</strong> calculada.</li>
+            <li><strong>ANC entre 1.000 y 1.499 / uL (Neutropenia Grado II):</strong> Posponer la sesión de quimioterapia durante <strong>3 a 5 días</strong> y reevaluar el hemograma antes de reinstaurar.</li>
+            <li><strong>ANC &lt; 1.000 / uL (Neutropenia Grado III–IV) o neutropenia febril:</strong> Suspender inmediatamente la quimioterapia, instaurar fluidoterapia y antibioterapia sistémica parenteral de amplio espectro. Una vez recuperada la médula a valores <code>&ge;1.500/uL</code>, <strong>reducir la dosis de vincristina en un 20% a 25%</strong> para todos los ciclos subsiguientes (por ejemplo, descender de <code>0,7 mg/m²</code> a <code>0,5 mg/m²</code>).</li>
+            <li><strong>Recuento de Plaquetas:</strong> Verificar valores <strong>&gt; 100.000 / uL</strong>. Dado que la vincristina estimula la liberación fisiológica de IL-6 e induce trombopoyesis compensatoria, la trombocitopenia aislada es infrecuente.</li>
+          </ul>
         </div>
       </section>
 
@@ -2816,7 +3004,7 @@
           <h2 class="module-title">Susceptibilidad por Especie y Barreras Alo/Xenogénicas</h2>
         </div>
         <p class="module-intro">
-          La propagación natural del CTVT está restringida filogenéticamente a la familia <em>Canidae</em>. Selecciona cada grupo taxonómico para revisar la evidencia clínica, experimental y molecular documentada en el informe, así como el contraste con las otras neoplasias clonales transmisibles conocidas en la naturaleza.
+          La propagación natural del CTVT está restringida filogenéticamente a la familia <em>Canidae</em>. Selecciona cada grupo taxonómico para revisar la evidencia clínica, experimental y molecular, así como el contraste con las otras neoplasias clonales transmisibles conocidas en la naturaleza. No existen dosis de quimioterapia para CTVT en gatos ni en equinos, porcinos, rumiantes, aves o conejos, porque la enfermedad no se instaura de forma natural en esas especies.
         </p>
 
         <div class="species-tabs-bar" role="tablist" aria-label="Pestañas por especie">
@@ -2836,30 +3024,15 @@
 
         <!-- PESTAÑA 1: CANINOS -->
         <div id="tab-caninos" class="species-panel active" role="tabpanel">
-          <div class="grid-2">
-            <div class="info-card">
-              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg> Reservorio y Presentación Clínica en <em>Canis lupus familiaris</em></h3>
-              <p>
-                El perro doméstico constituye el reservorio epidemiológico principal a escala global (endémico en al menos 90 naciones). Se transmite por contacto físico directo de células exfoliables viables durante el coito (trauma por fricción durante el abotonamiento) y mediante conductas sociales de olfateo anogenital, lamido o mordeduras.
-              </p>
-              <ul>
-                <li><strong>Forma Genital:</strong> En machos afecta base del pene, corona y bulbo del glande (<em>bulbus glandis</em>) y fórnix prepucial; en hembras afecta vestíbulo vaginal, tercio caudal de vagina y comisuras vulvares. Pápulas de 1–3 mm que coalescen en masas multilobulares en "coliflor", rojo-cereza y friables, con descarga serosanguinolenta.</li>
-                <li><strong>Forma Extragenital:</strong> Nasal/nasofaríngea (epistaxis, deformidad facial, fístula oronasal), oral (sialorrea hemorrágica, pérdida dental), ocular/conjuntival (quemosis, membrana nictitante) y cutánea/subcutánea.</li>
-                <li><strong>Metástasis:</strong> Baja frecuencia (1% a 17%), mayor en cachorros, seniles, malnutridos o coinfectados (distémper, leishmaniasis, ehrlichiosis).</li>
-              </ul>
-              <span class="cite-pill">Fuente del informe: Epidemiología y Formas Clínicas (Murchison 2014; JAVMA 2021)</span>
-            </div>
-
-            <div class="info-card">
-              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/><path d="m14 4 6 6"/></svg> Diagnóstico, Tratamiento y Dosis Exactas en Caninos <a href="#calculadoraDosis" style="display:inline-flex;align-items:center;gap:0.25rem;margin-left:0.45rem;padding:0.18rem 0.55rem;border-radius:999px;background:rgba(244,63,94,0.14);border:1px solid rgba(244,63,94,0.45);color:var(--accent-rose);font-family:var(--font-mono);font-size:0.72rem;font-weight:600;text-decoration:none;vertical-align:middle;">Ir a la calculadora <svg class="lucide" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></a></h3>
-              <ul>
-                <li><strong>Diagnóstico:</strong> Citología exfoliativa/CAAF (células redondas con vacuolas lipídicas periféricas en "sacabocado"; subtipos linfocitoide, plasmocitoide y mixto), Histopatología H&amp;E (&gt;3–5 mitosis/campo), IHQ (Vimentina+, CD18+, Lisozima+) y PCR confirmatoria <strong>LINE-1/c-myc</strong> (amplicón 340–550 pb).</li>
-                <li><strong>Primera Elección (Sulfato de Vincristina):</strong> <code>0,5 a 0,7 mg/m²</code> IV estricta (o <code>0,025 mg/kg</code> si peso &lt; 10 kg), cada 7 días por 4 a 8 ciclos, manteniendo 1 a 2 sesiones adicionales tras remisión macroscópica y citológica total (éxito &gt;90–95%).</li>
-                <li><strong>Protocolos de Rescate (Quimiorresistencia por P-gp / ABCB1):</strong>
-                  Clorhidrato de Doxorrubicina (<code>30 mg/m²</code> IV o <code>1 mg/kg</code> si &lt; 15 kg, en 30 min cada 21 días por 2–3 ciclos); Sulfato de Vinblastina (<code>0,1 mg/kg</code> o <code>2,0 mg/m²</code> IV semanal por 4–6 ciclos); Lomustina/CCNU (<code>50–60 mg/m²</code> PO cada 21 días por 2–3 ciclos); L-Asparaginasa (<code>400 UI/kg</code> o <code>10.000 UI/m²</code> IM/SC semanal en combinación); Ciclofosfamida (<code>50 mg/m²</code> PO metronómica/coadyuvante, sin eficacia curativa como monofármaco); Radioterapia (<code>10–15 Gy</code> totales).</li>
-              </ul>
-              <span class="cite-pill">Fuente del informe: Tabla de Estrategias Terapéuticas (SciELO; Vet. World 2024)</span>
-            </div>
+          <div class="info-card">
+            <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg> <span>Reservorio Principal: <em>Canis lupus familiaris</em></span></h3>
+            <p>
+              El perro doméstico constituye el reservorio epidemiológico principal a escala global (endémico en al menos 90 naciones). Se transmite por contacto físico directo de células exfoliables viables durante el coito (trauma por fricción durante el abotonamiento) y mediante conductas sociales de olfateo anogenital, lamido o mordeduras.
+            </p>
+            <p class="cross-links">
+              Diagnóstico, tratamiento y dosis en caninos: <a href="#mod-5">05 · Diagnóstico</a>, <a href="#mod-6">06 · Tratamiento</a> y <a href="#calculadoraDosis">Ir a la calculadora <svg class="lucide" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></a>
+            </p>
+            <span class="cite-pill">Fuentes: Murchison 2014; JAVMA 2021; SciELO; Vet. World 2024</span>
           </div>
         </div>
 
@@ -2869,14 +3042,14 @@
             <div class="info-card">
               <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg> Cánidos Silvestres: Susceptibilidad Demostrada</h3>
               <p>
-                El informe documenta transmisión natural y susceptibilidad experimental reproducible en cánidos silvestres emparentados filogenéticamente con el perro doméstico:
+                Hay transmisión natural documentada y susceptibilidad experimental reproducible en cánidos silvestres emparentados filogenéticamente con el perro doméstico:
               </p>
               <ul>
                 <li><strong>Especies susceptibles:</strong> Lobo gris (<em>Canis lupus</em>), coyote (<em>Canis latrans</em>), chacal dorado (<em>Canis aureus</em>) y zorro rojo (<em>Vulpes vulpes</em>).</li>
                 <li><strong>Base inmunobiológica:</strong> La homología funcional del sistema de antígenos leucocitarios (DLA/MHC) y la arquitectura molecular del microambiente tisular posibilitan el injerto celular temporal o progresivo del clon.</li>
-                <li><strong>Diagnóstico y Manejo en Cánidos:</strong> Se emplean los mismos marcadores citomorfológicos y moleculares (reordenamiento LINE-1/c-myc universal del clon). El informe no establece posologías diferenciadas independientes para fauna silvestre distintas a los esquemas descritos para cánidos.</li>
+                <li><strong>Diagnóstico y Manejo en Cánidos:</strong> Se emplean los mismos marcadores citomorfológicos y moleculares (reordenamiento LINE-1/c-myc universal del clon). No hay posologías propias para fauna silvestre distintas de los esquemas descritos para cánidos.</li>
               </ul>
-              <span class="cite-pill">Fuente del informe: Mecanismos de Transmisión Alogénica e Inmunobiología Comparada</span>
+              <span class="cite-pill">Fuente: Mecanismos de Transmisión Alogénica e Inmunobiología Comparada</span>
             </div>
 
             <div class="info-card">
@@ -2884,14 +3057,14 @@
               <div class="alert-box danger" style="margin-top:0">
                 <div class="alert-title">Ausencia de Enfermedad Natural en Felinos</div>
                 <p>
-                  Los felinos domésticos (<em>Felis catus</em>) <strong>no desarrollan la enfermedad en condiciones naturales</strong>. No existen protocolos de dosificación de quimioterapia para CTVT en gatos porque la patología no se instaura naturalmente en esta especie.
+                  Los felinos domésticos (<em>Felis catus</em>) <strong>no desarrollan la enfermedad en condiciones naturales</strong>.
                 </p>
               </div>
               <ul>
                 <li><strong>Evidencia experimental:</strong> Los ensayos de inoculación experimental en gatos inmunocompetentes desencadenan un <strong>rechazo hiperagudo</strong> mediado por la activación del sistema del complemento y la respuesta citotóxica alogénica/xenogénica, impidiendo el asentamiento celular del clon canino.</li>
                 <li><strong>Honestidad diagnóstica:</strong> Ante masas genitales, orales o nasales en felinos, el clínico debe orientar el diagnóstico hacia neoplasias propias de la especie (linfoma, carcinoma de células escamosas, mastocitoma felino) y nunca asumir infección por CTVT.</li>
               </ul>
-              <span class="cite-pill">Fuente del informe: Inmunobiología Comparada (Sección 2)</span>
+              <span class="cite-pill">Fuente: Inmunobiología Comparada (Sección 2)</span>
             </div>
           </div>
         </div>
@@ -2901,77 +3074,80 @@
           <div class="alert-box cyan" style="margin-top:0">
             <div class="alert-title">Declaración de Evidencia en Equinos, Porcinos, Rumiantes, Aves y Conejos</div>
             <p>
-              En especies de interés zootécnico y animales de laboratorio —incluyendo <strong>equinos, porcinos, rumiantes domésticos (bovinos, ovinos, caprinos), aves y conejos</strong>— <strong>no existe registro clínico, experimental ni molecular alguno de infección por CTVT</strong>. En consecuencia, no existen esquemas diagnósticos clínicos ni dosis terapéuticas aplicables para CTVT en dichas especies.
+              En especies de interés zootécnico y animales de laboratorio —incluyendo <strong>equinos, porcinos, rumiantes domésticos (bovinos, ovinos, caprinos), aves y conejos</strong>— <strong>no existe registro clínico, experimental ni molecular alguno de infección por CTVT</strong> ni esquemas diagnósticos clínicos aplicables.
             </p>
           </div>
 
-          <div class="grid-2" style="margin-bottom: 1.15rem;">
-            <div class="info-card">
-              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg> Mecanismos de Resistencia Xenogénica Absoluta</h3>
-              <p>La refractariedad total de equinos, porcinos, rumiantes, aves y lagomorfos obedece a tres barreras biológicas insalvables descritas en el informe:</p>
+          <details class="fold-card">
+            <summary><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m4.2 4.2 15.6 15.6"/></svg> <span>Mecanismos de Resistencia Xenogénica Absoluta</span><svg class="lucide fold-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="fold-body">
+              <p>La refractariedad total de equinos, porcinos, rumiantes, aves y lagomorfos obedece a tres barreras biológicas insalvables:</p>
               <ul>
                 <li><strong>Anticuerpos naturales preexistentes:</strong> Presencia sérica de anticuerpos dirigidos contra determinantes antigénicos glicosilados propios de los carnívoros, tales como epítopos dependientes de <strong>galactosa-alfa-1,3-galactosa</strong>.</li>
                 <li><strong>Lisis por el complemento:</strong> Destrucción celular masiva e inmediata mediada por las vías alterna y clásica del sistema del complemento.</li>
                 <li><strong>Incompatibilidad estromal:</strong> Incapacidad de las citocinas e integrinas del estroma heterólogo para sostener la angiogénesis y vascularización del clon tumoral canino.</li>
               </ul>
-              <span class="cite-pill">Fuente del informe: Barreras Xenogénicas (Sección 2)</span>
+              <span class="cite-pill">Fuente: Barreras Xenogénicas (Sección 2)</span>
             </div>
+          </details>
 
-            <div class="info-card">
-              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><path d="M11 18H8a2 2 0 0 1-2-2V9"/></svg> Contraste con Otros Cánceres Clonales Transmisibles</h3>
+          <details class="fold-card">
+            <summary><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><path d="M11 18H8a2 2 0 0 1-2-2V9"/></svg> <span>Contraste con Otros Cánceres Clonales Transmisibles</span><svg class="lucide fold-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="fold-body">
               <p>El CTVT comparte su naturaleza de neoplasia clonal transmisible únicamente con un grupo muy reducido de enfermedades en la naturaleza:</p>
-              <ul>
-                <li><strong>Tumor Facial del Demonio de Tasmania (DFTD):</strong> Dos linajes independientes (DFTD-1 y DFTD-2) en el marsupial <em>Sarcophilus harrisii</em>. Estirpe de células de Schwann mielinizantes periféricas. Se transmite por mordeduras faciales territoriales; letalidad cercana al 100% por silenciamiento epigenético irreversible de MHC-I, beta2-microglobulina y transportadores TAP-1 y TAP-2.</li>
-                <li><strong>Neoplasia Diseminada en Bivalvos (BTN):</strong> Múltiples linajes clonales en moluscos marinos como almejas (<em>Mya arenaria</em>), mejillones (<em>Mytilus</em>) y berberechos. Procede de hemocitos de la hemolinfa (cuadros similares a leucemias). Se propaga pasivamente por filtración en la columna de agua oceánica sin contacto físico; los invertebrados carecen de inmunidad adaptativa MHC/linfocitos T.</li>
-              </ul>
-              <span class="cite-pill">Fuente del informe: Oncología Comparada (DFTD y BTN)</span>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Característica Comparativa</th>
+                      <th>Tumor Venéreo Transmisible Canino (CTVT)</th>
+                      <th>Tumor Facial del Demonio de Tasmania (DFTD)</th>
+                      <th>Neoplasia Diseminada en Bivalvos (BTN)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Hospedadores Primarios</strong></td>
+                      <td>Cánidos domésticos y silvestres (<em>Canis</em>, <em>Vulpes</em>)</td>
+                      <td>Marsupiales carnívoros (<em>Sarcophilus harrisii</em>)</td>
+                      <td>Moluscos marinos bivalvos: almejas (<em>Mya arenaria</em>), mejillones (<em>Mytilus</em>) y berberechos</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Linajes Clonales</strong></td>
+                      <td>Linaje clonal continuo</td>
+                      <td>Dos linajes independientes (DFTD-1 y DFTD-2)</td>
+                      <td>Múltiples linajes clonales</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Linaje Celular de Origen</strong></td>
+                      <td>Mieloide / Histiocítico mononuclear</td>
+                      <td>Neuroectodérmico (células de Schwann mielinizantes periféricas)</td>
+                      <td>Hemocítico (hemocitos circulantes de la hemolinfa; cuadros similares a leucemias)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Mecanismo de Propagación</strong></td>
+                      <td>Contacto coital directo, olfateo y lamido</td>
+                      <td>Mordeduras faciales intraespecíficas de apareamiento y jerarquía territorial</td>
+                      <td>Suspensión e ingestión pasiva por filtración en la columna de agua oceánica, sin contacto físico</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Estrategia Inmunoevasiva</strong></td>
+                      <td>Inhibición por TGF-beta; represión dinámica reversible de MHC</td>
+                      <td>Silenciamiento epigenético total, persistente e irreversible de MHC-I / beta2-microglobulina (beta2m) / TAP-1 y TAP-2</td>
+                      <td>Ausencia de inmunidad adaptativa linfoide/MHC (sin linfocitos T) en el invertebrado</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Tasa de Letalidad y Curso</strong></td>
+                      <td>Baja letalidad; curación &gt;90% con tratamiento</td>
+                      <td>Letalidad cercana al 100%; colapso demográfico</td>
+                      <td>Variable; mortalidad masiva en bancos de bivalvos</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <span class="cite-pill">Fuente: Oncología Comparada (DFTD y BTN)</span>
             </div>
-          </div>
-
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Característica Comparativa</th>
-                  <th>Tumor Venéreo Transmisible Canino (CTVT)</th>
-                  <th>Tumor Facial del Demonio de Tasmania (DFTD)</th>
-                  <th>Neoplasia Diseminada en Bivalvos (BTN)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Hospedadores Primarios</strong></td>
-                  <td>Cánidos domésticos y silvestres (<em>Canis</em>, <em>Vulpes</em>)</td>
-                  <td>Marsupiales carnívoros (<em>Sarcophilus harrisii</em>)</td>
-                  <td>Moluscos marinos bivalvos (<em>Mya</em>, <em>Mytilus</em>, berberechos)</td>
-                </tr>
-                <tr>
-                  <td><strong>Linaje Celular de Origen</strong></td>
-                  <td>Mieloide / Histiocítico mononuclear</td>
-                  <td>Neuroectodérmico (células de Schwann)</td>
-                  <td>Hemocítico (células circulantes de hemolinfa)</td>
-                </tr>
-                <tr>
-                  <td><strong>Mecanismo de Propagación</strong></td>
-                  <td>Contacto coital directo, olfateo y lamido</td>
-                  <td>Mordeduras intraespecíficas de apareamiento y jerarquía</td>
-                  <td>Suspensión e ingestión pasiva por filtración en agua marina</td>
-                </tr>
-                <tr>
-                  <td><strong>Estrategia Inmunoevasiva</strong></td>
-                  <td>Inhibición por TGF-beta; represión dinámica reversible de MHC</td>
-                  <td>Silenciamiento epigenético total y persistente de MHC-I / beta2m / TAP-1 y TAP-2</td>
-                  <td>Ausencia de inmunidad adaptativa linfoide/MHC en el invertebrado</td>
-                </tr>
-                <tr>
-                  <td><strong>Tasa de Letalidad y Curso</strong></td>
-                  <td>Baja letalidad; curación &gt;90% con tratamiento</td>
-                  <td>Letalidad cercana al 100%; colapso demográfico</td>
-                  <td>Variable; mortalidad masiva en bancos de bivalvos</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          </details>
         </div>
       </section>
 
@@ -3015,7 +3191,7 @@
               <button type="button" id="matchResetBtn" class="icon-btn" style="height:28px; font-size:0.72rem;"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8"/><path d="m18 14 4 4-4 4"/></svg> Barajar</button>
             </div>
             <p style="font-size:0.84rem; color:var(--text-secondary); margin-bottom:0.5rem;">
-              Arrastra cada concepto o fármaco hacia su hallazgo o función exacta del informe (en pantallas táctiles o celular: toca primero el término izquierdo y luego su casilla de destino derecha).
+              Arrastra cada concepto o fármaco hacia su hallazgo o función exacta (en pantallas táctiles o celular: toca primero el término izquierdo y luego su casilla de destino derecha).
             </p>
 
             <div class="match-grid">
@@ -3027,7 +3203,7 @@
               </div>
               <div>
                 <div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--accent-rose); margin-bottom:0.4rem; text-transform:uppercase;">
-                  Función / Hallazgo del Informe
+                  Función / Hallazgo
                 </div>
                 <div id="matchTargetList" style="display:flex; flex-direction:column; gap:0.45rem;"></div>
               </div>
@@ -3044,7 +3220,7 @@
           <h2 class="module-title">Autoevaluación Oncológica (14 Preguntas) y Certificado Oficial AMC VetAtlas</h2>
         </div>
         <p class="module-intro">
-          Responde las 14 preguntas de selección múltiple (opciones barajadas dinámicamente) basadas estrictamente en el informe técnico. Al finalizar podrás revisar el desglose de errores y generar tu certificado de <strong>AMC VetAtlas</strong>.
+          Responde las 14 preguntas de selección múltiple (opciones barajadas dinámicamente) basadas en el contenido de esta guía. Al finalizar podrás revisar el desglose de errores y generar tu certificado de <strong>AMC VetAtlas</strong>.
         </p>
 
         <div class="game-box" id="quizBox">
@@ -3071,7 +3247,7 @@
 
             <div id="quizErrorsWrapper" style="margin-top:1rem; display:none;">
               <h4 style="font-family:var(--font-display); font-size:0.98rem; margin-bottom:0.6rem; color:var(--accent-rose);">
-                Repaso Detallado de Errores Comprobados con el Informe:
+                Repaso Detallado de Errores:
               </h4>
               <div id="quizErrorsList" style="display:flex; flex-direction:column; gap:0.6rem;"></div>
             </div>
@@ -3185,7 +3361,7 @@
     </main>
   </div>
 
-  <!-- PIE DE PÁGINA INSTITUCIONAL CON SELLO Y LAS 87 FUENTES DEL INFORME -->
+  <!-- PIE DE PÁGINA INSTITUCIONAL CON SELLO Y LAS 87 FUENTES -->
   <footer class="site-footer">
     <div class="footer-inner">
       <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-subtle);">
@@ -3204,7 +3380,7 @@
 
       <div>
         <h3 style="font-family:var(--font-display); font-size:0.95rem; margin-bottom:0.6rem; color:var(--text-primary);">
-          Fuentes Bibliográficas y Enlaces Científicos del Informe Técnico (87 Referencias Verificadas)
+          Fuentes Bibliográficas y Enlaces Científicos (87 Referencias Verificadas)
         </h3>
         <div class="sources-grid">
           <a class="source-link-item" href="https://www.intechopen.com/chapters/82773" target="_blank" rel="noopener noreferrer">01. intechopen.com/chapters/82773</a>
@@ -3450,6 +3626,37 @@
       });
     });
 
+    // Pestañas "Tabla resumen / Texto detallado" (patrón ARIA tabs con flechas, Inicio y Fin)
+    document.querySelectorAll('[data-view-tabs]').forEach((group) => {
+      const tabs = Array.from(group.querySelectorAll('[role="tab"]'));
+      const selectTab = (tab, focus) => {
+        tabs.forEach((t) => {
+          const on = t === tab;
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          t.tabIndex = on ? 0 : -1;
+          const panel = document.getElementById(t.getAttribute('aria-controls'));
+          if (panel) panel.hidden = !on;
+        });
+        if (focus) tab.focus();
+      };
+      tabs.forEach((tab, idx) => {
+        tab.addEventListener('click', () => {
+          playSound('click');
+          selectTab(tab, false);
+        });
+        tab.addEventListener('keydown', (e) => {
+          let next = null;
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = tabs[(idx + 1) % tabs.length];
+          else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = tabs[(idx - 1 + tabs.length) % tabs.length];
+          else if (e.key === 'Home') next = tabs[0];
+          else if (e.key === 'End') next = tabs[tabs.length - 1];
+          if (!next) return;
+          e.preventDefault();
+          selectTab(next, true);
+        });
+      });
+    });
+
     /*************************************************************************
      * 4. ANIMACIÓN INMERSIVA EN CANVAS DEL HERO (CÉLULAS CLONALES Y TILs)
      *************************************************************************/
@@ -3601,8 +3808,21 @@
       document.getElementById('heroCellCount').textContent = tumors;
       document.getElementById('heroTilCount').textContent = tils;
 
-      requestAnimationFrame(animateHero);
+      heroRafId = heroOnScreen && !document.hidden ? requestAnimationFrame(animateHero) : null;
     }
+    // El lienzo del hero solo se anima mientras está en pantalla y la pestaña visible
+    let heroOnScreen = true;
+    let heroRafId = null;
+    function startHeroLoop() {
+      if (heroRafId === null && heroOnScreen && !document.hidden) heroRafId = requestAnimationFrame(animateHero);
+    }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        heroOnScreen = entries.some((en) => en.isIntersecting);
+        startHeroLoop();
+      }).observe(heroCanvas);
+    }
+    document.addEventListener('visibilitychange', startHeroLoop);
     animateHero();
 
     document.querySelectorAll('.hero-phase-btn').forEach(btn => {
@@ -3625,6 +3845,7 @@
     let scene3d, camera3d, renderer3d, controls3d;
     let scenePivot, tumorGroup, mucosalBed, prepuceMesh, contactShadowMesh, vascularGroup, scarMesh, cellClusterGroup;
     let floretsInstancedMesh, tilsInstancedMesh, cellCytoplasmIM, cellNucleusIM, cellVacuolesIM;
+    let lobeInstancedMeshes = [];
     let ulcerMeshes = [];
     let floretData = [];
     let coreLobeMeshes = [];
@@ -4031,31 +4252,36 @@
       const regressionProgress = v <= 75 ? 0 : (v - 75) / 25;
 
       // Actualizar lóbulos primarios y depresión apical por necrosis
+      const necroticCol = new THREE.Color(0x4b3832);
+      const regressCol = new THREE.Color(0xf9a8d4);
       coreLobeMeshes.forEach((item) => {
-        const { mesh, isCentral, threshold, basePos } = item;
+        const { im, idx, isCentral, threshold, basePos } = item;
         let localScale = 1;
         if (regressionProgress > 0) {
           const vanish = Math.max(0, Math.min(1, (regressionProgress - threshold * 0.52) / 0.48));
           localScale = 1 - vanish * 0.95;
         }
-        mesh.scale.setScalar(Math.max(0.01, localScale) * (item.baseR || 1)); /* glue G1: keep lobe radius */
-        mesh.visible = localScale > 0.04;
+        // Instancia oculta = escala nula (equivale a visible = false)
+        const lobeScale = localScale > 0.04 ? Math.max(0.01, localScale) * (item.baseR || 1) : 0;
+        const apicalDepression = isCentral ? necrosisFactor * 0.16 : 0;
+        tempObj.position.set(basePos[0], basePos[1] - apicalDepression, basePos[2]);
+        tempObj.rotation.set(0, 0, 0);
+        tempObj.scale.setScalar(lobeScale);
+        tempObj.updateMatrix();
+        im.setMatrixAt(idx, tempObj.matrix);
 
-        if (basePos) {
-          const apicalDepression = isCentral ? necrosisFactor * 0.16 : 0;
-          mesh.position.set(basePos[0], basePos[1] - apicalDepression, basePos[2]);
-        }
-
-        const healthyCol = new THREE.Color(0xffffff);
-        const necroticCol = new THREE.Color(0x4b3832);
-        const regressCol = new THREE.Color(0xf9a8d4);
+        tempColor.setRGB(1, 1, 1);
         if (isCentral && necrosisFactor > 0) {
-          healthyCol.lerp(necroticCol, necrosisFactor * 0.88);
+          tempColor.lerp(necroticCol, necrosisFactor * 0.88);
         }
         if (regressionProgress > 0) {
-          healthyCol.lerp(regressCol, regressionProgress * 0.78);
+          tempColor.lerp(regressCol, regressionProgress * 0.78);
         }
-        mesh.material.color.copy(healthyCol);
+        im.setColorAt(idx, tempColor);
+      });
+      lobeInstancedMeshes.forEach((im) => {
+        im.instanceMatrix.needsUpdate = true;
+        if (im.instanceColor) im.instanceColor.needsUpdate = true;
       });
 
       // Úlceras y coágulos superficiales
@@ -4169,7 +4395,12 @@
       tilsInstancedMesh.instanceMatrix.needsUpdate = true;
     }
 
-    function init3DViewer(OrbitControlsParam, RoomEnvironmentParam) {
+    // Resolución interna del lienzo 3D: tope 1,5x y 1x en pantallas pequeñas
+    function get3DPixelRatio() {
+      return window.innerWidth <= 640 ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
+    }
+
+    function init3DViewer(OrbitControlsParam, mergeGeometriesParam) {
       if (!threeContainer || !THREE) return;
 
       tempVec3 = new THREE.Vector3();
@@ -4185,10 +4416,11 @@
         50
       );
 
-      renderer3d = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+      // Sin MSAA: su coste por píxel es el mayor del visor en GPU por software; sin sombras dinámicas
+      renderer3d = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: 'high-performance' });
+      renderer3d.setPixelRatio(get3DPixelRatio());
       renderer3d.setSize(threeContainer.clientWidth, threeContainer.clientHeight);
-      const isMobileViewport = window.innerWidth <= 640;
-      renderer3d.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobileViewport ? 1.5 : 2));
+      renderer3d.shadowMap.enabled = false;
       renderer3d.outputColorSpace = THREE.SRGBColorSpace;
       renderer3d.toneMapping = THREE.ACESFilmicToneMapping;
       renderer3d.toneMappingExposure = 1.06;
@@ -4196,25 +4428,15 @@
       threeContainer.appendChild(renderer3d.domElement);
       renderer3d.domElement.style.touchAction = 'pan-y';
 
-      // Entorno PMREM (RoomEnvironment) de baja intensidad para reflejos húmedos orgánicos
-      if (RoomEnvironmentParam) {
-        try {
-          const pmremGenerator = new THREE.PMREMGenerator(renderer3d);
-          const envTex = pmremGenerator.fromScene(new RoomEnvironmentParam(), 0.04).texture;
-          scene3d.environment = envTex;
-          pmremGenerator.dispose();
-        } catch (e) {
-          // Respaldo silencioso si PMREM no está disponible
-        }
-      }
-
+      // Sin mapa de entorno PMREM (era el paso más caro por píxel): el brillo húmedo lo dan el
+      // clearcoat y las luces direccionales; la hemisférica compensa la luz ambiental del entorno
       ensureCalloutElement();
 
-      // Iluminación quirúrgica / clínica (principal cálida, rim fría trasera y relleno suave)
-      const hemiLight = new THREE.HemisphereLight(0xfff1f2, 0x1a1025, 0.85);
+      // Iluminación quirúrgica / clínica (principal cálida, rim fría trasera y relleno hemisférico)
+      const hemiLight = new THREE.HemisphereLight(0xfff1f2, 0x6b3a4a, 1.7);
       scene3d.add(hemiLight);
 
-      const keyLight = new THREE.DirectionalLight(0xfff7ed, 1.65);
+      const keyLight = new THREE.DirectionalLight(0xfff7ed, 1.85);
       keyLight.position.set(4.2, 7.5, 5.5);
       scene3d.add(keyLight);
 
@@ -4222,9 +4444,7 @@
       rimLight.position.set(-5.2, 3.4, -4.8);
       scene3d.add(rimLight);
 
-      const fillLight = new THREE.PointLight(0xfecdd3, 0.55, 14);
-      fillLight.position.set(-2.2, 2.2, 4.0);
-      scene3d.add(fillLight);
+      // (Sin luz puntual de relleno: con caída física su aporte a ~5 unidades era casi nulo y su coste por píxel, alto)
 
       scenePivot = new THREE.Group();
       scenePivot.rotation.y = -0.18;
@@ -4232,7 +4452,7 @@
 
       // 1. Escena anatómica: mucosa del glande canino (pars longa glandis) y prepucio retraído en la base
       const { colorTex: mucosaColorTex, alphaTex: mucosaAlphaTex } = createMucosaTextures();
-      const mucosaGeo = new THREE.PlaneGeometry(6.8, 3.6, 84, 52);
+      const mucosaGeo = new THREE.PlaneGeometry(6.8, 3.6, 56, 32);
       mucosaGeo.rotateX(-Math.PI / 2);
       const mPos = mucosaGeo.attributes.position;
       for (let i = 0; i < mPos.count; i++) {
@@ -4253,14 +4473,13 @@
         sheen: 0.38,
         sheenRoughness: 0.4,
         sheenColor: new THREE.Color(0xffccd5),
-        envMapIntensity: 0.38,
         depthWrite: true
       });
       mucosalBed = new THREE.Mesh(mucosaGeo, mucosaMat);
       scenePivot.add(mucosalBed);
 
       // Fórnix y pliegue del prepucio retraído en la base caudal (x ~ -1.85 a -2.75)
-      const prepuceGeo = new THREE.CylinderGeometry(1.18, 1.32, 1.05, 40, 16, true);
+      const prepuceGeo = new THREE.CylinderGeometry(1.18, 1.32, 1.05, 30, 8, true);
       prepuceGeo.rotateZ(Math.PI / 2);
       const pPos = prepuceGeo.attributes.position;
       for (let i = 0; i < pPos.count; i++) {
@@ -4287,7 +4506,6 @@
         clearcoatRoughness: 0.24,
         sheen: 0.35,
         sheenColor: new THREE.Color(0xfda4af),
-        envMapIntensity: 0.32,
         transparent: true,
         opacity: 0.92,
         side: THREE.DoubleSide
@@ -4296,7 +4514,7 @@
       scenePivot.add(prepuceMesh);
 
       // Sombra de contacto húmeda amoldada sobre el dorso del glande bajo el pedículo
-      const shadowGeo = new THREE.PlaneGeometry(2.7, 2.5, 28, 28);
+      const shadowGeo = new THREE.PlaneGeometry(2.7, 2.5, 14, 14);
       shadowGeo.rotateX(-Math.PI / 2);
       const sPos = shadowGeo.attributes.position;
       for (let i = 0; i < sPos.count; i++) {
@@ -4319,7 +4537,7 @@
       scenePivot.add(vascularGroup);
 
       // 2. Placa cicatrizal epitelial amoldada a la curvatura del glande (visible en regresión 70-100%)
-      const scarGeo = new THREE.PlaneGeometry(1.65, 1.45, 32, 32);
+      const scarGeo = new THREE.PlaneGeometry(1.65, 1.45, 18, 18);
       scarGeo.rotateX(-Math.PI / 2);
       const scPos = scarGeo.attributes.position;
       for (let i = 0; i < scPos.count; i++) {
@@ -4330,13 +4548,10 @@
         scPos.setY(i, getMucosaHeight(sx, sz) + 0.008 + dome);
       }
       scarGeo.computeVertexNormals();
-      const scarMat = new THREE.MeshPhysicalMaterial({
+      const scarMat = new THREE.MeshStandardMaterial({
         color: 0xf9b4c4,
-        alphaMap: createMucosaTextures().alphaTex,
-        roughness: 0.36,
-        clearcoat: 0.65,
-        clearcoatRoughness: 0.2,
-        envMapIntensity: 0.35,
+        alphaMap: mucosaAlphaTex,
+        roughness: 0.32,
         transparent: true,
         opacity: 0,
         depthWrite: false
@@ -4351,7 +4566,7 @@
       scenePivot.add(tumorGroup);
 
       // Pedículo fibrovascular corto que emerge de la mucosa dorsal del glande
-      const stalkGeo = new THREE.CylinderGeometry(0.56, 0.42, 0.58, 32, 12);
+      const stalkGeo = new THREE.CylinderGeometry(0.56, 0.42, 0.58, 20, 4);
       const stPos = stalkGeo.attributes.position;
       for (let i = 0; i < stPos.count; i++) {
         const sx = stPos.getX(i);
@@ -4361,13 +4576,11 @@
         stPos.setXYZ(i, sx * (1 + n * 0.14), sy, sz * (1 + n * 0.14));
       }
       computeSeamlessNormals(stalkGeo);
-      const stalkMat = new THREE.MeshPhysicalMaterial({
+      // El pedículo queda casi oculto bajo los lóbulos: material estándar más barato
+      const stalkMat = new THREE.MeshStandardMaterial({
         color: 0xb91c47,
-        roughness: 0.4,
-        metalness: 0.03,
-        clearcoat: 0.68,
-        clearcoatRoughness: 0.18,
-        envMapIntensity: 0.38
+        roughness: 0.34,
+        metalness: 0.03
       });
       const stalkMesh = new THREE.Mesh(stalkGeo, stalkMat);
       stalkMesh.position.set(0, 0.22, 0);
@@ -4386,34 +4599,40 @@
         { pos: [0.02, 0.60, 0.66], r: 0.42, central: false, thr: 0.14, ulcer: false }
       ];
 
-      const smoothLobeGeoPlain = createCauliflowerLobeGeometry(32, 24, 0.18, 0.0, false);
-      const smoothLobeGeoUlcer = createCauliflowerLobeGeometry(32, 24, 0.18, 1.7, true);
+      const smoothLobeGeoPlain = createCauliflowerLobeGeometry(22, 16, 0.18, 0.0, false);
+      const smoothLobeGeoUlcer = createCauliflowerLobeGeometry(22, 16, 0.18, 1.7, true);
+      const lobeMat = new THREE.MeshPhysicalMaterial({
+        color: 0xffffff,
+        vertexColors: true,
+        roughness: 0.38,
+        metalness: 0.03,
+        clearcoat: 0.72,
+        clearcoatRoughness: 0.16,
+        sheen: 0.45,
+        sheenRoughness: 0.35,
+        sheenColor: new THREE.Color(0xffb3c6)
+      });
 
+      // Un InstancedMesh por geometría (lisa / ulcerada); color por instancia para necrosis y regresión
       coreLobeMeshes = [];
-      coreLobeSpecs.forEach((spec) => {
-        const mat = new THREE.MeshPhysicalMaterial({
-          color: 0xffffff,
-          vertexColors: true,
-          roughness: 0.38,
-          metalness: 0.03,
-          clearcoat: 0.72,
-          clearcoatRoughness: 0.16,
-          sheen: 0.45,
-          sheenRoughness: 0.35,
-          sheenColor: new THREE.Color(0xffb3c6),
-          envMapIntensity: 0.42
+      lobeInstancedMeshes = [];
+      [false, true].forEach((withUlcer) => {
+        const specs = coreLobeSpecs.filter((spec) => spec.ulcer === withUlcer);
+        const im = new THREE.InstancedMesh(withUlcer ? smoothLobeGeoUlcer : smoothLobeGeoPlain, lobeMat, specs.length);
+        im.frustumCulled = false;
+        specs.forEach((spec, idx) => {
+          im.setColorAt(idx, tempColor.setRGB(1, 1, 1));
+          coreLobeMeshes.push({
+            im,
+            idx,
+            isCentral: spec.central,
+            threshold: spec.thr,
+            baseR: spec.r,
+            basePos: [...spec.pos]
+          });
         });
-        const m = new THREE.Mesh(spec.ulcer ? smoothLobeGeoUlcer : smoothLobeGeoPlain, mat);
-        m.position.set(spec.pos[0], spec.pos[1], spec.pos[2]);
-        m.userData.baseRadius = spec.r;
-        tumorGroup.add(m);
-        coreLobeMeshes.push({
-          mesh: m,
-          isCentral: spec.central,
-          threshold: spec.thr,
-          baseR: spec.r,
-          basePos: [...spec.pos]
-        });
+        tumorGroup.add(im);
+        lobeInstancedMeshes.push(im);
       });
 
       // 3 úlceras cóncavas con base de fibrina amarillenta y 2 coágulos hemáticos oscuros
@@ -4425,25 +4644,29 @@
         { pos: [-0.28, 1.22, 0.58], rot: [0.3, -0.3, 0.1], scale: 0.11, isClot: true },
         { pos: [0.42, 0.62, 0.68], rot: [0.6, 0.2, -0.1], scale: 0.095, isClot: true }
       ];
-      const ulcerBedGeo = createCauliflowerLobeGeometry(18, 14, 0.15, 3.1, false);
-      ulcerConfigs.forEach((uc) => {
-        const uMat = new THREE.MeshPhysicalMaterial({
-          color: uc.isClot ? 0x2a040d : 0xd6ce9c,
-          roughness: uc.isClot ? 0.18 : 0.62,
-          clearcoat: uc.isClot ? 0.92 : 0.35,
-          clearcoatRoughness: 0.14,
-          envMapIntensity: 0.4
+      const ulcerBedGeo = createCauliflowerLobeGeometry(10, 8, 0.15, 3.1, false);
+      [false, true].forEach((isClot) => {
+        const configs = ulcerConfigs.filter((uc) => uc.isClot === isClot);
+        const uMat = new THREE.MeshStandardMaterial({
+          color: isClot ? 0x2a040d : 0xd6ce9c,
+          roughness: isClot ? 0.16 : 0.6
         });
-        const uMesh = new THREE.Mesh(ulcerBedGeo, uMat);
-        uMesh.position.set(uc.pos[0], uc.pos[1], uc.pos[2]);
-        uMesh.rotation.set(uc.rot[0], uc.rot[1], uc.rot[2]);
-        uMesh.scale.set(uc.scale, uc.scale * (uc.isClot ? 0.55 : 0.28), uc.scale);
+        const uMesh = new THREE.InstancedMesh(ulcerBedGeo, uMat, configs.length);
+        configs.forEach((uc, idx) => {
+          tempObj.position.set(uc.pos[0], uc.pos[1], uc.pos[2]);
+          tempObj.rotation.set(uc.rot[0], uc.rot[1], uc.rot[2]);
+          tempObj.scale.set(uc.scale, uc.scale * (uc.isClot ? 0.55 : 0.28), uc.scale);
+          tempObj.updateMatrix();
+          uMesh.setMatrixAt(idx, tempObj.matrix);
+        });
+        uMesh.instanceMatrix.needsUpdate = true;
+        uMesh.frustumCulled = false;
         tumorGroup.add(uMesh);
         ulcerMeshes.push(uMesh);
       });
 
       // Lóbulos papilares secundarios y terciarios en coliflor (InstancedMesh con normales suaves)
-      const floretGeo = createCauliflowerLobeGeometry(20, 16, 0.2, 2.4, false);
+      const floretGeo = createCauliflowerLobeGeometry(14, 10, 0.2, 2.4, false);
       const floretMat = new THREE.MeshPhysicalMaterial({
         color: 0xffffff,
         vertexColors: true,
@@ -4453,11 +4676,11 @@
         clearcoatRoughness: 0.15,
         sheen: 0.45,
         sheenRoughness: 0.35,
-        sheenColor: new THREE.Color(0xffc2d1),
-        envMapIntensity: 0.42
+        sheenColor: new THREE.Color(0xffc2d1)
       });
       const totalFlorets = 128;
       floretsInstancedMesh = new THREE.InstancedMesh(floretGeo, floretMat, totalFlorets);
+      floretsInstancedMesh.frustumCulled = false;
       floretData = [];
 
       for (let i = 0; i < totalFlorets; i++) {
@@ -4493,12 +4716,11 @@
       scenePivot.add(cellClusterGroup);
 
       // Disco oscuro de microscopía y aro biselado con línea conectora hacia la masa
-      const loupeDiscGeo = new THREE.CylinderGeometry(0.42, 0.42, 0.024, 40);
+      const loupeDiscGeo = new THREE.CylinderGeometry(0.42, 0.42, 0.024, 32);
       loupeDiscGeo.rotateX(Math.PI / 2);
-      const loupeDiscMat = new THREE.MeshStandardMaterial({
+      // Disco casi negro: el sombreado no se aprecia, basta un material sin iluminación
+      const loupeDiscMat = new THREE.MeshBasicMaterial({
         color: 0x090d1a,
-        roughness: 0.25,
-        metalness: 0.1,
         transparent: true,
         opacity: 0.92
       });
@@ -4506,7 +4728,7 @@
       loupeDiscMesh.position.set(0, 0, -0.05);
       cellClusterGroup.add(loupeDiscMesh);
 
-      const loupeRingGeo = new THREE.TorusGeometry(0.43, 0.018, 16, 48);
+      const loupeRingGeo = new THREE.TorusGeometry(0.43, 0.018, 8, 40);
       const loupeRingMat = new THREE.MeshStandardMaterial({
         color: 0xf43f5e,
         emissive: 0x881337,
@@ -4514,33 +4736,35 @@
         roughness: 0.25,
         metalness: 0.5
       });
-      const loupeRingMesh = new THREE.Mesh(loupeRingGeo, loupeRingMat);
-      loupeRingMesh.position.set(0, 0, -0.035);
-      cellClusterGroup.add(loupeRingMesh);
+      loupeRingGeo.translate(0, 0, -0.035);
 
       // Brazo conector desde la periferia de la coliflor hasta la lupa citológica
-      const connectorGeo = new THREE.CylinderGeometry(0.008, 0.008, 0.52, 8);
-      connectorGeo.rotateZ(Math.PI / 2);
-      const connectorMesh = new THREE.Mesh(connectorGeo, loupeRingMat);
-      connectorMesh.position.set(-0.62, -0.08, -0.08);
-      connectorMesh.rotation.z = 0.22;
-      cellClusterGroup.add(connectorMesh);
+      const connectorGeo = new THREE.CylinderGeometry(0.008, 0.008, 0.52, 6, 1, true);
+      connectorGeo.rotateZ(Math.PI / 2 + 0.22);
+      connectorGeo.translate(-0.62, -0.08, -0.08);
+
+      // Aro y brazo comparten material: una sola geometría estática fusionada (1 llamada de dibujo)
+      const ringAndArmGeo = mergeGeometriesParam ? mergeGeometriesParam([loupeRingGeo, connectorGeo], false) : null;
+      if (ringAndArmGeo) {
+        cellClusterGroup.add(new THREE.Mesh(ringAndArmGeo, loupeRingMat));
+      } else {
+        cellClusterGroup.add(new THREE.Mesh(loupeRingGeo, loupeRingMat), new THREE.Mesh(connectorGeo, loupeRingMat));
+      }
 
       // 8 células redondas clonales grandes con núcleo excéntrico y vacuolas periféricas en «sacabocado»
       const cellCount = 8;
       const vacPerCell = 8;
-      const cytoGeo = new THREE.SphereGeometry(0.096, 24, 20);
-      const cytoMat = new THREE.MeshPhysicalMaterial({
+      const cytoGeo = new THREE.SphereGeometry(0.096, 18, 12);
+      const cytoMat = new THREE.MeshStandardMaterial({
         color: 0xf472b6,
         transparent: true,
         opacity: 0.62,
-        roughness: 0.18,
-        clearcoat: 0.85,
+        roughness: 0.16,
         depthWrite: false
       });
       cellCytoplasmIM = new THREE.InstancedMesh(cytoGeo, cytoMat, cellCount);
 
-      const nucGeo = new THREE.SphereGeometry(0.054, 20, 16);
+      const nucGeo = new THREE.SphereGeometry(0.054, 12, 10);
       const nucMat = new THREE.MeshStandardMaterial({
         color: 0x7c3aed,
         emissive: 0x3b0764,
@@ -4548,13 +4772,9 @@
       });
       cellNucleusIM = new THREE.InstancedMesh(nucGeo, nucMat, cellCount);
 
-      const vacGeo = new THREE.SphereGeometry(0.017, 12, 10);
-      const vacMat = new THREE.MeshStandardMaterial({
-        color: 0xffffff,
-        emissive: 0xf8fafc,
-        emissiveIntensity: 0.55,
-        roughness: 0.1
-      });
+      const vacGeo = new THREE.SphereGeometry(0.017, 8, 6);
+      // Vacuolas diminutas casi blancas por emisión: sin iluminación no cambia su aspecto
+      const vacMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
       cellVacuolesIM = new THREE.InstancedMesh(vacGeo, vacMat, cellCount * vacPerCell);
 
       const cellLayout = [
@@ -4606,7 +4826,7 @@
 
       // 5. Linfocitos TILs CD8+ (cian) y NK (violeta) a escala anatómica (~1-2% de la masa) sobre los lóbulos
       const tilCount = 96;
-      const tilGeo = new THREE.SphereGeometry(0.025, 10, 8);
+      const tilGeo = new THREE.SphereGeometry(0.025, 8, 6);
       const tilMat = new THREE.MeshStandardMaterial({
         color: 0xffffff,
         emissive: 0x0e7490,
@@ -4614,6 +4834,7 @@
         roughness: 0.22
       });
       tilsInstancedMesh = new THREE.InstancedMesh(tilGeo, tilMat, tilCount);
+      tilsInstancedMesh.frustumCulled = false;
       tilData = [];
       const cd8Col = new THREE.Color(0x22d3ee);
       const nkCol = new THREE.Color(0xc084fc);
@@ -4747,8 +4968,8 @@
           if (w === 0 || h === 0) return;
           const wasReset = activeFocusKey === 'reset' && !camAnim;
           computeHomeFraming();
+          renderer3d.setPixelRatio(get3DPixelRatio());
           renderer3d.setSize(w, h);
-          renderer3d.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.innerWidth <= 640 ? 1.5 : 2));
           if (wasReset) {
             camera3d.position.copy(homeCamPos);
             if (controls3d) {
@@ -4762,8 +4983,6 @@
         ro.observe(threeContainer);
       }
 
-      apply3DStage(currentSliderVal);
-      coreLobeMeshes.forEach((it) => it.mesh.scale.setScalar(it.baseR));
       apply3DStage(currentSliderVal);
 
       start3DLoop();
@@ -4839,7 +5058,7 @@
       else start3DLoop();
     });
 
-    /* Carga diferida de three.js + OrbitControls + RoomEnvironment con pausa fuera de pantalla */
+    /* Carga diferida de three.js + OrbitControls + BufferGeometryUtils con pausa fuera de pantalla */
     const lab3DSection = document.getElementById('visor-3d');
     let lab3DPromise = null;
     function set3DLabLoading(state) {
@@ -4861,13 +5080,13 @@
       lab3DPromise = Promise.all([
         import('three'),
         import('three/addons/controls/OrbitControls.js').catch(() => ({})),
-        import('three/addons/environments/RoomEnvironment.js').catch(() => ({}))
+        import('three/addons/utils/BufferGeometryUtils.js').catch(() => ({}))
       ])
-        .then(([threeMod, ocMod, envMod]) => {
+        .then(([threeMod, ocMod, bguMod]) => {
           THREE = threeMod;
           init3DViewer(
             ocMod && ocMod.OrbitControls ? ocMod.OrbitControls : undefined,
-            envMod && envMod.RoomEnvironment ? envMod.RoomEnvironment : undefined
+            bguMod && bguMod.mergeGeometries ? bguMod.mergeGeometries : undefined
           );
           if (progressionSlider) progressionSlider.dispatchEvent(new Event('input'));
           set3DLabLoading('ready');
@@ -5051,7 +5270,7 @@
       const bsa = (10.1 * Math.pow(w, 2 / 3)) / 100;
       resBsaVal.textContent = `${bsa.toFixed(3)} m²`;
       const kgThr = drug === 'doxorrubicina' ? 15 : 10;
-      resScaleNote.textContent = ((drug === 'vincristina' || drug === 'doxorrubicina') && w < kgThr ? `Peso < ${kgThr} kg: el informe sugiere dosis por kg` : 'Dosis por m²') + ' · SC = 10,1 × peso^(2/3) / 100 (fórmula canina habitual; el informe no la detalla)';
+      resScaleNote.textContent = ((drug === 'vincristina' || drug === 'doxorrubicina') && w < kgThr ? `Peso < ${kgThr} kg: se sugiere dosis por kg` : 'Dosis por m²') + ' · SC = 10,1 × peso^(2/3) / 100 (fórmula canina habitual; no figura en la tabla de dosis)';
 
       let doseText = '';
       let formulaText = '';
@@ -5111,7 +5330,7 @@
       if (platState === 'low') {
         resAncAction.textContent = 'No cumple el umbral plaquetario';
         resAncAction.style.color = 'var(--accent-rose)';
-        resAncDetail.textContent = 'El informe pide verificar plaquetas > 100.000/µL antes de aplicar; con ≤ 100.000/µL no aplicar hasta reevaluar';
+        resAncDetail.textContent = 'Verificar plaquetas > 100.000/µL antes de aplicar; con ≤ 100.000/µL no aplicar hasta reevaluar';
       } else if (ancState === 'normal') {
         resAncAction.textContent = 'Administrar 100% de la Dosis';
         resAncAction.style.color = 'var(--accent-emerald)';
@@ -5162,7 +5381,7 @@
       },
       {
         title: "Paso 3: Protocolo Terapéutico de Primera Elección",
-        narrative: "Confirmado el CTVT estadio II (T2 N0 M0), ¿cuál es el tratamiento sistémico de primera elección según el informe?",
+        narrative: "Confirmado el CTVT estadio II (T2 N0 M0), ¿cuál es el tratamiento sistémico de primera elección?",
         options: [
           { text: "Sulfato de vincristina a 0,5–0,7 mg/m² IV semanal por 4–8 ciclos, continuando 1–2 semanas tras curación clínica.", correct: true, exp: "Correcto: Es la terapia de primera elección con curación superior al 90%–95%." },
           { text: "Ciclofosfamida oral diaria como único fármaco citostático.", correct: false, exp: "Incorrecto: La ciclofosfamida sola no muestra eficacia curativa frente al CTVT." },
@@ -5278,7 +5497,7 @@
         simTitle.textContent = "¡Simulación Clínica Concluida!";
         simNarrative.textContent = `Has completado el caso clínico oncológico con un puntaje final de ${simScore} / 100 puntos.`;
         simOptionsList.innerHTML = simScore >= 80
-          ? `<div class="alert-box emerald"><div class="alert-title">Excelente manejo clínico</div><p>Tu criterio coincide con los protocolos del informe.</p></div>`
+          ? `<div class="alert-box emerald"><div class="alert-title">Excelente manejo clínico</div><p>Tu criterio coincide con los protocolos de tratamiento.</p></div>`
           : `<div class="alert-box danger"><div class="alert-title">Caso terminado: hay pasos por repasar</div><p>Revisa las explicaciones de cada paso y pulsa «Reiniciar Caso» para intentarlo de nuevo.</p></div>`;
         simNextBtn.style.display = 'none';
       }
