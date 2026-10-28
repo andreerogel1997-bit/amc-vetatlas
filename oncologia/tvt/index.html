@@ -295,11 +295,24 @@
     }
 
     /* HERO INMERSIVO EN CANVAS (COMPACTO Y SEMITRANSPARENTE) */
+    /* Barra fina de progreso de lectura bajo la cabecera */
+    .reading-progress-bar {
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #f43f5e, #06b6d4);
+      z-index: 998;
+      pointer-events: none;
+      transition: width 0.08s linear;
+    }
+
     .hero-section {
       position: relative;
       margin-top: var(--header-h);
       min-height: 540px;
-      height: clamp(520px, 76vh, 720px);
+      height: clamp(540px, 78vh, 740px);
       width: 100%;
       overflow: hidden;
       display: flex;
@@ -321,9 +334,9 @@
       position: relative;
       z-index: 2;
       width: 100%;
-      max-width: 1400px;
+      max-width: 1380px;
       margin: 0 auto;
-      padding: clamp(0.75rem, 2vw, 1.5rem);
+      padding: clamp(0.55rem, 1.3vw, 1rem) clamp(0.75rem, 1.8vw, 1.35rem);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -336,7 +349,7 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 0.5rem;
+      gap: 0.4rem;
       pointer-events: none;
     }
 
@@ -344,14 +357,18 @@
       display: inline-flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.4rem;
-      background: var(--bg-glass);
+      gap: 0.38rem;
+      background: rgba(10, 16, 30, 0.55);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border: 1px solid var(--border-subtle);
-      padding: 0.35rem 0.65rem;
+      padding: 0.26rem 0.6rem;
       border-radius: 999px;
       pointer-events: auto;
+    }
+
+    html[data-theme="light"] .hero-badge-cluster {
+      background: rgba(255, 255, 255, 0.72);
     }
 
     .status-dot {
@@ -370,7 +387,7 @@
 
     .hero-badge-text {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 600;
       color: var(--text-primary);
     }
@@ -378,45 +395,54 @@
     .hero-sim-telemetry {
       display: inline-flex;
       align-items: center;
-      gap: 0.6rem;
-      background: var(--bg-glass);
+      gap: 0.55rem;
+      background: rgba(10, 16, 30, 0.55);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border: 1px solid var(--border-subtle);
-      padding: 0.35rem 0.7rem;
+      padding: 0.26rem 0.62rem;
       border-radius: var(--radius-sm);
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: var(--text-secondary);
       pointer-events: auto;
     }
 
+    html[data-theme="light"] .hero-sim-telemetry {
+      background: rgba(255, 255, 255, 0.72);
+    }
+
     .hero-bottom-grid {
       display: grid;
-      grid-template-columns: 1.25fr 0.95fr;
-      gap: 0.85rem;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 0.65rem;
+      max-width: 1080px;
       align-items: end;
       pointer-events: none;
     }
 
     .hero-glass-panel {
-      background: var(--bg-glass);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(10, 16, 30, 0.54);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: clamp(0.75rem, 1.8vw, 1.15rem);
+      padding: 0.55rem 0.8rem;
       box-shadow: var(--shadow-elevated);
       pointer-events: auto;
     }
 
+    html[data-theme="light"] .hero-glass-panel {
+      background: rgba(255, 255, 255, 0.68);
+    }
+
     .hero-title {
       font-family: var(--font-display);
-      font-size: clamp(1.35rem, 3.2vw, 2.25rem);
+      font-size: clamp(1.18rem, 2.1vw, 1.65rem);
       font-weight: 700;
-      line-height: 1.15;
+      line-height: 1.12;
       letter-spacing: -0.02em;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.22rem;
     }
 
     .hero-title span {
@@ -427,49 +453,54 @@
     }
 
     .hero-lead {
-      font-size: clamp(0.8rem, 1.4vw, 0.92rem);
+      font-size: clamp(0.76rem, 1.1vw, 0.83rem);
       color: var(--text-secondary);
-      line-height: 1.45;
-      margin-bottom: 0.65rem;
+      line-height: 1.34;
+      margin-bottom: 0.38rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .hero-kpi-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0.45rem;
+      gap: 0.32rem;
     }
 
     .hero-kpi {
       background: rgba(15, 23, 42, 0.42);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
-      padding: 0.38rem 0.5rem;
+      padding: 0.2rem 0.35rem;
       text-align: center;
     }
 
     html[data-theme="light"] .hero-kpi {
-      background: rgba(255, 255, 255, 0.62);
+      background: rgba(255, 255, 255, 0.66);
     }
 
     .hero-kpi-val {
       font-family: var(--font-mono);
-      font-size: clamp(0.78rem, 1.5vw, 0.95rem);
+      font-size: clamp(0.72rem, 1.15vw, 0.84rem);
       font-weight: 700;
       color: var(--accent-cyan);
       display: block;
+      line-height: 1.15;
     }
 
     .hero-kpi-lbl {
-      font-size: 0.64rem;
+      font-size: 0.58rem;
       color: var(--text-muted);
       display: block;
-      line-height: 1.2;
+      line-height: 1.12;
     }
 
     .hero-controls-panel {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.36rem;
     }
 
     .hero-ctrl-header {
@@ -477,7 +508,7 @@
       align-items: center;
       justify-content: space-between;
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.66rem;
       color: var(--accent-rose);
       font-weight: 600;
       text-transform: uppercase;
@@ -487,36 +518,37 @@
     .hero-phase-btns {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0.35rem;
+      gap: 0.3rem;
     }
 
     .hero-phase-btn {
-      padding: 0.42rem 0.45rem;
+      padding: 0.32rem 0.38rem;
       border-radius: var(--radius-sm);
-      background: rgba(15, 23, 42, 0.5);
+      background: rgba(15, 23, 42, 0.55);
       border: 1px solid var(--border-subtle);
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 600;
+      color: var(--text-primary);
       cursor: pointer;
       transition: all 0.2s ease;
       text-align: center;
     }
 
     html[data-theme="light"] .hero-phase-btn {
-      background: rgba(255, 255, 255, 0.65);
+      background: rgba(255, 255, 255, 0.75);
     }
 
     .hero-phase-btn.active {
-      background: var(--accent-rose-soft);
-      border-color: var(--accent-rose);
-      color: var(--accent-rose);
+      background: #be123c;
+      border-color: #fb7185;
+      color: #ffffff;
     }
 
     .hero-legend-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.6rem;
-      font-size: 0.7rem;
+      gap: 0.48rem;
+      font-size: 0.65rem;
       color: var(--text-secondary);
       align-items: center;
     }
@@ -905,12 +937,14 @@
     .viewer-3d-wrapper {
       position: relative;
       width: 100%;
-      height: clamp(380px, 55vh, 520px);
-      background: radial-gradient(circle at 50% 45%, #190d24, #070b14 85%);
+      height: clamp(390px, 56vh, 530px);
+      background:
+        radial-gradient(circle at 50% 48%, rgba(44, 14, 28, 0.72) 0%, rgba(14, 10, 22, 0.94) 64%, #05070e 100%);
+      box-shadow: inset 0 0 68px rgba(0, 0, 0, 0.75);
       border-radius: var(--radius-md);
       border: 1px solid var(--border-subtle);
       overflow: hidden;
-      margin-bottom: 1rem;
+      margin-bottom: 0.7rem;
     }
 
     #threeContainer {
@@ -920,7 +954,6 @@
       touch-action: pan-y;
     }
     #threeContainer canvas { touch-action: pan-y; display: block; }
-    .viewer-3d-wrapper { position: relative; }
 
     #threeContainer:active {
       cursor: grabbing;
@@ -928,55 +961,94 @@
 
     .viewer-3d-hud {
       position: absolute;
-      top: 0.75rem;
-      left: 0.75rem;
-      right: 0.75rem;
+      top: 0.65rem;
+      left: 0.65rem;
+      right: 0.65rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      gap: 0.5rem;
+      gap: 0.45rem;
       pointer-events: none;
+      z-index: 3;
     }
 
     .hud-tag {
-      background: rgba(10, 16, 30, 0.78);
+      background: rgba(8, 13, 26, 0.84);
       backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       color: #f8fafc;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 0.35rem 0.65rem;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      padding: 0.32rem 0.62rem;
       border-radius: var(--radius-sm);
       font-family: var(--font-mono);
       font-size: 0.72rem;
       pointer-events: auto;
     }
 
+    #hud3dStageName {
+      color: #fb7185 !important;
+      font-weight: 700;
+    }
+
     .viewer-3d-labels {
-      position: absolute;
-      bottom: 0.75rem;
-      left: 0.75rem;
-      right: 0.75rem;
+      position: static;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
-      pointer-events: none;
+      align-items: center;
+      gap: 0.45rem;
+      margin: 0 0 0.85rem 0;
+      padding: 0;
+      pointer-events: auto;
     }
 
     .label-3d-chip {
-      background: rgba(10, 16, 30, 0.82);
-      color: #f1f5f9;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(15, 23, 42, 0.88);
+      color: #f8fafc;
       border: 1px solid rgba(244, 63, 94, 0.45);
-      padding: 0.25rem 0.55rem;
+      padding: 0.34rem 0.68rem;
       border-radius: 999px;
-      font-size: 0.72rem;
+      font-size: 0.73rem;
       font-weight: 600;
       pointer-events: auto;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
+    html[data-theme="light"] .label-3d-chip {
+      background: #f8fafc;
+      color: #0f172a;
+      border-color: rgba(190, 18, 60, 0.4);
+    }
+
     .label-3d-chip:hover {
-      background: var(--accent-rose);
-      color: #fff;
+      background: #be123c;
+      color: #ffffff;
+      border-color: #fb7185;
+    }
+
+    .label-3d-chip.active {
+      background: #be123c !important;
+      color: #ffffff !important;
+      border-color: #fb7185 !important;
+      box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.28);
+    }
+
+    #sliderPctBadge {
+      background: rgba(244, 63, 94, 0.2);
+      color: #fecdd3;
+      border: 1px solid rgba(251, 113, 133, 0.45);
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    html[data-theme="light"] #sliderPctBadge {
+      background: #ffe4e6;
+      color: #881337;
+      border-color: rgba(159, 18, 57, 0.38);
     }
 
     .slider-control-card {
@@ -1348,8 +1420,55 @@
         display: inline-flex;
       }
       .hero-bottom-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 0.5rem;
       }
+      .hero-glass-panel {
+        padding: 0.48rem 0.68rem;
+      }
+      .hero-title {
+        font-size: 1.14rem;
+        margin-bottom: 0.18rem;
+      }
+      .hero-lead {
+        font-size: 0.74rem;
+        -webkit-line-clamp: 2;
+        margin-bottom: 0.3rem;
+      }
+    }
+
+    /* BLOQUE B: VISOR 3D HUD, CALLOUT Y CHIPS EN ESCRITORIO Y MÓVIL */
+    .viewer-3d-wrapper + .viewer-3d-labels {
+      position: static;
+      margin: 0 0 0.85rem 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .pin-3d-callout {
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform: translate(-50%, -118%);
+      background: rgba(8, 13, 26, 0.9);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #f8fafc;
+      border: 1px solid rgba(251, 113, 133, 0.72);
+      border-radius: 8px;
+      padding: 0.28rem 0.58rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      line-height: 1.25;
+      white-space: nowrap;
+      max-width: min(90%, 420px);
+      pointer-events: none;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.55);
+      z-index: 4;
+      display: none;
     }
 
     @media (max-width: 640px) {
@@ -1362,116 +1481,76 @@
       .back-link span {
         display: none;
       }
-      .hero-section {
-        min-height: 520px;
-        height: 78vh;
-      }
-      .hero-glass-panel {
-        padding: 0.65rem 0.75rem;
-        background: rgba(10, 16, 30, 0.56);
-      }
-      html[data-theme="light"] .hero-glass-panel {
-        background: rgba(255, 255, 255, 0.68);
-      }
-      .hero-title {
-        font-size: 1.2rem;
-        margin-bottom: 0.25rem;
-      }
-      .hero-lead {
-        font-size: 0.76rem;
-        margin-bottom: 0.45rem;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-      .hero-kpi-row {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.3rem;
-      }
-      .hero-kpi {
-        padding: 0.25rem 0.35rem;
-      }
       .species-tabs-bar {
         grid-template-columns: 1fr;
       }
       .stage-markers {
         grid-template-columns: repeat(2, 1fr);
       }
-    }
-    /* BLOQUE B: VISOR 3D HUD Y CHIPS EN ESCRITORIO Y MÓVIL */
-    .viewer-3d-wrapper + .viewer-3d-labels {
-      position: relative;
-      bottom: auto;
-      left: auto;
-      right: auto;
-      z-index: 3;
-      margin-top: -3.35rem;
-      margin-bottom: 1.25rem;
-      padding: 0 0.75rem;
-    }
 
-    .label-3d-chip.active {
-      background: var(--accent-rose);
-      color: #ffffff;
-      border-color: var(--accent-rose);
-      box-shadow: var(--shadow-glow-rose);
-    }
-
-    @media (max-width: 640px) {
       .viewer-3d-wrapper {
         height: clamp(340px, 50vh, 420px);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.55rem;
       }
 
       .viewer-3d-hud {
-        top: 0.45rem;
-        left: 0.45rem;
-        right: 0.45rem;
+        top: 0.42rem;
+        left: 0.42rem;
+        right: 0.42rem;
         flex-wrap: nowrap;
-        gap: 0.3rem;
+        justify-content: space-between;
+        gap: 0.28rem;
         align-items: center;
       }
 
+      .viewer-3d-hud .hud-lbl,
+      .viewer-3d-hud .hud-tils-wrap {
+        display: none;
+      }
+
       .viewer-3d-hud .hud-tag {
-        font-size: 0.68rem;
-        line-height: 1.2;
-        padding: 0.22rem 0.45rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        flex: 1 1 50%;
-        min-width: 0;
+        font-size: 0.64rem;
+        line-height: 1.18;
+        padding: 0.2rem 0.44rem;
+        white-space: normal;
+        overflow: visible;
+        max-width: 68%;
+      }
+
+      .viewer-3d-hud .hud-tag:last-child {
+        max-width: 32%;
+        flex: 0 1 auto;
+        text-align: right;
+      }
+
+      .pin-3d-callout {
+        white-space: normal;
+        text-align: center;
+        font-size: 0.62rem;
+        line-height: 1.22;
+        padding: 0.24rem 0.46rem;
+        max-width: min(80%, 280px);
       }
 
       .viewer-3d-wrapper + .viewer-3d-labels,
       .viewer-3d-labels {
         position: static;
         margin: 0 0 0.75rem 0;
-        padding: 0.15rem 0;
+        padding: 0.1rem 0;
         display: flex;
-        flex-wrap: nowrap;
-        gap: 0.4rem;
-        overflow-x: auto;
-        overscroll-behavior-x: contain;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+        flex-wrap: wrap;
+        gap: 0.35rem;
         pointer-events: auto;
       }
 
-      .viewer-3d-labels::-webkit-scrollbar {
-        display: none;
-      }
-
       .label-3d-chip {
-        flex: 0 0 auto;
-        scroll-snap-align: start;
+        flex: 0 1 auto;
         white-space: nowrap;
-        font-size: 0.72rem;
-        padding: 0.34rem 0.68rem;
+        font-size: 0.68rem;
+        padding: 0.3rem 0.58rem;
       }
     }
+
     /* BLOQUE C: PORTADA (HERO) EN MÓVIL (<= 640px) */
     @media (max-width: 640px) {
       #hero.hero-section {
@@ -1694,15 +1773,15 @@
   <!-- CAJÓN DE NAVEGACIÓN MÓVIL -->
   <nav id="mobileDrawer" class="mobile-drawer" aria-label="Navegación móvil">
     <div class="mobile-nav-grid">
-      <a href="#especies-tabs" class="drawer-link"><span class="mod-num">ESP</span> Especies y Susceptibilidad</a>
       <a href="#mod-1" class="drawer-link"><span class="mod-num">01</span> Naturaleza Clonal y Filogenia</a>
       <a href="#mod-2" class="drawer-link"><span class="mod-num">02</span> Epidemiología y Ecuador</a>
       <a href="#mod-3" class="drawer-link"><span class="mod-num">03</span> Fisiopatología e Inmunoevasión</a>
+      <a href="#visor-3d" class="drawer-link"><span class="mod-num">3D</span> Modelo 3D Interactivo TVT</a>
       <a href="#mod-4" class="drawer-link"><span class="mod-num">04</span> Formas Clínicas y Sistema TNM</a>
       <a href="#mod-5" class="drawer-link"><span class="mod-num">05</span> Citología, IHQ y PCR LINE-1/c-myc</a>
       <a href="#mod-6" class="drawer-link"><span class="mod-num">06</span> Tratamiento, Dosis y Extravasación</a>
       <a href="#mod-7" class="drawer-link"><span class="mod-num">07</span> Pronóstico y Prevención</a>
-      <a href="#visor-3d" class="drawer-link"><span class="mod-num">3D</span> Modelo 3D Interactivo TVT</a>
+      <a href="#especies-tabs" class="drawer-link"><span class="mod-num">ESP</span> Especies y Susceptibilidad</a>
       <a href="#minijuegos" class="drawer-link"><span class="mod-num">SIM</span> Simulador Clínico y Juegos</a>
       <a href="#autoevaluacion" class="drawer-link"><span class="mod-num">TEST</span> Autoevaluación y Certificado</a>
       <a href="#galeria" class="drawer-link"><span class="mod-num">IMG</span> Galería y Fuentes</a>
@@ -1777,15 +1856,15 @@
     <aside class="atlas-sidebar" aria-label="Menú lateral de módulos">
       <div class="sidebar-heading">Módulos Didácticos</div>
       <nav class="sidebar-nav" id="sidebarNav">
-        <a href="#especies-tabs" class="sidebar-link active"><span class="mod-num">ESP</span> Pestañas por Especie</a>
-        <a href="#mod-1" class="sidebar-link"><span class="mod-num">01</span> Biología Clonal y Filogenia</a>
+        <a href="#mod-1" class="sidebar-link active"><span class="mod-num">01</span> Biología Clonal y Filogenia</a>
         <a href="#mod-2" class="sidebar-link"><span class="mod-num">02</span> Epidemiología y Ecuador</a>
         <a href="#mod-3" class="sidebar-link"><span class="mod-num">03</span> Fisiopatología e Inmunidad</a>
+        <a href="#visor-3d" class="sidebar-link"><span class="mod-num">3D</span> Modelo 3D Interactivo</a>
         <a href="#mod-4" class="sidebar-link"><span class="mod-num">04</span> Clínica, Metástasis y TNM</a>
         <a href="#mod-5" class="sidebar-link"><span class="mod-num">05</span> Diagnóstico, IHQ y PCR</a>
         <a href="#mod-6" class="sidebar-link"><span class="mod-num">06</span> Terapéutica y Calculadora</a>
         <a href="#mod-7" class="sidebar-link"><span class="mod-num">07</span> Pronóstico y Prevención</a>
-        <a href="#visor-3d" class="sidebar-link"><span class="mod-num">3D</span> Modelo 3D Interactivo</a>
+        <a href="#especies-tabs" class="sidebar-link"><span class="mod-num">ESP</span> Pestañas por Especie</a>
         <a href="#minijuegos" class="sidebar-link"><span class="mod-num">SIM</span> Simulador y Emparejamiento</a>
         <a href="#autoevaluacion" class="sidebar-link"><span class="mod-num">TEST</span> Autoevaluación + Certificado</a>
         <a href="#galeria" class="sidebar-link"><span class="mod-num">IMG</span> Galería y Bibliografía</a>
@@ -1793,172 +1872,6 @@
     </aside>
 
     <main class="atlas-main">
-
-      <!-- SECCIÓN DE PESTAÑAS POR ESPECIE -->
-      <section id="especies-tabs" class="module-section">
-        <div class="module-header">
-          <span class="module-tag">Oncología Comparada</span>
-          <h2 class="module-title">Susceptibilidad por Especie y Barreras Alo/Xenogénicas</h2>
-        </div>
-        <p class="module-intro">
-          La propagación natural del CTVT está restringida filogenéticamente a la familia <em>Canidae</em>. Selecciona cada grupo taxonómico para revisar la evidencia clínica, experimental y molecular documentada en el informe, así como el contraste con las otras neoplasias clonales transmisibles conocidas en la naturaleza.
-        </p>
-
-        <div class="species-tabs-bar" role="tablist" aria-label="Pestañas por especie">
-          <button type="button" class="species-tab-btn active" role="tab" aria-selected="true" data-species-tab="caninos">
-            <svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306"/></svg>
-            Caninos (Foco Principal)
-          </button>
-          <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-tab="felinos-canidos">
-            <svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>
-            Felinos y Cánidos Silvestres
-          </button>
-          <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-tab="otras-especies">
-            <svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-            Otras Especies y Cánceres Clonales
-          </button>
-        </div>
-
-        <!-- PESTAÑA 1: CANINOS -->
-        <div id="tab-caninos" class="species-panel active" role="tabpanel">
-          <div class="grid-2">
-            <div class="info-card">
-              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg> Reservorio y Presentación Clínica en <em>Canis lupus familiaris</em></h3>
-              <p>
-                El perro doméstico constituye el reservorio epidemiológico principal a escala global (endémico en al menos 90 naciones). Se transmite por contacto físico directo de células exfoliables viables durante el coito (trauma por fricción durante el abotonamiento) y mediante conductas sociales de olfateo anogenital, lamido o mordeduras.
-              </p>
-              <ul>
-                <li><strong>Forma Genital:</strong> En machos afecta base del pene, corona y bulbo del glande (<em>bulbus glandis</em>) y fórnix prepucial; en hembras afecta vestíbulo vaginal, tercio caudal de vagina y comisuras vulvares. Pápulas de 1–3 mm que coalescen en masas multilobulares en "coliflor", rojo-cereza y friables, con descarga serosanguinolenta.</li>
-                <li><strong>Forma Extragenital:</strong> Nasal/nasofaríngea (epistaxis, deformidad facial, fístula oronasal), oral (sialorrea hemorrágica, pérdida dental), ocular/conjuntival (quemosis, membrana nictitante) y cutánea/subcutánea.</li>
-                <li><strong>Metástasis:</strong> Baja frecuencia (1% a 17%), mayor en cachorros, seniles, malnutridos o coinfectados (distémper, leishmaniasis, ehrlichiosis).</li>
-              </ul>
-              <span class="cite-pill">Fuente del informe: Epidemiología y Formas Clínicas (Murchison 2014; JAVMA 2021)</span>
-            </div>
-
-            <div class="info-card">
-              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/><path d="m14 4 6 6"/></svg> Diagnóstico, Tratamiento y Dosis Exactas en Caninos</h3>
-              <ul>
-                <li><strong>Diagnóstico:</strong> Citología exfoliativa/CAAF (células redondas con vacuolas lipídicas periféricas en "sacabocado"; subtipos linfocitoide, plasmocitoide y mixto), Histopatología H&amp;E (&gt;3–5 mitosis/campo), IHQ (Vimentina+, CD18+, Lisozima+) y PCR confirmatoria <strong>LINE-1/c-myc</strong> (amplicón 340–550 pb).</li>
-                <li><strong>Primera Elección (Sulfato de Vincristina):</strong> <code>0,5 a 0,7 mg/m²</code> IV estricta (o <code>0,025 mg/kg</code> si peso &lt; 10 kg), cada 7 días por 4 a 8 ciclos, manteniendo 1 a 2 sesiones adicionales tras remisión macroscópica y citológica total (éxito &gt;90–95%).</li>
-                <li><strong>Protocolos de Rescate (Quimiorresistencia por P-gp / ABCB1):</strong>
-                  Clorhidrato de Doxorrubicina (<code>30 mg/m²</code> IV o <code>1 mg/kg</code> si &lt; 15 kg, en 30 min cada 21 días por 2–3 ciclos); Sulfato de Vinblastina (<code>0,1 mg/kg</code> o <code>2,0 mg/m²</code> IV semanal por 4–6 ciclos); Lomustina/CCNU (<code>50–60 mg/m²</code> PO cada 21 días por 2–3 ciclos); L-Asparaginasa (<code>400 UI/kg</code> o <code>10.000 UI/m²</code> IM/SC semanal en combinación); Ciclofosfamida (<code>50 mg/m²</code> PO metronómica/coadyuvante, sin eficacia curativa como monofármaco); Radioterapia (<code>10–15 Gy</code> totales).</li>
-              </ul>
-              <span class="cite-pill">Fuente del informe: Tabla de Estrategias Terapéuticas (SciELO; Vet. World 2024)</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- PESTAÑA 2: FELINOS Y CÁNIDOS SILVESTRES -->
-        <div id="tab-felinos-canidos" class="species-panel" role="tabpanel">
-          <div class="grid-2">
-            <div class="info-card">
-              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg> Cánidos Silvestres: Susceptibilidad Demostrada</h3>
-              <p>
-                El informe documenta transmisión natural y susceptibilidad experimental reproducible en cánidos silvestres emparentados filogenéticamente con el perro doméstico:
-              </p>
-              <ul>
-                <li><strong>Especies susceptibles:</strong> Lobo gris (<em>Canis lupus</em>), coyote (<em>Canis latrans</em>), chacal dorado (<em>Canis aureus</em>) y zorro rojo (<em>Vulpes vulpes</em>).</li>
-                <li><strong>Base inmunobiológica:</strong> La homología funcional del sistema de antígenos leucocitarios (DLA/MHC) y la arquitectura molecular del microambiente tisular posibilitan el injerto celular temporal o progresivo del clon.</li>
-                <li><strong>Diagnóstico y Manejo en Cánidos:</strong> Se emplean los mismos marcadores citomorfológicos y moleculares (reordenamiento LINE-1/c-myc universal del clon). El informe no establece posologías diferenciadas independientes para fauna silvestre distintas a los esquemas descritos para cánidos.</li>
-              </ul>
-              <span class="cite-pill">Fuente del informe: Mecanismos de Transmisión Alogénica e Inmunobiología Comparada</span>
-            </div>
-
-            <div class="info-card">
-              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m4.2 4.2 15.6 15.6"/></svg> Felinos Domésticos (<em>Felis catus</em>): Resistencia Natural y Rechazo</h3>
-              <div class="alert-box danger" style="margin-top:0">
-                <div class="alert-title">Ausencia de Enfermedad Natural en Felinos</div>
-                <p>
-                  Los felinos domésticos (<em>Felis catus</em>) <strong>no desarrollan la enfermedad en condiciones naturales</strong>. No existen protocolos de dosificación de quimioterapia para CTVT en gatos porque la patología no se instaura naturalmente en esta especie.
-                </p>
-              </div>
-              <ul>
-                <li><strong>Evidencia experimental:</strong> Los ensayos de inoculación experimental en gatos inmunocompetentes desencadenan un <strong>rechazo hiperagudo</strong> mediado por la activación del sistema del complemento y la respuesta citotóxica alogénica/xenogénica, impidiendo el asentamiento celular del clon canino.</li>
-                <li><strong>Honestidad diagnóstica:</strong> Ante masas genitales, orales o nasales en felinos, el clínico debe orientar el diagnóstico hacia neoplasias propias de la especie (linfoma, carcinoma de células escamosas, mastocitoma felino) y nunca asumir infección por CTVT.</li>
-              </ul>
-              <span class="cite-pill">Fuente del informe: Inmunobiología Comparada (Sección 2)</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- PESTAÑA 3: OTRAS ESPECIES Y CÁNCERES TRANSMISIBLES -->
-        <div id="tab-otras-especies" class="species-panel" role="tabpanel">
-          <div class="alert-box cyan" style="margin-top:0">
-            <div class="alert-title">Declaración de Evidencia en Equinos, Porcinos, Rumiantes, Aves y Conejos</div>
-            <p>
-              En especies de interés zootécnico y animales de laboratorio —incluyendo <strong>equinos, porcinos, rumiantes domésticos (bovinos, ovinos, caprinos), aves y conejos</strong>— <strong>no existe registro clínico, experimental ni molecular alguno de infección por CTVT</strong>. En consecuencia, no existen esquemas diagnósticos clínicos ni dosis terapéuticas aplicables para CTVT en dichas especies.
-            </p>
-          </div>
-
-          <div class="grid-2" style="margin-bottom: 1.15rem;">
-            <div class="info-card">
-              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg> Mecanismos de Resistencia Xenogénica Absoluta</h3>
-              <p>La refractariedad total de equinos, porcinos, rumiantes, aves y lagomorfos obedece a tres barreras biológicas insalvables descritas en el informe:</p>
-              <ul>
-                <li><strong>Anticuerpos naturales preexistentes:</strong> Presencia sérica de anticuerpos dirigidos contra determinantes antigénicos glicosilados propios de los carnívoros, tales como epítopos dependientes de <strong>galactosa-alfa-1,3-galactosa</strong>.</li>
-                <li><strong>Lisis por el complemento:</strong> Destrucción celular masiva e inmediata mediada por las vías alterna y clásica del sistema del complemento.</li>
-                <li><strong>Incompatibilidad estromal:</strong> Incapacidad de las citocinas e integrinas del estroma heterólogo para sostener la angiogénesis y vascularización del clon tumoral canino.</li>
-              </ul>
-              <span class="cite-pill">Fuente del informe: Barreras Xenogénicas (Sección 2)</span>
-            </div>
-
-            <div class="info-card">
-              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><path d="M11 18H8a2 2 0 0 1-2-2V9"/></svg> Contraste con Otros Cánceres Clonales Transmisibles</h3>
-              <p>El CTVT comparte su naturaleza de neoplasia clonal transmisible únicamente con un grupo muy reducido de enfermedades en la naturaleza:</p>
-              <ul>
-                <li><strong>Tumor Facial del Demonio de Tasmania (DFTD):</strong> Dos linajes independientes (DFTD-1 y DFTD-2) en el marsupial <em>Sarcophilus harrisii</em>. Estirpe de células de Schwann mielinizantes periféricas. Se transmite por mordeduras faciales territoriales; letalidad cercana al 100% por silenciamiento epigenético irreversible de MHC-I, beta2-microglobulina y transportadores TAP-1 y TAP-2.</li>
-                <li><strong>Neoplasia Diseminada en Bivalvos (BTN):</strong> Múltiples linajes clonales en moluscos marinos como almejas (<em>Mya arenaria</em>), mejillones (<em>Mytilus</em>) y berberechos. Procede de hemocitos de la hemolinfa (cuadros similares a leucemias). Se propaga pasivamente por filtración en la columna de agua oceánica sin contacto físico; los invertebrados carecen de inmunidad adaptativa MHC/linfocitos T.</li>
-              </ul>
-              <span class="cite-pill">Fuente del informe: Oncología Comparada (DFTD y BTN)</span>
-            </div>
-          </div>
-
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Característica Comparativa</th>
-                  <th>Tumor Venéreo Transmisible Canino (CTVT)</th>
-                  <th>Tumor Facial del Demonio de Tasmania (DFTD)</th>
-                  <th>Neoplasia Diseminada en Bivalvos (BTN)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Hospedadores Primarios</strong></td>
-                  <td>Cánidos domésticos y silvestres (<em>Canis</em>, <em>Vulpes</em>)</td>
-                  <td>Marsupiales carnívoros (<em>Sarcophilus harrisii</em>)</td>
-                  <td>Moluscos marinos bivalvos (<em>Mya</em>, <em>Mytilus</em>, berberechos)</td>
-                </tr>
-                <tr>
-                  <td><strong>Linaje Celular de Origen</strong></td>
-                  <td>Mieloide / Histiocítico mononuclear</td>
-                  <td>Neuroectodérmico (células de Schwann)</td>
-                  <td>Hemocítico (células circulantes de hemolinfa)</td>
-                </tr>
-                <tr>
-                  <td><strong>Mecanismo de Propagación</strong></td>
-                  <td>Contacto coital directo, olfateo y lamido</td>
-                  <td>Mordeduras intraespecíficas de apareamiento y jerarquía</td>
-                  <td>Suspensión e ingestión pasiva por filtración en agua marina</td>
-                </tr>
-                <tr>
-                  <td><strong>Estrategia Inmunoevasiva</strong></td>
-                  <td>Inhibición por TGF-beta; represión dinámica reversible de MHC</td>
-                  <td>Silenciamiento epigenético total y persistente de MHC-I / beta2m / TAP-1 y TAP-2</td>
-                  <td>Ausencia de inmunidad adaptativa linfoide/MHC en el invertebrado</td>
-                </tr>
-                <tr>
-                  <td><strong>Tasa de Letalidad y Curso</strong></td>
-                  <td>Baja letalidad; curación &gt;90% con tratamiento</td>
-                  <td>Letalidad cercana al 100%; colapso demográfico</td>
-                  <td>Variable; mortalidad masiva en bancos de bivalvos</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
 
       <!-- MÓDULO 01: DEFINICIÓN, NATURALEZA CLONAL Y FILOGENIA -->
       <section id="mod-1" class="module-section">
@@ -2048,7 +1961,9 @@
             </tbody>
           </table>
         </div>
-      </section><!-- MÓDULO 02: EPIDEMIOLOGÍA GLOBAL Y REALIDAD EN AMÉRICA LATINA Y EL ECUADOR -->
+      </section>
+
+      <!-- MÓDULO 02: EPIDEMIOLOGÍA GLOBAL Y REALIDAD EN AMÉRICA LATINA Y EL ECUADOR -->
       <section id="mod-2" class="module-section">
         <div class="module-header">
           <span class="module-tag">Módulo 02</span>
@@ -2303,6 +2218,57 @@
             <text x="775" y="125" fill="#fda4af" font-family="monospace" font-size="10" text-anchor="middle">Apoptosis del Clon</text>
             <text x="775" y="180" fill="#f1f5f9" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Rechazo Alogénico + Memoria</text>
           </svg>
+        </div>
+      </section>
+
+      <!-- VISOR 3D INTERACTIVO CON THREE.JS -->
+      <section id="visor-3d" class="module-section">
+        <div class="module-header">
+          <span class="module-tag">Visualización 3D · Three.js</span>
+          <h2 class="module-title">Arquitectura Tridimensional del Aloinjerto en Coliflor y Regresión Quimioterapéutica</h2>
+        </div>
+        <p class="module-intro">
+          Explora en 3D la masa multilobular friable en "coliflor" asentada sobre el lecho mucoso vascularizado, junto con el detalle citomorfológico de las células redondas clonales (con sus vacuolas lipídicas periféricas en "sacabocado") y la infiltración de linfocitos T citotóxicos CD8+ / NK. Desliza el control inferior para simular desde la implantación en microerosiones hasta la regresión completa con sulfato de vincristina.
+        </p>
+
+        <div class="viewer-3d-wrapper">
+          <div id="threeContainer" aria-label="Lienzo 3D interactivo del tumor venéreo transmisible"></div>
+
+          <div class="viewer-3d-hud">
+            <div class="hud-tag">
+              <span class="hud-lbl">FASE ACTUAL: </span><strong id="hud3dStageName" style="color:#fb7185">Fase Progresiva (Coliflor Exuberante)</strong>
+            </div>
+            <div class="hud-tag">
+              <span class="hud-lbl">VOLUMEN TUMORAL: </span><strong id="hud3dVolume">100%</strong><span class="hud-tils-wrap"> · <span class="hud-lbl">TILs / IFN-gamma: </span><strong id="hud3dTils">Bajos (TGF-beta alto)</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="viewer-3d-labels">
+          <button type="button" class="label-3d-chip" data-cam-focus="mass"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg> Masa Multilobular en Coliflor</button>
+          <button type="button" class="label-3d-chip" data-cam-focus="cells"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg> Células Redondas y Vacuolas en Sacabocado</button>
+          <button type="button" class="label-3d-chip" data-cam-focus="tils"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg> Infiltrado TILs (CD8+ / NK) y Apoptosis</button>
+          <button type="button" class="label-3d-chip" data-cam-focus="mucosa"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg> Lecho Mucoso y Red Vascular</button>
+          <button type="button" class="label-3d-chip" data-cam-focus="reset"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" x2="14" y1="3" y2="10"/><line x1="3" x2="10" y1="21" y2="14"/></svg> Vista Panorámica</button>
+        </div>
+
+        <div class="slider-control-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+            <label for="progressionSlider" style="font-family:var(--font-display); font-weight:700; font-size:0.92rem;">
+              Línea de Tiempo Biológica y Respuesta a Quimioterapia (Slider 0% a 100%)
+            </label>
+            <span id="sliderPctBadge" class="mono-code">45% · Fase Progresiva (Fase P)</span>
+          </div>
+          <input type="range" id="progressionSlider" class="range-slider" min="0" max="100" value="45" step="1" />
+          <div class="stage-markers">
+            <span>0–20%: Implantación (15–60 d)</span>
+            <span>21–55%: Fase P (TGF-beta / MHC-)</span>
+            <span>56–75%: Fase S + Inicio Vincristina</span>
+            <span>76–100%: Fase R (IFN-gamma / MHC+ / RC)</span>
+          </div>
+          <p id="stage3dDescription" style="margin-top:0.75rem; font-size:0.86rem; color:var(--text-secondary);">
+            En la Fase Progresiva (Fase P), las células clonales proliferan formando lóbulos friables rojo-cereza en coliflor. La secreción de TGF-beta suprime a las células NK y dendríticas mientras MHC-I y MHC-II permanecen reprimidos.
+          </p>
         </div>
       </section>
 
@@ -2807,7 +2773,9 @@
             </ul>
           </div>
         </div>
-      </section><!-- MÓDULO 07: PRONÓSTICO ONCOLÓGICO, PREVENCIÓN Y CONTROL POBLACIONAL -->
+      </section>
+
+      <!-- MÓDULO 07: PRONÓSTICO ONCOLÓGICO, PREVENCIÓN Y CONTROL POBLACIONAL -->
       <section id="mod-7" class="module-section">
         <div class="module-header">
           <span class="module-tag">Módulo 07</span>
@@ -2841,54 +2809,169 @@
         </div>
       </section>
 
-      <!-- VISOR 3D INTERACTIVO CON THREE.JS -->
-      <section id="visor-3d" class="module-section">
+      <!-- SECCIÓN DE PESTAÑAS POR ESPECIE -->
+      <section id="especies-tabs" class="module-section">
         <div class="module-header">
-          <span class="module-tag">Visualización 3D · Three.js</span>
-          <h2 class="module-title">Arquitectura Tridimensional del Aloinjerto en Coliflor y Regresión Quimioterapéutica</h2>
+          <span class="module-tag">Oncología Comparada</span>
+          <h2 class="module-title">Susceptibilidad por Especie y Barreras Alo/Xenogénicas</h2>
         </div>
         <p class="module-intro">
-          Explora en 3D la masa multilobular friable en "coliflor" asentada sobre el lecho mucoso vascularizado, junto con el detalle citomorfológico de las células redondas clonales (con sus vacuolas lipídicas periféricas en "sacabocado") y la infiltración de linfocitos T citotóxicos CD8+ / NK. Desliza el control inferior para simular desde la implantación en microerosiones hasta la regresión completa con sulfato de vincristina.
+          La propagación natural del CTVT está restringida filogenéticamente a la familia <em>Canidae</em>. Selecciona cada grupo taxonómico para revisar la evidencia clínica, experimental y molecular documentada en el informe, así como el contraste con las otras neoplasias clonales transmisibles conocidas en la naturaleza.
         </p>
 
-        <div class="viewer-3d-wrapper">
-          <div id="threeContainer" aria-label="Lienzo 3D interactivo del tumor venéreo transmisible"></div>
+        <div class="species-tabs-bar" role="tablist" aria-label="Pestañas por especie">
+          <button type="button" class="species-tab-btn active" role="tab" aria-selected="true" data-species-tab="caninos">
+            <svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306"/></svg>
+            Caninos (Foco Principal)
+          </button>
+          <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-tab="felinos-canidos">
+            <svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>
+            Felinos y Cánidos Silvestres
+          </button>
+          <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-tab="otras-especies">
+            <svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            Otras Especies y Cánceres Clonales
+          </button>
+        </div>
 
-          <div class="viewer-3d-hud">
-            <div class="hud-tag">
-              FASE ACTUAL: <strong id="hud3dStageName" style="color:var(--accent-rose)">Fase Progresiva (Coliflor Exuberante)</strong>
+        <!-- PESTAÑA 1: CANINOS -->
+        <div id="tab-caninos" class="species-panel active" role="tabpanel">
+          <div class="grid-2">
+            <div class="info-card">
+              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg> Reservorio y Presentación Clínica en <em>Canis lupus familiaris</em></h3>
+              <p>
+                El perro doméstico constituye el reservorio epidemiológico principal a escala global (endémico en al menos 90 naciones). Se transmite por contacto físico directo de células exfoliables viables durante el coito (trauma por fricción durante el abotonamiento) y mediante conductas sociales de olfateo anogenital, lamido o mordeduras.
+              </p>
+              <ul>
+                <li><strong>Forma Genital:</strong> En machos afecta base del pene, corona y bulbo del glande (<em>bulbus glandis</em>) y fórnix prepucial; en hembras afecta vestíbulo vaginal, tercio caudal de vagina y comisuras vulvares. Pápulas de 1–3 mm que coalescen en masas multilobulares en "coliflor", rojo-cereza y friables, con descarga serosanguinolenta.</li>
+                <li><strong>Forma Extragenital:</strong> Nasal/nasofaríngea (epistaxis, deformidad facial, fístula oronasal), oral (sialorrea hemorrágica, pérdida dental), ocular/conjuntival (quemosis, membrana nictitante) y cutánea/subcutánea.</li>
+                <li><strong>Metástasis:</strong> Baja frecuencia (1% a 17%), mayor en cachorros, seniles, malnutridos o coinfectados (distémper, leishmaniasis, ehrlichiosis).</li>
+              </ul>
+              <span class="cite-pill">Fuente del informe: Epidemiología y Formas Clínicas (Murchison 2014; JAVMA 2021)</span>
             </div>
-            <div class="hud-tag">
-              VOLUMEN TUMORAL: <strong id="hud3dVolume">100%</strong> · TILs / IFN-gamma: <strong id="hud3dTils">Bajos (TGF-beta alto)</strong>
+
+            <div class="info-card">
+              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/><path d="m14 4 6 6"/></svg> Diagnóstico, Tratamiento y Dosis Exactas en Caninos <a href="#calculadoraDosis" style="display:inline-flex;align-items:center;gap:0.25rem;margin-left:0.45rem;padding:0.18rem 0.55rem;border-radius:999px;background:rgba(244,63,94,0.14);border:1px solid rgba(244,63,94,0.45);color:var(--accent-rose);font-family:var(--font-mono);font-size:0.72rem;font-weight:600;text-decoration:none;vertical-align:middle;">Ir a la calculadora <svg class="lucide" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></a></h3>
+              <ul>
+                <li><strong>Diagnóstico:</strong> Citología exfoliativa/CAAF (células redondas con vacuolas lipídicas periféricas en "sacabocado"; subtipos linfocitoide, plasmocitoide y mixto), Histopatología H&amp;E (&gt;3–5 mitosis/campo), IHQ (Vimentina+, CD18+, Lisozima+) y PCR confirmatoria <strong>LINE-1/c-myc</strong> (amplicón 340–550 pb).</li>
+                <li><strong>Primera Elección (Sulfato de Vincristina):</strong> <code>0,5 a 0,7 mg/m²</code> IV estricta (o <code>0,025 mg/kg</code> si peso &lt; 10 kg), cada 7 días por 4 a 8 ciclos, manteniendo 1 a 2 sesiones adicionales tras remisión macroscópica y citológica total (éxito &gt;90–95%).</li>
+                <li><strong>Protocolos de Rescate (Quimiorresistencia por P-gp / ABCB1):</strong>
+                  Clorhidrato de Doxorrubicina (<code>30 mg/m²</code> IV o <code>1 mg/kg</code> si &lt; 15 kg, en 30 min cada 21 días por 2–3 ciclos); Sulfato de Vinblastina (<code>0,1 mg/kg</code> o <code>2,0 mg/m²</code> IV semanal por 4–6 ciclos); Lomustina/CCNU (<code>50–60 mg/m²</code> PO cada 21 días por 2–3 ciclos); L-Asparaginasa (<code>400 UI/kg</code> o <code>10.000 UI/m²</code> IM/SC semanal en combinación); Ciclofosfamida (<code>50 mg/m²</code> PO metronómica/coadyuvante, sin eficacia curativa como monofármaco); Radioterapia (<code>10–15 Gy</code> totales).</li>
+              </ul>
+              <span class="cite-pill">Fuente del informe: Tabla de Estrategias Terapéuticas (SciELO; Vet. World 2024)</span>
             </div>
           </div>
         </div>
 
-        <div class="viewer-3d-labels">
-          <button type="button" class="label-3d-chip" data-cam-focus="mass"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg> Masa Multilobular en Coliflor</button>
-          <button type="button" class="label-3d-chip" data-cam-focus="cells"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg> Células Redondas y Vacuolas en Sacabocado</button>
-          <button type="button" class="label-3d-chip" data-cam-focus="tils"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg> Infiltrado TILs (CD8+ / NK) y Apoptosis</button>
-          <button type="button" class="label-3d-chip" data-cam-focus="mucosa"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg> Lecho Mucoso y Red Vascular</button>
-          <button type="button" class="label-3d-chip" data-cam-focus="reset"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" x2="14" y1="3" y2="10"/><line x1="3" x2="10" y1="21" y2="14"/></svg> Vista Panorámica</button>
+        <!-- PESTAÑA 2: FELINOS Y CÁNIDOS SILVESTRES -->
+        <div id="tab-felinos-canidos" class="species-panel" role="tabpanel">
+          <div class="grid-2">
+            <div class="info-card">
+              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg> Cánidos Silvestres: Susceptibilidad Demostrada</h3>
+              <p>
+                El informe documenta transmisión natural y susceptibilidad experimental reproducible en cánidos silvestres emparentados filogenéticamente con el perro doméstico:
+              </p>
+              <ul>
+                <li><strong>Especies susceptibles:</strong> Lobo gris (<em>Canis lupus</em>), coyote (<em>Canis latrans</em>), chacal dorado (<em>Canis aureus</em>) y zorro rojo (<em>Vulpes vulpes</em>).</li>
+                <li><strong>Base inmunobiológica:</strong> La homología funcional del sistema de antígenos leucocitarios (DLA/MHC) y la arquitectura molecular del microambiente tisular posibilitan el injerto celular temporal o progresivo del clon.</li>
+                <li><strong>Diagnóstico y Manejo en Cánidos:</strong> Se emplean los mismos marcadores citomorfológicos y moleculares (reordenamiento LINE-1/c-myc universal del clon). El informe no establece posologías diferenciadas independientes para fauna silvestre distintas a los esquemas descritos para cánidos.</li>
+              </ul>
+              <span class="cite-pill">Fuente del informe: Mecanismos de Transmisión Alogénica e Inmunobiología Comparada</span>
+            </div>
+
+            <div class="info-card">
+              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m4.2 4.2 15.6 15.6"/></svg> Felinos Domésticos (<em>Felis catus</em>): Resistencia Natural y Rechazo</h3>
+              <div class="alert-box danger" style="margin-top:0">
+                <div class="alert-title">Ausencia de Enfermedad Natural en Felinos</div>
+                <p>
+                  Los felinos domésticos (<em>Felis catus</em>) <strong>no desarrollan la enfermedad en condiciones naturales</strong>. No existen protocolos de dosificación de quimioterapia para CTVT en gatos porque la patología no se instaura naturalmente en esta especie.
+                </p>
+              </div>
+              <ul>
+                <li><strong>Evidencia experimental:</strong> Los ensayos de inoculación experimental en gatos inmunocompetentes desencadenan un <strong>rechazo hiperagudo</strong> mediado por la activación del sistema del complemento y la respuesta citotóxica alogénica/xenogénica, impidiendo el asentamiento celular del clon canino.</li>
+                <li><strong>Honestidad diagnóstica:</strong> Ante masas genitales, orales o nasales en felinos, el clínico debe orientar el diagnóstico hacia neoplasias propias de la especie (linfoma, carcinoma de células escamosas, mastocitoma felino) y nunca asumir infección por CTVT.</li>
+              </ul>
+              <span class="cite-pill">Fuente del informe: Inmunobiología Comparada (Sección 2)</span>
+            </div>
+          </div>
         </div>
 
-        <div class="slider-control-card">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
-            <label for="progressionSlider" style="font-family:var(--font-display); font-weight:700; font-size:0.92rem;">
-              Línea de Tiempo Biológica y Respuesta a Quimioterapia (Slider 0% a 100%)
-            </label>
-            <span id="sliderPctBadge" class="mono-code">45% · Fase Progresiva (Fase P)</span>
+        <!-- PESTAÑA 3: OTRAS ESPECIES Y CÁNCERES TRANSMISIBLES -->
+        <div id="tab-otras-especies" class="species-panel" role="tabpanel">
+          <div class="alert-box cyan" style="margin-top:0">
+            <div class="alert-title">Declaración de Evidencia en Equinos, Porcinos, Rumiantes, Aves y Conejos</div>
+            <p>
+              En especies de interés zootécnico y animales de laboratorio —incluyendo <strong>equinos, porcinos, rumiantes domésticos (bovinos, ovinos, caprinos), aves y conejos</strong>— <strong>no existe registro clínico, experimental ni molecular alguno de infección por CTVT</strong>. En consecuencia, no existen esquemas diagnósticos clínicos ni dosis terapéuticas aplicables para CTVT en dichas especies.
+            </p>
           </div>
-          <input type="range" id="progressionSlider" class="range-slider" min="0" max="100" value="45" step="1" />
-          <div class="stage-markers">
-            <span>0–20%: Implantación (15–60 d)</span>
-            <span>21–55%: Fase P (TGF-beta / MHC-)</span>
-            <span>56–75%: Fase S + Inicio Vincristina</span>
-            <span>76–100%: Fase R (IFN-gamma / MHC+ / RC)</span>
+
+          <div class="grid-2" style="margin-bottom: 1.15rem;">
+            <div class="info-card">
+              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg> Mecanismos de Resistencia Xenogénica Absoluta</h3>
+              <p>La refractariedad total de equinos, porcinos, rumiantes, aves y lagomorfos obedece a tres barreras biológicas insalvables descritas en el informe:</p>
+              <ul>
+                <li><strong>Anticuerpos naturales preexistentes:</strong> Presencia sérica de anticuerpos dirigidos contra determinantes antigénicos glicosilados propios de los carnívoros, tales como epítopos dependientes de <strong>galactosa-alfa-1,3-galactosa</strong>.</li>
+                <li><strong>Lisis por el complemento:</strong> Destrucción celular masiva e inmediata mediada por las vías alterna y clásica del sistema del complemento.</li>
+                <li><strong>Incompatibilidad estromal:</strong> Incapacidad de las citocinas e integrinas del estroma heterólogo para sostener la angiogénesis y vascularización del clon tumoral canino.</li>
+              </ul>
+              <span class="cite-pill">Fuente del informe: Barreras Xenogénicas (Sección 2)</span>
+            </div>
+
+            <div class="info-card">
+              <h3 class="info-card-title"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><path d="M11 18H8a2 2 0 0 1-2-2V9"/></svg> Contraste con Otros Cánceres Clonales Transmisibles</h3>
+              <p>El CTVT comparte su naturaleza de neoplasia clonal transmisible únicamente con un grupo muy reducido de enfermedades en la naturaleza:</p>
+              <ul>
+                <li><strong>Tumor Facial del Demonio de Tasmania (DFTD):</strong> Dos linajes independientes (DFTD-1 y DFTD-2) en el marsupial <em>Sarcophilus harrisii</em>. Estirpe de células de Schwann mielinizantes periféricas. Se transmite por mordeduras faciales territoriales; letalidad cercana al 100% por silenciamiento epigenético irreversible de MHC-I, beta2-microglobulina y transportadores TAP-1 y TAP-2.</li>
+                <li><strong>Neoplasia Diseminada en Bivalvos (BTN):</strong> Múltiples linajes clonales en moluscos marinos como almejas (<em>Mya arenaria</em>), mejillones (<em>Mytilus</em>) y berberechos. Procede de hemocitos de la hemolinfa (cuadros similares a leucemias). Se propaga pasivamente por filtración en la columna de agua oceánica sin contacto físico; los invertebrados carecen de inmunidad adaptativa MHC/linfocitos T.</li>
+              </ul>
+              <span class="cite-pill">Fuente del informe: Oncología Comparada (DFTD y BTN)</span>
+            </div>
           </div>
-          <p id="stage3dDescription" style="margin-top:0.75rem; font-size:0.86rem; color:var(--text-secondary);">
-            En la Fase Progresiva (Fase P), las células clonales proliferan formando lóbulos friables rojo-cereza en coliflor. La secreción de TGF-beta suprime a las células NK y dendríticas mientras MHC-I y MHC-II permanecen reprimidos.
-          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Característica Comparativa</th>
+                  <th>Tumor Venéreo Transmisible Canino (CTVT)</th>
+                  <th>Tumor Facial del Demonio de Tasmania (DFTD)</th>
+                  <th>Neoplasia Diseminada en Bivalvos (BTN)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Hospedadores Primarios</strong></td>
+                  <td>Cánidos domésticos y silvestres (<em>Canis</em>, <em>Vulpes</em>)</td>
+                  <td>Marsupiales carnívoros (<em>Sarcophilus harrisii</em>)</td>
+                  <td>Moluscos marinos bivalvos (<em>Mya</em>, <em>Mytilus</em>, berberechos)</td>
+                </tr>
+                <tr>
+                  <td><strong>Linaje Celular de Origen</strong></td>
+                  <td>Mieloide / Histiocítico mononuclear</td>
+                  <td>Neuroectodérmico (células de Schwann)</td>
+                  <td>Hemocítico (células circulantes de hemolinfa)</td>
+                </tr>
+                <tr>
+                  <td><strong>Mecanismo de Propagación</strong></td>
+                  <td>Contacto coital directo, olfateo y lamido</td>
+                  <td>Mordeduras intraespecíficas de apareamiento y jerarquía</td>
+                  <td>Suspensión e ingestión pasiva por filtración en agua marina</td>
+                </tr>
+                <tr>
+                  <td><strong>Estrategia Inmunoevasiva</strong></td>
+                  <td>Inhibición por TGF-beta; represión dinámica reversible de MHC</td>
+                  <td>Silenciamiento epigenético total y persistente de MHC-I / beta2m / TAP-1 y TAP-2</td>
+                  <td>Ausencia de inmunidad adaptativa linfoide/MHC en el invertebrado</td>
+                </tr>
+                <tr>
+                  <td><strong>Tasa de Letalidad y Curso</strong></td>
+                  <td>Baja letalidad; curación &gt;90% con tratamiento</td>
+                  <td>Letalidad cercana al 100%; colapso demográfico</td>
+                  <td>Variable; mortalidad masiva en bancos de bivalvos</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -3540,14 +3623,16 @@
      *************************************************************************/
     const threeContainer = document.getElementById('threeContainer');
     let scene3d, camera3d, renderer3d, controls3d;
-    let scenePivot, tumorGroup, mucosalBed, vascularGroup, scarMesh, cellClusterGroup;
+    let scenePivot, tumorGroup, mucosalBed, prepuceMesh, contactShadowMesh, vascularGroup, scarMesh, cellClusterGroup;
     let floretsInstancedMesh, tilsInstancedMesh, cellCytoplasmIM, cellNucleusIM, cellVacuolesIM;
+    let ulcerMeshes = [];
     let floretData = [];
     let coreLobeMeshes = [];
     let tilData = [];
     let currentSliderVal = 45;
     let activeFocusKey = 'reset';
     let is3DVisible = false;
+    let userInteracting3D = false;
     let raf3DId = null;
     let lastFrameTime = 0;
     let calloutEl = null;
@@ -3559,55 +3644,235 @@
     let tempObj = null;
     let tempColor = null;
 
-    function pseudoNoise3D(x, y, z) {
-      const s1 = Math.sin(x * 3.7 + y * 2.3 + z * 4.1) * 0.5;
-      const s2 = Math.cos(x * 7.1 - y * 5.3 + z * 6.7) * 0.28;
-      const s3 = Math.sin(x * 13.3 + y * 11.7 - z * 9.2) * 0.14;
-      return s1 + s2 + s3;
+    // Ruido fBm 3D suave multicapa (sin artefactos angulares)
+    function fbmNoise3D(x, y, z) {
+      const n1 = Math.sin(x * 2.3 + y * 1.9 + z * 2.7) * Math.cos(y * 2.1 - z * 1.8) * 0.52;
+      const n2 = Math.sin(x * 4.8 - y * 4.2 + z * 5.1) * Math.cos(x * 3.7 + z * 4.4) * 0.28;
+      const n3 = Math.cos(x * 9.3 + y * 8.6 - z * 7.9) * 0.12;
+      const n4 = Math.sin(x * 16.2 - y * 14.5 + z * 15.1) * 0.05;
+      return n1 + n2 + n3 + n4;
     }
 
+    // Perfil anatómico de la porción libre del pene canino (pars longa glandis + bulbus glandis caudal)
+    // En (x = 0, z = 0) la altura dorsal es exactamente y = 0 para anclar el pedículo sin flotar.
     function getMucosaHeight(x, z) {
-      const r2 = x * x + z * z;
-      const centralFlatten = Math.min(1, r2 / 2.2);
-      const wave = (Math.sin(x * 1.15) * Math.cos(z * 1.1) * 0.16 +
-                    Math.sin(x * 2.4 - z * 1.9) * 0.06) * centralFlatten;
-      const dish = -0.025 * r2;
-      return wave + dish;
+      const bulbarSwelling = 0.14 * Math.exp(-Math.pow((x + 1.05) / 1.15, 2));
+      const baseBulgeAtZero = 0.14 * Math.exp(-Math.pow(1.05 / 1.15, 2));
+      const cranialTaper = x > 0.4 ? -0.055 * Math.pow(x - 0.4, 1.55) : 0;
+      const caudalDrop = x < -2.1 ? -0.08 * Math.pow(-2.1 - x, 1.4) : 0;
+      const localRadius = Math.max(0.55, 1.18 + bulbarSwelling * 1.3 - Math.max(0, x - 0.3) * 0.14);
+      const zn = z / localRadius;
+      const glansArch = -0.58 * zn * zn - 0.12 * zn * zn * zn * zn;
+      const longitudinalFolds = Math.sin(z * 9.5 + Math.sin(x * 2.2) * 0.4) * 0.012 * Math.exp(-zn * zn * 1.2);
+      const mucosalRugae = Math.sin(x * 3.4 + z * 2.1) * 0.01;
+      const zeroFoldOffset = Math.sin(0) * 0.01;
+      return (bulbarSwelling - baseBulgeAtZero) + cranialTaper + caudalDrop + glansArch + longitudinalFolds + (mucosalRugae - zeroFoldOffset);
     }
 
-    function createRadialAlphaTexture() {
+    // Texturas procedurales de mucosa peniana húmeda, red capilar arborizada y máscara suave sin bordes duros
+    function createMucosaTextures() {
+      const size = 512;
+      const colCanvas = document.createElement('canvas');
+      colCanvas.width = size;
+      colCanvas.height = size;
+      const ctx = colCanvas.getContext('2d');
+
+      // Fondo rosado húmedo de mucosa genital sana
+      const baseGrad = ctx.createLinearGradient(0, 0, size, size);
+      baseGrad.addColorStop(0, '#d86c82');
+      baseGrad.addColorStop(0.5, '#e58397');
+      baseGrad.addColorStop(1, '#c95b72');
+      ctx.fillStyle = baseGrad;
+      ctx.fillRect(0, 0, size, size);
+
+      // Pliegues longitudinales suaves de la pars longa glandis
+      for (let i = 0; i < 36; i++) {
+        const y = (i / 36) * size;
+        ctx.fillStyle = i % 2 === 0 ? 'rgba(255, 218, 226, 0.09)' : 'rgba(136, 19, 55, 0.08)';
+        ctx.fillRect(0, y, size, size / 42);
+      }
+
+      // Halo hiperémico submucoso alrededor de la implantación pedunculada central
+      const hyperGrad = ctx.createRadialGradient(size * 0.5, size * 0.5, 8, size * 0.5, size * 0.5, size * 0.24);
+      hyperGrad.addColorStop(0, 'rgba(159, 18, 57, 0.72)');
+      hyperGrad.addColorStop(0.5, 'rgba(190, 18, 60, 0.34)');
+      hyperGrad.addColorStop(1, 'rgba(190, 18, 60, 0)');
+      ctx.fillStyle = hyperGrad;
+      ctx.fillRect(0, 0, size, size);
+
+      // Red vascular superficial fina (arteriolas y vénulas arborizadas integradas en la mucosa)
+      const cx = size * 0.5;
+      const cy = size * 0.5;
+      for (let v = 0; v < 28; v++) {
+        const isVenule = v % 4 === 0;
+        const baseAngle = (v / 28) * Math.PI * 2 + (v % 3) * 0.08;
+        ctx.save();
+        ctx.strokeStyle = isVenule ? 'rgba(110, 38, 92, 0.36)' : 'rgba(168, 16, 48, 0.46)';
+        ctx.lineWidth = isVenule ? 1.6 : 1.15;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        let px = cx + Math.cos(baseAngle) * 14;
+        let py = cy + Math.sin(baseAngle) * 14;
+        ctx.moveTo(px, py);
+        for (let s = 1; s <= 7; s++) {
+          const r = 14 + s * 28;
+          const wiggle = Math.sin(s * 1.4 + v) * 0.14;
+          const nx = cx + Math.cos(baseAngle + wiggle) * r;
+          const ny = cy + Math.sin(baseAngle + wiggle) * r * 0.78;
+          ctx.quadraticCurveTo((px + nx) * 0.5 + Math.sin(v + s) * 4, (py + ny) * 0.5, nx, ny);
+          // Ramificaciones dicotómicas finas
+          if (s === 3 || s === 5) {
+            ctx.moveTo(nx, ny);
+            const bAng = baseAngle + wiggle + (s === 3 ? 0.38 : -0.35);
+            ctx.lineTo(nx + Math.cos(bAng) * 26, ny + Math.sin(bAng) * 20);
+            ctx.moveTo(nx, ny);
+          }
+          px = nx;
+          py = ny;
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      const colorTex = new THREE.CanvasTexture(colCanvas);
+      colorTex.colorSpace = THREE.SRGBColorSpace;
+      colorTex.needsUpdate = true;
+
+      // Máscara alfa elíptica para desvanecer los extremos del órgano sin bordes cortados
+      const alphaCanvas = document.createElement('canvas');
+      alphaCanvas.width = 256;
+      alphaCanvas.height = 256;
+      const aCtx = alphaCanvas.getContext('2d');
+      aCtx.fillStyle = '#000000';
+      aCtx.fillRect(0, 0, 256, 256);
+      aCtx.save();
+      aCtx.translate(128, 128);
+      aCtx.scale(1.18, 0.82);
+      const aGrad = aCtx.createRadialGradient(0, 0, 36, 0, 0, 108);
+      aGrad.addColorStop(0, 'rgba(255,255,255,1)');
+      aGrad.addColorStop(0.68, 'rgba(255,255,255,0.96)');
+      aGrad.addColorStop(0.88, 'rgba(255,255,255,0.38)');
+      aGrad.addColorStop(1, 'rgba(0,0,0,0)');
+      aCtx.fillStyle = aGrad;
+      aCtx.beginPath();
+      aCtx.arc(0, 0, 112, 0, Math.PI * 2);
+      aCtx.fill();
+      aCtx.restore();
+
+      const alphaTex = new THREE.CanvasTexture(alphaCanvas);
+      alphaTex.needsUpdate = true;
+
+      return { colorTex, alphaTex };
+    }
+
+    // Textura radial oscura para sombra de contacto húmeda bajo la masa
+    function createSoftShadowTexture() {
       const c = document.createElement('canvas');
-      c.width = 256;
-      c.height = 256;
+      c.width = 128;
+      c.height = 128;
       const ctx = c.getContext('2d');
-      const grad = ctx.createRadialGradient(128, 128, 28, 128, 128, 124);
-      grad.addColorStop(0, 'rgba(255,255,255,1)');
-      grad.addColorStop(0.55, 'rgba(255,255,255,0.92)');
-      grad.addColorStop(0.82, 'rgba(255,255,255,0.35)');
-      grad.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 256, 256);
+      const g = ctx.createRadialGradient(64, 64, 8, 64, 64, 60);
+      g.addColorStop(0, 'rgba(20, 2, 10, 0.78)');
+      g.addColorStop(0.55, 'rgba(28, 4, 14, 0.42)');
+      g.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, 128, 128);
       const tex = new THREE.CanvasTexture(c);
       tex.needsUpdate = true;
       return tex;
     }
 
-    function displaceOrganicGeometry(geo, amp) {
+    // Promedia normales por posición de vértice para eliminar cualquier costura o faceta
+    function computeSeamlessNormals(geo) {
+      geo.computeVertexNormals();
       const pos = geo.attributes.position;
+      const norm = geo.attributes.normal;
+      const map = new Map();
+      for (let i = 0; i < pos.count; i++) {
+        const key = `${Math.round(pos.getX(i) * 1000)}_${Math.round(pos.getY(i) * 1000)}_${Math.round(pos.getZ(i) * 1000)}`;
+        let acc = map.get(key);
+        if (!acc) {
+          acc = [0, 0, 0];
+          map.set(key, acc);
+        }
+        acc[0] += norm.getX(i);
+        acc[1] += norm.getY(i);
+        acc[2] += norm.getZ(i);
+      }
+      for (let i = 0; i < pos.count; i++) {
+        const key = `${Math.round(pos.getX(i) * 1000)}_${Math.round(pos.getY(i) * 1000)}_${Math.round(pos.getZ(i) * 1000)}`;
+        const acc = map.get(key);
+        const len = Math.hypot(acc[0], acc[1], acc[2]) || 1;
+        norm.setXYZ(i, acc[0] / len, acc[1] / len, acc[2] / len);
+      }
+      norm.needsUpdate = true;
+      return geo;
+    }
+
+    // Genera geometría lobulada suave con ruido fBm, variación cromática por vértice y cráteres de úlcera
+    function createCauliflowerLobeGeometry(wSegs, hSegs, amp, seedOffset = 0, withUlcer = false) {
+      const geo = new THREE.SphereGeometry(1, wSegs, hSegs);
+      const pos = geo.attributes.position;
+      const colors = new Float32Array(pos.count * 3);
+
+      const cCherry = new THREE.Color(0xd91b42);
+      const cFleshyPink = new THREE.Color(0xf47294);
+      const cHemorrhagic = new THREE.Color(0x4a0616);
+      const cFibrin = new THREE.Color(0xd9d2a9);
+      const cUlcerRim = new THREE.Color(0x990f2b);
+      const cWork = new THREE.Color();
+
       for (let i = 0; i < pos.count; i++) {
         const vx = pos.getX(i);
         const vy = pos.getY(i);
         const vz = pos.getZ(i);
-        const len = Math.sqrt(vx * vx + vy * vy + vz * vz) || 1;
+        const len = Math.hypot(vx, vy, vz) || 1;
         const nx = vx / len;
         const ny = vy / len;
         const nz = vz / len;
-        const n = pseudoNoise3D(nx * 1.8, ny * 1.8, nz * 1.8);
-        const factor = 1 + n * amp;
-        pos.setXYZ(i, vx * factor, vy * factor, vz * factor);
+
+        const n = fbmNoise3D(nx * 1.9 + seedOffset, ny * 1.9 + seedOffset, nz * 1.9);
+        const finePapilla = Math.abs(Math.sin(nx * 8.5 + nz * 7.2) * Math.cos(ny * 8.1)) * 0.08;
+        let factor = 1 + n * amp + finePapilla;
+
+        // Cráter ulcerado superficial con lecho de fibrina y reborde hiperémico
+        let ulcerBlend = 0;
+        let rimBlend = 0;
+        if (withUlcer) {
+          const dUlcer = Math.hypot(nx - 0.28, ny - 0.86, nz - 0.38);
+          if (dUlcer < 0.34) {
+            const uNorm = 1 - dUlcer / 0.34;
+            factor -= Math.sin(uNorm * Math.PI * 0.5) * 0.16;
+            ulcerBlend = Math.max(0, (uNorm - 0.25) / 0.75);
+            rimBlend = Math.exp(-Math.pow((dUlcer - 0.27) / 0.07, 2));
+          }
+        }
+
+        pos.setXYZ(i, nx * factor, ny * factor, nz * factor);
+
+        // Variación orgánica por vértice: rosa carnoso, rojo cereza, focos vinosos y borde luminoso
+        cWork.copy(cCherry);
+        const pinkMix = Math.max(0, Math.min(1, 0.35 + n * 0.55 + Math.max(0, ny) * 0.2));
+        cWork.lerp(cFleshyPink, pinkMix * 0.52);
+
+        const hemSignal = Math.sin(nx * 5.2 - ny * 4.4 + nz * 6.1 + seedOffset);
+        if (hemSignal > 0.42) {
+          cWork.lerp(cHemorrhagic, (hemSignal - 0.42) * 1.15);
+        }
+        if (rimBlend > 0.05) {
+          cWork.lerp(cUlcerRim, rimBlend * 0.75);
+        }
+        if (ulcerBlend > 0.05) {
+          cWork.lerp(cFibrin, ulcerBlend * 0.85);
+        }
+
+        colors[i * 3] = cWork.r;
+        colors[i * 3 + 1] = cWork.g;
+        colors[i * 3 + 2] = cWork.b;
       }
-      geo.computeVertexNormals();
-      return geo;
+
+      geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      return computeSeamlessNormals(geo);
     }
 
     function computeHomeFraming() {
@@ -3618,23 +3883,30 @@
       camera3d.aspect = aspect;
       camera3d.updateProjectionMatrix();
 
-      // Caja envolvente de referencia de la masa en coliflor (alto ~2.35, ancho ~3.3)
-      const boxHeight = 2.45;
-      const boxWidth = 3.45;
+      // Esfera envolvente de la masa y lecho anatómico para encuadre proporcional
+      const boundingRadius = 1.62;
       const fovRad = THREE.MathUtils.degToRad(camera3d.fov);
-      const isCompact = w <= 640;
-      const targetFillH = isCompact ? 0.54 : 0.52;
-
-      const distV = (boxHeight / targetFillH) / (2 * Math.tan(fovRad / 2));
       const hFov = 2 * Math.atan(Math.tan(fovRad / 2) * aspect);
-      const distH = (boxWidth / (isCompact ? 0.72 : 0.58)) / (2 * Math.tan(hFov / 2));
-      const dist = Math.max(distV, distH, 4.6);
+
+      let dist;
+      if (aspect < 1) {
+        // Celular vertical: la masa ocupa ~65% del ancho y nunca se corta
+        const targetFillW = 0.65;
+        dist = (boundingRadius * 2) / (targetFillW * 2 * Math.tan(hFov / 2));
+      } else {
+        // Escritorio/horizontal: la masa ocupa ~45% del alto
+        const targetFillH = 0.46;
+        const distV = (boundingRadius * 1.65) / (targetFillH * 2 * Math.tan(fovRad / 2));
+        const distH = (boundingRadius * 2.1) / (0.62 * 2 * Math.tan(hFov / 2));
+        dist = Math.max(distV, distH);
+      }
+      dist = Math.max(4.5, Math.min(8.2, dist));
 
       if (!homeCamPos) homeCamPos = new THREE.Vector3();
       if (!homeTarget) homeTarget = new THREE.Vector3();
 
-      homeTarget.set(0, 0.85, 0);
-      homeCamPos.set(0, 1.85, dist);
+      homeTarget.set(0, aspect < 1 ? 0.76 : 0.72, 0);
+      homeCamPos.set(0.25, aspect < 1 ? 1.65 : 1.55, dist);
     }
 
     function ensureCalloutElement() {
@@ -3643,58 +3915,33 @@
       if (!wrapper) return;
       calloutEl = document.createElement('div');
       calloutEl.className = 'pin-3d-callout';
-      calloutEl.style.cssText = [
-        'position:absolute',
-        'left:0',
-        'top:0',
-        'transform:translate(-50%,-125%)',
-        'background:rgba(10,16,30,0.88)',
-        'backdrop-filter:blur(8px)',
-        '-webkit-backdrop-filter:blur(8px)',
-        'color:#f8fafc',
-        'border:1px solid rgba(244,63,94,0.65)',
-        'border-radius:8px',
-        'padding:0.28rem 0.58rem',
-        'font-family:var(--font-mono)',
-        'font-size:0.68rem',
-        'font-weight:600',
-        'line-height:1.25',
-        'white-space:nowrap',
-        'max-width:92%',
-        'overflow:hidden',
-        'text-overflow:ellipsis',
-        'pointer-events:none',
-        'box-shadow:0 8px 20px rgba(0,0,0,0.55)',
-        'z-index:4',
-        'display:none'
-      ].join(';');
       wrapper.appendChild(calloutEl);
     }
 
     const FOCUS_CONFIG = {
       mass: {
         label: 'Masa multilobular en coliflor · Base pedunculada friable',
-        anchor: [0, 1.35, 0.35],
-        camOffset: [0.3, 0.85, 4.3],
-        lookAt: [0, 1.05, 0]
+        anchor: [0, 1.32, 0.35],
+        camOffset: [0.25, 1.15, 4.15],
+        lookAt: [0, 0.82, 0]
       },
       cells: {
         label: 'Clon CTVT · Núcleo y vacuolas lipídicas en «sacabocado»',
-        anchor: [0.88, 1.26, 0.92],
-        camOffset: [1.55, 1.48, 2.15],
-        lookAt: [0.78, 1.18, 0.78]
+        anchor: [1.38, 1.16, 0.78],
+        camOffset: [1.46, 1.12, 2.28],
+        lookAt: [1.36, 1.02, 0.68]
       },
       tils: {
         label: 'Infiltrado TIL (CD8+ cian / NK violeta) · IFN-γ y apoptosis',
-        anchor: [-0.95, 1.18, 0.85],
-        camOffset: [-1.95, 1.65, 3.1],
-        lookAt: [-0.55, 1.02, 0.45]
+        anchor: [-0.88, 0.92, 0.74],
+        camOffset: [-1.72, 1.28, 2.75],
+        lookAt: [-0.58, 0.78, 0.42]
       },
       mucosa: {
         label: 'Lecho mucoso ondulado · Plexo vascular y base pedunculada',
-        anchor: [0.45, 0.08, 0.95],
-        camOffset: [1.2, 0.72, 3.65],
-        lookAt: [0, 0.18, 0.35]
+        anchor: [0.35, 0.08, 0.75],
+        camOffset: [0.85, 0.95, 3.65],
+        lookAt: [0, 0.38, 0.2]
       }
     };
 
@@ -3705,10 +3952,11 @@
       }
       const cfg = FOCUS_CONFIG[activeFocusKey];
       const scaleY = tumorGroup ? tumorGroup.scale.y : 1;
+      const useFixedAnchor = activeFocusKey === 'mucosa' || activeFocusKey === 'cells';
       tempVec3.set(
-        cfg.anchor[0] * (activeFocusKey === 'mucosa' ? 1 : Math.max(0.45, scaleY)),
-        cfg.anchor[1] * (activeFocusKey === 'mucosa' ? 1 : Math.max(0.25, scaleY)),
-        cfg.anchor[2] * (activeFocusKey === 'mucosa' ? 1 : Math.max(0.45, scaleY))
+        cfg.anchor[0] * (useFixedAnchor ? 1 : Math.max(0.48, scaleY)),
+        cfg.anchor[1] * (useFixedAnchor ? 1 : Math.max(0.32, scaleY)),
+        cfg.anchor[2] * (useFixedAnchor ? 1 : Math.max(0.48, scaleY))
       );
       scenePivot.updateMatrixWorld();
       tempVec3.applyMatrix4(scenePivot.matrixWorld);
@@ -3718,11 +3966,23 @@
         calloutEl.style.display = 'none';
         return;
       }
+
+      calloutEl.style.display = 'block';
       const w = threeContainer.clientWidth;
       const h = threeContainer.clientHeight;
-      const x = Math.min(w - 24, Math.max(24, (tempVec3.x * 0.5 + 0.5) * w));
-      const y = Math.min(h - 24, Math.max(46, (-tempVec3.y * 0.5 + 0.5) * h));
-      calloutEl.style.display = 'block';
+      const boxW = calloutEl.offsetWidth || 210;
+      const boxH = calloutEl.offsetHeight || 34;
+      const padX = 10;
+      const minX = boxW * 0.5 + padX;
+      const maxX = Math.max(minX, w - boxW * 0.5 - padX);
+      const minY = boxH + 46;
+      const maxY = Math.max(minY, h - 12);
+
+      const rawX = (tempVec3.x * 0.5 + 0.5) * w;
+      const rawY = (-tempVec3.y * 0.5 + 0.5) * h;
+      const x = Math.min(maxX, Math.max(minX, rawX));
+      const y = Math.min(maxY, Math.max(minY, rawY));
+
       calloutEl.style.left = `${x}px`;
       calloutEl.style.top = `${y}px`;
     }
@@ -3731,141 +3991,176 @@
       if (!THREE || !tumorGroup || !floretsInstancedMesh || !tilsInstancedMesh) return;
       const v = Math.max(0, Math.min(100, Number(val) || 0));
 
-      // Escala anclada estrictamente en la base mucosa (y = 0)
+      // Escala anclada en la mucosa dorsal del glande (y = 0)
       let baseScaleXZ = 1;
       let baseScaleY = 1;
       if (v <= 20) {
         const t = v / 20;
-        baseScaleXZ = 0.26 + t * 0.36;
-        baseScaleY = 0.20 + t * 0.38;
+        baseScaleXZ = 0.24 + t * 0.36;
+        baseScaleY = 0.16 + t * 0.38;
       } else if (v <= 55) {
         const t = (v - 20) / 35;
-        baseScaleXZ = 0.62 + t * 0.38;
-        baseScaleY = 0.58 + t * 0.42;
+        baseScaleXZ = 0.60 + t * 0.40;
+        baseScaleY = 0.54 + t * 0.46;
       } else if (v <= 75) {
         const t = (v - 55) / 20;
-        baseScaleXZ = 1.0 - t * 0.08;
-        baseScaleY = 1.0 - t * 0.10;
+        baseScaleXZ = 1.0 - t * 0.06;
+        baseScaleY = 1.0 - t * 0.09;
       } else {
         const t = (v - 75) / 25;
-        baseScaleXZ = 0.92 * (1 - t * 0.72);
-        baseScaleY = 0.90 * Math.pow(1 - t, 1.45);
+        baseScaleXZ = 0.94 * (1 - t * 0.78);
+        baseScaleY = 0.91 * Math.pow(1 - t, 1.55);
       }
 
       tumorGroup.position.set(0, 0, 0);
       tumorGroup.scale.set(
-        Math.max(0.18, baseScaleXZ),
-        Math.max(0.04, baseScaleY),
-        Math.max(0.18, baseScaleXZ)
+        Math.max(0.14, baseScaleXZ),
+        Math.max(0.025, baseScaleY),
+        Math.max(0.14, baseScaleXZ)
       );
 
-      // Nivel de necrosis central (56-75%) y apoptosis regresiva (76-100%)
-      const necrosisFactor = v <= 50 ? 0 : v <= 75 ? (v - 50) / 25 : Math.max(0, 1 - (v - 75) / 18);
+      // Sombra de contacto proporcional al volumen tumoral
+      if (contactShadowMesh) {
+        const shScale = Math.max(0.28, baseScaleXZ * 1.05);
+        contactShadowMesh.scale.set(shScale, 1, shScale);
+        contactShadowMesh.material.opacity = Math.max(0.12, Math.min(0.85, baseScaleY * 0.85));
+      }
+
+      // Necrosis central visible en la cima (56-75%) y regresión (76-100%)
+      const necrosisFactor = v <= 52 ? 0 : v <= 75 ? (v - 52) / 23 : Math.max(0, 1 - (v - 75) / 16);
       const regressionProgress = v <= 75 ? 0 : (v - 75) / 25;
 
-      // Actualizar lóbulos centrales y pedículo
+      // Actualizar lóbulos primarios y depresión apical por necrosis
       coreLobeMeshes.forEach((item) => {
-        const { mesh, isCentral, threshold } = item;
+        const { mesh, isCentral, threshold, basePos } = item;
         let localScale = 1;
         if (regressionProgress > 0) {
-          const vanish = Math.max(0, Math.min(1, (regressionProgress - threshold * 0.55) / 0.45));
-          localScale = 1 - vanish * 0.92;
+          const vanish = Math.max(0, Math.min(1, (regressionProgress - threshold * 0.52) / 0.48));
+          localScale = 1 - vanish * 0.95;
         }
         mesh.scale.setScalar(Math.max(0.01, localScale) * (item.baseR || 1)); /* glue G1: keep lobe radius */
-        mesh.visible = localScale > 0.05;
+        mesh.visible = localScale > 0.04;
 
-        if (isCentral) {
-          tempColor.setHex(0xdbeafe);
-          const healthyCol = new THREE.Color(0xe11d48);
-          const necroticCol = new THREE.Color(0x26050d);
-          const regressCol = new THREE.Color(0x881337);
-          healthyCol.lerp(necroticCol, necrosisFactor * 0.88);
-          healthyCol.lerp(regressCol, regressionProgress * 0.65);
-          mesh.material.color.copy(healthyCol);
+        if (basePos) {
+          const apicalDepression = isCentral ? necrosisFactor * 0.16 : 0;
+          mesh.position.set(basePos[0], basePos[1] - apicalDepression, basePos[2]);
         }
+
+        const healthyCol = new THREE.Color(0xffffff);
+        const necroticCol = new THREE.Color(0x4b3832);
+        const regressCol = new THREE.Color(0xf9a8d4);
+        if (isCentral && necrosisFactor > 0) {
+          healthyCol.lerp(necroticCol, necrosisFactor * 0.88);
+        }
+        if (regressionProgress > 0) {
+          healthyCol.lerp(regressCol, regressionProgress * 0.78);
+        }
+        mesh.material.color.copy(healthyCol);
+      });
+
+      // Úlceras y coágulos superficiales
+      ulcerMeshes.forEach((uMesh) => {
+        uMesh.visible = v >= 22 && regressionProgress < 0.65;
       });
 
       // Actualizar papilas de la coliflor (InstancedMesh)
-      const cherryBase = new THREE.Color(0xf43f5e);
-      const cherryDeep = new THREE.Color(0xbe123c);
-      const necroticDark = new THREE.Color(0x23040b);
-      const apoptoticPale = new THREE.Color(0x9f1239);
+      const cPapillaBright = new THREE.Color(0xfb7185);
+      const cPapillaCherry = new THREE.Color(0xe11d48);
+      const cPapillaVinous = new THREE.Color(0x881337);
+      const cNecroticSummit = new THREE.Color(0x3d2c29);
+      const cRegressionPink = new THREE.Color(0xfbcfe8);
 
       for (let i = 0; i < floretData.length; i++) {
         const fd = floretData[i];
         let s = fd.radius;
         if (v <= 20) {
-          const sprout = Math.max(0.15, Math.min(1, (v / 20) * 1.2 - fd.tier * 0.18));
+          const sprout = Math.max(0.18, Math.min(1, (v / 20) * 1.22 - fd.tier * 0.16));
           s *= sprout;
         }
         if (regressionProgress > 0) {
-          const apop = Math.max(0, Math.min(1, (regressionProgress - fd.apopOrder * 0.65) / 0.35));
+          const apop = Math.max(0, Math.min(1, (regressionProgress - fd.apopOrder * 0.62) / 0.38));
           s *= (1 - apop);
         }
 
-        tempObj.position.copy(fd.pos);
+        // En fase estacionaria (56-75%), la cima central se deprime formando el cráter necrótico
+        const summitSink = fd.centrality > 0.42 ? necrosisFactor * fd.centrality * 0.22 : 0;
+        tempObj.position.set(fd.pos.x, fd.pos.y - summitSink, fd.pos.z);
         tempObj.rotation.copy(fd.rot);
-        tempObj.scale.set(s, s * 0.92, s);
+        tempObj.scale.set(s, s * (1 - summitSink * 0.65), s);
         tempObj.updateMatrix();
         floretsInstancedMesh.setMatrixAt(i, tempObj.matrix);
 
-        tempColor.copy(fd.tier === 2 ? cherryBase : cherryDeep);
-        if (fd.centrality > 0.35 && necrosisFactor > 0) {
-          tempColor.lerp(necroticDark, necrosisFactor * fd.centrality);
+        if (fd.hemorrhagic) {
+          tempColor.copy(cPapillaVinous);
+        } else {
+          tempColor.copy(fd.tier === 2 ? cPapillaBright : cPapillaCherry);
+        }
+        if (fd.centrality > 0.32 && necrosisFactor > 0) {
+          tempColor.lerp(cNecroticSummit, Math.min(1, necrosisFactor * fd.centrality * 1.25));
         }
         if (regressionProgress > 0) {
-          tempColor.lerp(apoptoticPale, regressionProgress * 0.7);
+          tempColor.lerp(cRegressionPink, regressionProgress * 0.82);
         }
         floretsInstancedMesh.setColorAt(i, tempColor);
       }
       floretsInstancedMesh.instanceMatrix.needsUpdate = true;
       if (floretsInstancedMesh.instanceColor) floretsInstancedMesh.instanceColor.needsUpdate = true;
 
-      // Cicatriz epitelial mucosa en remisión (visible entre 75% y 100%)
+      // Cicatriz epitelial mucosa rosa pálida integrada a la curvatura del glande (72-100%)
       if (scarMesh) {
         scarMesh.visible = v >= 70;
-        scarMesh.material.opacity = v < 70 ? 0 : Math.min(0.92, (v - 70) / 28);
-        const scarScale = 0.65 + Math.max(0, (v - 70) / 30) * 0.45;
+        scarMesh.material.opacity = v < 70 ? 0 : Math.min(0.88, (v - 70) / 28);
+        const scarScale = 0.68 + Math.max(0, (v - 70) / 30) * 0.32;
         scarMesh.scale.set(scarScale, 1, scarScale);
       }
 
-      // Infiltración de linfocitos TILs CD8+ y NK
-      let activeTilRatio = 0.05;
+      // Linfocitos TILs CD8+ (cian) y NK (violeta) a escala real (~1.2% de la masa) sobre los lóbulos y margen
+      let activeTilRatio = 0.08;
       let infiltrateBlend = 0.0;
       if (v <= 20) {
-        activeTilRatio = 0.05;
+        activeTilRatio = 0.08;
         infiltrateBlend = 0.0;
       } else if (v <= 55) {
-        activeTilRatio = 0.12;
-        infiltrateBlend = 0.12;
+        activeTilRatio = 0.16;
+        infiltrateBlend = 0.18;
       } else if (v <= 75) {
         const t = (v - 55) / 20;
-        activeTilRatio = 0.18 + t * 0.38;
-        infiltrateBlend = 0.22 + t * 0.42;
+        activeTilRatio = 0.26 + t * 0.42;
+        infiltrateBlend = 0.35 + t * 0.40;
       } else {
         const t = (v - 75) / 25;
-        activeTilRatio = 0.56 + Math.sin(t * Math.PI * 0.85) * 0.44;
-        infiltrateBlend = 0.65 + t * 0.35;
+        activeTilRatio = 0.72 + Math.sin(t * Math.PI * 0.85) * 0.28;
+        infiltrateBlend = 0.75 + t * 0.25;
       }
 
       if (activeFocusKey === 'tils') {
-        activeTilRatio = Math.max(activeTilRatio, 0.55);
-        infiltrateBlend = Math.max(infiltrateBlend, 0.55);
+        activeTilRatio = Math.max(activeTilRatio, 0.78);
+        infiltrateBlend = Math.max(infiltrateBlend, 0.68);
       }
 
       const activeCount = Math.round(tilData.length * activeTilRatio);
+      const effScaleXZ = Math.max(0.18, baseScaleXZ);
+      const effScaleY = Math.max(0.04, baseScaleY);
+
       for (let i = 0; i < tilData.length; i++) {
         const td = tilData[i];
         if (i >= activeCount) {
           tempObj.position.set(0, -10, 0);
           tempObj.scale.setScalar(0.001);
         } else {
-          tempVec3.lerpVectors(td.outerPos, td.innerPos, infiltrateBlend);
-          if (v > 88) {
-            const settle = (v - 88) / 12;
-            tempVec3.y = THREE.MathUtils.lerp(tempVec3.y, 0.12 + (i % 5) * 0.04, settle * 0.75);
+          // Interpolación entre el borde mucoso peripeduncular y la superficie misma de los lóbulos
+          tempVec3.set(
+            THREE.MathUtils.lerp(td.marginPos.x, td.lobeSurfacePos.x * effScaleXZ, infiltrateBlend),
+            THREE.MathUtils.lerp(td.marginPos.y, td.lobeSurfacePos.y * effScaleY, infiltrateBlend),
+            THREE.MathUtils.lerp(td.marginPos.z, td.lobeSurfacePos.z * effScaleXZ, infiltrateBlend)
+          );
+          if (v > 82) {
+            // En regresión avanzada se concentran en el margen de la cicatriz mucosa
+            const borderSettle = (v - 82) / 18;
+            tempVec3.lerp(td.scarRimPos, borderSettle * 0.88);
           }
           tempObj.position.copy(tempVec3);
+          tempObj.rotation.set(0, 0, 0);
           tempObj.scale.setScalar(td.scale);
         }
         tempObj.updateMatrix();
@@ -3874,7 +4169,7 @@
       tilsInstancedMesh.instanceMatrix.needsUpdate = true;
     }
 
-    function init3DViewer(OrbitControlsParam) {
+    function init3DViewer(OrbitControlsParam, RoomEnvironmentParam) {
       if (!threeContainer || !THREE) return;
 
       tempVec3 = new THREE.Vector3();
@@ -3883,188 +4178,301 @@
       tempColor = new THREE.Color();
 
       scene3d = new THREE.Scene();
-      camera3d = new THREE.PerspectiveCamera(42, Math.max(1, threeContainer.clientWidth) / Math.max(1, threeContainer.clientHeight), 0.1, 60);
+      camera3d = new THREE.PerspectiveCamera(
+        40,
+        Math.max(1, threeContainer.clientWidth) / Math.max(1, threeContainer.clientHeight),
+        0.1,
+        50
+      );
 
       renderer3d = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
       renderer3d.setSize(threeContainer.clientWidth, threeContainer.clientHeight);
-      renderer3d.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      const isMobileViewport = window.innerWidth <= 640;
+      renderer3d.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobileViewport ? 1.5 : 2));
+      renderer3d.outputColorSpace = THREE.SRGBColorSpace;
+      renderer3d.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer3d.toneMappingExposure = 1.06;
       threeContainer.innerHTML = '';
       threeContainer.appendChild(renderer3d.domElement);
       renderer3d.domElement.style.touchAction = 'pan-y';
 
+      // Entorno PMREM (RoomEnvironment) de baja intensidad para reflejos húmedos orgánicos
+      if (RoomEnvironmentParam) {
+        try {
+          const pmremGenerator = new THREE.PMREMGenerator(renderer3d);
+          const envTex = pmremGenerator.fromScene(new RoomEnvironmentParam(), 0.04).texture;
+          scene3d.environment = envTex;
+          pmremGenerator.dispose();
+        } catch (e) {
+          // Respaldo silencioso si PMREM no está disponible
+        }
+      }
+
       ensureCalloutElement();
 
-      // Iluminación clínica tridimensional
-      const hemiLight = new THREE.HemisphereLight(0xffe4e6, 0x1e1b4b, 0.95);
+      // Iluminación quirúrgica / clínica (principal cálida, rim fría trasera y relleno suave)
+      const hemiLight = new THREE.HemisphereLight(0xfff1f2, 0x1a1025, 0.85);
       scene3d.add(hemiLight);
 
-      const keyLight = new THREE.DirectionalLight(0xfff1f2, 1.55);
-      keyLight.position.set(5, 8, 6);
+      const keyLight = new THREE.DirectionalLight(0xfff7ed, 1.65);
+      keyLight.position.set(4.2, 7.5, 5.5);
       scene3d.add(keyLight);
 
-      const rimLight = new THREE.DirectionalLight(0x06b6d4, 1.05);
-      rimLight.position.set(-6, 3, -5);
+      const rimLight = new THREE.DirectionalLight(0xbae6fd, 0.82);
+      rimLight.position.set(-5.2, 3.4, -4.8);
       scene3d.add(rimLight);
 
-      const fillLight = new THREE.PointLight(0xf43f5e, 0.65, 12);
-      fillLight.position.set(0, 2.5, 3.5);
+      const fillLight = new THREE.PointLight(0xfecdd3, 0.55, 14);
+      fillLight.position.set(-2.2, 2.2, 4.0);
       scene3d.add(fillLight);
 
       scenePivot = new THREE.Group();
+      scenePivot.rotation.y = -0.18;
       scene3d.add(scenePivot);
 
-      // 1. Lecho mucoso ondulado con bordes desvanecidos (alphaMap radial)
-      const mucosaGeo = new THREE.PlaneGeometry(12.5, 12.5, 68, 68);
+      // 1. Escena anatómica: mucosa del glande canino (pars longa glandis) y prepucio retraído en la base
+      const { colorTex: mucosaColorTex, alphaTex: mucosaAlphaTex } = createMucosaTextures();
+      const mucosaGeo = new THREE.PlaneGeometry(6.8, 3.6, 84, 52);
       mucosaGeo.rotateX(-Math.PI / 2);
       const mPos = mucosaGeo.attributes.position;
-      const mCols = new Float32Array(mPos.count * 3);
-      const colInner = new THREE.Color(0x9f1239);
-      const colOuter = new THREE.Color(0x1f0818);
-
       for (let i = 0; i < mPos.count; i++) {
         const x = mPos.getX(i);
         const z = mPos.getZ(i);
-        const y = getMucosaHeight(x, z);
-        mPos.setY(i, y);
-        const distRatio = Math.min(1, Math.sqrt(x * x + z * z) / 6.0);
-        tempColor.copy(colInner).lerp(colOuter, distRatio * 0.85);
-        mCols[i * 3] = tempColor.r;
-        mCols[i * 3 + 1] = tempColor.g;
-        mCols[i * 3 + 2] = tempColor.b;
+        mPos.setY(i, getMucosaHeight(x, z));
       }
-      mucosaGeo.setAttribute('color', new THREE.BufferAttribute(mCols, 3));
       mucosaGeo.computeVertexNormals();
 
-      const mucosaMat = new THREE.MeshStandardMaterial({
-        vertexColors: true,
-        roughness: 0.46,
-        metalness: 0.08,
+      const mucosaMat = new THREE.MeshPhysicalMaterial({
+        map: mucosaColorTex,
+        alphaMap: mucosaAlphaTex,
         transparent: true,
-        alphaMap: createRadialAlphaTexture(),
-        depthWrite: false
+        roughness: 0.34,
+        metalness: 0.02,
+        clearcoat: 0.68,
+        clearcoatRoughness: 0.18,
+        sheen: 0.38,
+        sheenRoughness: 0.4,
+        sheenColor: new THREE.Color(0xffccd5),
+        envMapIntensity: 0.38,
+        depthWrite: true
       });
       mucosalBed = new THREE.Mesh(mucosaGeo, mucosaMat);
       scenePivot.add(mucosalBed);
 
-      // 2. Red vascular submucosa fina que converge al pedículo
-      vascularGroup = new THREE.Group();
-      const artMat = new THREE.MeshStandardMaterial({
-        color: 0xe11d48,
-        emissive: 0x4c0519,
-        roughness: 0.35,
-        transparent: true,
-        opacity: 0.82
-      });
-      const venMat = new THREE.MeshStandardMaterial({
-        color: 0x0891b2,
-        emissive: 0x083344,
-        roughness: 0.4,
-        transparent: true,
-        opacity: 0.65
-      });
-
-      for (let vIdx = 0; vIdx < 12; vIdx++) {
-        const baseAngle = (vIdx / 12) * Math.PI * 2;
-        const pts = [];
-        for (let step = 0; step <= 8; step++) {
-          const t = step / 8;
-          const r = 0.25 + t * 4.4;
-          const ang = baseAngle + Math.sin(t * Math.PI * 2 + vIdx) * 0.22;
-          const vx = Math.cos(ang) * r;
-          const vz = Math.sin(ang) * r;
-          const vy = getMucosaHeight(vx, vz) + 0.014 * (1 - t * 0.5);
-          pts.push(new THREE.Vector3(vx, vy, vz));
-        }
-        const curve = new THREE.CatmullRomCurve3(pts);
-        const radius = vIdx % 3 === 0 ? 0.022 : 0.014;
-        const tubeGeo = new THREE.TubeGeometry(curve, 24, radius, 6, false);
-        const vessel = new THREE.Mesh(tubeGeo, vIdx % 3 === 0 ? venMat : artMat);
-        vascularGroup.add(vessel);
+      // Fórnix y pliegue del prepucio retraído en la base caudal (x ~ -1.85 a -2.75)
+      const prepuceGeo = new THREE.CylinderGeometry(1.18, 1.32, 1.05, 40, 16, true);
+      prepuceGeo.rotateZ(Math.PI / 2);
+      const pPos = prepuceGeo.attributes.position;
+      for (let i = 0; i < pPos.count; i++) {
+        const px = pPos.getX(i);
+        const py = pPos.getY(i);
+        const pz = pPos.getZ(i);
+        const ang = Math.atan2(py, pz);
+        const foldWave = Math.sin(px * 9.5) * 0.045 + Math.cos(ang * 5) * 0.02;
+        const ventralDrop = py < 0 ? py * 0.35 : 0;
+        pPos.setXYZ(
+          i,
+          px - 2.15,
+          py * (0.62 + foldWave) - 0.26 + ventralDrop,
+          pz * (1.08 + foldWave)
+        );
       }
+      computeSeamlessNormals(prepuceGeo);
+
+      const prepuceMat = new THREE.MeshPhysicalMaterial({
+        color: 0xc85a70,
+        roughness: 0.42,
+        metalness: 0.02,
+        clearcoat: 0.55,
+        clearcoatRoughness: 0.24,
+        sheen: 0.35,
+        sheenColor: new THREE.Color(0xfda4af),
+        envMapIntensity: 0.32,
+        transparent: true,
+        opacity: 0.92,
+        side: THREE.DoubleSide
+      });
+      prepuceMesh = new THREE.Mesh(prepuceGeo, prepuceMat);
+      scenePivot.add(prepuceMesh);
+
+      // Sombra de contacto húmeda amoldada sobre el dorso del glande bajo el pedículo
+      const shadowGeo = new THREE.PlaneGeometry(2.7, 2.5, 28, 28);
+      shadowGeo.rotateX(-Math.PI / 2);
+      const sPos = shadowGeo.attributes.position;
+      for (let i = 0; i < sPos.count; i++) {
+        const sx = sPos.getX(i);
+        const sz = sPos.getZ(i);
+        sPos.setY(i, getMucosaHeight(sx, sz) + 0.005);
+      }
+      shadowGeo.computeVertexNormals();
+      const shadowMat = new THREE.MeshBasicMaterial({
+        map: createSoftShadowTexture(),
+        transparent: true,
+        opacity: 0.78,
+        depthWrite: false
+      });
+      contactShadowMesh = new THREE.Mesh(shadowGeo, shadowMat);
+      scenePivot.add(contactShadowMesh);
+
+      // Finos capilares submucosos rasantes en la base del pedículo (sin tubos gruesos flotantes)
+      vascularGroup = new THREE.Group();
       scenePivot.add(vascularGroup);
 
-      // Placa cicatrizal epitelial para remisión al 100%
-      const scarGeo = displaceOrganicGeometry(new THREE.CylinderGeometry(0.75, 0.95, 0.045, 28, 2), 0.14);
-      const scarMat = new THREE.MeshStandardMaterial({
-        color: 0xfda4af,
-        emissive: 0x3f1221,
-        roughness: 0.65,
+      // 2. Placa cicatrizal epitelial amoldada a la curvatura del glande (visible en regresión 70-100%)
+      const scarGeo = new THREE.PlaneGeometry(1.65, 1.45, 32, 32);
+      scarGeo.rotateX(-Math.PI / 2);
+      const scPos = scarGeo.attributes.position;
+      for (let i = 0; i < scPos.count; i++) {
+        const sx = scPos.getX(i);
+        const sz = scPos.getZ(i);
+        const r = Math.hypot(sx, sz);
+        const dome = Math.max(0, 1 - r / 0.78) * 0.035;
+        scPos.setY(i, getMucosaHeight(sx, sz) + 0.008 + dome);
+      }
+      scarGeo.computeVertexNormals();
+      const scarMat = new THREE.MeshPhysicalMaterial({
+        color: 0xf9b4c4,
+        alphaMap: createMucosaTextures().alphaTex,
+        roughness: 0.36,
+        clearcoat: 0.65,
+        clearcoatRoughness: 0.2,
+        envMapIntensity: 0.35,
         transparent: true,
-        opacity: 0
+        opacity: 0,
+        depthWrite: false
       });
       scarMesh = new THREE.Mesh(scarGeo, scarMat);
-      scarMesh.position.set(0, 0.02, 0);
       scarMesh.visible = false;
       scenePivot.add(scarMesh);
 
-      // 3. Masa multilobular en coliflor anclada en su base pedunculada (y = 0)
+      // 3. Masa multilobular en coliflor anclada en la mucosa con pedículo corto (y = 0)
       tumorGroup = new THREE.Group();
       tumorGroup.position.set(0, 0, 0);
       scenePivot.add(tumorGroup);
 
-      // Pedículo fibrovascular basal
-      const stalkGeo = displaceOrganicGeometry(new THREE.CylinderGeometry(0.68, 0.46, 0.72, 20, 6), 0.15);
-      const stalkMat = new THREE.MeshStandardMaterial({
-        color: 0xbe123c,
-        roughness: 0.48,
-        metalness: 0.08
+      // Pedículo fibrovascular corto que emerge de la mucosa dorsal del glande
+      const stalkGeo = new THREE.CylinderGeometry(0.56, 0.42, 0.58, 32, 12);
+      const stPos = stalkGeo.attributes.position;
+      for (let i = 0; i < stPos.count; i++) {
+        const sx = stPos.getX(i);
+        const sy = stPos.getY(i);
+        const sz = stPos.getZ(i);
+        const n = fbmNoise3D(sx * 2.5, sy * 2.5, sz * 2.5);
+        stPos.setXYZ(i, sx * (1 + n * 0.14), sy, sz * (1 + n * 0.14));
+      }
+      computeSeamlessNormals(stalkGeo);
+      const stalkMat = new THREE.MeshPhysicalMaterial({
+        color: 0xb91c47,
+        roughness: 0.4,
+        metalness: 0.03,
+        clearcoat: 0.68,
+        clearcoatRoughness: 0.18,
+        envMapIntensity: 0.38
       });
       const stalkMesh = new THREE.Mesh(stalkGeo, stalkMat);
-      stalkMesh.position.set(0, 0.34, 0);
+      stalkMesh.position.set(0, 0.22, 0);
       tumorGroup.add(stalkMesh);
 
-      // Lóbulos primarios agrupados
+      // Lóbulos primarios redondeados sin facetas con variación cromática por vértice y úlceras
       const coreLobeSpecs = [
-        { pos: [0, 1.08, 0], r: 0.62, central: true, thr: 0.45 },
-        { pos: [0.58, 0.95, 0.42], r: 0.50, central: false, thr: 0.15 },
-        { pos: [-0.56, 0.98, 0.44], r: 0.48, central: false, thr: 0.20 },
-        { pos: [0.52, 0.96, -0.52], r: 0.49, central: false, thr: 0.25 },
-        { pos: [-0.54, 0.92, -0.48], r: 0.51, central: false, thr: 0.18 },
-        { pos: [0.05, 1.48, 0.12], r: 0.54, central: true, thr: 0.35 },
-        { pos: [0.78, 0.72, -0.05], r: 0.44, central: false, thr: 0.10 },
-        { pos: [-0.76, 0.74, 0.04], r: 0.45, central: false, thr: 0.12 },
-        { pos: [0.02, 0.76, 0.78], r: 0.46, central: false, thr: 0.14 }
+        { pos: [0, 0.88, 0], r: 0.58, central: true, thr: 0.45, ulcer: true },
+        { pos: [0.52, 0.78, 0.38], r: 0.46, central: false, thr: 0.15, ulcer: true },
+        { pos: [-0.50, 0.80, 0.40], r: 0.45, central: false, thr: 0.20, ulcer: false },
+        { pos: [0.48, 0.78, -0.44], r: 0.46, central: false, thr: 0.25, ulcer: false },
+        { pos: [-0.48, 0.75, -0.42], r: 0.47, central: false, thr: 0.18, ulcer: true },
+        { pos: [0.03, 1.24, 0.08], r: 0.50, central: true, thr: 0.35, ulcer: true },
+        { pos: [0.68, 0.56, -0.04], r: 0.40, central: false, thr: 0.10, ulcer: false },
+        { pos: [-0.66, 0.58, 0.04], r: 0.41, central: false, thr: 0.12, ulcer: false },
+        { pos: [0.02, 0.60, 0.66], r: 0.42, central: false, thr: 0.14, ulcer: false }
       ];
 
-      const sharedLobeGeo = displaceOrganicGeometry(new THREE.IcosahedronGeometry(1, 3), 0.22);
+      const smoothLobeGeoPlain = createCauliflowerLobeGeometry(32, 24, 0.18, 0.0, false);
+      const smoothLobeGeoUlcer = createCauliflowerLobeGeometry(32, 24, 0.18, 1.7, true);
+
       coreLobeMeshes = [];
       coreLobeSpecs.forEach((spec) => {
-        const mat = new THREE.MeshStandardMaterial({
-          color: spec.central ? 0xe11d48 : 0xf43f5e,
+        const mat = new THREE.MeshPhysicalMaterial({
+          color: 0xffffff,
+          vertexColors: true,
           roughness: 0.38,
-          metalness: 0.12
+          metalness: 0.03,
+          clearcoat: 0.72,
+          clearcoatRoughness: 0.16,
+          sheen: 0.45,
+          sheenRoughness: 0.35,
+          sheenColor: new THREE.Color(0xffb3c6),
+          envMapIntensity: 0.42
         });
-        const m = new THREE.Mesh(sharedLobeGeo, mat);
+        const m = new THREE.Mesh(spec.ulcer ? smoothLobeGeoUlcer : smoothLobeGeoPlain, mat);
         m.position.set(spec.pos[0], spec.pos[1], spec.pos[2]);
         m.userData.baseRadius = spec.r;
         tumorGroup.add(m);
-        coreLobeMeshes.push({ mesh: m, isCentral: spec.central, threshold: spec.thr, baseR: spec.r });
+        coreLobeMeshes.push({
+          mesh: m,
+          isCentral: spec.central,
+          threshold: spec.thr,
+          baseR: spec.r,
+          basePos: [...spec.pos]
+        });
       });
 
-      // Lóbulos papilares secundarios y terciarios en coliflor (InstancedMesh)
-      const floretGeo = displaceOrganicGeometry(new THREE.IcosahedronGeometry(1, 2), 0.26);
-      const floretMat = new THREE.MeshStandardMaterial({
-        color: 0xffffff,
-        roughness: 0.35,
-        metalness: 0.1
+      // 3 úlceras cóncavas con base de fibrina amarillenta y 2 coágulos hemáticos oscuros
+      ulcerMeshes = [];
+      const ulcerConfigs = [
+        { pos: [0.16, 1.54, 0.24], rot: [-0.35, 0.2, 0.1], scale: 0.17, isClot: false },
+        { pos: [0.68, 1.02, 0.56], rot: [0.55, 0.45, -0.2], scale: 0.14, isClot: false },
+        { pos: [-0.62, 0.96, -0.52], rot: [-0.45, -0.5, 0.2], scale: 0.15, isClot: false },
+        { pos: [-0.28, 1.22, 0.58], rot: [0.3, -0.3, 0.1], scale: 0.11, isClot: true },
+        { pos: [0.42, 0.62, 0.68], rot: [0.6, 0.2, -0.1], scale: 0.095, isClot: true }
+      ];
+      const ulcerBedGeo = createCauliflowerLobeGeometry(18, 14, 0.15, 3.1, false);
+      ulcerConfigs.forEach((uc) => {
+        const uMat = new THREE.MeshPhysicalMaterial({
+          color: uc.isClot ? 0x2a040d : 0xd6ce9c,
+          roughness: uc.isClot ? 0.18 : 0.62,
+          clearcoat: uc.isClot ? 0.92 : 0.35,
+          clearcoatRoughness: 0.14,
+          envMapIntensity: 0.4
+        });
+        const uMesh = new THREE.Mesh(ulcerBedGeo, uMat);
+        uMesh.position.set(uc.pos[0], uc.pos[1], uc.pos[2]);
+        uMesh.rotation.set(uc.rot[0], uc.rot[1], uc.rot[2]);
+        uMesh.scale.set(uc.scale, uc.scale * (uc.isClot ? 0.55 : 0.28), uc.scale);
+        tumorGroup.add(uMesh);
+        ulcerMeshes.push(uMesh);
       });
-      const totalFlorets = 135;
+
+      // Lóbulos papilares secundarios y terciarios en coliflor (InstancedMesh con normales suaves)
+      const floretGeo = createCauliflowerLobeGeometry(20, 16, 0.2, 2.4, false);
+      const floretMat = new THREE.MeshPhysicalMaterial({
+        color: 0xffffff,
+        vertexColors: true,
+        roughness: 0.36,
+        metalness: 0.03,
+        clearcoat: 0.74,
+        clearcoatRoughness: 0.15,
+        sheen: 0.45,
+        sheenRoughness: 0.35,
+        sheenColor: new THREE.Color(0xffc2d1),
+        envMapIntensity: 0.42
+      });
+      const totalFlorets = 128;
       floretsInstancedMesh = new THREE.InstancedMesh(floretGeo, floretMat, totalFlorets);
       floretData = [];
 
       for (let i = 0; i < totalFlorets; i++) {
         const goldenAngle = i * 2.3999632;
         const t = i / totalFlorets;
-        const phi = Math.acos(1 - 1.38 * t);
-        const domeR = 0.85 + (i % 3) * 0.16;
-        const sx = Math.sin(phi) * Math.cos(goldenAngle) * domeR * 1.18;
-        const sy = Math.max(0.32, Math.cos(phi) * domeR * 0.92 + 1.05);
-        const sz = Math.sin(phi) * Math.sin(goldenAngle) * domeR * 1.18;
+        const phi = Math.acos(1 - 1.36 * t);
+        const domeR = 0.76 + (i % 3) * 0.13;
+        const sx = Math.sin(phi) * Math.cos(goldenAngle) * domeR * 1.15;
+        const sy = Math.max(0.24, Math.cos(phi) * domeR * 0.88 + 0.88);
+        const sz = Math.sin(phi) * Math.sin(goldenAngle) * domeR * 1.15;
 
         const tier = i % 3 === 0 ? 1 : 2;
-        const radius = tier === 1 ? 0.28 + (i % 4) * 0.035 : 0.16 + (i % 5) * 0.025;
-        const radialDist = Math.sqrt(sx * sx + sz * sz);
-        const centrality = Math.max(0, Math.min(1, 1 - radialDist / 1.15)) * (sy > 1.15 ? 1 : 0.5);
+        const radius = tier === 1 ? 0.24 + (i % 4) * 0.03 : 0.14 + (i % 5) * 0.022;
+        const radialDist = Math.hypot(sx, sz);
+        const centrality = Math.max(0, Math.min(1, 1 - radialDist / 0.95)) * (sy > 0.98 ? 1 : 0.4);
 
         floretData.push({
           pos: new THREE.Vector3(sx, sy, sz),
@@ -4072,71 +4480,119 @@
           radius,
           tier,
           centrality,
+          hemorrhagic: i % 9 === 0,
           apopOrder: (1 - t) * 0.85
         });
       }
       tumorGroup.add(floretsInstancedMesh);
 
-      // 4. Capa celular redonda con núcleo y microvacuolas periféricas en «sacabocado»
+      // 4. Lupa histológica 3D anclada al borde lateral derecho para el enfoque 'cells' (8 células CTVT ampliadas)
       cellClusterGroup = new THREE.Group();
-      cellClusterGroup.position.set(0.76, 1.18, 0.78);
-      tumorGroup.add(cellClusterGroup);
+      cellClusterGroup.position.set(1.36, 1.02, 0.68);
+      cellClusterGroup.lookAt(1.55, 1.18, 2.45);
+      scenePivot.add(cellClusterGroup);
 
-      const cellCount = 24;
-      const vacPerCell = 7;
-      const cytoGeo = new THREE.SphereGeometry(0.095, 16, 16);
-      const cytoMat = new THREE.MeshStandardMaterial({
-        color: 0xfb7185,
+      // Disco oscuro de microscopía y aro biselado con línea conectora hacia la masa
+      const loupeDiscGeo = new THREE.CylinderGeometry(0.42, 0.42, 0.024, 40);
+      loupeDiscGeo.rotateX(Math.PI / 2);
+      const loupeDiscMat = new THREE.MeshStandardMaterial({
+        color: 0x090d1a,
+        roughness: 0.25,
+        metalness: 0.1,
         transparent: true,
-        opacity: 0.52,
-        roughness: 0.2,
+        opacity: 0.92
+      });
+      const loupeDiscMesh = new THREE.Mesh(loupeDiscGeo, loupeDiscMat);
+      loupeDiscMesh.position.set(0, 0, -0.05);
+      cellClusterGroup.add(loupeDiscMesh);
+
+      const loupeRingGeo = new THREE.TorusGeometry(0.43, 0.018, 16, 48);
+      const loupeRingMat = new THREE.MeshStandardMaterial({
+        color: 0xf43f5e,
+        emissive: 0x881337,
+        emissiveIntensity: 0.4,
+        roughness: 0.25,
+        metalness: 0.5
+      });
+      const loupeRingMesh = new THREE.Mesh(loupeRingGeo, loupeRingMat);
+      loupeRingMesh.position.set(0, 0, -0.035);
+      cellClusterGroup.add(loupeRingMesh);
+
+      // Brazo conector desde la periferia de la coliflor hasta la lupa citológica
+      const connectorGeo = new THREE.CylinderGeometry(0.008, 0.008, 0.52, 8);
+      connectorGeo.rotateZ(Math.PI / 2);
+      const connectorMesh = new THREE.Mesh(connectorGeo, loupeRingMat);
+      connectorMesh.position.set(-0.62, -0.08, -0.08);
+      connectorMesh.rotation.z = 0.22;
+      cellClusterGroup.add(connectorMesh);
+
+      // 8 células redondas clonales grandes con núcleo excéntrico y vacuolas periféricas en «sacabocado»
+      const cellCount = 8;
+      const vacPerCell = 8;
+      const cytoGeo = new THREE.SphereGeometry(0.096, 24, 20);
+      const cytoMat = new THREE.MeshPhysicalMaterial({
+        color: 0xf472b6,
+        transparent: true,
+        opacity: 0.62,
+        roughness: 0.18,
+        clearcoat: 0.85,
         depthWrite: false
       });
       cellCytoplasmIM = new THREE.InstancedMesh(cytoGeo, cytoMat, cellCount);
 
-      const nucGeo = new THREE.SphereGeometry(0.048, 14, 14);
+      const nucGeo = new THREE.SphereGeometry(0.054, 20, 16);
       const nucMat = new THREE.MeshStandardMaterial({
         color: 0x7c3aed,
         emissive: 0x3b0764,
-        roughness: 0.35
+        roughness: 0.3
       });
       cellNucleusIM = new THREE.InstancedMesh(nucGeo, nucMat, cellCount);
 
-      const vacGeo = new THREE.SphereGeometry(0.015, 10, 10);
+      const vacGeo = new THREE.SphereGeometry(0.017, 12, 10);
       const vacMat = new THREE.MeshStandardMaterial({
         color: 0xffffff,
-        emissive: 0xe2e8f0,
-        emissiveIntensity: 0.35,
-        roughness: 0.15
+        emissive: 0xf8fafc,
+        emissiveIntensity: 0.55,
+        roughness: 0.1
       });
       cellVacuolesIM = new THREE.InstancedMesh(vacGeo, vacMat, cellCount * vacPerCell);
 
+      const cellLayout = [
+        [0, 0, 0.02, 1.08],
+        [-0.21, 0.08, 0.01, 0.96],
+        [0.21, 0.07, 0.01, 0.98],
+        [-0.14, -0.18, 0.01, 0.95],
+        [0.15, -0.17, 0.01, 0.94],
+        [0.0, 0.23, 0.0, 0.92],
+        [-0.26, -0.07, 0.0, 0.88],
+        [0.26, -0.06, 0.0, 0.90]
+      ];
+
       let vacIdx = 0;
       for (let c = 0; c < cellCount; c++) {
-        const a = c * 2.4;
-        const r = 0.08 + Math.sqrt(c / cellCount) * 0.38;
-        const cx = Math.cos(a) * r;
-        const cy = Math.sin(a * 1.3) * 0.22;
-        const cz = Math.sin(a) * r;
+        const [cx, cy, cz, cScale] = cellLayout[c];
 
         tempObj.position.set(cx, cy, cz);
         tempObj.rotation.set(0, 0, 0);
-        tempObj.scale.setScalar(1);
+        tempObj.scale.set(cScale, cScale, cScale * 0.72);
         tempObj.updateMatrix();
         cellCytoplasmIM.setMatrixAt(c, tempObj.matrix);
 
-        // Núcleo ligeramente excéntrico o central
-        tempObj.position.set(cx - 0.015, cy + 0.008, cz + 0.012);
+        // Núcleo redondo grande ligeramente excéntrico con cromatina densa
+        tempObj.position.set(cx - 0.012 * cScale, cy + 0.008 * cScale, cz + 0.012);
+        tempObj.scale.setScalar(cScale);
         tempObj.updateMatrix();
         cellNucleusIM.setMatrixAt(c, tempObj.matrix);
 
-        // Anillo periférico de microvacuolas claras en sacabocado
+        // Collar periférico de vacuolas lipídicas claras en «sacabocado»
         for (let v = 0; v < vacPerCell; v++) {
-          const va = (v / vacPerCell) * Math.PI * 2 + c * 0.5;
-          const vx = cx + Math.cos(va) * 0.068;
-          const vy = cy + Math.sin(va) * 0.068;
-          const vz = cz + Math.sin(va * 2) * 0.025 + 0.025;
+          const va = (v / vacPerCell) * Math.PI * 2 + c * 0.35;
+          const vr = 0.072 * cScale;
+          const vx = cx + Math.cos(va) * vr;
+          const vy = cy + Math.sin(va) * vr;
+          const vz = cz + 0.032;
           tempObj.position.set(vx, vy, vz);
+          tempObj.scale.setScalar(v % 2 === 0 ? 1.05 : 0.88);
           tempObj.updateMatrix();
           cellVacuolesIM.setMatrixAt(vacIdx++, tempObj.matrix);
         }
@@ -4148,64 +4604,78 @@
       cellClusterGroup.scale.setScalar(0.001);
       cellClusterGroup.visible = false;
 
-      // 5. Linfocitos TIL CD8+ (cian) y NK (violeta) en InstancedMesh
-      const tilCount = 88;
-      const tilGeo = new THREE.SphereGeometry(0.062, 12, 12);
+      // 5. Linfocitos TILs CD8+ (cian) y NK (violeta) a escala anatómica (~1-2% de la masa) sobre los lóbulos
+      const tilCount = 96;
+      const tilGeo = new THREE.SphereGeometry(0.025, 10, 8);
       const tilMat = new THREE.MeshStandardMaterial({
         color: 0xffffff,
-        emissive: 0x083344,
-        emissiveIntensity: 0.35,
-        roughness: 0.25
+        emissive: 0x0e7490,
+        emissiveIntensity: 0.38,
+        roughness: 0.22
       });
       tilsInstancedMesh = new THREE.InstancedMesh(tilGeo, tilMat, tilCount);
       tilData = [];
-      const cd8Col = new THREE.Color(0x06b6d4);
-      const nkCol = new THREE.Color(0xa855f7);
+      const cd8Col = new THREE.Color(0x22d3ee);
+      const nkCol = new THREE.Color(0xc084fc);
 
       for (let i = 0; i < tilCount; i++) {
-        const ang = (i / tilCount) * Math.PI * 2 * 3.7;
-        const hRatio = (i % 11) / 11;
-        const outR = 2.05 + (i % 5) * 0.28;
-        const inR = 0.35 + (i % 7) * 0.16;
+        const fd = floretData[i % floretData.length];
+        const ang = (i / tilCount) * Math.PI * 2 * 2.39996;
+        const jitter = 0.035;
 
-        const outerPos = new THREE.Vector3(
-          Math.cos(ang) * outR,
-          0.18 + hRatio * 1.65,
-          Math.sin(ang) * outR
+        // Posición adherida sobre/entre las papilas de la coliflor (nunca flotando lejos en el aire)
+        const lobeSurfacePos = new THREE.Vector3(
+          fd.pos.x + Math.cos(ang) * (fd.radius * 0.92 + jitter),
+          fd.pos.y + Math.sin(ang * 0.7) * (fd.radius * 0.65),
+          fd.pos.z + Math.sin(ang) * (fd.radius * 0.92 + jitter)
         );
-        const innerPos = new THREE.Vector3(
-          Math.cos(ang + 0.5) * inR,
-          0.35 + hRatio * 1.25,
-          Math.sin(ang + 0.5) * inR
-        );
+
+        // Posición en el margen mucoso peripeduncular
+        const mR = 0.62 + (i % 7) * 0.085;
+        const mx = Math.cos(ang) * mR;
+        const mz = Math.sin(ang) * mR;
+        const marginPos = new THREE.Vector3(mx, getMucosaHeight(mx, mz) + 0.035 + (i % 4) * 0.04, mz);
+
+        // Posición en el borde de la cicatriz durante la regresión (76-100%)
+        const sR = 0.48 + (i % 5) * 0.065;
+        const sx = Math.cos(ang) * sR;
+        const sz = Math.sin(ang) * sR;
+        const scarRimPos = new THREE.Vector3(sx, getMucosaHeight(sx, sz) + 0.026, sz);
+
         tilData.push({
-          outerPos,
-          innerPos,
-          scale: i % 3 === 0 ? 1.12 : 0.92
+          marginPos,
+          lobeSurfacePos,
+          scarRimPos,
+          scale: i % 3 === 0 ? 1.15 : 0.92
         });
         tilsInstancedMesh.setColorAt(i, i % 3 === 0 ? nkCol : cd8Col);
       }
       if (tilsInstancedMesh.instanceColor) tilsInstancedMesh.instanceColor.needsUpdate = true;
       scenePivot.add(tilsInstancedMesh);
 
-      // Ajuste de encuadre inicial según caja envolvente y aspecto
+      // Encuadre inicial responsivo según esfera envolvente y relación de aspecto
       computeHomeFraming();
       camera3d.position.copy(homeCamPos);
       camera3d.lookAt(homeTarget);
 
-      // Control de cámara sobre el canvas (OrbitControls o fallback con pointer events en el canvas)
+      // Controles orbitales con límites estrictos y detención de autorrotación al interactuar
       const canvasEl = renderer3d.domElement;
+      const markUserInteraction = () => { userInteracting3D = true; };
+      canvasEl.addEventListener('pointerdown', markUserInteraction, { passive: true });
+      canvasEl.addEventListener('wheel', markUserInteraction, { passive: true });
+
       if (OrbitControlsParam) {
         controls3d = new OrbitControlsParam(camera3d, canvasEl);
         controls3d.enablePan = false;
         controls3d.enableDamping = true;
         controls3d.dampingFactor = 0.08;
-        controls3d.minDistance = 2.2;
-        controls3d.maxDistance = 12.5;
-        controls3d.maxPolarAngle = Math.PI * 0.48;
-        controls3d.minPolarAngle = 0.15;
+        controls3d.minDistance = 1.65;
+        controls3d.maxDistance = 9.5;
+        controls3d.maxPolarAngle = Math.PI * 0.47;
+        controls3d.minPolarAngle = 0.2;
         controls3d.target.copy(homeTarget);
         controls3d.update();
+        controls3d.addEventListener('start', markUserInteraction);
         canvasEl.style.touchAction = 'pan-y';
       } else {
         let dragging = false;
@@ -4230,7 +4700,7 @@
           update: () => {},
           syncFromCamera: () => {
             const offset = camera3d.position.clone().sub(currentLookTarget);
-            radiusDist = Math.max(2.2, Math.min(12.5, offset.length()));
+            radiusDist = Math.max(1.65, Math.min(9.5, offset.length()));
             sphericalPhi = Math.acos(Math.max(-0.98, Math.min(0.98, offset.y / radiusDist)));
             sphericalTheta = Math.atan2(offset.x, offset.z);
           }
@@ -4239,6 +4709,7 @@
 
         canvasEl.addEventListener('pointerdown', (e) => {
           dragging = true;
+          userInteracting3D = true;
           startX = e.clientX;
           startY = e.clientY;
         });
@@ -4249,7 +4720,7 @@
           const dy = e.clientY - startY;
           if (e.pointerType === 'touch' && Math.abs(dy) > Math.abs(dx) * 1.2) return;
           sphericalTheta -= dx * 0.008;
-          sphericalPhi = Math.max(0.25, Math.min(Math.PI * 0.47, sphericalPhi - dy * 0.006));
+          sphericalPhi = Math.max(0.22, Math.min(Math.PI * 0.47, sphericalPhi - dy * 0.006));
           startX = e.clientX;
           startY = e.clientY;
           syncCustomCamera();
@@ -4262,12 +4733,12 @@
 
         canvasEl.addEventListener('wheel', (e) => {
           e.preventDefault();
-          radiusDist = Math.max(2.2, Math.min(12.5, radiusDist + e.deltaY * 0.004));
+          userInteracting3D = true;
+          radiusDist = Math.max(1.65, Math.min(9.5, radiusDist + e.deltaY * 0.004));
           syncCustomCamera();
         }, { passive: false });
       }
 
-      // ResizeObserver sobre el contenedor
       if ('ResizeObserver' in window) {
         const ro = new ResizeObserver(() => {
           if (!threeContainer || !renderer3d || !camera3d) return;
@@ -4277,6 +4748,7 @@
           const wasReset = activeFocusKey === 'reset' && !camAnim;
           computeHomeFraming();
           renderer3d.setSize(w, h);
+          renderer3d.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.innerWidth <= 640 ? 1.5 : 2));
           if (wasReset) {
             camera3d.position.copy(homeCamPos);
             if (controls3d) {
@@ -4285,13 +4757,12 @@
               controls3d.update();
             }
           }
+          updateCalloutPosition();
         });
         ro.observe(threeContainer);
       }
 
       apply3DStage(currentSliderVal);
-
-      // Escalado real para los lóbulos base después de inicializar
       coreLobeMeshes.forEach((it) => it.mesh.scale.setScalar(it.baseR));
       apply3DStage(currentSliderVal);
 
@@ -4308,11 +4779,11 @@
       const dt = Math.min(0.05, (now - lastFrameTime) * 0.001 || 0.016);
       lastFrameTime = now;
 
-      if (scenePivot && activeFocusKey === 'reset' && !camAnim) {
-        scenePivot.rotation.y += dt * 0.18;
+      // Autorrotación lenta que se detiene en cuanto el usuario toca el lienzo o elige un enfoque
+      if (scenePivot && activeFocusKey === 'reset' && !camAnim && !userInteracting3D) {
+        scenePivot.rotation.y += dt * 0.14;
       }
 
-      // Interpolación suave (0.68 s) de cámara al pulsar un chip
       if (camAnim && camera3d && controls3d) {
         const elapsed = (now - camAnim.startTime) / camAnim.duration;
         const t = Math.min(1, Math.max(0, elapsed));
@@ -4330,14 +4801,17 @@
         controls3d.update();
       }
 
-      // Mostrar detalle celular (vacuolas en sacabocado) al enfocar 'cells' o al acercar el zoom
+      // Mostrar la lupa histológica de células redondas al enfocar 'cells' o acercar la cámara
       if (cellClusterGroup && camera3d && controls3d) {
         const camDist = camera3d.position.distanceTo(controls3d.target);
-        const showCells = activeFocusKey === 'cells' || camDist < 4.15;
+        const showCells = activeFocusKey === 'cells' || camDist < 2.75;
         const targetCellScale = showCells ? 1 : 0.001;
-        const nextScale = THREE.MathUtils.lerp(cellClusterGroup.scale.x, targetCellScale, 0.14);
+        const nextScale = THREE.MathUtils.lerp(cellClusterGroup.scale.x, targetCellScale, 0.16);
         cellClusterGroup.scale.setScalar(nextScale);
         cellClusterGroup.visible = nextScale > 0.02;
+        if (cellClusterGroup.visible) {
+          cellClusterGroup.lookAt(camera3d.position);
+        }
       }
 
       updateCalloutPosition();
@@ -4365,7 +4839,7 @@
       else start3DLoop();
     });
 
-    /* Carga diferida de three.js + pausa fuera de pantalla */
+    /* Carga diferida de three.js + OrbitControls + RoomEnvironment con pausa fuera de pantalla */
     const lab3DSection = document.getElementById('visor-3d');
     let lab3DPromise = null;
     function set3DLabLoading(state) {
@@ -4386,11 +4860,15 @@
       set3DLabLoading('loading');
       lab3DPromise = Promise.all([
         import('three'),
-        import('three/addons/controls/OrbitControls.js').catch(() => ({}))
+        import('three/addons/controls/OrbitControls.js').catch(() => ({})),
+        import('three/addons/environments/RoomEnvironment.js').catch(() => ({}))
       ])
-        .then(([threeMod, ocMod]) => {
+        .then(([threeMod, ocMod, envMod]) => {
           THREE = threeMod;
-          init3DViewer(ocMod && ocMod.OrbitControls ? ocMod.OrbitControls : undefined);
+          init3DViewer(
+            ocMod && ocMod.OrbitControls ? ocMod.OrbitControls : undefined,
+            envMod && envMod.RoomEnvironment ? envMod.RoomEnvironment : undefined
+          );
           if (progressionSlider) progressionSlider.dispatchEvent(new Event('input'));
           set3DLabLoading('ready');
         })
@@ -4421,7 +4899,7 @@
       load3DLab();
     }
 
-    // Botones de enfoque 3D (chips) con animación suave y etiqueta anclada en 3D
+    // Botones de enfoque 3D (chips) con interpolación suave y etiqueta anclada dentro de los límites del lienzo
     document.querySelectorAll('.label-3d-chip').forEach((chip) => {
       chip.addEventListener('click', () => {
         playSound('click');
@@ -4439,11 +4917,13 @@
         let toPos;
         let toTarget;
         if (focus === 'reset' || !FOCUS_CONFIG[focus]) {
+          userInteracting3D = false;
           computeHomeFraming();
           toPos = homeCamPos.clone();
           toTarget = homeTarget.clone();
           if (calloutEl) calloutEl.style.display = 'none';
         } else {
+          userInteracting3D = true;
           const cfg = FOCUS_CONFIG[focus];
           scenePivot.updateMatrixWorld();
           toPos = new THREE.Vector3(cfg.camOffset[0], cfg.camOffset[1], cfg.camOffset[2]).applyMatrix4(scenePivot.matrixWorld);
@@ -4465,7 +4945,7 @@
       });
     });
 
-    // Slider de progresión / regresión biológica
+    // Slider de progresión / regresión biológica (0% a 100%)
     const progressionSlider = document.getElementById('progressionSlider');
     const sliderPctBadge = document.getElementById('sliderPctBadge');
     const hud3dStageName = document.getElementById('hud3dStageName');
@@ -4502,6 +4982,47 @@
         stage3dDescription.textContent = 'Fase de Regresión (Fase R): masiva infiltración de TILs CD8+ y NK. El IFN-gamma reexpresa MHC-I y MHC-II, induciendo apoptosis y rechazo curativo.';
       }
     });
+
+    // Barra de progreso de lectura bajo la cabecera y resaltado activo del índice según scroll
+    (function initReadingProgressAndScrollSpy() {
+      let progBar = document.getElementById('readingProgressBar');
+      if (!progBar) {
+        progBar = document.createElement('div');
+        progBar.id = 'readingProgressBar';
+        progBar.className = 'reading-progress-bar';
+        progBar.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(progBar);
+      }
+
+      const orderedIds = [
+        'mod-1', 'mod-2', 'mod-3', 'visor-3d', 'mod-4', 'mod-5',
+        'mod-6', 'mod-7', 'especies-tabs', 'minijuegos', 'autoevaluacion', 'galeria'
+      ];
+      const sections = orderedIds.map((id) => document.getElementById(id)).filter(Boolean);
+      const navLinks = Array.from(document.querySelectorAll('#sidebarNav a[href^="#"], .mobile-drawer a[href^="#"]'));
+
+      function onScrollUpdate() {
+        const docEl = document.documentElement;
+        const maxScroll = Math.max(1, docEl.scrollHeight - window.innerHeight);
+        const pct = Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100));
+        progBar.style.width = `${pct.toFixed(1)}%`;
+
+        let activeId = orderedIds[0];
+        const triggerY = window.innerHeight * 0.28;
+        for (let i = 0; i < sections.length; i++) {
+          const rect = sections[i].getBoundingClientRect();
+          if (rect.top <= triggerY) {
+            activeId = sections[i].id;
+          }
+        }
+        navLinks.forEach((lnk) => {
+          lnk.classList.toggle('active', lnk.getAttribute('href') === `#${activeId}`);
+        });
+      }
+
+      window.addEventListener('scroll', onScrollUpdate, { passive: true });
+      onScrollUpdate();
+    })();
 
     /*************************************************************************
      * 6. CALCULADORA INTERACTIVA DE DOSIS Y AJUSTE HEMATOLÓGICO
