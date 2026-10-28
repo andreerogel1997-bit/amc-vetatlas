@@ -1711,6 +1711,146 @@
     img[data-commons="Fistula_diag_01-es.svg"], img[data-commons="Ciclosporin-A-from-xtal-3D-bs-17.png"] { object-fit: contain !important; background:#f8fafc; }
     .gallery-card .commons-credit a { color: var(--accent-cyan, #06b6d4); text-decoration: underline; text-underline-offset: 2px; }
     html[data-theme="light"] .gallery-card .commons-credit a { color: #0e7490; }
+
+    /* Especies/caninos: tarjetas cortas que enlazan a los módulos */
+    .jump-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .jump-card p a, .fold-body p a, .glass-subcard li a, .glass-subcard p a {
+      color: var(--accent-cyan);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .jump-link {
+      margin-top: auto;
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      text-decoration: none;
+      padding: 0.35rem 0.7rem;
+      border: 1px solid var(--border-highlight);
+      border-radius: 999px;
+      transition: background 0.2s ease;
+    }
+    .jump-link:hover { background: rgba(6, 182, 212, 0.12); }
+    .jump-link:focus-visible { outline: 2px solid var(--accent-cyan); outline-offset: 2px; }
+
+    /* Plegables nativos (<details>) con aspecto de tarjeta */
+    .fold-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      margin: 1rem 0;
+      transition: border-color 0.2s ease;
+    }
+    .fold-card:hover, .fold-card[open] { border-color: var(--border-highlight); }
+    .fold-card > summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.9rem 1.05rem;
+      font-family: var(--font-display);
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--accent-sky);
+      border-radius: var(--radius-md);
+    }
+    .fold-card > summary::-webkit-details-marker { display: none; }
+    .fold-card > summary:focus-visible { outline: 2px solid var(--accent-cyan); outline-offset: 2px; }
+    .fold-card > summary > span { min-width: 0; }
+    .fold-card > summary .fold-chevron {
+      margin-left: auto;
+      color: var(--text-secondary);
+      transition: transform 0.2s ease;
+    }
+    .fold-card[open] > summary .fold-chevron { transform: rotate(180deg); }
+    .fold-body { padding: 0 1.05rem 1.05rem; min-width: 0; }
+    .ref-list {
+      padding-left: 1.4rem;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: 0.45rem 1.5rem;
+    }
+    .ref-list li { overflow-wrap: anywhere; }
+    .ref-list li:target { outline: 2px solid var(--accent-cyan); outline-offset: 3px; border-radius: 4px; }
+
+    /* Pestañas "Tabla resumen / Texto detallado" (módulo 08) */
+    .view-tabs-bar {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.4rem;
+      padding: 0.35rem;
+      background: var(--surface-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      max-width: 420px;
+    }
+    .view-tab-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      min-width: 0;
+      padding: 0.55rem 0.45rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-weight: 700;
+      font-size: clamp(0.78rem, 2.4vw, 0.86rem);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .view-tab-btn:hover { color: var(--accent-cyan); }
+    .view-tab-btn[aria-selected="true"] {
+      background: var(--bg-tertiary);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+    .view-tab-btn:focus-visible, .view-tab-panel:focus-visible {
+      outline: 2px solid var(--accent-cyan);
+      outline-offset: 2px;
+    }
+    .view-tab-panel { border-radius: var(--radius-md); animation: fadeIn 0.3s ease; }
+    .view-tab-panel[hidden] { display: none; }
+    .view-tab-panel > .species-grid { margin-top: 1rem; }
+
+    /* Tabla apilada en pantallas estrechas: sin desplazamiento horizontal */
+    @media (max-width: 640px) {
+      .stack-table { min-width: 0; }
+      .stack-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+      .stack-table tr { display: block; border-bottom: 1px solid var(--border-glass); padding: 0.4rem 0; }
+      .stack-table tr:last-child { border-bottom: 0; }
+      .stack-table td {
+        display: block;
+        position: relative;
+        border-bottom: 0;
+        padding: 0.35rem 0.8rem 0.35rem 8.4rem;
+        overflow-wrap: anywhere;
+      }
+      .stack-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0.8rem;
+        width: 7rem;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.74rem;
+        color: var(--accent-sky);
+      }
+    }
   </style>
 </head>
 <body>
@@ -1828,7 +1968,7 @@
       </div>
       <h2 style="font-family:var(--font-display); font-size:1.45rem; font-weight:800;">Casuística, Diagnóstico y Terapéutica por Especie</h2>
       <p style="font-size:0.88rem; color:var(--text-secondary);">
-        Selecciona la especie para explorar la presentación clínica, el protocolo diagnóstico y las dosis exactas documentadas en el informe <span class="cite-tag">[1, 4, 6, 11]</span>.
+        Selecciona la especie para explorar la presentación clínica, el protocolo diagnóstico y las dosis exactas documentadas <span class="cite-tag">[1, 4, 6, 11]</span>.
       </p>
 
       <div class="species-tabs-bar" role="tablist">
@@ -1856,45 +1996,26 @@
           El <strong>Pastor Alemán representa entre el 80% y el 85%</strong> de la casuística global documentada en hospitales de referencia, asociado al alelo <strong>DLA-DRB1*00101</strong> (OR = 5.01) <span class="cite-tag">[1, 8]</span>. También existe riesgo relativo elevado en Setter Irlandés, Border Collie, Labrador Retriever, Cobrador Dorado, Viejo Pastor Inglés y Boxer, y menor frecuencia en Bulldog Inglés, Shih Tzu, Pembroke Welsh Corgi y mestizos de Pastor Alemán <span class="cite-tag">[5]</span>. Mediana de edad: <strong>4 a 7 años</strong> (rango 1 a 12 años; excepcional en &lt;12 meses), con distribución equitativa entre machos y hembras sin efecto protector de la esterilización <span class="cite-tag">[3, 4]</span>.
         </div>
 
-        <div class="species-grid">
-          <div class="glass-subcard">
-            <h4><i data-lucide="stethoscope"></i> Presentación Clínica</h4>
-            <ul>
-              <li><strong>Perianal y conductual:</strong> Trayectos sinusales inflamatorios ciegos (<em>sinus tracts</em>), disquecia severa, tenesmo continuo, hematoquecia, heces acintadas (<em>ribbon-like stool</em>), lamido compulsivo, <em>scooting</em>, fetidez acre, porte bajo de cola (<em>low tail carriage</em>), reticencia a sentarse y agresividad defensiva al manipular la grupa <span class="cite-tag">[1, 3, 4]</span>.</li>
-              <li><strong>Digestiva (Eje Intestino-Piel):</strong> Entre 40% y &gt;50% presentan signos clínicos de colitis crónica activa; del <strong>50% al 80% presentan colitis linfocítica-plasmocítica o eosinofílica microscópica</strong> en biopsias colonoscópicas (incluso sin diarrea manifiesta), y hasta un <strong>18.8%</strong> padece reacciones adversas a los alimentos / alergia alimentaria concomitante <span class="cite-tag">[3, 5]</span>.</li>
-            </ul>
+        <div class="species-grid jump-grid">
+          <div class="glass-subcard jump-card">
+            <h4><i data-lucide="stethoscope"></i> Signos Clínicos</h4>
+            <p>Signos perianales, digestivos (EII asociada) y conductuales, con el reloj perianal de estadificación (Grados I a IV).</p>
+            <a href="#mod-04" class="jump-link">Ir al módulo 04 <i data-lucide="arrow-right"></i></a>
           </div>
-
-          <div class="glass-subcard">
-            <h4><i data-lucide="microscope"></i> Diagnóstico Estructurado</h4>
-            <ul>
-              <li><strong>Paciente despierto:</strong> Únicamente inspección visual exteriorizada y registro fotográfico; el tacto rectal o sondaje consciente es deontológicamente inaceptable por hiperalgesia <span class="cite-tag">[3]</span>.</li>
-              <li><strong>Bajo sedación profunda / anestesia general:</strong> Tacto rectal digital, sondaje de trayectos sinusales, lavado retrógrado con solución salina estéril y estadificación (Grados I a IV) <span class="cite-tag">[3, 4]</span>.</li>
-              <li><strong>Laboratorio y Endoscopía:</strong> Citología (inflamación piogranulomatosa), cultivo de profundidad (MRSP, <em>P. aeruginosa</em>, <em>E. coli</em>), biopsia por <em>punch</em> en razas atípicas, masas o refractariedad tras 1 mes; índices <strong>CIBDAI/CCECAI</strong> (≥12 severo), albúmina (&lt;2.0 g/dL indica PLE), panel TAMU con <strong>cobalamina (&lt;251 ng/L) y folato (&gt;24.4 μg/L)</strong>, y colonoscopía con intubación ileal (mínimo 8 a 10 biopsias WSAVA) <span class="cite-tag">[3, 4, 26, 28, 29]</span>.</li>
-            </ul>
+          <div class="glass-subcard jump-card">
+            <h4><i data-lucide="microscope"></i> Diagnóstico</h4>
+            <p>Examen bajo sedación, citología, cultivo, biopsia, CIBDAI/CCECAI, panel TAMU y colonoscopía WSAVA.</p>
+            <a href="#mod-05" class="jump-link">Ir al módulo 05 <i data-lucide="arrow-right"></i></a>
           </div>
-
-          <div class="glass-subcard">
-            <h4><i data-lucide="pill"></i> Tratamiento Médico y Quirúrgico</h4>
-            <ul>
-              <li><strong>Primera línea (Médica Inmunomoduladora):</strong> Inhibidores de calcineurina sistémicos (ciclosporina A microemulsionada sola o combinada con ketoconazol) + tacrolimus tópico 0.1%, corticoterapia de inducción o budesonida entérica, dieta de proteína hidrolizada (&lt;3–5 kDa) o novel por 8–12 semanas, psyllium, lactulosa y suplementación de cobalamina <span class="cite-tag">[5, 6, 7, 28]</span>.</li>
-              <li><strong>Cirugía (Solo Adyuvante / Rescate):</strong> Reservada tras 12–16 semanas de meseta terapéutica para sinus residuales aislados, saculectomía cerrada si hay involucro de sacos anales o ablación con <strong>láser de CO2 (10.600 nm) o diodo</strong> <span class="cite-tag">[3, 5, 9]</span>.</li>
-            </ul>
+          <div class="glass-subcard jump-card">
+            <h4><i data-lucide="pill"></i> Tratamiento y Dosis Caninas</h4>
+            <p>Las 9 pautas caninas (ciclosporina, ketoconazol, tacrolimus, prednisona, budesonida, azatioprina, oclacitinib, metronidazol, lactulosa y psyllium), dieta y cobalamina; cirugía de rescate en el <a href="#mod-07">módulo 07</a>.</p>
+            <a href="#mod-06" class="jump-link">Ir al módulo 06 <i data-lucide="arrow-right"></i></a>
           </div>
-
-          <div class="glass-subcard">
-            <h4><i data-lucide="file-spreadsheet"></i> Dosis Caninas Exactas del Informe</h4>
-            <ul>
-              <li><strong>Ciclosporina (monoterapia):</strong> 4–8 mg/kg PO q24h (o 5 mg/kg PO q12h) mín. 8–16 sem; valle: 400–600 ng/mL <span class="cite-tag">[5, 6, 34]</span>.</li>
-              <li><strong>Ciclosporina + Ketoconazol:</strong> CsA 2.5–3.5 mg/kg PO q24h (o q12h severos) + Ketoconazol 5–7.5 mg/kg PO q24h <span class="cite-tag">[7, 9]</span>.</li>
-              <li><strong>Tacrolimus 0.1%:</strong> Capa delgada tópica q12–24h; mantenimiento q48–72h <span class="cite-tag">[6, 8]</span>.</li>
-              <li><strong>Prednisona/Prednisolona:</strong> 1.0–2.0 mg/kg PO q12h (2–4 mg/kg/día) por 2–4 sem, reduciendo a 0.5 mg/kg q48h <span class="cite-tag">[8]</span>.</li>
-              <li><strong>Budesonida:</strong> 3 mg/m² PO q24h o 0.1–0.3 mg/kg PO q24h (1 a 3 mg/perro q24h) <span class="cite-tag">[26]</span>.</li>
-              <li><strong>Azatioprina:</strong> 1.5–2.0 mg/kg PO q24h por 2–4 sem, luego 1.0–2.0 mg/kg q48h <span class="cite-tag">[8]</span>.</li>
-              <li><strong>Oclacitinib:</strong> 0.4–0.6 mg/kg PO q12h por 14 días, luego q24h <span class="cite-tag">[5]</span>.</li>
-              <li><strong>Metronidazol:</strong> 10–15 mg/kg PO q12h por 21–30 días <span class="cite-tag">[9]</span>.</li>
-              <li><strong>Lactulosa:</strong> 0.5 mL/kg PO q8–12h; <strong>Psyllium:</strong> 1 cdta (1–5 g) / 10 kg por comida <span class="cite-tag">[5]</span>.</li>
-            </ul>
+          <div class="glass-subcard jump-card">
+            <h4><i data-lucide="calculator"></i> Calculadora por Peso</h4>
+            <p>Calcula cada dosis para el peso de tu paciente con la calculadora posológica.</p>
+            <a href="#calcResultsContainer" class="jump-link">Abrir la calculadora <i data-lucide="arrow-right"></i></a>
           </div>
         </div>
       </div>
@@ -1926,12 +2047,12 @@
           </div>
 
           <div class="glass-subcard">
-            <h4><i data-lucide="pill"></i> Dosis Felinas Documentadas en el Informe</h4>
+            <h4><i data-lucide="pill"></i> Dosis Felinas Documentadas</h4>
             <ul>
-              <li><strong>Budesonida (enteropatías crónicas felinas complejas):</strong> <strong>1 mg total por gato PO cada 24 horas</strong> <span class="cite-tag">[26, 40]</span>.</li>
+              <li><strong>Budesonida:</strong> pauta felina en el <a href="#mod-06-budesonida">módulo 06</a>.</li>
               <li><strong>Cobalamina (Vitamina B12 - Protocolo TAMU en gatos):</strong> <strong>250 μg vía subcutánea (SC) semanal</strong> durante 6 semanas consecutivas, seguida de una dosis de consolidación a los 30 días y reevaluación sérica al mes subsiguiente <span class="cite-tag">[28]</span>.</li>
               <li><strong>Lactulosa:</strong> <strong>0.5 mL/kg PO cada 8 a 12 horas</strong>, ajustando para ablandar el bolo fecal <span class="cite-tag">[5]</span>.</li>
-              <li><em>Nota de honestidad científica:</em> El informe no establece dosis felinas para ciclosporina, ketoconazol, tacrolimus, oclacitinib ni metronidazol en fístulas perianales dado que la entidad autoinmune homóloga es extraordinariamente rara en gatos <span class="cite-tag">[4, 6]</span>.</li>
+              <li><em>Nota de honestidad científica:</em> No hay dosis felinas establecidas para ciclosporina, ketoconazol, tacrolimus, oclacitinib ni metronidazol en fístulas perianales dado que la entidad autoinmune homóloga es extraordinariamente rara en gatos <span class="cite-tag">[4, 6]</span>.</li>
             </ul>
           </div>
 
@@ -1940,9 +2061,7 @@
             <p style="color:var(--accent-rose); font-weight:700; margin-bottom:0.4rem;">
               ¡Azatioprina terminantemente contraindicada en gatos!
             </p>
-            <p>
-              El uso de <strong>azatioprina está terminantemente contraindicado en la especie felina</strong> debido al déficit constitutivo de la enzima <strong>tiopurina metiltransferasa (TPMT)</strong>, lo cual desencadena una <strong>aplasia medular mortal</strong> <span class="cite-tag">[8]</span>.
-            </p>
+            <p>Motivo (déficit de TPMT) en el <a href="#mod-06-azatioprina">módulo 06</a>.</p>
           </div>
         </div>
       </div>
@@ -1951,7 +2070,7 @@
       <div id="species-otras" class="species-panel" role="tabpanel">
         <div class="callout-box danger">
           <div class="callout-title"><i data-lucide="shield-alert"></i> Declaración de Honestidad Científica sobre Evidencia en Otras Especies</div>
-          En las restantes especies domésticas y de producción (<strong>equinos, rumiantes, porcinos, conejos y aves</strong>) <strong>NO existe evidencia científica que respalde la existencia de una furunculosis anal autoinmune homóloga a la descrita en el perro</strong>, ni existen dosis farmacológicas reportadas en el informe para dicha condición en estas especies <span class="cite-tag">[11]</span>. A continuación se detalla lo que sí ocurre clínicamente en cada grupo según el informe:
+          En las restantes especies domésticas y de producción (<strong>equinos, rumiantes, porcinos, conejos y aves</strong>) <strong>NO existe evidencia científica que respalde la existencia de una furunculosis anal autoinmune homóloga a la descrita en el perro</strong>, ni existen dosis farmacológicas reportadas para dicha condición en estas especies <span class="cite-tag">[11]</span>. Esto es lo que sí ocurre clínicamente en cada grupo:
         </div>
 
         <div class="species-grid">
@@ -2321,6 +2440,7 @@
               <ul>
                 <li><strong>Diarrea crónica de intestino grueso:</strong> Aumento en la frecuencia defecatoria, heces pastosas recurrentes con moco abundante y hematoquecia terminal <span class="cite-tag">[4, 5]</span>.</li>
                 <li><strong>Afectación sistémica y entérica:</strong> Borborigmos, vómitos esporádicos y pérdida progresiva de peso corporal y condición muscular secundaria a malabsorción y anorexia por dolor <span class="cite-tag">[4]</span>.</li>
+                <li><strong>Frecuencia de la colitis asociada:</strong> Entre 40% y &gt;50% presentan signos clínicos de colitis crónica activa; del <strong>50% al 80% presentan colitis linfocítica-plasmocítica o eosinofílica microscópica</strong> en biopsias colonoscópicas (incluso sin diarrea manifiesta), y hasta un <strong>18.8%</strong> padece reacciones adversas a los alimentos / alergia alimentaria concomitante <span class="cite-tag">[3, 5]</span>.</li>
               </ul>
             </div>
 
@@ -2496,7 +2616,7 @@
               <h4><i data-lucide="flask-conical"></i> 2. Citología, Cultivo Profundo y Biopsia</h4>
               <ul>
                 <li><strong>Citología:</strong> Patrón de inflamación piogranulomatosa (neutrófilos segmentados degenerados, macrófagos espumosos fagocitarios, células plasmáticas y cocos/bacilos fagocitados) <span class="cite-tag">[4]</span>.</li>
-                <li><strong>Cultivo y antibiograma:</strong> Exclusivamente de la profundidad de tractos desinfectados periféricamente para aislar <strong>MRSP</strong>, enterobacterias multirresistentes o <em>Pseudomonas aeruginosa</em> sin contaminantes fecales <span class="cite-tag">[4]</span>.</li>
+                <li><strong>Cultivo y antibiograma:</strong> Exclusivamente de la profundidad de tractos desinfectados periféricamente para aislar <strong>MRSP</strong>, enterobacterias multirresistentes (p. ej., <em>E. coli</em>) o <em>Pseudomonas aeruginosa</em> sin contaminantes fecales <span class="cite-tag">[4]</span>.</li>
                 <li><strong>Biopsia (punch o cuña):</strong> Obligatoria en <strong>razas no predispuestas</strong>, lesiones nodulares sospechosas de neoplasia o <strong>refractariedad absoluta tras 1 mes</strong> de inmunosupresión estricta <span class="cite-tag">[4]</span>.</li>
               </ul>
             </div>
@@ -2652,8 +2772,8 @@
               <ul>
                 <li><strong>Tacrolimus ungüento 0.1%:</strong> Se une a <strong>FKBP-12</strong> y bloquea la calcineurina. Capa delgada cada <strong>12 a 24 h</strong> una vez controlado el dolor inicial; como mantenimiento cada <strong>48 a 72 h</strong> previene recidivas a 2 años en <strong>&gt;85%</strong> de los casos <span class="cite-tag">[6, 7, 8, 21]</span>.</li>
                 <li><strong>Prednisona / Prednisolona:</strong> <strong>1.0 a 2.0 mg/kg PO q12h</strong> (2–4 mg/kg/día) por 2 a 4 semanas, reduciendo cada 14–21 días hasta <strong>0.5 mg/kg q48h</strong> <span class="cite-tag">[8]</span>.</li>
-                <li><strong>Budesonida (aclaramiento hepático &gt;90%):</strong> En perros: <strong>3 mg/m² PO q24h</strong> o <strong>0.1–0.3 mg/kg PO q24h</strong> (1 a 3 mg totales/perro). En gatos: <strong>1 mg total/gato PO q24h</strong> <span class="cite-tag">[26, 37, 40]</span>.</li>
-                <li><strong>Azatioprina (solo caninos):</strong> <strong>1.5–2.0 mg/kg PO q24h</strong> por 2–4 sem, luego <strong>1.0–2.0 mg/kg q48h</strong>. <em>¡Contraindicada en gatos por déficit de TPMT!</em> <span class="cite-tag">[8]</span>.</li>
+                <li id="mod-06-budesonida"><strong>Budesonida entérica (aclaramiento hepático &gt;90%):</strong> En perros: <strong>3 mg/m² PO q24h</strong> o <strong>0.1–0.3 mg/kg PO q24h</strong> (1 a 3 mg totales/perro). En gatos (enteropatías crónicas felinas complejas): <strong>1 mg total/gato PO q24h</strong> <span class="cite-tag">[26, 37, 40]</span>.</li>
+                <li id="mod-06-azatioprina"><strong>Azatioprina (solo caninos):</strong> <strong>1.5–2.0 mg/kg PO q24h</strong> por 2–4 sem, luego <strong>1.0–2.0 mg/kg q48h</strong>. <em>¡Terminantemente contraindicada en gatos!</em> El déficit constitutivo de la enzima <strong>tiopurina metiltransferasa (TPMT)</strong> desencadena una <strong>aplasia medular mortal</strong> <span class="cite-tag">[8]</span>.</li>
                 <li><strong>Oclacitinib (inhibidor JAK-1):</strong> <strong>0.4–0.6 mg/kg PO q12h</strong> por 14 días, luego <strong>q24h</strong> <span class="cite-tag">[5]</span>.</li>
               </ul>
             </div>
@@ -2687,7 +2807,7 @@
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.9rem;">
               <div>
                 <h3 style="font-family:var(--font-display); font-size:1.08rem; font-weight:800; color:var(--accent-emerald);">
-                  <i data-lucide="calculator"></i> Calculadora Posológica Interactiva Basada Exclusivamente en el Informe
+                  <i data-lucide="calculator"></i> Calculadora Posológica Interactiva Basada Exclusivamente en las Fuentes Citadas
                 </h3>
                 <p style="font-size:0.8rem; color:var(--text-secondary);">
                   Ingresa el peso corporal y selecciona la especie para calcular todas las dosis médicas, nutricionales y perioperatorias <span class="cite-tag">[5, 6, 8, 9, 11, 26, 28, 40, 44, 45, 47]</span>.
@@ -2712,7 +2832,7 @@
               <div class="form-group">
                 <label for="calcCategoryFilter"><i data-lucide="filter"></i> Filtrar Categoría Terapéutica</label>
                 <select id="calcCategoryFilter" class="form-control">
-                  <option value="all" selected>Todas las categorías del informe</option>
+                  <option value="all" selected>Todas las categorías</option>
                   <option value="inmuno">Inmunosupresores e Inmunomoduladores</option>
                   <option value="gastro">Soporte Digestivo, Fibra y Cobalamina TAMU</option>
                   <option value="anestesia">Anestesia, CRI Opioides y Bloqueos Locorregionales</option>
@@ -2766,7 +2886,7 @@
               <ul>
                 <li><strong>Criocirugía con nitrógeno líquido (Desaconsejada):</strong> Imposibilidad de delimitar con precisión la isquemia tisular inducida por congelación, registrando tasas elevadas de necrosis transmural rectal e incontinencia permanente <span class="cite-tag">[3, 5]</span>.</li>
                 <li><strong>Amputación de la base de la cola (Abandonada y proscrita):</strong> Formalmente abandonada al demostrarse que carece de eficacia biológica sobre la remisión de la patología, no previene recidivas y añade morbilidad postoperatoria injustificada <span class="cite-tag">[5, 6]</span>.</li>
-                <li><em>Nota de honestidad sobre cifras:</em> El informe detalla las tasas de remisión médica global (70–85% a las 8–16 semanas y mejoría &gt;90%) y las tasas de recidiva/complicación quirúrgica (40–60% recidiva, 15–35% incontinencia, 10–25% estenosis, 20–30% dehiscencia), sin asignar un porcentaje numérico aislado de curación para el láser o la saculectomía por separado <span class="cite-tag">[3, 5, 7, 9]</span>.</li>
+                <li><em>Nota de honestidad sobre cifras:</em> Hay tasas de remisión médica global (70–85% a las 8–16 semanas y mejoría &gt;90%) y de recidiva/complicación quirúrgica (40–60% recidiva, 15–35% incontinencia, 10–25% estenosis, 20–30% dehiscencia), pero no un porcentaje numérico aislado de curación para el láser o la saculectomía por separado <span class="cite-tag">[3, 5, 7, 9]</span>.</li>
               </ul>
             </div>
           </div>
@@ -2790,90 +2910,101 @@
                 <li><strong>Colonoscopía (insuflación de aire o CO2):</strong> La distensión colónica estimula mecanorreceptores viscerales que desencadenan <strong>reflejos vagales profundos con bradicardia severa e hipotensión</strong> <span class="cite-tag">[45]</span>.</li>
               </ul>
             </div>
-
-            <div class="glass-subcard">
-              <h4><i data-lucide="activity"></i> Opioides Sistémicos y CRI (Remifentanilo, Fentanilo, Metadona)</h4>
-              <ul>
-                <li><strong>Metadona (agonista μ + antagonista NMDA + inhibidor recaptación monoaminas):</strong> Bloquea el <em>wind-up</em> espinal y dolor neuropático perineal. Premedicación: <strong>0.2 a 0.3 mg/kg IV o IM</strong>; rescate postoperatorio: <strong>0.1 a 0.2 mg/kg IV cada 4 a 6 h</strong> <span class="cite-tag">[44]</span>.</li>
-                <li><strong>Fentanilo:</strong> Bolo inicial de <strong>2 a 5 μg/kg IV lenta</strong>, sostenido en CRI de <strong>2 a 10 μg/kg/hora</strong> (<strong>0.03 a 0.16 μg/kg/min</strong>) titulada a efecto <span class="cite-tag">[47]</span>.</li>
-                <li><strong>Remifentanilo (elección en colonoscopía y ablación láser):</strong> Hidrólisis por carboxilesterasas tisulares y plasmáticas (vida media sensible al contexto ultra-corta de <strong>3 a 5 min</strong>). Bolo: <strong>1 a 2 μg/kg IV lenta</strong> + CRI de <strong>0.1 a 0.5 μg/kg/min IV</strong>. La analgesia decae en <strong>&lt;10 min</strong> tras cesar la infusión, exigiendo analgesia preventiva o bloqueo locorregional previo para evitar despertar con alodinia aguda <span class="cite-tag">[44, 45, 46]</span>.</li>
-              </ul>
-            </div>
-
-            <div class="glass-subcard">
-              <h4><i data-lucide="syringe"></i> Bloqueo Epidural Lumbosacro (L7–S1)</h4>
-              <p style="margin-bottom:0.4rem;">
-                Técnica de referencia en cirugía perineal y anorrectal (paciente en decúbito esternal con miembros pélvicos traccionados cranealmente) <span class="cite-tag">[44]</span>:
-              </p>
-              <ul>
-                <li><strong>Bupivacaína al 0.5%:</strong> <strong>1.0 mg/kg</strong> (volumen de <strong>0.20 a 0.22 mL/kg</strong>) <span class="cite-tag">[44]</span>.</li>
-                <li><strong>Morfina libre de conservantes:</strong> Asociada en la misma inyección a <strong>0.1 mg/kg</strong> para prolongar la analgesia somatovisceral hasta por <strong>16 a 24 horas</strong> sin intensificar el bloqueo motor residual (vigilar retención urinaria transitoria) <span class="cite-tag">[44]</span>.</li>
-              </ul>
-            </div>
-
-            <div class="glass-subcard">
-              <h4><i data-lucide="crosshair"></i> Bloqueo Bilateral del Nervio Pudendo (Fosa Isquiorrectal)</h4>
-              <p style="margin-bottom:0.4rem;">
-                Indicado cuando la epidural está contraindicada (politraumatismo pélvico, coagulopatías, piodermas sacrolumbares). El nervio pudendo (raíces <strong>S1–S3</strong>) cursa medial al ligamento sacrotuberoso en la fosa isquiorrectal <span class="cite-tag">[11, 44]</span>:
-              </p>
-              <ul>
-                <li><strong>Guía ecográfica o neuroestimulación:</strong> Contracción del esfínter a <strong>0.4 a 0.5 mA</strong> <span class="cite-tag">[11]</span>.</li>
-                <li><strong>Bupivacaína 0.5%:</strong> <strong>0.05 a 0.10 mL/kg por punto</strong> (duración de 4 a 8 horas) <span class="cite-tag">[11]</span>.</li>
-                <li><strong>Lidocaína 2% (exploraciones cortas):</strong> <strong>0.10 a 0.15 mL/kg por lado</strong> <span class="cite-tag">[11]</span>.</li>
-                <li><em>Honestidad sobre otros bloqueos:</em> El informe detalla con dosis exactas el bloqueo epidural L7–S1 y el bloqueo del nervio pudendo en la fosa isquiorrectal; no reporta volúmenes separados para infiltraciones perineales subcutáneas superficiales en tumescencia <span class="cite-tag">[11, 44]</span>.</li>
-              </ul>
-            </div>
           </div>
 
-          <div class="table-responsive">
-            <table class="clinical-table">
-              <thead>
-                <tr>
-                  <th>Agente / Técnica Analgésica</th>
-                  <th>Abordaje / Vía</th>
-                  <th>Posología o Tasa de Infusión Exacta</th>
-                  <th>Cinética: Inicio / Duración</th>
-                  <th>Consideraciones Clínicas y Fuentes</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Metadona</strong></td>
-                  <td>IV o IM</td>
-                  <td>Premedicación: 0.2–0.3 mg/kg; Mantenimiento: 0.1–0.2 mg/kg q4–6h</td>
-                  <td>Inicio: 5–10 min; Duración: 4–6 h</td>
-                  <td>Agonista μ y antagonista NMDA; frena sensibilización central (<em>wind-up</em>) <span class="cite-tag">[44]</span>.</td>
-                </tr>
-                <tr>
-                  <td><strong>Fentanilo</strong></td>
-                  <td>IV (Bolo + CRI)</td>
-                  <td>Bolo: 2–5 μg/kg IV; CRI: 2–10 μg/kg/h (0.03–0.16 μg/kg/min)</td>
-                  <td>Inicio: 1–2 min; Duración: 20–30 min tras cese</td>
-                  <td>Control nociceptivo intraoperatorio; vigilar bradicardia e hipoventilación <span class="cite-tag">[47]</span>.</td>
-                </tr>
-                <tr>
-                  <td><strong>Remifentanilo</strong></td>
-                  <td>IV (Bolo + CRI)</td>
-                  <td>Bolo: 1–2 μg/kg IV; CRI: 0.1–0.5 μg/kg/min IV</td>
-                  <td>Inicio: &lt;90 s; Duración: 3–5 min tras cese (&lt;10 min decaimiento)</td>
-                  <td>Hidrólisis por carboxilesterasas; ideal en colonoscopía y láser <span class="cite-tag">[45, 46]</span>.</td>
-                </tr>
-                <tr>
-                  <td><strong>Epidural Lumbosacra</strong></td>
-                  <td>Espacio L7–S1</td>
-                  <td>Bupivacaína 0.5%: 1.0 mg/kg (0.20–0.22 mL/kg) + Morfina: 0.1 mg/kg</td>
-                  <td>Inicio: 15–20 min; Duración: 16–24 h</td>
-                  <td>Bloqueo sensitivo perineal bilateral de referencia; vigilar retención urinaria <span class="cite-tag">[44]</span>.</td>
-                </tr>
-                <tr>
-                  <td><strong>Bloqueo Nervio Pudendo</strong></td>
-                  <td>Fosa isquiorrectal bilateral (US / 0.4–0.5 mA)</td>
-                  <td>Bupivacaína 0.5%: 0.05–0.10 mL/kg/lado (o Lidocaína 2%: 0.10–0.15 mL/kg)</td>
-                  <td>Inicio: 10–15 min; Duración: 4–8 h</td>
-                  <td>Desensibiliza periné y esfínter sin parálisis motora apendicular <span class="cite-tag">[11]</span>.</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="view-tabs" data-view-tabs>
+            <div class="view-tabs-bar" role="tablist" aria-label="Formato de anestesia y analgesia">
+              <button type="button" class="view-tab-btn" role="tab" id="anesTabTable" aria-controls="anesPanelTable" aria-selected="true" tabindex="0"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg> Tabla resumen</button>
+              <button type="button" class="view-tab-btn" role="tab" id="anesTabText" aria-controls="anesPanelText" aria-selected="false" tabindex="-1"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 6.1H3"/><path d="M21 12.1H3"/><path d="M15.1 18H3"/></svg> Texto detallado</button>
+            </div>
+            <div class="view-tab-panel" role="tabpanel" id="anesPanelTable" aria-labelledby="anesTabTable" tabindex="0">
+              <div class="table-responsive">
+                <table class="clinical-table stack-table">
+                  <thead>
+                    <tr>
+                      <th>Agente / Técnica Analgésica</th>
+                      <th>Abordaje / Vía</th>
+                      <th>Posología o Tasa de Infusión Exacta</th>
+                      <th>Cinética: Inicio / Duración</th>
+                      <th>Consideraciones Clínicas y Fuentes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td data-label="Agente / Técnica"><strong>Metadona</strong></td>
+                      <td data-label="Abordaje / Vía">IV o IM</td>
+                      <td data-label="Posología o tasa">Premedicación: 0.2–0.3 mg/kg; Mantenimiento: 0.1–0.2 mg/kg q4–6h</td>
+                      <td data-label="Inicio / Duración">Inicio: 5–10 min; Duración: 4–6 h</td>
+                      <td data-label="Consideraciones">Agonista μ y antagonista NMDA; frena sensibilización central (<em>wind-up</em>) <span class="cite-tag">[44]</span>.</td>
+                    </tr>
+                    <tr>
+                      <td data-label="Agente / Técnica"><strong>Fentanilo</strong></td>
+                      <td data-label="Abordaje / Vía">IV (Bolo + CRI)</td>
+                      <td data-label="Posología o tasa">Bolo: 2–5 μg/kg IV; CRI: 2–10 μg/kg/h (0.03–0.16 μg/kg/min)</td>
+                      <td data-label="Inicio / Duración">Inicio: 1–2 min; Duración: 20–30 min tras cese</td>
+                      <td data-label="Consideraciones">Control nociceptivo intraoperatorio; vigilar bradicardia e hipoventilación <span class="cite-tag">[47]</span>.</td>
+                    </tr>
+                    <tr>
+                      <td data-label="Agente / Técnica"><strong>Remifentanilo</strong></td>
+                      <td data-label="Abordaje / Vía">IV (Bolo + CRI)</td>
+                      <td data-label="Posología o tasa">Bolo: 1–2 μg/kg IV; CRI: 0.1–0.5 μg/kg/min IV</td>
+                      <td data-label="Inicio / Duración">Inicio: &lt;90 s; Duración: 3–5 min tras cese (&lt;10 min decaimiento)</td>
+                      <td data-label="Consideraciones">Hidrólisis por carboxilesterasas; ideal en colonoscopía y láser <span class="cite-tag">[45, 46]</span>.</td>
+                    </tr>
+                    <tr>
+                      <td data-label="Agente / Técnica"><strong>Epidural Lumbosacra</strong></td>
+                      <td data-label="Abordaje / Vía">Espacio L7–S1</td>
+                      <td data-label="Posología o tasa">Bupivacaína 0.5%: 1.0 mg/kg (0.20–0.22 mL/kg) + Morfina: 0.1 mg/kg</td>
+                      <td data-label="Inicio / Duración">Inicio: 15–20 min; Duración: 16–24 h</td>
+                      <td data-label="Consideraciones">Bloqueo sensitivo perineal bilateral de referencia; vigilar retención urinaria <span class="cite-tag">[44]</span>.</td>
+                    </tr>
+                    <tr>
+                      <td data-label="Agente / Técnica"><strong>Bloqueo Nervio Pudendo</strong></td>
+                      <td data-label="Abordaje / Vía">Fosa isquiorrectal bilateral (US / 0.4–0.5 mA)</td>
+                      <td data-label="Posología o tasa">Bupivacaína 0.5%: 0.05–0.10 mL/kg/lado (o Lidocaína 2%: 0.10–0.15 mL/kg)</td>
+                      <td data-label="Inicio / Duración">Inicio: 10–15 min; Duración: 4–8 h</td>
+                      <td data-label="Consideraciones">Desensibiliza periné y esfínter sin parálisis motora apendicular <span class="cite-tag">[11]</span>.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="view-tab-panel" role="tabpanel" id="anesPanelText" aria-labelledby="anesTabText" tabindex="0" hidden>
+              <div class="species-grid" style="margin-top:0;">
+                <div class="glass-subcard">
+                  <h4><i data-lucide="activity"></i> Opioides Sistémicos y CRI (Remifentanilo, Fentanilo, Metadona)</h4>
+                  <ul>
+                    <li><strong>Metadona (agonista μ + antagonista NMDA + inhibidor recaptación monoaminas):</strong> Bloquea el <em>wind-up</em> espinal y dolor neuropático perineal. Premedicación: <strong>0.2 a 0.3 mg/kg IV o IM</strong>; rescate postoperatorio: <strong>0.1 a 0.2 mg/kg IV cada 4 a 6 h</strong> <span class="cite-tag">[44]</span>.</li>
+                    <li><strong>Fentanilo:</strong> Bolo inicial de <strong>2 a 5 μg/kg IV lenta</strong>, sostenido en CRI de <strong>2 a 10 μg/kg/hora</strong> (<strong>0.03 a 0.16 μg/kg/min</strong>) titulada a efecto <span class="cite-tag">[47]</span>.</li>
+                    <li><strong>Remifentanilo (elección en colonoscopía y ablación láser):</strong> Hidrólisis por carboxilesterasas tisulares y plasmáticas (vida media sensible al contexto ultra-corta de <strong>3 a 5 min</strong>). Bolo: <strong>1 a 2 μg/kg IV lenta</strong> + CRI de <strong>0.1 a 0.5 μg/kg/min IV</strong>. La analgesia decae en <strong>&lt;10 min</strong> tras cesar la infusión, exigiendo analgesia preventiva o bloqueo locorregional previo para evitar despertar con alodinia aguda <span class="cite-tag">[44, 45, 46]</span>.</li>
+                  </ul>
+                </div>
+
+                <div class="glass-subcard">
+                  <h4><i data-lucide="syringe"></i> Bloqueo Epidural Lumbosacro (L7–S1)</h4>
+                  <p style="margin-bottom:0.4rem;">
+                    Técnica de referencia en cirugía perineal y anorrectal (paciente en decúbito esternal con miembros pélvicos traccionados cranealmente) <span class="cite-tag">[44]</span>:
+                  </p>
+                  <ul>
+                    <li><strong>Bupivacaína al 0.5%:</strong> <strong>1.0 mg/kg</strong> (volumen de <strong>0.20 a 0.22 mL/kg</strong>) <span class="cite-tag">[44]</span>.</li>
+                    <li><strong>Morfina libre de conservantes:</strong> Asociada en la misma inyección a <strong>0.1 mg/kg</strong> para prolongar la analgesia somatovisceral hasta por <strong>16 a 24 horas</strong> sin intensificar el bloqueo motor residual (vigilar retención urinaria transitoria) <span class="cite-tag">[44]</span>.</li>
+                  </ul>
+                </div>
+
+                <div class="glass-subcard">
+                  <h4><i data-lucide="crosshair"></i> Bloqueo Bilateral del Nervio Pudendo (Fosa Isquiorrectal)</h4>
+                  <p style="margin-bottom:0.4rem;">
+                    Indicado cuando la epidural está contraindicada (politraumatismo pélvico, coagulopatías, piodermas sacrolumbares). El nervio pudendo (raíces <strong>S1–S3</strong>) cursa medial al ligamento sacrotuberoso en la fosa isquiorrectal <span class="cite-tag">[11, 44]</span>:
+                  </p>
+                  <ul>
+                    <li><strong>Guía ecográfica o neuroestimulación:</strong> Contracción del esfínter a <strong>0.4 a 0.5 mA</strong> <span class="cite-tag">[11]</span>.</li>
+                    <li><strong>Bupivacaína 0.5%:</strong> <strong>0.05 a 0.10 mL/kg por punto</strong> (duración de 4 a 8 horas) <span class="cite-tag">[11]</span>.</li>
+                    <li><strong>Lidocaína 2% (exploraciones cortas):</strong> <strong>0.10 a 0.15 mL/kg por lado</strong> <span class="cite-tag">[11]</span>.</li>
+                    <li><em>Honestidad sobre otros bloqueos:</em> Solo el bloqueo epidural L7–S1 y el bloqueo del nervio pudendo en la fosa isquiorrectal tienen dosis exactas; no hay volúmenes separados para infiltraciones perineales subcutáneas superficiales en tumescencia <span class="cite-tag">[11, 44]</span>.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -3032,7 +3163,7 @@
               </div>
               <div>
                 <div style="font-size:0.76rem; font-weight:700; color:var(--accent-emerald); margin-bottom:0.45rem; text-transform:uppercase;">
-                  Mecanismo / Significado Clínico en el Informe
+                  Mecanismo / Significado Clínico
                 </div>
                 <div id="matchRightCol" style="display:flex; flex-direction:column; gap:0.5rem;"></div>
               </div>
@@ -3110,115 +3241,119 @@
             <span class="module-number">13</span>
             <div class="module-title-wrap">
               <h2>Galería Visual de Referencia (Wikimedia Commons) y Bibliografía</h2>
-              <p>Cinco imágenes reales de Wikimedia Commons, cada una con su autor y licencia. Dos son de medicina humana (el esquema de trayectos de una fístula anal y la colitis de Crohn) y se usan solo como referencia anatómica e histológica. Debajo están las fuentes principales del informe.</p>
+              <p>Cinco imágenes reales de Wikimedia Commons, cada una con su autor y licencia. Dos son de medicina humana (el esquema de trayectos de una fístula anal y la colitis de Crohn) y se usan solo como referencia anatómica e histológica. Debajo están las fuentes principales.</p>
             </div>
           </div>
 
-          <div class="gallery-grid" style="margin-bottom:1.75rem;">
-            <!-- Imagen 1 -->
-            <figure class="gallery-card">
-              <div class="gallery-img-wrap">
-                <img data-commons="20110425_German_Shepherd_Dog_8505.jpg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/20110425_German_Shepherd_Dog_8505.jpg/1280px-20110425_German_Shepherd_Dog_8505.jpg" alt="Pastor Alemán adulto de manto negro y fuego echado sobre el césped, con la cola larga y peluda apoyada en el suelo" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
-              </div>
-              <figcaption class="gallery-meta">
-                <strong style="color:var(--text-primary);">1. Raza predispuesta: Pastor Alemán</strong>
-                <span style="color:var(--text-secondary);">El Pastor Alemán es, por lejos, la raza más afectada por las fístulas perianales. Se cree que influyen su cola de base ancha y baja, que pega la zona perianal y la mantiene húmeda, y una base inmunitaria heredada. Este perro no es un paciente: la foto solo muestra la raza.</span>
-                <div class="commons-credit">Autor: <span>Jakub Hałun</span> · Licencia: <span><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></span> · <a href="https://commons.wikimedia.org/wiki/File:20110425_German_Shepherd_Dog_8505.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div>
-              </figcaption>
-            </figure>
+          <details class="fold-card" id="galeria">
+            <summary><i data-lucide="images"></i> <span>Galería visual: 5 imágenes de Wikimedia Commons</span><svg class="lucide lucide-chevron-down fold-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="fold-body">
+              <div class="gallery-grid">
+                <!-- Imagen 1 -->
+                <figure class="gallery-card">
+                  <div class="gallery-img-wrap">
+                    <img data-commons="20110425_German_Shepherd_Dog_8505.jpg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/20110425_German_Shepherd_Dog_8505.jpg/1280px-20110425_German_Shepherd_Dog_8505.jpg" alt="Pastor Alemán adulto de manto negro y fuego echado sobre el césped, con la cola larga y peluda apoyada en el suelo" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                  </div>
+                  <figcaption class="gallery-meta">
+                    <strong style="color:var(--text-primary);">1. Raza predispuesta: Pastor Alemán</strong>
+                    <span style="color:var(--text-secondary);">El Pastor Alemán es, por lejos, la raza más afectada por las fístulas perianales. Se cree que influyen su cola de base ancha y baja, que pega la zona perianal y la mantiene húmeda, y una base inmunitaria heredada. Este perro no es un paciente: la foto solo muestra la raza.</span>
+                    <div class="commons-credit">Autor: <span>Jakub Hałun</span> · Licencia: <span><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></span> · <a href="https://commons.wikimedia.org/wiki/File:20110425_German_Shepherd_Dog_8505.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+                  </figcaption>
+                </figure>
 
-            <!-- Imagen 2 -->
-            <figure class="gallery-card">
-              <div class="gallery-img-wrap">
-                <img data-commons="Fistula_diag_01-es.svg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Fistula_diag_01-es.svg/960px-Fistula_diag_01-es.svg.png" alt="Corte frontal del recto y el ano humanos con los esfínteres interno y externo y cinco trayectos fistulosos en azul: extraesfintérico, supraesfintérico, transesfintérico, interesfintérico y submucoso" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
-              </div>
-              <figcaption class="gallery-meta">
-                <strong style="color:var(--text-primary);">2. Trayectos de una fístula anal (esquema humano)</strong>
-                <span style="color:var(--text-secondary);">Esquema de anatomía humana, en español. Muestra cómo un trayecto fistuloso puede pasar por dentro, entre o a través de los esfínteres. En el perro los trayectos son túneles que drenan en la piel que rodea el ano y pueden llegar hasta el esfínter externo, por eso la cirugía agresiva arriesga la incontinencia fecal.</span>
-                <div class="commons-credit">Autor: <span>Jmarchn</span> · Licencia: <span><a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></span> · <a href="https://commons.wikimedia.org/wiki/File:Fistula_diag_01-es.svg" target="_blank" rel="noopener">Wikimedia Commons</a></div>
-              </figcaption>
-            </figure>
+                <!-- Imagen 2 -->
+                <figure class="gallery-card">
+                  <div class="gallery-img-wrap">
+                    <img data-commons="Fistula_diag_01-es.svg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Fistula_diag_01-es.svg/960px-Fistula_diag_01-es.svg.png" alt="Corte frontal del recto y el ano humanos con los esfínteres interno y externo y cinco trayectos fistulosos en azul: extraesfintérico, supraesfintérico, transesfintérico, interesfintérico y submucoso" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                  </div>
+                  <figcaption class="gallery-meta">
+                    <strong style="color:var(--text-primary);">2. Trayectos de una fístula anal (esquema humano)</strong>
+                    <span style="color:var(--text-secondary);">Esquema de anatomía humana, en español. Muestra cómo un trayecto fistuloso puede pasar por dentro, entre o a través de los esfínteres. En el perro los trayectos son túneles que drenan en la piel que rodea el ano y pueden llegar hasta el esfínter externo, por eso la cirugía agresiva arriesga la incontinencia fecal.</span>
+                    <div class="commons-credit">Autor: <span>Jmarchn</span> · Licencia: <span><a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></span> · <a href="https://commons.wikimedia.org/wiki/File:Fistula_diag_01-es.svg" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+                  </figcaption>
+                </figure>
 
-            <!-- Imagen 3 -->
-            <figure class="gallery-card">
-              <div class="gallery-img-wrap">
-                <img data-commons="Anal_gland_abscess.JPG" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Anal_gland_abscess.JPG/1280px-Anal_gland_abscess.JPG" alt="Región perianal de un perro de pelo corto color canela con la cola levantada: a la derecha del ano, una lesión abultada, roja y ulcerada que corresponde a un absceso del saco anal" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
-              </div>
-              <figcaption class="gallery-meta">
-                <strong style="color:var(--text-primary);">3. Diagnóstico diferencial: absceso del saco anal (perro)</strong>
-                <span style="color:var(--text-secondary);">Perro con un absceso del saco anal derecho, no con fístulas perianales. Es el principal diagnóstico diferencial: suele ser una sola lesión junto al saco, mientras que en la furunculosis anal hay varios trayectos alrededor del ano. También hay que descartar un adenocarcinoma del saco anal.</span>
-                <div class="commons-credit">Autor: <span>Joel Mills</span> · Licencia: <span><a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></span> · <a href="https://commons.wikimedia.org/wiki/File:Anal_gland_abscess.JPG" target="_blank" rel="noopener">Wikimedia Commons</a></div>
-              </figcaption>
-            </figure>
+                <!-- Imagen 3 -->
+                <figure class="gallery-card">
+                  <div class="gallery-img-wrap">
+                    <img data-commons="Anal_gland_abscess.JPG" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Anal_gland_abscess.JPG/1280px-Anal_gland_abscess.JPG" alt="Región perianal de un perro de pelo corto color canela con la cola levantada: a la derecha del ano, una lesión abultada, roja y ulcerada que corresponde a un absceso del saco anal" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                  </div>
+                  <figcaption class="gallery-meta">
+                    <strong style="color:var(--text-primary);">3. Diagnóstico diferencial: absceso del saco anal (perro)</strong>
+                    <span style="color:var(--text-secondary);">Perro con un absceso del saco anal derecho, no con fístulas perianales. Es el principal diagnóstico diferencial: suele ser una sola lesión junto al saco, mientras que en la furunculosis anal hay varios trayectos alrededor del ano. También hay que descartar un adenocarcinoma del saco anal.</span>
+                    <div class="commons-credit">Autor: <span>Joel Mills</span> · Licencia: <span><a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></span> · <a href="https://commons.wikimedia.org/wiki/File:Anal_gland_abscess.JPG" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+                  </figcaption>
+                </figure>
 
-            <!-- Imagen 4 -->
-            <figure class="gallery-card">
-              <div class="gallery-img-wrap">
-                <img data-commons="Crohn_Colitis_(6264520294).jpg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Crohn_Colitis_%286264520294%29.jpg/1280px-Crohn_Colitis_%286264520294%29.jpg" alt="Microfotografía con hematoxilina-eosina de mucosa de colon humano: en el centro, un granuloma redondeado de células epitelioides pálidas rodeado de linfocitos, y alrededor criptas cortadas en forma de anillo" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
-              </div>
-              <figcaption class="gallery-meta">
-                <strong style="color:var(--text-primary);">4. Granuloma en la colitis de Crohn (intestino humano)</strong>
-                <span style="color:var(--text-secondary);">Colon humano con enfermedad de Crohn, no de un perro. Las fístulas perianales del perro se parecen a la enfermedad de Crohn perianal de las personas, y una parte de los perros afectados tiene también colitis o enteropatía inflamatoria crónica. En la biopsia del perro predominan los linfocitos y las células plasmáticas.</span>
-                <div class="commons-credit">Autor: <span>Ed Uthman</span> · Licencia: <span><a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a></span> · <a href="https://commons.wikimedia.org/wiki/File:Crohn_Colitis_(6264520294).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div>
-              </figcaption>
-            </figure>
+                <!-- Imagen 4 -->
+                <figure class="gallery-card">
+                  <div class="gallery-img-wrap">
+                    <img data-commons="Crohn_Colitis_(6264520294).jpg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Crohn_Colitis_%286264520294%29.jpg/1280px-Crohn_Colitis_%286264520294%29.jpg" alt="Microfotografía con hematoxilina-eosina de mucosa de colon humano: en el centro, un granuloma redondeado de células epitelioides pálidas rodeado de linfocitos, y alrededor criptas cortadas en forma de anillo" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                  </div>
+                  <figcaption class="gallery-meta">
+                    <strong style="color:var(--text-primary);">4. Granuloma en la colitis de Crohn (intestino humano)</strong>
+                    <span style="color:var(--text-secondary);">Colon humano con enfermedad de Crohn, no de un perro. Las fístulas perianales del perro se parecen a la enfermedad de Crohn perianal de las personas, y una parte de los perros afectados tiene también colitis o enteropatía inflamatoria crónica. En la biopsia del perro predominan los linfocitos y las células plasmáticas.</span>
+                    <div class="commons-credit">Autor: <span>Ed Uthman</span> · Licencia: <span><a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a></span> · <a href="https://commons.wikimedia.org/wiki/File:Crohn_Colitis_(6264520294).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+                  </figcaption>
+                </figure>
 
-            <!-- Imagen 5 -->
-            <figure class="gallery-card">
-              <div class="gallery-img-wrap">
-                <img data-commons="Ciclosporin-A-from-xtal-3D-bs-17.png" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Ciclosporin-A-from-xtal-3D-bs-17.png/1280px-Ciclosporin-A-from-xtal-3D-bs-17.png" alt="Modelo de bolas y varillas de la ciclosporina A, un péptido cíclico grande: carbono en gris, hidrógeno en blanco, oxígeno en rojo y nitrógeno en azul, sobre fondo negro" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                <!-- Imagen 5 -->
+                <figure class="gallery-card">
+                  <div class="gallery-img-wrap">
+                    <img data-commons="Ciclosporin-A-from-xtal-3D-bs-17.png" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Ciclosporin-A-from-xtal-3D-bs-17.png/1280px-Ciclosporin-A-from-xtal-3D-bs-17.png" alt="Modelo de bolas y varillas de la ciclosporina A, un péptido cíclico grande: carbono en gris, hidrógeno en blanco, oxígeno en rojo y nitrógeno en azul, sobre fondo negro" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                  </div>
+                  <figcaption class="gallery-meta">
+                    <strong style="color:var(--text-primary);">5. Molécula de ciclosporina A</strong>
+                    <span style="color:var(--text-secondary);">La ciclosporina es un péptido cíclico de 11 aminoácidos que frena a la calcineurina y, con ella, la activación de los linfocitos T. Es el tratamiento de primera línea de las fístulas perianales: muchas cierran sin cirugía. Las dosis exactas están en el <a href="#mod-06">módulo 06</a>.</span>
+                    <div class="commons-credit">Autor: <span>Ben Mills</span> · Licencia: <span>Public domain</span> · <a href="https://commons.wikimedia.org/wiki/File:Ciclosporin-A-from-xtal-3D-bs-17.png" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+                  </figcaption>
+                </figure>
               </div>
-              <figcaption class="gallery-meta">
-                <strong style="color:var(--text-primary);">5. Molécula de ciclosporina A</strong>
-                <span style="color:var(--text-secondary);">La ciclosporina es un péptido cíclico de 11 aminoácidos que frena a la calcineurina y, con ella, la activación de los linfocitos T. Es el tratamiento de primera línea de las fístulas perianales: muchas cierran sin cirugía. Las dosis exactas van en la sección de tratamiento, según el informe.</span>
-                <div class="commons-credit">Autor: <span>Ben Mills</span> · Licencia: <span>Public domain</span> · <a href="https://commons.wikimedia.org/wiki/File:Ciclosporin-A-from-xtal-3D-bs-17.png" target="_blank" rel="noopener">Wikimedia Commons</a></div>
-              </figcaption>
-            </figure>
-          </div>
+            </div>
+          </details>
 
           <!-- Fuentes Bibliográficas del Informe -->
-          <details style="background:var(--surface-card); border:1px solid var(--border-glass); border-radius:var(--radius-md); padding:1rem;">
-            <summary style="cursor:pointer; font-family:var(--font-display); font-weight:700; color:var(--accent-sky); display:flex; align-items:center; gap:0.45rem;">
-              <i data-lucide="book-open-check"></i>
-              <span>Fuentes principales del informe (35; el número coincide con las citas entre corchetes)</span>
-            </summary>
-            <ol style="margin-top:0.9rem; padding-left:1.4rem; font-size:0.78rem; color:var(--text-secondary); display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:0.45rem 1.5rem;">
-              <li value="1"><a href="https://vcahospitals.com/know-your-pet/perianal-fistula-in-dogs" target="_blank" rel="noopener">VCA Animal Hospitals – Perianal Fistula in Dogs</a></li>
-              <li value="2"><a href="https://www.researchgate.net/publication/260810023_Genetics_of_canine_anal_furunculosis_in_the_German_Shepherd_dog" target="_blank" rel="noopener">Genetics of canine anal furunculosis in the German Shepherd dog (ResearchGate)</a></li>
-              <li value="3"><a href="https://hjcam.hcavs.gr/en/v7-i1-anal-furunculosis" target="_blank" rel="noopener">HJCAM – Canine anal furunculosis: is there a place for surgery</a></li>
-              <li value="4"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12548688/" target="_blank" rel="noopener">PMC NIH – Canine perianal fistulas (PMC12548688)</a></li>
-              <li value="5"><a href="https://pro.dermavet.eu/en/perianal-fistulas-in-dogs/" target="_blank" rel="noopener">DermaVet – Perianal Fistulas in Dogs</a></li>
-              <li value="6"><a href="https://www.merckvetmanual.com/digestive-system/diseases-of-the-rectum-and-anus/perianal-fistula-in-dogs" target="_blank" rel="noopener">Merck Veterinary Manual – Perianal Fistula in Dogs</a></li>
-              <li value="7"><a href="https://veterinarypartner.vin.com/doc/?id=4952922&pid=19239" target="_blank" rel="noopener">Veterinary Partner VIN – Perianal Fistulae in Dogs</a></li>
-              <li value="8"><a href="https://www.vetfolio.com/learn/article/applied-dermatology-perianal-fistulas" target="_blank" rel="noopener">VetFolio – Applied Dermatology: Perianal Fistulas</a></li>
-              <li value="9"><a href="https://todaysveterinarypractice.com/dermatology/perianal-fistulas-in-dogs/" target="_blank" rel="noopener">Today's Veterinary Practice – Perianal Fistulas in Dogs</a></li>
-              <li value="10"><a href="https://petsvetcheck.de/en/diseases-and-disorders/cat/perianal-fistula-chronic-skin-inflammation-of-the-anal-region/" target="_blank" rel="noopener">PetsVetCheck – Painful Inflammatory Anal Fistulas in Cats</a></li>
-              <li value="11"><a href="https://www.researchgate.net/figure/schiorectal-fossa-approach-for-pudendal-nerve-block-in-a-goat-Left-hand-first-finger-in_fig3_298904150" target="_blank" rel="noopener">Ischiorectal fossa approach for pudendal nerve block (ResearchGate)</a></li>
-              <li value="12"><a href="https://revistas-veterinaria.multimedica.es/clindervet/abordaje-de-las-dermatosis-inmunomediadas-y-autoinmunes-en-el-perro/" target="_blank" rel="noopener">Clindervet – Abordaje de las dermatosis inmunomediadas y autoinmunes en el perro</a></li>
-              <li value="14"><a href="https://www.colibri.udelar.edu.uy/jspui/bitstream/20.500.12008/19379/1/FV-28105.pdf" target="_blank" rel="noopener">Colibri Udelar – Tesis Doctoral en Medicina y Tecnología Veterinaria</a></li>
-              <li value="16"><a href="https://pubmed.ncbi.nlm.nih.gov/17999655/" target="_blank" rel="noopener">PubMed – Risk of anal furunculosis in German shepherd dogs (DLA-DRB1*00101)</a></li>
-              <li value="17"><a href="https://omia.org/OMIA001589/9615/" target="_blank" rel="noopener">OMIA:001589-9615 – Anal furunculosis in Canis lupus familiaris</a></li>
-              <li value="18"><a href="https://www.mdpi.com/1422-0067/23/22/13917" target="_blank" rel="noopener">MDPI – The Intersection of Human and Veterinary Medicine</a></li>
-              <li value="20"><a href="https://www.vetspecialists.co.uk/fact-sheets-post/perianal-fistulae-anal-furunculosis-fact-sheet/" target="_blank" rel="noopener">Davies Veterinary Specialists – Perianal Fistulae (Anal Furunculosis)</a></li>
-              <li value="21"><a href="https://www.veterinarypaper.com/pdf/2025/vol10issue4/PartF/10-4-44-293.pdf" target="_blank" rel="noopener">Management of perianal fistula in a German shepherd dog (2025)</a></li>
-              <li value="22"><a href="https://open.lib.umn.edu/animaldermatology3/chapter/1k-perianal-fistulas-canine/" target="_blank" rel="noopener">University of Minnesota – Perianal Fistulas Canine</a></li>
-              <li value="25"><a href="https://www.mdpi.com/2076-2615/14/22/3300" target="_blank" rel="noopener">MDPI Animals – In Situ Treatment of Refractory Perianal Fistulas in Dogs</a></li>
-              <li value="26"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11898182/" target="_blank" rel="noopener">PMC – Chronic Enteropathy and Vitamins in Dogs</a></li>
-              <li value="27"><a href="https://www.researchgate.net/publication/257646388_Randomized_Controlled_Trial_of_Budesonide_and_Prednisone_for_the_Treatment_of_Idiopathic_Inflammatory_Bowel_Disease_in_Dogs" target="_blank" rel="noopener">Randomized Trial of Budesonide and Prednisone for IBD in Dogs</a></li>
-              <li value="28"><a href="https://epi4dogs.com/b12-protocol/" target="_blank" rel="noopener">Epi4Dogs – B12 Protocol</a></li>
-              <li value="29"><a href="https://vetmed.tamu.edu/gilab/service/assays/b12folate/" target="_blank" rel="noopener">Texas A&amp;M University (TAMU GI Lab) – Serum Cobalamin and Folate</a></li>
-              <li value="30"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9511088/" target="_blank" rel="noopener">PMC – Effect of oral or injectable supplementation with cobalamin in dogs</a></li>
-              <li value="33"><a href="https://www.semanticscholar.org/paper/Efficacy-of-combined-cyclosporine-A-and-treatment-O%27Neill-Edwards/9a6f9adc0706ee9ca691d6ad4d30568c2ab784a4" target="_blank" rel="noopener">Efficacy of combined cyclosporine A and ketoconazole treatment</a></li>
-              <li value="34"><a href="https://www.dvm360.com/view/medical-management-perianal-fistula" target="_blank" rel="noopener">DVM360 – Medical management of perianal fistula</a></li>
-              <li value="38"><a href="https://todaysveterinarypractice.com/gastroenterology/inflammatory-bowel-disease-dogs-cats/" target="_blank" rel="noopener">Today's Veterinary Practice – Inflammatory Bowel Disease (IBD) in Dogs and Cats</a></li>
-              <li value="40"><a href="https://www.merckvetmanual.com/digestive-system/diseases-of-the-small-intestine-in-small-animals/chronic-enteropathies-in-small-animals" target="_blank" rel="noopener">Merck Veterinary Manual – Chronic Enteropathies in Small Animals</a></li>
-              <li value="43"><a href="https://smartlasertherapy.com/es/curacion-desde-dentro-hacia-fuera-terapia-laser-para-fistulas-perianales-caninas/" target="_blank" rel="noopener">Rheinlaser – Terapia láser para fístulas perianales caninas</a></li>
-              <li value="44"><a href="https://www.researchgate.net/publication/390163811_Ultrasound-Guided_Ischiorectal_Fossa_Block_Targeting_the_Pudendal_Nerve_in_Dogs_A_Cadaveric_Study" target="_blank" rel="noopener">Ultrasound-Guided Ischiorectal Fossa Block Targeting the Pudendal Nerve in Dogs</a></li>
-              <li value="45"><a href="https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.1003965" target="_blank" rel="noopener">PLOS Medicine – Brain-based measures of nociception during general anesthesia</a></li>
-              <li value="46"><a href="https://ojs.pubvet.com.br/index.php/revista/article/download/3408/3488/1196" target="_blank" rel="noopener">Pubvet – Remifentanil em paciente cardiopata</a></li>
-              <li value="47"><a href="https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S2524-177X2021000300116" target="_blank" rel="noopener">SciELO México – Endoscopy anesthesia, team perspective</a></li>
-              <li value="50"><a href="https://vetree.app/article/6957c97bff22c57548563d4a" target="_blank" rel="noopener">Vetree – Ultrasound-guided pudendal block in the dog</a></li>
+          <details class="fold-card" id="bibliografia">
+            <summary><i data-lucide="book-open-check"></i> <span>Bibliografía: fuentes principales (35; el número coincide con las citas entre corchetes)</span><svg class="lucide lucide-chevron-down fold-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="fold-body">
+            <ol class="ref-list">
+              <li value="1" id="ref-1"><a href="https://vcahospitals.com/know-your-pet/perianal-fistula-in-dogs" target="_blank" rel="noopener">VCA Animal Hospitals – Perianal Fistula in Dogs</a></li>
+              <li value="2" id="ref-2"><a href="https://www.researchgate.net/publication/260810023_Genetics_of_canine_anal_furunculosis_in_the_German_Shepherd_dog" target="_blank" rel="noopener">Genetics of canine anal furunculosis in the German Shepherd dog (ResearchGate)</a></li>
+              <li value="3" id="ref-3"><a href="https://hjcam.hcavs.gr/en/v7-i1-anal-furunculosis" target="_blank" rel="noopener">HJCAM – Canine anal furunculosis: is there a place for surgery</a></li>
+              <li value="4" id="ref-4"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12548688/" target="_blank" rel="noopener">PMC NIH – Canine perianal fistulas (PMC12548688)</a></li>
+              <li value="5" id="ref-5"><a href="https://pro.dermavet.eu/en/perianal-fistulas-in-dogs/" target="_blank" rel="noopener">DermaVet – Perianal Fistulas in Dogs</a></li>
+              <li value="6" id="ref-6"><a href="https://www.merckvetmanual.com/digestive-system/diseases-of-the-rectum-and-anus/perianal-fistula-in-dogs" target="_blank" rel="noopener">Merck Veterinary Manual – Perianal Fistula in Dogs</a></li>
+              <li value="7" id="ref-7"><a href="https://veterinarypartner.vin.com/doc/?id=4952922&pid=19239" target="_blank" rel="noopener">Veterinary Partner VIN – Perianal Fistulae in Dogs</a></li>
+              <li value="8" id="ref-8"><a href="https://www.vetfolio.com/learn/article/applied-dermatology-perianal-fistulas" target="_blank" rel="noopener">VetFolio – Applied Dermatology: Perianal Fistulas</a></li>
+              <li value="9" id="ref-9"><a href="https://todaysveterinarypractice.com/dermatology/perianal-fistulas-in-dogs/" target="_blank" rel="noopener">Today's Veterinary Practice – Perianal Fistulas in Dogs</a></li>
+              <li value="10" id="ref-10"><a href="https://petsvetcheck.de/en/diseases-and-disorders/cat/perianal-fistula-chronic-skin-inflammation-of-the-anal-region/" target="_blank" rel="noopener">PetsVetCheck – Painful Inflammatory Anal Fistulas in Cats</a></li>
+              <li value="11" id="ref-11"><a href="https://www.researchgate.net/figure/schiorectal-fossa-approach-for-pudendal-nerve-block-in-a-goat-Left-hand-first-finger-in_fig3_298904150" target="_blank" rel="noopener">Ischiorectal fossa approach for pudendal nerve block (ResearchGate)</a></li>
+              <li value="12" id="ref-12"><a href="https://revistas-veterinaria.multimedica.es/clindervet/abordaje-de-las-dermatosis-inmunomediadas-y-autoinmunes-en-el-perro/" target="_blank" rel="noopener">Clindervet – Abordaje de las dermatosis inmunomediadas y autoinmunes en el perro</a></li>
+              <li value="14" id="ref-14"><a href="https://www.colibri.udelar.edu.uy/jspui/bitstream/20.500.12008/19379/1/FV-28105.pdf" target="_blank" rel="noopener">Colibri Udelar – Tesis Doctoral en Medicina y Tecnología Veterinaria</a></li>
+              <li value="16" id="ref-16"><a href="https://pubmed.ncbi.nlm.nih.gov/17999655/" target="_blank" rel="noopener">PubMed – Risk of anal furunculosis in German shepherd dogs (DLA-DRB1*00101)</a></li>
+              <li value="17" id="ref-17"><a href="https://omia.org/OMIA001589/9615/" target="_blank" rel="noopener">OMIA:001589-9615 – Anal furunculosis in Canis lupus familiaris</a></li>
+              <li value="18" id="ref-18"><a href="https://www.mdpi.com/1422-0067/23/22/13917" target="_blank" rel="noopener">MDPI – The Intersection of Human and Veterinary Medicine</a></li>
+              <li value="20" id="ref-20"><a href="https://www.vetspecialists.co.uk/fact-sheets-post/perianal-fistulae-anal-furunculosis-fact-sheet/" target="_blank" rel="noopener">Davies Veterinary Specialists – Perianal Fistulae (Anal Furunculosis)</a></li>
+              <li value="21" id="ref-21"><a href="https://www.veterinarypaper.com/pdf/2025/vol10issue4/PartF/10-4-44-293.pdf" target="_blank" rel="noopener">Management of perianal fistula in a German shepherd dog (2025)</a></li>
+              <li value="22" id="ref-22"><a href="https://open.lib.umn.edu/animaldermatology3/chapter/1k-perianal-fistulas-canine/" target="_blank" rel="noopener">University of Minnesota – Perianal Fistulas Canine</a></li>
+              <li value="25" id="ref-25"><a href="https://www.mdpi.com/2076-2615/14/22/3300" target="_blank" rel="noopener">MDPI Animals – In Situ Treatment of Refractory Perianal Fistulas in Dogs</a></li>
+              <li value="26" id="ref-26"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11898182/" target="_blank" rel="noopener">PMC – Chronic Enteropathy and Vitamins in Dogs</a></li>
+              <li value="27" id="ref-27"><a href="https://www.researchgate.net/publication/257646388_Randomized_Controlled_Trial_of_Budesonide_and_Prednisone_for_the_Treatment_of_Idiopathic_Inflammatory_Bowel_Disease_in_Dogs" target="_blank" rel="noopener">Randomized Trial of Budesonide and Prednisone for IBD in Dogs</a></li>
+              <li value="28" id="ref-28"><a href="https://epi4dogs.com/b12-protocol/" target="_blank" rel="noopener">Epi4Dogs – B12 Protocol</a></li>
+              <li value="29" id="ref-29"><a href="https://vetmed.tamu.edu/gilab/service/assays/b12folate/" target="_blank" rel="noopener">Texas A&amp;M University (TAMU GI Lab) – Serum Cobalamin and Folate</a></li>
+              <li value="30" id="ref-30"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9511088/" target="_blank" rel="noopener">PMC – Effect of oral or injectable supplementation with cobalamin in dogs</a></li>
+              <li value="33" id="ref-33"><a href="https://www.semanticscholar.org/paper/Efficacy-of-combined-cyclosporine-A-and-treatment-O%27Neill-Edwards/9a6f9adc0706ee9ca691d6ad4d30568c2ab784a4" target="_blank" rel="noopener">Efficacy of combined cyclosporine A and ketoconazole treatment</a></li>
+              <li value="34" id="ref-34"><a href="https://www.dvm360.com/view/medical-management-perianal-fistula" target="_blank" rel="noopener">DVM360 – Medical management of perianal fistula</a></li>
+              <li value="38" id="ref-38"><a href="https://todaysveterinarypractice.com/gastroenterology/inflammatory-bowel-disease-dogs-cats/" target="_blank" rel="noopener">Today's Veterinary Practice – Inflammatory Bowel Disease (IBD) in Dogs and Cats</a></li>
+              <li value="40" id="ref-40"><a href="https://www.merckvetmanual.com/digestive-system/diseases-of-the-small-intestine-in-small-animals/chronic-enteropathies-in-small-animals" target="_blank" rel="noopener">Merck Veterinary Manual – Chronic Enteropathies in Small Animals</a></li>
+              <li value="43" id="ref-43"><a href="https://smartlasertherapy.com/es/curacion-desde-dentro-hacia-fuera-terapia-laser-para-fistulas-perianales-caninas/" target="_blank" rel="noopener">Rheinlaser – Terapia láser para fístulas perianales caninas</a></li>
+              <li value="44" id="ref-44"><a href="https://www.researchgate.net/publication/390163811_Ultrasound-Guided_Ischiorectal_Fossa_Block_Targeting_the_Pudendal_Nerve_in_Dogs_A_Cadaveric_Study" target="_blank" rel="noopener">Ultrasound-Guided Ischiorectal Fossa Block Targeting the Pudendal Nerve in Dogs</a></li>
+              <li value="45" id="ref-45"><a href="https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.1003965" target="_blank" rel="noopener">PLOS Medicine – Brain-based measures of nociception during general anesthesia</a></li>
+              <li value="46" id="ref-46"><a href="https://ojs.pubvet.com.br/index.php/revista/article/download/3408/3488/1196" target="_blank" rel="noopener">Pubvet – Remifentanil em paciente cardiopata</a></li>
+              <li value="47" id="ref-47"><a href="https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S2524-177X2021000300116" target="_blank" rel="noopener">SciELO México – Endoscopy anesthesia, team perspective</a></li>
+              <li value="50" id="ref-50"><a href="https://vetree.app/article/6957c97bff22c57548563d4a" target="_blank" rel="noopener">Vetree – Ultrasound-guided pudendal block in the dog</a></li>
             </ol>
+            </div>
           </details>
         </section>
 
@@ -3248,7 +3383,7 @@
           Guía didáctica preparada por Andreé, médico veterinario.
         </p>
         <p style="font-size:0.78rem; color:var(--text-muted);">
-          Basado estrictamente en la evidencia del informe clínico sobre Furunculosis Anal y Enteropatía Inflamatoria Crónica.
+          Basado estrictamente en la evidencia publicada sobre Furunculosis Anal y Enteropatía Inflamatoria Crónica.
         </p>
       </div>
     </div>
@@ -4506,7 +4641,7 @@
       if (isFeline) {
         return {
           sc: '250 μg SC cada semana por 6 semanas (+ dosis a los 30 días)',
-          po: 'El protocolo TAMU del informe especifica para gatos la pauta de 250 μg SC semanal'
+          po: 'El protocolo TAMU especifica para gatos la pauta de 250 μg SC semanal'
         };
       }
       let scDose = 250;
@@ -4540,7 +4675,7 @@
         container.innerHTML = `
           <div class="callout-box danger" style="grid-column: 1 / -1; margin:0;">
             <div class="callout-title"><i data-lucide="alert-octagon"></i> Sin Evidencia de Furunculosis Anal Autoinmune en Otras Especies</div>
-            El informe establece que en <strong>equinos, rumiantes, porcinos, conejos y aves no existe evidencia científica</strong> de una furunculosis anal autoinmune homóloga a la del perro, por lo que no se extrapolan ni inventan dosis inmunosupresoras para estas especies <span class="cite-tag">[11]</span>.
+            En <strong>equinos, rumiantes, porcinos, conejos y aves no existe evidencia científica</strong> de una furunculosis anal autoinmune homóloga a la del perro, por lo que no se extrapolan ni inventan dosis inmunosupresoras para estas especies <span class="cite-tag">[11]</span>.
           </div>
         `;
         if (window.lucide) window.lucide.createIcons();
@@ -4586,7 +4721,7 @@
               <span>${c.name}</span>
               <span class="cite-tag">Felino (${w} kg)</span>
             </div>
-            <div style="font-size:0.77rem; color:var(--text-muted);">Pauta del informe: ${c.regimen}</div>
+            <div style="font-size:0.77rem; color:var(--text-muted);">Pauta publicada: ${c.regimen}</div>
             <div class="dose-calculated" style="${c.calc.includes('PROSCRITA') ? 'color:var(--accent-rose); border-color:var(--accent-rose); background:rgba(244,63,94,0.12);' : ''}">${c.calc}</div>
             <div style="font-size:0.78rem; color:var(--text-secondary);">${c.note}</div>
           </div>
@@ -4632,8 +4767,8 @@
           cat: 'inmuno',
           name: 'Budesonida (Colitis / PLE Concurrente)',
           regimen: '3 mg/m² PO q24h o 0.1–0.3 mg/kg PO q24h (1–3 mg/perro)',
-          calc: `Por SC (${bsa.toFixed(2)} m²): ${(bsa * 3).toFixed(2)} mg q24h | Dosis fija del informe: 1–3 mg/perro q24h`,
-          note: 'Aclaramiento hepático de primer paso >90% [26, 37]. No se multiplica 0.1–0.3 mg/kg por el peso: en perros grandes contradice el tope de 1–3 mg/perro del mismo informe.'
+          calc: `Por SC (${bsa.toFixed(2)} m²): ${(bsa * 3).toFixed(2)} mg q24h | Dosis fija: 1–3 mg/perro q24h`,
+          note: 'Aclaramiento hepático de primer paso >90% [26, 37]. No se multiplica 0.1–0.3 mg/kg por el peso: en perros grandes contradice el tope de 1–3 mg/perro de la misma fuente.'
         },
         {
           cat: 'inmuno',
@@ -6363,7 +6498,7 @@
           {
             text: 'Sujetar con bozal en consulta y practicar de inmediato el sondaje con cánula metálica y tacto rectal despierto para estadificar rápido.',
             correct: false,
-            feedback: 'Incorrecto. El informe señala que forzar el tacto rectal o sondaje en un perro consciente resulta deontológicamente inaceptable por el dolor hiperalgésico y artefactos por espasmo muscular [3].'
+            feedback: 'Incorrecto. Forzar el tacto rectal o sondaje en un perro consciente resulta deontológicamente inaceptable por el dolor hiperalgésico y artefactos por espasmo muscular [3].'
           },
           {
             text: 'Indicar amputación quirúrgica profiláctica de la base de la cola para ventilar la zona perianal antes de hacer pruebas.',
@@ -6728,7 +6863,7 @@
         if (msgEl) {
           msgEl.style.color = 'var(--accent-emerald)';
           msgEl.textContent = matchedCount === matchingPairsData.length
-            ? '¡Excelente! Has emparejado correctamente los 6 conceptos clave del informe.'
+            ? '¡Excelente! Has emparejado correctamente los 6 conceptos clave.'
             : '¡Asociación correcta! Continúa con el siguiente par.';
         }
       } else {
@@ -6842,7 +6977,7 @@
         explanation: 'El protocolo TAMU SC asigna: <5 kg y gatos: 250 μg; 5–15 kg: 400 μg; 15–30 kg: 800 μg; 30–45 kg: 1200 μg; y >45 kg: 1500 μg [28].'
       },
       {
-        q: '¿Qué afirma el informe sobre la furunculosis anal en gatos (Felis catus) y el uso de azatioprina en esta especie?',
+        q: '¿Qué se sabe de la furunculosis anal en gatos (Felis catus) y el uso de azatioprina en esta especie?',
         options: [
           'La furunculosis anal idiopática inmunomediada es extraordinariamente rara en gatos (predominan abscesos saculares, neoplasias o micobacterias/anaerobios), y la azatioprina está terminantemente contraindicada por déficit de TPMT.',
           'Es idéntica en frecuencia al Pastor Alemán y la azatioprina es el fármaco felino de primera elección.',
@@ -6852,7 +6987,7 @@
         explanation: 'En felinos es extraordinariamente rara [4, 6]; la azatioprina está terminantemente contraindicada en gatos por déficit de TPMT (aplasia medular mortal), mientras que la budesonida se pauta a 1 mg total/gato PO q24h [8, 26, 40].'
       },
       {
-        q: '¿Qué dice con honestidad el informe respecto a equinos, rumiantes, porcinos, conejos y aves?',
+        q: '¿Qué dice con honestidad la evidencia respecto a equinos, rumiantes, porcinos, conejos y aves?',
         options: [
           'No existe evidencia de una furunculosis anal autoinmune homóloga a la del perro; las lesiones perineales obedecen a desgarros obstétricos/melanomas (equinos), atresia anal congénita (rumiantes), traumatismos/amoniaco (porcinos/conejos) o cloacitis (aves).',
           'Los bovinos y equinos desarrollan furunculosis anal autoinmune por el alelo DLA-DRB1*00101 en el 60% de los hatos.',
@@ -6876,7 +7011,7 @@
         options: [
           'Epidural L7–S1: bupivacaína 0.5% a 1.0 mg/kg (0.20–0.22 mL/kg) + morfina 0.1 mg/kg; Bloqueo pudendo: bupivacaína 0.5% a 0.05–0.10 mL/kg por punto (o lidocaína 2% a 0.10–0.15 mL/kg).',
           'Epidural L7–S1: solo lidocaína en volumen alto; bloqueo pudendo: solo morfina, sin anestésico local.',
-          'El informe indica que los bloqueos locorregionales están prohibidos en cirugía perianal.'
+          'Los bloqueos locorregionales están prohibidos en cirugía perianal.'
         ],
         correctIndex: 0,
         explanation: 'La epidural L7–S1 emplea bupivacaína 0.5% a 1.0 mg/kg (0.20–0.22 mL/kg) + morfina 0.1 mg/kg (16–24 h), y el bloqueo pudendo ecoguiado o con neuroestimulación (0.4–0.5 mA) usa bupivacaína 0.5% a 0.05–0.10 mL/kg por punto [11, 44].'
@@ -6936,7 +7071,7 @@
             </div>
             <p style="font-size:0.86rem;">
               ${approved
-                ? '¡Felicidades! Has demostrado dominio integral del informe sobre Furunculosis Anal y Enteropatía Inflamatoria Crónica. Ya puedes generar y descargar tu certificado abajo.'
+                ? '¡Felicidades! Has demostrado dominio integral de la Furunculosis Anal y Enteropatía Inflamatoria Crónica. Ya puedes generar y descargar tu certificado abajo.'
                 : 'Has completado la autoevaluación. Revisa abajo el desglose de las preguntas falladas y genera tu certificado o vuelve a intentarlo.'}
             </p>
           </div>
@@ -7184,6 +7319,58 @@
     if (window.lucide) {
       window.lucide.createIcons();
     }
+  </script>
+  <script>
+    /* Pestañas "Tabla resumen / Texto detallado" (patrón ARIA tabs con flechas, Inicio y Fin) */
+    document.querySelectorAll('[data-view-tabs]').forEach(function (group) {
+      var tabs = Array.prototype.slice.call(group.querySelectorAll('[role="tab"]'));
+      function selectTab(tab, focus) {
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          t.tabIndex = on ? 0 : -1;
+          var panel = document.getElementById(t.getAttribute('aria-controls'));
+          if (panel) panel.hidden = !on;
+        });
+        if (focus) tab.focus();
+      }
+      tabs.forEach(function (tab, idx) {
+        tab.addEventListener('click', function () { selectTab(tab, false); });
+        tab.addEventListener('keydown', function (e) {
+          var next = null;
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = tabs[(idx + 1) % tabs.length];
+          else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = tabs[(idx - 1 + tabs.length) % tabs.length];
+          else if (e.key === 'Home') next = tabs[0];
+          else if (e.key === 'End') next = tabs[tabs.length - 1];
+          if (!next) return;
+          e.preventDefault();
+          selectTab(next, true);
+        });
+      });
+    });
+
+    /* Enlaces internos (#ref-12, #galeria...): si el destino está dentro de un <details> cerrado, se abre antes de desplazar */
+    function openDetailsFor(target) {
+      var opened = false;
+      for (var d = target; d; d = d.parentElement) {
+        if (d.tagName === 'DETAILS' && !d.open) { d.open = true; opened = true; }
+      }
+      return opened;
+    }
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!link) return;
+      var id = decodeURIComponent(link.getAttribute('href').slice(1));
+      var target = id && document.getElementById(id);
+      if (target) openDetailsFor(target);
+    }, true);
+    function openHashTarget() {
+      var id = decodeURIComponent(location.hash.slice(1));
+      var target = id && document.getElementById(id);
+      if (target && openDetailsFor(target)) target.scrollIntoView();
+    }
+    window.addEventListener('hashchange', openHashTarget);
+    openHashTarget();
   </script>
   <script>
     /* Galería: si una miniatura de Wikimedia Commons falla, reintenta una vez; si vuelve a fallar, deja visible solo el crédito */
