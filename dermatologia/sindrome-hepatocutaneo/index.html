@@ -1279,6 +1279,147 @@
   
     /* Iconos Lucide en línea con el texto (el reset global pone svg en display:block) */
     svg.lucide { display: inline-block; }
+    /* Pestañas por especie: foco visible; tarjetas-enlace del panel canino */
+    .species-tab-btn:focus-visible,
+    .vade-tab:focus-visible,
+    .fold-card > summary:focus-visible,
+    .species-link-card:focus-visible,
+    .species-panel:focus-visible,
+    .vade-panel:focus-visible {
+      outline: 2px solid var(--accent-cyan);
+      outline-offset: 2px;
+    }
+    .species-link-card {
+      display: block;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .species-link-card:hover {
+      border-color: var(--accent-cyan);
+      text-decoration: none;
+      transform: translateY(-2px);
+    }
+    .species-link-card h4::after {
+      content: "→";
+      margin-left: auto;
+      color: var(--accent-cyan);
+    }
+    .species-link-card .link-hint {
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+    .species-tab-btn { max-width: 100%; text-align: left; }
+
+    /* Vademécum en pestañas */
+    .vade-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+    .vade-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      max-width: 100%;
+      padding: 0.55rem 0.95rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      font: inherit;
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .vade-tab:hover { border-color: var(--border-strong); color: var(--text-primary); }
+    .vade-tab.active {
+      background: color-mix(in srgb, var(--accent-cyan) 16%, var(--bg-card-solid));
+      border-color: var(--accent-cyan);
+      color: var(--text-primary);
+    }
+    .vade-count {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.05rem 0.4rem;
+      border-radius: 999px;
+      background: var(--bg-elevated);
+      color: var(--accent-cyan);
+    }
+    .vade-panel[hidden] { display: none; }
+
+    /* Tablas apiladas por filas en pantallas estrechas (sin scroll horizontal) */
+    @media (max-width: 640px) {
+      .clinical-table.stack-sm { min-width: 0; }
+      .clinical-table.stack-sm thead { display: none; }
+      .clinical-table.stack-sm,
+      .clinical-table.stack-sm tbody,
+      .clinical-table.stack-sm tr,
+      .clinical-table.stack-sm td { display: block; width: 100%; }
+      .clinical-table.stack-sm tr { border-bottom: 2px solid var(--border-strong); padding: 0.35rem 0; }
+      .clinical-table.stack-sm tr:last-child { border-bottom: 0; }
+      .clinical-table.stack-sm td { border-bottom: 0; padding: 0.35rem 0.85rem; overflow-wrap: anywhere; }
+      .clinical-table.stack-sm td::before {
+        content: attr(data-label);
+        display: block;
+        font-family: var(--font-display);
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--accent-cyan);
+        margin-bottom: 0.1rem;
+      }
+    }
+
+    /* Plegable con aspecto de tarjeta (bibliografía) */
+    .fold-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+    }
+    .fold-card > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.85rem 1.1rem;
+      cursor: pointer;
+      list-style: none;
+      border-radius: var(--radius-md);
+    }
+    .fold-card > summary::-webkit-details-marker { display: none; }
+    .fold-card > summary:hover { background: color-mix(in srgb, var(--accent-cyan) 8%, transparent); }
+    .fold-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+    .fold-chevron { color: var(--accent-cyan); transition: transform 0.2s ease; }
+    .fold-card[open] > summary .fold-chevron { transform: rotate(180deg); }
+    .fold-card[open] > summary { border-bottom: 1px solid var(--border-color); border-radius: var(--radius-md) var(--radius-md) 0 0; }
+    .ref-list {
+      columns: 2 340px;
+      column-gap: 2rem;
+      padding: 0.9rem 1.1rem 1rem 2.35rem;
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      overflow-wrap: anywhere;
+    }
+    .ref-list li { break-inside: avoid; scroll-margin-top: calc(var(--header-h) + 16px); }
+    .ref-list li:target { background: color-mix(in srgb, var(--accent-cyan) 14%, transparent); border-radius: 4px; }
+
+    /* Visor 3D en celular: la etiqueta del % de progresión no se corta */
+    @media (max-width: 540px) {
+      .slider-wrap { flex-wrap: wrap; flex-basis: 100%; min-width: 0; row-gap: 0.4rem; }
+      .slider-wrap input[type="range"] { order: 3; flex: 1 1 100%; min-width: 0; }
+      #lesionPercentLabel { min-width: 0 !important; margin-left: auto; white-space: nowrap; }
+    }
   </style>
 </head>
 <body>
@@ -1378,46 +1519,50 @@
     </div>
     <h2 class="section-heading">Abordaje por Especie: Presentación, Diagnóstico, Tratamiento y Evidencia</h2>
 
-    <div class="species-tabs-header" role="tablist">
-      <button type="button" class="species-tab-btn active" role="tab" aria-selected="true" data-species-tab="caninos">
+    <div class="species-tabs-header" role="tablist" aria-label="Especie">
+      <button type="button" class="species-tab-btn active" role="tab" id="tab-caninos" aria-selected="true" aria-controls="species-caninos" tabindex="0" data-species-tab="caninos">
         <svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306"/></svg>
         Caninos (Especie Foco)
       </button>
-      <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-tab="felinos">
+      <button type="button" class="species-tab-btn" role="tab" id="tab-felinos" aria-selected="false" aria-controls="species-felinos" tabindex="-1" data-species-tab="felinos">
         <svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>
-        Felinos (*Felis catus*)
+        <span>Felinos (<em>Felis catus</em>)</span>
       </button>
-      <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-tab="otras">
+      <button type="button" class="species-tab-btn" role="tab" id="tab-otras" aria-selected="false" aria-controls="species-otras" tabindex="-1" data-species-tab="otras">
         <svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
         Otras Especies (Rinoceronte, Equinos, Rumiantes, Porcinos, Conejos, Aves)
       </button>
     </div>
 
-    <!-- PANEL CANINOS -->
-    <div id="species-caninos" class="species-panel active" role="tabpanel">
+    <!-- PANEL CANINOS: tarjetas cortas; los datos están en sus módulos -->
+    <div id="species-caninos" class="species-panel active" role="tabpanel" aria-labelledby="tab-caninos" tabindex="0">
       <p>
-        En el perro, el síndrome hepatocutáneo o síndrome de hepatopatía hipoaminoacidémica canina aminoacidúrica (<strong>ACHES / ACHE</strong>) se origina en <strong>más del 90% de los casos</strong> por una hepatopatía vacuolar degenerativa colapsante idiopática, y en menos del 5% al 10% por glucagonomas pancreáticos primarios, además de hepatotoxicidad crónica por fenobarbital o micotoxinas <span class="source-ref">Ref. 2, 5, 24</span>. Hasta un <strong>27% de los perros afectados</strong> presentan el daño hepatometabólico meses antes de exteriorizar la necrosis epidérmica <span class="source-ref">Ref. 2</span>.
+        El perro es la especie foco de esta guía: aquí están todos los datos clínicos, de diagnóstico y de tratamiento. Causas en <a href="#mod-03">03 · Etiologías</a> y definición del síndrome ACHES en <a href="#mod-01">01 · Definición</a>.
       </p>
-      <div class="species-grid">
-        <div class="species-card">
-          <h4>Presentación Clínica</h4>
-          <p>Pacientes maduros a geriátricos (mediana <strong>10 años</strong>, rango 5–15 años), predominio en machos (<strong>2:1 a 3:1</strong>). Razas predispuestas: Shih Tzu, West Highland White Terrier, Cocker Spaniel, Shetland Sheepdog, Border Collie, Scottish Terrier, Lhasa Apso y Caniche miniatura <span class="source-ref">Ref. 2, 6</span>. Compromiso de almohadillas plantares en el <strong>90%–95%</strong> (hiperqueratosis, fisuras profundas, claudicación), uniones mucocutáneas, puntos de presión, región anogenital y desungulación <span class="source-ref">Ref. 6, 8, 9, 11</span>.</p>
-        </div>
-        <div class="species-card">
-          <h4>Diagnóstico Multimodal</h4>
-          <p><strong>Bioquímica:</strong> Fosfatasa alcalina (FA/ALP) elevada en &gt;90%–95% (5 a 25 veces el límite superior), elevación paralela de GGT, hipoalbuminemia, BUN y colesterol reducidos, ácidos biliares elevados en ACHES <span class="source-ref">Ref. 8, 9, 29</span>. <strong>Aminoácidos plasmáticos (HPLC/MS-MS):</strong> caída del 50% al 85% (hasta 80% basal en Pro, Hyp, Ala, Gln, BCAA, Cys, Met) con aminoaciduria <span class="source-ref">Ref. 2, 31</span>. <strong>Ecografía:</strong> hígado en panal de abejas (<em>honeycomb</em>). <strong>Biopsia cutánea (punch 6–8 mm):</strong> patrón "Rojo, Blanco y Azul" <span class="source-ref">Ref. 2, 4, 16</span>.</p>
-        </div>
-        <div class="species-card">
-          <h4>Tratamiento y Dosis Exactas</h4>
-          <p><strong>Infusión IV de L-aminoácidos (8,5%–10%):</strong> 25 mL/kg IV en 6–8 h (3,12–4,16 mL/kg/h) o al 3% a 50 mL/kg IV en 8 h; vía periférica segura con solo 0,9% de tromboflebitis en 277 infusiones <span class="source-ref">Ref. 39, 42</span>. <strong>Lípidos 20%:</strong> 1–2 g/kg IV (5–10 mL/kg) <span class="source-ref">Ref. 28</span>. <strong>Dieta:</strong> 30%–40% EM proteica + 1 yema de huevo/4,5–5 kg/día <span class="source-ref">Ref. 6, 30</span>. <strong>Soporte oral:</strong> Zinc elemental 1–2 mg/kg/día, EPA+DHA 50–100 mg/kg/día, SAMe 20 mg/kg/24h, Silibina 2–5 mg/kg/12–24h, Ursodiol 10–15 mg/kg/24h <span class="source-ref">Ref. 6, 33, 39</span>.</p>
-        </div>
+      <div class="species-grid species-links">
+        <a class="species-card species-link-card" href="#mod-05">
+          <h4>Presentación y signos</h4>
+          <p>Edad, sexo y razas en <span class="link-hint">02 · Epidemiología</span>; almohadillas, uniones mucocutáneas y mapa corporal en <span class="link-hint">05 · Signos clínicos</span>.</p>
+        </a>
+        <a class="species-card species-link-card" href="#mod-06">
+          <h4>Diagnóstico</h4>
+          <p>Bioquímica, aminoácidos plasmáticos, glucagón, ecografía en panal de abejas, biopsias y diferenciales en <span class="link-hint">06 · Diagnóstico</span>.</p>
+        </a>
+        <a class="species-card species-link-card" href="#mod-07">
+          <h4>Tratamiento</h4>
+          <p>Infusión IV de aminoácidos, lípidos, dieta y retirada de fenobarbital en <span class="link-hint">07 · Tratamiento</span>.</p>
+        </a>
+        <a class="species-card species-link-card" href="#vademecum">
+          <h4>Dosis y calculadora</h4>
+          <p>Vademécum por grupos y calculadora por peso en <span class="link-hint">07 · Vademécum</span>; anestesia en <span class="link-hint">08</span>.</p>
+        </a>
       </div>
     </div>
 
     <!-- PANEL FELINOS -->
-    <div id="species-felinos" class="species-panel" role="tabpanel">
+    <div id="species-felinos" class="species-panel" role="tabpanel" aria-labelledby="tab-felinos" tabindex="0" hidden>
       <div class="honesty-banner">
-        <strong>Transparencia de Evidencia en Felinos (<em>Felis catus</em>):</strong> En la especie felina la presentación es <strong>excepcional</strong> <span class="source-ref">Ref. 5</span>. El informe documenta su etiología paraneoplásica o infiltrativa y cita datos farmacodinámicos de remifentanilo en gatos <span class="source-ref">Ref. 7, 10, 49</span>, pero no establece dosis numéricas exclusivas de infusión de aminoácidos ni suplementación separadas de los protocolos caninos; no deben extrapolarse ni inventarse dosis sin sustento.
+        <strong>Transparencia de Evidencia en Felinos (<em>Felis catus</em>):</strong> En la especie felina la presentación es <strong>excepcional</strong> <span class="source-ref">Ref. 5</span>. Su etiología es paraneoplásica o infiltrativa y hay datos farmacodinámicos de remifentanilo en gatos <span class="source-ref">Ref. 7, 10, 49</span>, pero no hay dosis numéricas exclusivas de infusión de aminoácidos ni de suplementación separadas de los protocolos caninos; no deben extrapolarse ni inventarse dosis sin sustento.
       </div>
       <div class="species-grid">
         <div class="species-card">
@@ -1430,15 +1575,15 @@
         </div>
         <div class="species-card">
           <h4>Manejo y Anestesia Documentada</h4>
-          <p>El abordaje se orienta a identificar la neoplasia primaria o enteropatía infiltrativa subyacente y proveer soporte nutricional hiperproteico <span class="source-ref">Ref. 7, 10</span>. En el apartado anestesiológico bibliográfico, el informe incluye la referencia específica en gatos de <strong>Ilkiw et al. (2009, AJVR)</strong> sobre los efectos de la infusión continua (CRI) de hidrocloruro de remifentanilo en la concentración alveolar mínima (CAM) de isoflurano y variables cardiorrespiratorias en felinos <span class="source-ref">Ref. 49</span>.</p>
+          <p>El abordaje se orienta a identificar la neoplasia primaria o enteropatía infiltrativa subyacente y proveer soporte nutricional hiperproteico <span class="source-ref">Ref. 7, 10</span>. En anestesia, la referencia específica en gatos es <strong>Ilkiw et al. (2009, AJVR)</strong>, sobre los efectos de la infusión continua (CRI) de hidrocloruro de remifentanilo en la concentración alveolar mínima (CAM) de isoflurano y variables cardiorrespiratorias en felinos <span class="source-ref">Ref. 49</span>.</p>
         </div>
       </div>
     </div>
 
     <!-- PANEL OTRAS ESPECIES -->
-    <div id="species-otras" class="species-panel" role="tabpanel">
+    <div id="species-otras" class="species-panel" role="tabpanel" aria-labelledby="tab-otras" tabindex="0" hidden>
       <div class="honesty-banner">
-        <strong>Declaración Estricta de Evidencia Científica:</strong> El informe distingue con precisión entre la dermatopatía bien documentada del <strong>rinoceronte negro en cautiverio</strong> y la <strong>ausencia total de evidencia científica o casos descritos</strong> de síndrome hepatocutáneo idiopático en equinos, rumiantes domésticos, porcinos, conejos y aves <span class="source-ref">Ref. 5, 13, 14, 20</span>.
+        <strong>Declaración Estricta de Evidencia Científica:</strong> Hay que distinguir con precisión entre la dermatopatía bien documentada del <strong>rinoceronte negro en cautiverio</strong> y la <strong>ausencia total de evidencia científica o casos descritos</strong> de síndrome hepatocutáneo idiopático en equinos, rumiantes domésticos, porcinos, conejos y aves <span class="source-ref">Ref. 5, 13, 14, 20</span>.
       </div>
       <div class="species-grid">
         <div class="species-card">
@@ -1447,7 +1592,7 @@
         </div>
         <div class="species-card">
           <h4>Equinos, Conejos y Aves</h4>
-          <p><strong>Sin evidencia científica:</strong> En equinos, conejos y aves de producción o compañía <strong>no existe evidencia científica ni casos descritos</strong> de dermatitis necrolítica superficial o síndrome hepatocutáneo idiopático en la literatura biomédica <span class="source-ref">Ref. 5, 20</span>. El informe no establece protocolos ni dosis para estas especies.</p>
+          <p><strong>Sin evidencia científica:</strong> En equinos, conejos y aves de producción o compañía <strong>no existe evidencia científica ni casos descritos</strong> de dermatitis necrolítica superficial o síndrome hepatocutáneo idiopático en la literatura biomédica <span class="source-ref">Ref. 5, 20</span>. No hay protocolos ni dosis para estas especies.</p>
         </div>
         <div class="species-card">
           <h4>Rumiantes Domésticos y Porcinos</h4>
@@ -1883,7 +2028,7 @@
           <div class="info-box">
             <h3>2. Aminoácidos Plasmáticos y Glucagón</h3>
             <p>
-              <strong>Aminoácidos plasmáticos en ayunas (HPLC/MS-MS o intercambio iónico):</strong> confirmación metabólica concluyente. Depresión generalizada con <strong>caídas basales de hasta el 80%</strong> en prolina, hidroxiprolina, alanina, glutamina, leucina, isoleucina, valina, cisteína y metionina, sumada a aminoaciduria en cromatografía urinaria <span class="source-ref">Ref. 2, 31</span>.<br/>
+              <strong>Aminoácidos plasmáticos en ayunas (HPLC/MS-MS o intercambio iónico):</strong> confirmación metabólica concluyente. Depresión generalizada (caída del 50% al 85%) con <strong>caídas basales de hasta el 80%</strong> en prolina, hidroxiprolina, alanina, glutamina, leucina, isoleucina, valina, cisteína y metionina, sumada a aminoaciduria en cromatografía urinaria <span class="source-ref">Ref. 2, 31</span>.<br/>
               <strong>Glucagón sérico:</strong> muestreo en tubos <strong>EDTA enfriados con aprotinina</strong>. Valores <strong>&gt;500 a 1000 pg/mL</strong> (normal: <strong>&lt;100–150 pg/mL</strong>) sugieren glucagonoma; en ACHES es normal o bajo <span class="source-ref">Ref. 2, 26, 27</span>.
             </p>
           </div>
@@ -2015,117 +2160,161 @@
           </div>
         </div>
 
-        <h3 style="font-family:var(--font-display); font-size:1.12rem; margin-bottom:0.75rem;">
-          Vademécum Posológico Exacto del Informe (Soporte Oral, Antimicrobiano, Analgésico y Endocrino)
+        <h3 id="vademecum" style="font-family:var(--font-display); font-size:1.12rem; margin-bottom:0.75rem;">
+          Vademécum Posológico Exacto (Soporte Oral, Antimicrobiano, Analgésico y Endocrino)
         </h3>
 
-        <div class="table-scroll">
-          <table class="clinical-table">
-            <thead>
-              <tr>
-                <th>Fármaco o Compuesto Activo</th>
-                <th>Indicación Terapéutica</th>
-                <th>Dosis Específica y Frecuencia</th>
-                <th>Vía</th>
-                <th>Consideraciones Farmacológicas y Contraindicaciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Gluconato de Zinc</strong></td>
-                <td>Reposición del déficit de transporte por hipoalbuminemia <span class="source-ref">Ref. 8</span>.</td>
-                <td><strong>1 a 2 mg/kg/día de zinc elemental</strong> (o <strong>10 mg/kg</strong> de gluconato/sulfato) <span class="source-ref">Ref. 6</span>.</td>
-                <td>Oral (PO)</td>
-                <td>Administrar junto con alimento húmedo para evitar náuseas o vómitos por irritación gástrica <span class="source-ref">Ref. 6</span>.</td>
-              </tr>
-              <tr>
-                <td><strong>Ácidos Grasos Omega-3 (EPA / DHA)</strong></td>
-                <td>Reconstitución de la barrera córnea y reducción de eicosanoides inflamatorios <span class="source-ref">Ref. 33</span>.</td>
-                <td><strong>50 a 100 mg/kg/día combinados de EPA + DHA</strong> <span class="source-ref">Ref. 33</span>.</td>
-                <td>Oral (PO)</td>
-                <td>Aceites de pescado ultra-purificados en cápsulas o suspensión oral líquida <span class="source-ref">Ref. 39</span>.</td>
-              </tr>
-              <tr>
-                <td><strong>Niacinamida (Vitamina B3)</strong></td>
-                <td>Cofactor en la formación de NAD/NADH para recambio epidérmico <span class="source-ref">Ref. 30</span>.</td>
-                <td><strong>250 a 500 mg por perro cada 8 a 12 h</strong> (o <strong>10–20 mg/kg TID</strong>) <span class="source-ref">Ref. 30</span>.</td>
-                <td>Oral (PO)</td>
-                <td>Puede asociarse con <strong>Vitamina E (400–800 UI/perro/día)</strong> como soporte antioxidante dérmico <span class="source-ref">Ref. 30</span>.</td>
-              </tr>
-              <tr>
-                <td><strong>S-adenosilmetionina (SAMe)</strong></td>
-                <td>Precursor directo de la síntesis hepatocelular de glutatión (GSH) <span class="source-ref">Ref. 39</span>.</td>
-                <td><strong>20 mg/kg cada 24 horas</strong> <span class="source-ref">Ref. 39</span>.</td>
-                <td>Oral (PO)</td>
-                <td>Administrar estrictamente en ayunas, al menos 1 hora antes de ingerir alimentos <span class="source-ref">Ref. 39</span>.</td>
-              </tr>
-              <tr>
-                <td><strong>Silibina / Silimarina</strong></td>
-                <td>Estabilizador de membrana del hepatocito y antioxidante <span class="source-ref">Ref. 39</span>.</td>
-                <td><strong>2 a 5 mg/kg cada 12 a 24 horas</strong> <span class="source-ref">Ref. 39</span>.</td>
-                <td>Oral (PO)</td>
-                <td>Preferir fórmulas en fitosoma (complejo lipídico con fosfatidilcolina) para mejorar absorción <span class="source-ref">Ref. 39</span>.</td>
-              </tr>
-              <tr>
-                <td><strong>Ursodiol (Ácido Ursodesoxicólico)</strong></td>
-                <td>Hidrocolerético; desplazamiento de sales biliares hepatotóxicas hidrofóbicas <span class="source-ref">Ref. 39</span>.</td>
-                <td><strong>10 a 15 mg/kg cada 24 horas</strong> <span class="source-ref">Ref. 39</span>.</td>
-                <td>Oral (PO)</td>
-                <td>Suministrar junto con comida con grasa para estimular su incorporación micelar y absorción <span class="source-ref">Ref. 39</span>.</td>
-              </tr>
-              <tr>
-                <td><strong>Champú Clorhexidina 2% + Miconazol 2%</strong></td>
-                <td>Terapia tópica contra sobreproliferación de <em>Malassezia</em> y bacterias podales <span class="source-ref">Ref. 4</span>.</td>
-                <td><strong>Baños tópicos cada 3 a 5 días</strong> (10 minutos de contacto antes de aclarar) <span class="source-ref">Ref. 4</span>.</td>
-                <td>Tópica</td>
-                <td>Esencial para evitar la maceración húmeda entre dedos y lechos ungueales <span class="source-ref">Ref. 4</span>.</td>
-              </tr>
-              <tr>
-                <td><strong>Itraconazol</strong></td>
-                <td>Antimicótico sistémico para dermatitis podal refractaria por <em>Malassezia</em> <span class="source-ref">Ref. 4</span>.</td>
-                <td><strong>5 mg/kg cada 24 horas</strong> continuas (o en pulsos de 2 días seguidos/semana) <span class="source-ref">Ref. 4</span>.</td>
-                <td>Oral (PO)</td>
-                <td>El <strong>ketoconazol está terminantemente contraindicado</strong> por su hepatotoxicidad severa intrínseca <span class="source-ref">Ref. 4</span>.</td>
-              </tr>
-              <tr>
-                <td><strong>Terbinafina</strong></td>
-                <td>Opción antimicótica alternativa con menor dependencia hepática <span class="source-ref">Ref. 4</span>.</td>
-                <td><strong>30 mg/kg cada 24 horas</strong> continuas <span class="source-ref">Ref. 4</span>.</td>
-                <td>Oral (PO)</td>
-                <td>Excelente concentración en queratina y baja inducción del citocromo P450 <span class="source-ref">Ref. 4</span>.</td>
-              </tr>
-              <tr>
-                <td><strong>Cefalexina / Amoxicilina-Clavulánico</strong></td>
-                <td>Antibioticoterapia contra pioderma superficial y foliculitis bacteriana <span class="source-ref">Ref. 4</span>.</td>
-                <td>Cefalexina: <strong>22 a 30 mg/kg c/12h</strong> por 3–4 sem. Alternativa: Amoxicilina-Clavulánico <strong>12,5–20 mg/kg c/12h</strong> <span class="source-ref">Ref. 4</span>.</td>
-                <td>Oral (PO)</td>
-                <td>Dirigido frente a <em>Staphylococcus pseudintermedius</em>; retirar al normalizar citología <span class="source-ref">Ref. 4, 11</span>.</td>
-              </tr>
-              <tr>
-                <td><strong>Gabapentina</strong></td>
-                <td>Analgesia multimodal para dolor neuropático por fisuras plantares.</td>
-                <td><strong>5 a 10 mg/kg cada 8 a 12 horas</strong> (titulado según dolor).</td>
-                <td>Oral (PO)</td>
-                <td>Los <strong>corticoides sistémicos y AINEs están formalmente contraindicados</strong> por inducir catabolismo e injuria gástrica/renal <span class="source-ref">Ref. 7</span>.</td>
-              </tr>
-              <tr>
-                <td><strong>Octreotida (Acetato)</strong></td>
-                <td>Terapia médica de rescate en glucagonoma primario o metastásico <span class="source-ref">Ref. 34</span>.</td>
-                <td><strong>2 µg/kg cada 12 horas</strong> de forma continua <span class="source-ref">Ref. 33</span>.</td>
-                <td>Subcutánea (SC)</td>
-                <td>Análogo de somatostatina que suprime la secreción de glucagón; revierte lesiones cutáneas en 10–14 días <span class="source-ref">Ref. 33</span>.</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="vade-tabs" role="tablist" aria-label="Grupos del vademécum">
+          <button type="button" class="vade-tab active" role="tab" id="vade-tab-nutri" aria-selected="true" aria-controls="vade-panel-nutri" tabindex="0">Soporte oral y hepatoprotectores <span class="vade-count">6</span></button>
+          <button type="button" class="vade-tab" role="tab" id="vade-tab-antimicro" aria-selected="false" aria-controls="vade-panel-antimicro" tabindex="-1">Antimicrobianos y tópicos <span class="vade-count">4</span></button>
+          <button type="button" class="vade-tab" role="tab" id="vade-tab-analg" aria-selected="false" aria-controls="vade-panel-analg" tabindex="-1">Analgesia y endocrino <span class="vade-count">2</span></button>
+        </div>
+
+        <div class="vade-panel" role="tabpanel" id="vade-panel-nutri" aria-labelledby="vade-tab-nutri" tabindex="0">
+          <div class="table-scroll">
+            <table class="clinical-table stack-sm">
+              <thead>
+                <tr>
+                  <th>Fármaco o Compuesto Activo</th>
+                  <th>Indicación Terapéutica</th>
+                  <th>Dosis Específica y Frecuencia</th>
+                  <th>Vía</th>
+                  <th>Consideraciones Farmacológicas y Contraindicaciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Fármaco o Compuesto Activo"><strong>Gluconato de Zinc</strong></td>
+                  <td data-label="Indicación Terapéutica">Reposición del déficit de transporte por hipoalbuminemia <span class="source-ref">Ref. 8</span>.</td>
+                  <td data-label="Dosis Específica y Frecuencia"><strong>1 a 2 mg/kg/día de zinc elemental</strong> (o <strong>10 mg/kg</strong> de gluconato/sulfato) <span class="source-ref">Ref. 6</span>.</td>
+                  <td data-label="Vía">Oral (PO)</td>
+                  <td data-label="Consideraciones Farmacológicas y Contraindicaciones">Administrar junto con alimento húmedo para evitar náuseas o vómitos por irritación gástrica <span class="source-ref">Ref. 6</span>.</td>
+                </tr>
+                <tr>
+                  <td data-label="Fármaco o Compuesto Activo"><strong>Ácidos Grasos Omega-3 (EPA / DHA)</strong></td>
+                  <td data-label="Indicación Terapéutica">Reconstitución de la barrera córnea y reducción de eicosanoides inflamatorios <span class="source-ref">Ref. 33</span>.</td>
+                  <td data-label="Dosis Específica y Frecuencia"><strong>50 a 100 mg/kg/día combinados de EPA + DHA</strong> <span class="source-ref">Ref. 33</span>.</td>
+                  <td data-label="Vía">Oral (PO)</td>
+                  <td data-label="Consideraciones Farmacológicas y Contraindicaciones">Aceites de pescado ultra-purificados en cápsulas o suspensión oral líquida <span class="source-ref">Ref. 39</span>.</td>
+                </tr>
+                <tr>
+                  <td data-label="Fármaco o Compuesto Activo"><strong>Niacinamida (Vitamina B3)</strong></td>
+                  <td data-label="Indicación Terapéutica">Cofactor en la formación de NAD/NADH para recambio epidérmico <span class="source-ref">Ref. 30</span>.</td>
+                  <td data-label="Dosis Específica y Frecuencia"><strong>250 a 500 mg por perro cada 8 a 12 h</strong> (o <strong>10–20 mg/kg TID</strong>) <span class="source-ref">Ref. 30</span>.</td>
+                  <td data-label="Vía">Oral (PO)</td>
+                  <td data-label="Consideraciones Farmacológicas y Contraindicaciones">Puede asociarse con <strong>Vitamina E (400–800 UI/perro/día)</strong> como soporte antioxidante dérmico <span class="source-ref">Ref. 30</span>.</td>
+                </tr>
+                <tr>
+                  <td data-label="Fármaco o Compuesto Activo"><strong>S-adenosilmetionina (SAMe)</strong></td>
+                  <td data-label="Indicación Terapéutica">Precursor directo de la síntesis hepatocelular de glutatión (GSH) <span class="source-ref">Ref. 39</span>.</td>
+                  <td data-label="Dosis Específica y Frecuencia"><strong>20 mg/kg cada 24 horas</strong> <span class="source-ref">Ref. 39</span>.</td>
+                  <td data-label="Vía">Oral (PO)</td>
+                  <td data-label="Consideraciones Farmacológicas y Contraindicaciones">Administrar estrictamente en ayunas, al menos 1 hora antes de ingerir alimentos <span class="source-ref">Ref. 39</span>.</td>
+                </tr>
+                <tr>
+                  <td data-label="Fármaco o Compuesto Activo"><strong>Silibina / Silimarina</strong></td>
+                  <td data-label="Indicación Terapéutica">Estabilizador de membrana del hepatocito y antioxidante <span class="source-ref">Ref. 39</span>.</td>
+                  <td data-label="Dosis Específica y Frecuencia"><strong>2 a 5 mg/kg cada 12 a 24 horas</strong> <span class="source-ref">Ref. 39</span>.</td>
+                  <td data-label="Vía">Oral (PO)</td>
+                  <td data-label="Consideraciones Farmacológicas y Contraindicaciones">Preferir fórmulas en fitosoma (complejo lipídico con fosfatidilcolina) para mejorar absorción <span class="source-ref">Ref. 39</span>.</td>
+                </tr>
+                <tr>
+                  <td data-label="Fármaco o Compuesto Activo"><strong>Ursodiol (Ácido Ursodesoxicólico)</strong></td>
+                  <td data-label="Indicación Terapéutica">Hidrocolerético; desplazamiento de sales biliares hepatotóxicas hidrofóbicas <span class="source-ref">Ref. 39</span>.</td>
+                  <td data-label="Dosis Específica y Frecuencia"><strong>10 a 15 mg/kg cada 24 horas</strong> <span class="source-ref">Ref. 39</span>.</td>
+                  <td data-label="Vía">Oral (PO)</td>
+                  <td data-label="Consideraciones Farmacológicas y Contraindicaciones">Suministrar junto con comida con grasa para estimular su incorporación micelar y absorción <span class="source-ref">Ref. 39</span>.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="vade-panel" role="tabpanel" id="vade-panel-antimicro" aria-labelledby="vade-tab-antimicro" tabindex="0" hidden>
+          <div class="table-scroll">
+            <table class="clinical-table stack-sm">
+              <thead>
+                <tr>
+                  <th>Fármaco o Compuesto Activo</th>
+                  <th>Indicación Terapéutica</th>
+                  <th>Dosis Específica y Frecuencia</th>
+                  <th>Vía</th>
+                  <th>Consideraciones Farmacológicas y Contraindicaciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Fármaco o Compuesto Activo"><strong>Champú Clorhexidina 2% + Miconazol 2%</strong></td>
+                  <td data-label="Indicación Terapéutica">Terapia tópica contra sobreproliferación de <em>Malassezia</em> y bacterias podales <span class="source-ref">Ref. 4</span>.</td>
+                  <td data-label="Dosis Específica y Frecuencia"><strong>Baños tópicos cada 3 a 5 días</strong> (10 minutos de contacto antes de aclarar) <span class="source-ref">Ref. 4</span>.</td>
+                  <td data-label="Vía">Tópica</td>
+                  <td data-label="Consideraciones Farmacológicas y Contraindicaciones">Esencial para evitar la maceración húmeda entre dedos y lechos ungueales <span class="source-ref">Ref. 4</span>.</td>
+                </tr>
+                <tr>
+                  <td data-label="Fármaco o Compuesto Activo"><strong>Itraconazol</strong></td>
+                  <td data-label="Indicación Terapéutica">Antimicótico sistémico para dermatitis podal refractaria por <em>Malassezia</em> <span class="source-ref">Ref. 4</span>.</td>
+                  <td data-label="Dosis Específica y Frecuencia"><strong>5 mg/kg cada 24 horas</strong> continuas (o en pulsos de 2 días seguidos/semana) <span class="source-ref">Ref. 4</span>.</td>
+                  <td data-label="Vía">Oral (PO)</td>
+                  <td data-label="Consideraciones Farmacológicas y Contraindicaciones">El <strong>ketoconazol está terminantemente contraindicado</strong> por su hepatotoxicidad severa intrínseca <span class="source-ref">Ref. 4</span>.</td>
+                </tr>
+                <tr>
+                  <td data-label="Fármaco o Compuesto Activo"><strong>Terbinafina</strong></td>
+                  <td data-label="Indicación Terapéutica">Opción antimicótica alternativa con menor dependencia hepática <span class="source-ref">Ref. 4</span>.</td>
+                  <td data-label="Dosis Específica y Frecuencia"><strong>30 mg/kg cada 24 horas</strong> continuas <span class="source-ref">Ref. 4</span>.</td>
+                  <td data-label="Vía">Oral (PO)</td>
+                  <td data-label="Consideraciones Farmacológicas y Contraindicaciones">Excelente concentración en queratina y baja inducción del citocromo P450 <span class="source-ref">Ref. 4</span>.</td>
+                </tr>
+                <tr>
+                  <td data-label="Fármaco o Compuesto Activo"><strong>Cefalexina / Amoxicilina-Clavulánico</strong></td>
+                  <td data-label="Indicación Terapéutica">Antibioticoterapia contra pioderma superficial y foliculitis bacteriana <span class="source-ref">Ref. 4</span>.</td>
+                  <td data-label="Dosis Específica y Frecuencia">Cefalexina: <strong>22 a 30 mg/kg c/12h</strong> por 3–4 sem. Alternativa: Amoxicilina-Clavulánico <strong>12,5–20 mg/kg c/12h</strong> <span class="source-ref">Ref. 4</span>.</td>
+                  <td data-label="Vía">Oral (PO)</td>
+                  <td data-label="Consideraciones Farmacológicas y Contraindicaciones">Dirigido frente a <em>Staphylococcus pseudintermedius</em>; retirar al normalizar citología <span class="source-ref">Ref. 4, 11</span>.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="vade-panel" role="tabpanel" id="vade-panel-analg" aria-labelledby="vade-tab-analg" tabindex="0" hidden>
+          <div class="table-scroll">
+            <table class="clinical-table stack-sm">
+              <thead>
+                <tr>
+                  <th>Fármaco o Compuesto Activo</th>
+                  <th>Indicación Terapéutica</th>
+                  <th>Dosis Específica y Frecuencia</th>
+                  <th>Vía</th>
+                  <th>Consideraciones Farmacológicas y Contraindicaciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Fármaco o Compuesto Activo"><strong>Gabapentina</strong></td>
+                  <td data-label="Indicación Terapéutica">Analgesia multimodal para dolor neuropático por fisuras plantares.</td>
+                  <td data-label="Dosis Específica y Frecuencia"><strong>5 a 10 mg/kg cada 8 a 12 horas</strong> (titulado según dolor).</td>
+                  <td data-label="Vía">Oral (PO)</td>
+                  <td data-label="Consideraciones Farmacológicas y Contraindicaciones">Los <strong>corticoides sistémicos y AINEs están formalmente contraindicados</strong> por inducir catabolismo e injuria gástrica/renal <span class="source-ref">Ref. 7</span>.</td>
+                </tr>
+                <tr>
+                  <td data-label="Fármaco o Compuesto Activo"><strong>Octreotida (Acetato)</strong></td>
+                  <td data-label="Indicación Terapéutica">Terapia médica de rescate en glucagonoma primario o metastásico <span class="source-ref">Ref. 34</span>.</td>
+                  <td data-label="Dosis Específica y Frecuencia"><strong>2 µg/kg cada 12 horas</strong> de forma continua <span class="source-ref">Ref. 33</span>.</td>
+                  <td data-label="Vía">Subcutánea (SC)</td>
+                  <td data-label="Consideraciones Farmacológicas y Contraindicaciones">Análogo de somatostatina que suprime la secreción de glucagón; revierte lesiones cutáneas en 10–14 días <span class="source-ref">Ref. 33</span>.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <!-- CALCULADORA INTERACTIVA POR PESO -->
-        <div class="calc-panel" aria-label="Calculadora posológica interactiva">
+        <div class="calc-panel" id="calculadora" aria-label="Calculadora posológica interactiva">
           <div class="calc-input-bar">
             <div>
               <span class="section-eyebrow" style="margin-bottom:0.15rem;">Herramienta Clínica Interactiva</span>
               <h3 style="font-family:var(--font-display); font-size:1.25rem;">Calculadora Posológica y de Infusión IV por Peso Corporal</h3>
-              <p style="font-size:0.8rem; color:var(--text-secondary);">Solo para <strong>perros</strong>: calcula volúmenes, velocidades de bomba y dosis con las cifras del informe. El informe no trae dosis para gatos ni otras especies. El remifentanilo va solo en CRI: el informe no da dosis de bolo.</p>
+              <p style="font-size:0.8rem; color:var(--text-secondary);">Solo para <strong>perros</strong>: calcula volúmenes, velocidades de bomba y dosis con las mismas cifras de los módulos 07 y 08. No hay dosis publicadas para gatos ni otras especies. El remifentanilo va solo en CRI: no hay dosis de bolo.</p>
             </div>
             <div style="display:flex; align-items:center; gap:0.6rem; margin-left:auto;">
               <label for="calcWeightInput" style="font-weight:700; font-size:0.9rem;">Peso del paciente (kg):</label>
@@ -2147,7 +2336,7 @@
         </header>
 
         <div class="honesty-banner" style="margin-bottom:1.15rem;">
-          <strong>Fisiopatología Anestésica y Transparencia de Datos:</strong> En el paciente hepatópata sometido a biopsia hepática laparoscópica/laparotómica o resección de glucagonoma, la <strong>hipoalbuminemia</strong> incrementa la fracción libre activa de fármacos unidos a proteínas, el colapso parenquimatoso deprime el sistema <strong>citocromo P450 y enzimas de fase II</strong>, la perfusión hepática se vuelve estrictamente dependiente de la <strong>arteria hepática</strong>, el agotamiento de glucógeno predispone a hipoglucemia fulminante y el déficit de <strong>factores II, VII, IX y X</strong> eleva el riesgo hemorrágico <span class="source-ref">Ref. 45</span>. <em>Nota sobre especies:</em> Todas las dosis numéricas de la tabla corresponden a los protocolos reportados en el informe; para felinos el informe cita el estudio farmacodinámico de remifentanilo de Ilkiw et al. (2009) <span class="source-ref">Ref. 49</span>, pero no desglosa una tabla posológica separada por especie, por lo que no se inventan cifras adicionales.
+          <strong>Fisiopatología Anestésica y Transparencia de Datos:</strong> En el paciente hepatópata sometido a biopsia hepática laparoscópica/laparotómica o resección de glucagonoma, la <strong>hipoalbuminemia</strong> incrementa la fracción libre activa de fármacos unidos a proteínas, el colapso parenquimatoso deprime el sistema <strong>citocromo P450 y enzimas de fase II</strong>, la perfusión hepática se vuelve estrictamente dependiente de la <strong>arteria hepática</strong>, el agotamiento de glucógeno predispone a hipoglucemia fulminante y el déficit de <strong>factores II, VII, IX y X</strong> eleva el riesgo hemorrágico <span class="source-ref">Ref. 45</span>. <em>Nota sobre especies:</em> Todas las dosis numéricas de la tabla corresponden a los protocolos publicados en la bibliografía; para felinos solo existe el estudio farmacodinámico de remifentanilo de Ilkiw et al. (2009) <span class="source-ref">Ref. 49</span>, sin una tabla posológica separada por especie, por lo que no se inventan cifras adicionales.
         </div>
 
         <div class="grid-2" style="margin-bottom:1.25rem;">
@@ -2175,7 +2364,7 @@
               <tr>
                 <th>Parámetro / Medicación</th>
                 <th>Fármaco y Vía</th>
-                <th>Dosis Específica / Tasa de Infusión (Informe)</th>
+                <th>Dosis Específica / Tasa de Infusión</th>
                 <th>Mecanismo Farmacocinético y Ventaja Clínica</th>
               </tr>
             </thead>
@@ -2429,7 +2618,7 @@
             </div>
             <figcaption class="commons-meta">
               <strong>1. Raza predispuesta: West Highland White Terrier</strong>
-              <span>Un Westie de 15 años. El informe pone al West Highland White Terrier entre las razas sobrerrepresentadas, junto con el Shih Tzu, el Cocker Spaniel, el Pastor de Shetland y el Border Collie, y da una mediana de 10 años al diagnóstico. Este perro no es un paciente: la foto solo muestra la raza.</span>
+              <span>Un Westie de 15 años. El West Highland White Terrier está entre las razas sobrerrepresentadas, junto con el Shih Tzu, el Cocker Spaniel, el Pastor de Shetland y el Border Collie; la mediana de edad al diagnóstico es de 10 años. Este perro no es un paciente: la foto solo muestra la raza.</span>
               <div class="commons-credit">Autor: <span>Dominic Nelson</span> · Licencia: <span><a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></span> · <a href="https://commons.wikimedia.org/wiki/File:West_Highland_White_Terrier_face_portrait_May_2023.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div>
             </figcaption>
           </figure>
@@ -2440,7 +2629,7 @@
             </div>
             <figcaption class="commons-meta">
               <strong>2. Almohadillas sanas de un perro (rotuladas)</strong>
-              <span>Almohadillas normales: A uña, B digitales, C metacarpiana, D espolón, E carpiana. Según el informe, las almohadillas se afectan en más del 90 al 95% de los perros con la enfermedad: se engrosan, descaman y se agrietan con fisuras dolorosas.</span>
+              <span>Almohadillas normales: A uña, B digitales, C metacarpiana, D espolón, E carpiana. Las almohadillas se afectan en más del 90 al 95% de los perros con la enfermedad: se engrosan, descaman y se agrietan con fisuras dolorosas.</span>
               <div class="commons-credit">Autor: <span>Amos T Fairchild</span> · Licencia: <span><a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></span> · <a href="https://commons.wikimedia.org/wiki/File:Paw_and_pads.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div>
             </figcaption>
           </figure>
@@ -2462,7 +2651,7 @@
             </div>
             <figcaption class="commons-meta">
               <strong>4. Islote de Langerhans: células alfa y beta (humano)</strong>
-              <span>Páncreas humano con doble inmunotinción: en rojo las células alfa (glucagón), en azul las células beta (insulina). Un glucagonoma es un tumor de células alfa; el informe lo da como causa poco frecuente en el perro (menos del 5 al 10%) y más relevante en el gato.</span>
+              <span>Páncreas humano con doble inmunotinción: en rojo las células alfa (glucagón), en azul las células beta (insulina). Un glucagonoma es un tumor de células alfa: es una causa poco frecuente en el perro (menos del 5 al 10%) y más relevante en el gato.</span>
               <div class="commons-credit">Autor: <span>Afferent</span> · Licencia: <span><a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a></span> · <a href="https://commons.wikimedia.org/wiki/File:Human_pancreatic_islet.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div>
             </figcaption>
           </figure>
@@ -2473,7 +2662,7 @@
             </div>
             <figcaption class="commons-meta">
               <strong>5. Eritema necrolítico migratorio en una persona</strong>
-              <span>Paciente humano, región glútea: placas rojas bien delimitadas con vesículas frágiles y costras. Fue la primera señal de un tumor neuroendocrino del páncreas (Wu et al., 2014). Es el equivalente humano que el informe llama eritema necrolítico migratorio; en el perro las lesiones se ven sobre todo en almohadillas, cara y uniones mucocutáneas.</span>
+              <span>Paciente humano, región glútea: placas rojas bien delimitadas con vesículas frágiles y costras. Fue la primera señal de un tumor neuroendocrino del páncreas (Wu et al., 2014). Es el equivalente humano, llamado eritema necrolítico migratorio; en el perro las lesiones se ven sobre todo en almohadillas, cara y uniones mucocutáneas.</span>
               <div class="commons-credit">Autor: <span>Sheng-li Wu, Ji-gang Bai, Jun Xu, Qing-yong Ma y Zheng Wu (2014)</span> · Licencia: <span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></span> · <a href="https://commons.wikimedia.org/wiki/File:Necrolytic_migratory_erythema.tif" target="_blank" rel="noopener">Wikimedia Commons</a></div>
             </figcaption>
           </figure>
@@ -2483,7 +2672,7 @@
     </main>
   </div>
 
-  <!-- (11) PIE DE PÁGINA CON SELLO INSTITUCIONAL, AUTORÍA Y FUENTES DIRECTAS DEL INFORME -->
+  <!-- (11) PIE DE PÁGINA CON SELLO INSTITUCIONAL, AUTORÍA Y BIBLIOGRAFÍA -->
   <footer class="site-footer">
     <div class="footer-inner">
       <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border-color);">
@@ -2497,41 +2686,42 @@
         <a href="../../" class="btn-header"><svg class="lucide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Volver a VetAtlas</a>
       </div>
 
-      <div style="margin-top:1.5rem;">
-        <h3 style="font-family:var(--font-display); font-size:1rem; color:var(--accent-cyan); margin-bottom:0.75rem;">
-          Fuentes Bibliográficas y Referencias Directas del Informe
-        </h3>
-        <ol style="columns: 2 340px; column-gap:2rem; padding-left:1.25rem; font-size:0.76rem; color:var(--text-secondary); line-height:1.55;">
-          <li>MSD Veterinary Manual: <a href="https://www.msdvetmanual.com/digestive-system/hepatic-diseases-of-small-animals/hepatocutaneous-syndrome-in-small-animals" target="_blank" rel="noopener">Hepatocutaneous Syndrome in Small Animals</a>.</li>
-          <li>Loftus, J. P. (2025). <a href="https://cdnc.heyzine.com/files/uploaded/v3/0c47faac690d3109223fd77480aa4c4c63885e21.pdf" target="_blank" rel="noopener">Aminoaciduric canine hypoaminoacidemic hepatopathy (ACHE) syndrome and hepatocutaneous syndrome</a> (Vet Clin Small Anim).</li>
-          <li>Loftus, J. P., Center, S. A., et al. (2022). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8783367/" target="_blank" rel="noopener">Treatment and outcomes of dogs with hepatocutaneous syndrome or hepatocutaneous-associated hepatopathy (JVIM / PMC)</a>.</li>
-          <li>Dermavet Clinical Guide: <a href="https://pro.dermavet.com/etiology-and-management-of-canine-pododermatitis/" target="_blank" rel="noopener">Etiology and Management of Canine Pododermatitis and Superficial Necrolytic Dermatitis Protocols</a>.</li>
-          <li>Joint Pathology Center (AskJPC): <a href="https://www.askjpc.org/vspo/show_page.php?id=QTlEeEhOTHhNQTRtZDB4Nkdibmk3QT09" target="_blank" rel="noopener">Veterinary Systemic Pathology Online - Superficial Necrolytic Dermatitis (SND)</a>.</li>
-          <li>Schachter, S. (2011). <a href="https://www.dvm360.com/view/liver-disease-often-associated-with-superficial-necrolytic-dermatitis" target="_blank" rel="noopener">Liver disease often associated with superficial necrolytic dermatitis (DVM360)</a>.</li>
-          <li>Canadian Veterinary Review (2024). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11195511/" target="_blank" rel="noopener">Superficial necrolytic dermatitis review: signalment, pathophysiology and prognosis (PMC)</a>.</li>
-          <li>Fraile Ocaña, C. (2000). <a href="https://es.scribd.com/document/6194300/17-dermatitis-necrolitica" target="_blank" rel="noopener">Dermatitis necrolítica superficial en el perro: a propósito de un caso clínico</a>.</li>
-          <li>Sarmiento et al. (2018). <a href="https://www.researchgate.net/publication/326583785_SINDROME_HEPATOCUTANEO_O_DERMATITIS_NECROLITICA_SUPERFICIAL_EN_UN_CANINO_REPORTE_DE_UN_CASO_HEPATOCUTANEOUS_SYNDROME_OR_SUPERFICIAL_NECROLYTIC_DERMATITIS_IN_A_DOG_A_CASE_REPORT" target="_blank" rel="noopener">Síndrome hepatocutáneo o dermatitis necrolítica superficial en un canino: reporte de un caso</a>.</li>
-          <li>VetEducation Clinical Reviews: <a href="https://veteducation.com/cutaneous-paraneoplastic-syndromes-in-cats/" target="_blank" rel="noopener">Cutaneous Paraneoplastic Syndromes in Cats: Superficial Necrolytic Dermatitis</a>.</li>
-          <li>Blanco, A., Duarte, M. J., &amp; Nosach, N. R. (2015). <a href="https://revistas-veterinaria.multimedica.es/clindervet/sindrome-hepatocutaneo-marcador-cutaneo-de-un-desorden-metabolico-sistemico/" target="_blank" rel="noopener">Síndrome hepatocutáneo: Marcador cutáneo de un desorden metabólico sistémico (Clindervet)</a>.</li>
-          <li>Munson, L., Koehler, J. W., et al. (1998). <a href="https://pubmed.ncbi.nlm.nih.gov/9545133/" target="_blank" rel="noopener">Vesicular and ulcerative dermatopathy resembling superficial necrolytic dermatitis in captive black rhinoceroses (Diceros bicornis)</a>.</li>
-          <li>Joint Pathology Center (AskJPC): <a href="https://www.askjpc.org/wsco/wsc/wsc06/06wsc20.pdf" target="_blank" rel="noopener">Wednesday Slide Conference (Case 20, 2006). SND in Dogs, Cats and Black Rhinoceros</a>.</li>
-          <li>Jacobson et al. (2011). <a href="https://avmajournals.avma.org/view/journals/javma/238/4/javma.238.4.445.xml" target="_blank" rel="noopener">Hepatocutaneous syndrome and nodular hepatopathy in dogs: Ultrasonographic honeycomb appearance (JAVMA)</a>.</li>
-          <li>Merck Veterinary Manual: <a href="https://www.merckvetmanual.com/integumentary-system/miscellaneous-systemic-dermatoses/miscellaneous-systemic-dermatoses-in-animals" target="_blank" rel="noopener">Miscellaneous Systemic Dermatoses in Animals</a>.</li>
-          <li>Veterinaria Argentina (2017): <a href="https://www.veterinariargentina.com/revista/2017/10/presentacion-de-dos-casos-clinicos-de-eritema-migratorio-necrolitico-producido-por-el-uso-de-fenobarbital-cronico/" target="_blank" rel="noopener">Presentación de dos casos clínicos de eritema migratorio necrolítico producido por el uso de fenobarbital crónico en caninos</a>.</li>
-          <li>MSD Veterinary Manual: <a href="https://www.msdvetmanual.com/endocrine-system/the-pancreas/islet-cell-tumors-in-dogs-and-cats" target="_blank" rel="noopener">Islet Cell Tumors and Glucagonomas in Dogs and Cats</a>.</li>
-          <li>Loftus et al. (2024). <a href="https://journals.bioscientifica.com/joe/article/262/2/e240051/5672/Glucagon-infusion-alters-the-circulating" target="_blank" rel="noopener">Glucagon infusion alters the circulating metabolome and urine amino acid excretion in dogs (J Endocrinol)</a>.</li>
-          <li>Bach, J. F., &amp; Glasser, S. A. (2013). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3743574/" target="_blank" rel="noopener">A case of necrolytic migratory erythema managed for 24 months with intravenous amino acid and lipid infusions</a>.</li>
-          <li>BSAVA Library: <a href="https://www.bsavalibrary.com/content/chapter/10.22233/9781910443866.chap38?crawler=true&amp;mimetype=application/pdf" target="_blank" rel="noopener">BSAVA Manual of Canine and Feline Endocrinology - Chapter 38: Pancreatic Islet Cell Tumors and Glucagonoma</a>.</li>
-          <li>Jaffey, J. A., Backus, R. C., et al. (2020). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7004965/" target="_blank" rel="noopener">Successful Long-Term Management of Canine SND With Amino Acid Infusions and Home-Made Diet Modification</a>.</li>
-          <li>Outerbridge, C. A., Marks, S. L., &amp; Rogers, Q. R. (2002). <a href="https://vetpract.in/themes/uploads/contents/cb11db7ebdbe62420a91f88dc42e5266.pdf" target="_blank" rel="noopener">Plasma amino acid concentrations in 36 dogs with histologically confirmed superficial necrolytic dermatitis</a>.</li>
-          <li>Oberkirchner, U., Linder, K. E., et al. (2010) &amp; Ural et al. (2019). <a href="https://pubmed.ncbi.nlm.nih.gov/20500495/" target="_blank" rel="noopener">Successful treatment of canine necrolytic migratory erythema due to metastatic glucagonoma with octreotide</a> / <a href="https://dergipark.org.tr/en/download/article-file/657244" target="_blank" rel="noopener">DergiPark</a>.</li>
-          <li>Loftus et al. (2024). <a href="https://avmajournals.avma.org/view/journals/javma/262/7/javma.23.12.0671.xml" target="_blank" rel="noopener">Short-term parenteral infusions with high-osmolality amino acid solutions can be safely administered through peripheral catheters in dogs (JAVMA)</a>.</li>
-          <li>VeterianKey: <a href="https://veteriankey.com/anesthesia-in-patients-with-concurrent-disease/" target="_blank" rel="noopener">Anesthesia and Analgesia in Patients with Severe Concurrent Systemic Hepatic Disease</a>.</li>
-          <li>Campagnol et al. (2010) &amp; Ilkiw et al. (2009). <a href="https://www.researchgate.net/publication/41426281_Effects_of_remifentanil_on_the_minimum_alveolar_concentration_of_isoflurane_in_dogs" target="_blank" rel="noopener">Effects of remifentanil on MAC of isoflurane in dogs (AJVR)</a> &amp; <a href="https://avmajournals.avma.org/view/journals/ajvr/70/5/ajvr.70.5.581.xml" target="_blank" rel="noopener">cats (AJVR)</a>.</li>
-          <li>DVM360 &amp; Today's Veterinary Nurse: <a href="https://www.dvm360.com/view/what-can-i-use-induction-if-propofol-and-thiopental-are-not-available-proceedings" target="_blank" rel="noopener">Alternative Anesthetic Inductions</a> &amp; <a href="https://todaysveterinarynurse.com/pain-management/pain-management-and-becoming-a-patient-advocate/" target="_blank" rel="noopener">Veterinary Pain Management Protocols</a>.</li>
+      <details id="bibliografia" class="fold-card" style="margin-top:1.5rem;">
+        <summary>
+          <span class="fold-title">Fuentes Bibliográficas y Referencias</span>
+          <svg class="lucide lucide-chevron-down fold-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <ol class="ref-list">
+          <li id="ref-1">MSD Veterinary Manual: <a href="https://www.msdvetmanual.com/digestive-system/hepatic-diseases-of-small-animals/hepatocutaneous-syndrome-in-small-animals" target="_blank" rel="noopener">Hepatocutaneous Syndrome in Small Animals</a>.</li>
+          <li id="ref-2">Loftus, J. P. (2025). <a href="https://cdnc.heyzine.com/files/uploaded/v3/0c47faac690d3109223fd77480aa4c4c63885e21.pdf" target="_blank" rel="noopener">Aminoaciduric canine hypoaminoacidemic hepatopathy (ACHE) syndrome and hepatocutaneous syndrome</a> (Vet Clin Small Anim).</li>
+          <li id="ref-3">Loftus, J. P., Center, S. A., et al. (2022). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8783367/" target="_blank" rel="noopener">Treatment and outcomes of dogs with hepatocutaneous syndrome or hepatocutaneous-associated hepatopathy (JVIM / PMC)</a>.</li>
+          <li id="ref-4">Dermavet Clinical Guide: <a href="https://pro.dermavet.com/etiology-and-management-of-canine-pododermatitis/" target="_blank" rel="noopener">Etiology and Management of Canine Pododermatitis and Superficial Necrolytic Dermatitis Protocols</a>.</li>
+          <li id="ref-5">Joint Pathology Center (AskJPC): <a href="https://www.askjpc.org/vspo/show_page.php?id=QTlEeEhOTHhNQTRtZDB4Nkdibmk3QT09" target="_blank" rel="noopener">Veterinary Systemic Pathology Online - Superficial Necrolytic Dermatitis (SND)</a>.</li>
+          <li id="ref-6">Schachter, S. (2011). <a href="https://www.dvm360.com/view/liver-disease-often-associated-with-superficial-necrolytic-dermatitis" target="_blank" rel="noopener">Liver disease often associated with superficial necrolytic dermatitis (DVM360)</a>.</li>
+          <li id="ref-7">Canadian Veterinary Review (2024). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11195511/" target="_blank" rel="noopener">Superficial necrolytic dermatitis review: signalment, pathophysiology and prognosis (PMC)</a>.</li>
+          <li id="ref-8">Fraile Ocaña, C. (2000). <a href="https://es.scribd.com/document/6194300/17-dermatitis-necrolitica" target="_blank" rel="noopener">Dermatitis necrolítica superficial en el perro: a propósito de un caso clínico</a>.</li>
+          <li id="ref-9">Sarmiento et al. (2018). <a href="https://www.researchgate.net/publication/326583785_SINDROME_HEPATOCUTANEO_O_DERMATITIS_NECROLITICA_SUPERFICIAL_EN_UN_CANINO_REPORTE_DE_UN_CASO_HEPATOCUTANEOUS_SYNDROME_OR_SUPERFICIAL_NECROLYTIC_DERMATITIS_IN_A_DOG_A_CASE_REPORT" target="_blank" rel="noopener">Síndrome hepatocutáneo o dermatitis necrolítica superficial en un canino: reporte de un caso</a>.</li>
+          <li id="ref-10">VetEducation Clinical Reviews: <a href="https://veteducation.com/cutaneous-paraneoplastic-syndromes-in-cats/" target="_blank" rel="noopener">Cutaneous Paraneoplastic Syndromes in Cats: Superficial Necrolytic Dermatitis</a>.</li>
+          <li id="ref-11">Blanco, A., Duarte, M. J., &amp; Nosach, N. R. (2015). <a href="https://revistas-veterinaria.multimedica.es/clindervet/sindrome-hepatocutaneo-marcador-cutaneo-de-un-desorden-metabolico-sistemico/" target="_blank" rel="noopener">Síndrome hepatocutáneo: Marcador cutáneo de un desorden metabólico sistémico (Clindervet)</a>.</li>
+          <li id="ref-12">Munson, L., Koehler, J. W., et al. (1998). <a href="https://pubmed.ncbi.nlm.nih.gov/9545133/" target="_blank" rel="noopener">Vesicular and ulcerative dermatopathy resembling superficial necrolytic dermatitis in captive black rhinoceroses (Diceros bicornis)</a>.</li>
+          <li id="ref-13">Joint Pathology Center (AskJPC): <a href="https://www.askjpc.org/wsco/wsc/wsc06/06wsc20.pdf" target="_blank" rel="noopener">Wednesday Slide Conference (Case 20, 2006). SND in Dogs, Cats and Black Rhinoceros</a>.</li>
+          <li id="ref-14">Jacobson et al. (2011). <a href="https://avmajournals.avma.org/view/journals/javma/238/4/javma.238.4.445.xml" target="_blank" rel="noopener">Hepatocutaneous syndrome and nodular hepatopathy in dogs: Ultrasonographic honeycomb appearance (JAVMA)</a>.</li>
+          <li id="ref-15">Merck Veterinary Manual: <a href="https://www.merckvetmanual.com/integumentary-system/miscellaneous-systemic-dermatoses/miscellaneous-systemic-dermatoses-in-animals" target="_blank" rel="noopener">Miscellaneous Systemic Dermatoses in Animals</a>.</li>
+          <li id="ref-16">Veterinaria Argentina (2017): <a href="https://www.veterinariargentina.com/revista/2017/10/presentacion-de-dos-casos-clinicos-de-eritema-migratorio-necrolitico-producido-por-el-uso-de-fenobarbital-cronico/" target="_blank" rel="noopener">Presentación de dos casos clínicos de eritema migratorio necrolítico producido por el uso de fenobarbital crónico en caninos</a>.</li>
+          <li id="ref-17">MSD Veterinary Manual: <a href="https://www.msdvetmanual.com/endocrine-system/the-pancreas/islet-cell-tumors-in-dogs-and-cats" target="_blank" rel="noopener">Islet Cell Tumors and Glucagonomas in Dogs and Cats</a>.</li>
+          <li id="ref-18">Loftus et al. (2024). <a href="https://journals.bioscientifica.com/joe/article/262/2/e240051/5672/Glucagon-infusion-alters-the-circulating" target="_blank" rel="noopener">Glucagon infusion alters the circulating metabolome and urine amino acid excretion in dogs (J Endocrinol)</a>.</li>
+          <li id="ref-19">Bach, J. F., &amp; Glasser, S. A. (2013). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3743574/" target="_blank" rel="noopener">A case of necrolytic migratory erythema managed for 24 months with intravenous amino acid and lipid infusions</a>.</li>
+          <li id="ref-20">BSAVA Library: <a href="https://www.bsavalibrary.com/content/chapter/10.22233/9781910443866.chap38?crawler=true&amp;mimetype=application/pdf" target="_blank" rel="noopener">BSAVA Manual of Canine and Feline Endocrinology - Chapter 38: Pancreatic Islet Cell Tumors and Glucagonoma</a>.</li>
+          <li id="ref-21">Jaffey, J. A., Backus, R. C., et al. (2020). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7004965/" target="_blank" rel="noopener">Successful Long-Term Management of Canine SND With Amino Acid Infusions and Home-Made Diet Modification</a>.</li>
+          <li id="ref-22">Outerbridge, C. A., Marks, S. L., &amp; Rogers, Q. R. (2002). <a href="https://vetpract.in/themes/uploads/contents/cb11db7ebdbe62420a91f88dc42e5266.pdf" target="_blank" rel="noopener">Plasma amino acid concentrations in 36 dogs with histologically confirmed superficial necrolytic dermatitis</a>.</li>
+          <li id="ref-23">Oberkirchner, U., Linder, K. E., et al. (2010) &amp; Ural et al. (2019). <a href="https://pubmed.ncbi.nlm.nih.gov/20500495/" target="_blank" rel="noopener">Successful treatment of canine necrolytic migratory erythema due to metastatic glucagonoma with octreotide</a> / <a href="https://dergipark.org.tr/en/download/article-file/657244" target="_blank" rel="noopener">DergiPark</a>.</li>
+          <li id="ref-24">Loftus et al. (2024). <a href="https://avmajournals.avma.org/view/journals/javma/262/7/javma.23.12.0671.xml" target="_blank" rel="noopener">Short-term parenteral infusions with high-osmolality amino acid solutions can be safely administered through peripheral catheters in dogs (JAVMA)</a>.</li>
+          <li id="ref-25">VeterianKey: <a href="https://veteriankey.com/anesthesia-in-patients-with-concurrent-disease/" target="_blank" rel="noopener">Anesthesia and Analgesia in Patients with Severe Concurrent Systemic Hepatic Disease</a>.</li>
+          <li id="ref-26">Campagnol et al. (2010) &amp; Ilkiw et al. (2009). <a href="https://www.researchgate.net/publication/41426281_Effects_of_remifentanil_on_the_minimum_alveolar_concentration_of_isoflurane_in_dogs" target="_blank" rel="noopener">Effects of remifentanil on MAC of isoflurane in dogs (AJVR)</a> &amp; <a href="https://avmajournals.avma.org/view/journals/ajvr/70/5/ajvr.70.5.581.xml" target="_blank" rel="noopener">cats (AJVR)</a>.</li>
+          <li id="ref-27">DVM360 &amp; Today's Veterinary Nurse: <a href="https://www.dvm360.com/view/what-can-i-use-induction-if-propofol-and-thiopental-are-not-available-proceedings" target="_blank" rel="noopener">Alternative Anesthetic Inductions</a> &amp; <a href="https://todaysveterinarynurse.com/pain-management/pain-management-and-becoming-a-patient-advocate/" target="_blank" rel="noopener">Veterinary Pain Management Protocols</a>.</li>
         </ol>
-        <p style="margin-top:0.75rem; font-size:0.78rem; color:var(--text-muted, #94a3b8);">Iconos: Lucide (licencia ISC)</p>
-      </div>
+      </details>
+      <p style="margin-top:0.75rem; font-size:0.78rem; color:var(--text-muted, #94a3b8);">Iconos: Lucide (licencia ISC)</p>
     </div>
   </footer>
 <!-- (7) MÓDULO COMPARTIDO DE CERTIFICADO ANTES DEL SCRIPT MODULE -->
@@ -2710,21 +2900,74 @@
     /* =========================================================================
        (2) PESTAÑAS POR ESPECIE
        ========================================================================= */
-    const speciesTabBtns = document.querySelectorAll('[data-species-tab]');
-    speciesTabBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-species-tab');
-        speciesTabBtns.forEach(b => {
-          const active = b === btn;
-          b.classList.toggle('active', active);
-          b.setAttribute('aria-selected', active ? 'true' : 'false');
+    /* Pestañas accesibles (role=tab): clic, flechas, Inicio/Fin y tabindex itinerante.
+       Se usan para las especies y para los grupos del vademécum. */
+    function setupTabs(tabs, onChange) {
+      const select = (tab, focus) => {
+        tabs.forEach(t => {
+          const active = t === tab;
+          t.classList.toggle('active', active);
+          t.setAttribute('aria-selected', active ? 'true' : 'false');
+          t.tabIndex = active ? 0 : -1;
+          const panel = document.getElementById(t.getAttribute('aria-controls'));
+          if (panel) {
+            panel.hidden = !active;
+            panel.classList.toggle('active', active);
+          }
         });
-        document.querySelectorAll('.species-panel').forEach(panel => {
-          panel.classList.toggle('active', panel.id === `species-${target}`);
+        if (focus) tab.focus();
+        if (onChange) onChange(tab);
+      };
+      tabs.forEach((tab, i) => {
+        tab.addEventListener('click', () => select(tab, false));
+        tab.addEventListener('keydown', e => {
+          let next = null;
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = tabs[(i + 1) % tabs.length];
+          else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = tabs[(i - 1 + tabs.length) % tabs.length];
+          else if (e.key === 'Home') next = tabs[0];
+          else if (e.key === 'End') next = tabs[tabs.length - 1];
+          if (next) {
+            e.preventDefault();
+            select(next, true);
+          }
         });
-        playArcadeSfx('transition');
       });
+      return select;
+    }
+
+    setupTabs(Array.from(document.querySelectorAll('[data-species-tab]')), () => playArcadeSfx('transition'));
+    setupTabs(Array.from(document.querySelectorAll('.vade-tab')), () => playArcadeSfx('click'));
+
+    /* Enlaces internos (#ref-N y cualquier destino) dentro de un <details> cerrado:
+       se abre antes de desplazar. Funciona al hacer clic, en hashchange y al cargar con hash. */
+    function revealHashTarget(hash) {
+      if (!hash || hash.length < 2) return null;
+      let target = null;
+      try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch (err) { return null; }
+      if (!target) return null;
+      for (let d = target.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')) {
+        d.open = true;
+      }
+      return target;
+    }
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const target = revealHashTarget(a.getAttribute('href'));
+      if (target && target.closest('details')) {
+        e.preventDefault();
+        history.pushState(null, '', a.getAttribute('href'));
+        target.scrollIntoView({ block: 'start' });
+      }
     });
+    window.addEventListener('hashchange', () => {
+      const target = revealHashTarget(location.hash);
+      if (target) target.scrollIntoView({ block: 'start' });
+    });
+    if (location.hash) {
+      const target = revealHashTarget(location.hash);
+      if (target && target.closest('details')) requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+    }
 
     /* =========================================================================
        (1) HERO INMERSIVO ANIMADO EN CANVAS 2D
@@ -3239,7 +3482,7 @@
     });
 
     /* =========================================================================
-       (3) CALCULADORA POSOLÓGICA INTERACTIVA POR PESO (SOLO DOSIS DEL INFORME)
+       (3) CALCULADORA POSOLÓGICA INTERACTIVA POR PESO (SOLO DOSIS DE LOS MÓDULOS 07 Y 08)
        ========================================================================= */
     const calcWeightInput = document.getElementById('calcWeightInput');
     const calcResultsGrid = document.getElementById('calcResultsGrid');
@@ -3905,7 +4148,7 @@
         explanation: 'En perros la mediana etaria es de 10 años (5–15 años), con relación macho:hembra de 2:1 a 3:1, y más del 90% se deben a hepatopatía vacuolar colapsante (Ref. 5, 6).'
       },
       {
-        q: '3. ¿Qué establece el informe respecto al rinoceronte negro en cautiverio (Diceros bicornis) y especies como equinos, rumiantes, porcinos, conejos y aves?',
+        q: '3. ¿Qué se sabe respecto al rinoceronte negro en cautiverio (Diceros bicornis) y especies como equinos, rumiantes, porcinos, conejos y aves?',
         options: [
           'El rinoceronte negro sufre una dermatopatía similar hasta en el 50% en cautiverio pero sin hipoaminoacidemia ni hígado en panal de abejas (asociada a hemosiderosis y déficit de PUFA); en equinos, rumiantes, porcinos, conejos y aves no existe evidencia de síndrome hepatocutáneo idiopático.',
           'Todas esas especies desarrollan síndrome ACHES idéntico al perro y se tratan con 25 mL/kg de Travasol al 10%.',
@@ -3965,7 +4208,7 @@
         explanation: 'Loftus et al. (2024, JAVMA) demostraron que 25 mL/kg en 6–8 h por catéteres periféricos en venas cefálicas o safenas tuvo solo 0,9% de complicaciones sobre 277 infusiones (Ref. 39, 42).'
       },
       {
-        q: '9. ¿Qué proporción de energía metabolizable proteica y cuántas yemas de huevo cocidas diarias recomienda el manejo nutricional del informe?',
+        q: '9. ¿Qué proporción de energía metabolizable proteica y cuántas yemas de huevo cocidas diarias recomienda el manejo nutricional?',
         options: [
           'Entre 30% y 40% de la energía metabolizable proveniente de proteínas de alto valor biológico + 1 yema de huevo cocida por cada 4,5 a 5 kg de peso al día.',
           'Restricción proteica estricta y prohibición absoluta de huevo.',
@@ -3975,7 +4218,7 @@
         explanation: 'La dieta casera hiperproteica (30%–40% EM proteica) sumada a 1 yema cocida cada 4,5–5 kg/día aporta aminoácidos azufrados, fosfolípidos y mayor supervivencia (Ref. 3, 6, 30).'
       },
       {
-        q: '10. Si el síndrome hepatocutáneo fue inducido por el uso crónico de fenobarbital, ¿cómo debe retirarse y qué anticonvulsivantes alternativos indica el informe?',
+        q: '10. Si el síndrome hepatocutáneo fue inducido por el uso crónico de fenobarbital, ¿cómo debe retirarse y qué anticonvulsivantes alternativos se indican?',
         options: [
           'Reducir el fenobarbital un 10% a 25% cada 2 a 4 semanas e introducir Levetiracetam (20–30 mg/kg PO c/8h) o Bromuro de Potasio (20–30 mg/kg PO c/24h).',
           'Suspender el fenobarbital de golpe en 24 horas y sustituirlo por Primidona al doble de dosis.',
