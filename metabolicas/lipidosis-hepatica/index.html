@@ -2510,6 +2510,86 @@
     @media (max-width: 680px) {
       .grid-2, .grid-3, .grid-4, .calc-grid { grid-template-columns: minmax(0, 1fr); }
     }
+    /* Módulo 03 · Felinos: tarjetas-enlace a los módulos; bloque de posología felina (Módulo 07) */
+    .species-tab-btn:focus-visible,
+    .species-panel:focus-visible,
+    .species-link-card:focus-visible,
+    .inline-xref:focus-visible {
+      outline: 2px solid var(--accent-gold);
+      outline-offset: 2px;
+    }
+    .species-panel[hidden] { display: none !important; }
+    .species-intro {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      margin-bottom: 1rem;
+    }
+    .species-link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+      gap: 0.85rem;
+    }
+    .species-link-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      padding: 0.95rem 1.05rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      min-width: 0;
+    }
+    .species-link-card:hover {
+      color: var(--text-secondary);
+      border-color: var(--border-focus);
+      transform: translateY(-2px);
+    }
+    .species-link-card h4 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-display);
+      font-size: 0.98rem;
+      color: var(--text-primary);
+    }
+    .species-link-card h4::after {
+      content: "\2192";
+      margin-left: auto;
+      color: var(--accent-gold-light);
+    }
+    .species-link-card p { font-size: 0.86rem; line-height: 1.5; margin: 0; }
+    .species-link-card .link-mod {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent-gold-light);
+    }
+    .species-link-card.is-alert { border-left: 3px solid var(--accent-rose); }
+    .species-link-card.is-alert .link-mod { color: var(--accent-rose); }
+    .inline-xref {
+      color: var(--accent-cyan-light);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .dose-block { margin-bottom: 1.75rem; }
+    .dose-block-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-gold-light);
+    }
+    .dose-block-intro {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      border-left: 4px solid var(--accent-rose);
+      background: var(--accent-rose-soft);
+      padding: 0.75rem 1rem;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin-bottom: 0.75rem;
+    }
   </style>
 </head>
 <body>
@@ -2785,9 +2865,7 @@
               </tr>
               <tr>
                 <td><strong>Caninos (Toy / Miniatura)</strong><br /><span style="font-size:0.78rem;color:var(--text-muted);"><em>Yorkshire, Pomerania, Chihuahua, Pinscher, Maltés (5-16 sem)</em></span></td>
-                <td>Inmadurez enzimática hepática, escasa masa muscular (baja reserva de alanina) y reserva glucogénica lábil.</td>
-                <td>Ayuno breve de <span class="mono-val">12 - 24 h</span>, hipotermia, estrés térmico o parásitos.</td>
-                <td>Hipoglucemia neuroglicopénica grave con <strong>microesteatosis hepatocelular</strong> aguda difusa.</td>
+                <td colspan="3" data-label="Factores y hallazgo">Hipoglucemia juvenil con <strong>microesteatosis hepatocelular</strong> aguda difusa tras un ayuno breve. Factores, signos, diagnóstico y dosis: <a class="inline-xref" href="#cachorros-toy">Módulo 03 · Caninos (toy)</a>.</td>
               </tr>
               <tr>
                 <td><strong>Bovinos Lecheros</strong><br /><span style="font-size:0.78rem;color:var(--text-muted);"><em>Bos taurus</em> (Síndrome de vaca gorda)</span></td>
@@ -2833,223 +2911,89 @@
         <div class="module-header">
           <span class="module-index">MÓDULO 03</span>
           <h2 class="module-title">Abordaje Clínico, Diagnóstico y Posológico por Especie</h2>
-          <p class="module-subtitle">Selecciona el grupo taxonómico para consultar presentación clínica, criterios diagnósticos, protocolo terapéutico y dosis respaldadas por el informe.</p>
+          <p class="module-subtitle">Elige el grupo taxonómico. En felinos, cada tarjeta lleva al módulo con el contenido completo; en las demás especies están la presentación clínica, los criterios diagnósticos, el protocolo terapéutico y las dosis documentadas.</p>
         </div>
 
         <div class="species-tabs-bar" role="tablist" aria-label="Pestañas por especie veterinaria">
-          <button type="button" class="species-tab-btn active" role="tab" aria-selected="true" data-species-target="sp-felinos">
+          <button type="button" class="species-tab-btn active" role="tab" id="tab-felinos" aria-selected="true" aria-controls="sp-felinos" tabindex="0" data-species-target="sp-felinos">
             <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>
             Felinos (Foco)
           </button>
-          <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-target="sp-caninos">
+          <button type="button" class="species-tab-btn" role="tab" id="tab-caninos" aria-selected="false" aria-controls="sp-caninos" tabindex="-1" data-species-target="sp-caninos">
             <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309"/></svg>
             Caninos (Toy)
           </button>
-          <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-target="sp-equinos">
+          <button type="button" class="species-tab-btn" role="tab" id="tab-equinos" aria-selected="false" aria-controls="sp-equinos" tabindex="-1" data-species-target="sp-equinos">
             <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>
             Equinos (Ponis/Asnos)
           </button>
-          <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-target="sp-rumiantes">
+          <button type="button" class="species-tab-btn" role="tab" id="tab-rumiantes" aria-selected="false" aria-controls="sp-rumiantes" tabindex="-1" data-species-target="sp-rumiantes">
             <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 22 16 8"/><path d="M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/><path d="M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/><path d="M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/><path d="M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z"/><path d="M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"/><path d="M15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"/><path d="M19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"/></svg>
             Rumiantes
           </button>
-          <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-target="sp-camelidos">
+          <button type="button" class="species-tab-btn" role="tab" id="tab-camelidos" aria-selected="false" aria-controls="sp-camelidos" tabindex="-1" data-species-target="sp-camelidos">
             <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
             Camélidos
           </button>
-          <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-target="sp-exoticos">
+          <button type="button" class="species-tab-btn" role="tab" id="tab-exoticos" aria-selected="false" aria-controls="sp-exoticos" tabindex="-1" data-species-target="sp-exoticos">
             <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/></svg>
             Conejos y Hurones
           </button>
-          <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-target="sp-aves">
+          <button type="button" class="species-tab-btn" role="tab" id="tab-aves" aria-selected="false" aria-controls="sp-aves" tabindex="-1" data-species-target="sp-aves">
             <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h.01"/><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/><path d="m20 7 2 .5-2 .5"/><path d="M10 18v3"/><path d="M14 17.75V21"/><path d="M7 18a6 6 0 0 0 3.84-10.61"/></svg>
             Aves Psitácidas
           </button>
         </div>
 
-        <!-- PANEL 1: FELINOS -->
-        <div class="species-panel active" id="sp-felinos" role="tabpanel">
-          <div class="grid-2" style="margin-bottom:1.25rem;">
-            <div class="clinical-card">
-              <h3>Presentación Clínica y Etiopatogenia Felina</h3>
-              <p>
-                Representa del <strong>15% al 50%</strong> de las hepatopatías felinas en centros de referencia. Mediana de edad: <strong>7 años</strong> (rango 0.5 a 20 años), sin sesgo sexual. Predispone la obesidad previa (<strong>BCS &ge; 7/9</strong>) con pérdida ponderal &gt;20-25% tras anorexia de <strong>48 a 72 horas</strong>.
-              </p>
-              <p>
-                <strong>Idiopática (&lt;10-15%):</strong> Desencadenada por estrés ambiental agudo, mudanzas o dietas poco palatables.<br />
-                <strong>Secundaria (&gt;85-90%):</strong> Asociada a <em>triaditis felina</em> (pancreatitis aguda/crónica necrosante + colangitis/colangiohepatitis neutrofílica o linfocítica + EII), linfoma alimentario, enfermedad renal crónica urémica o cetoacidosis diabética.
-              </p>
-              <p>
-                <strong>Semiología:</strong> Ictericia en &gt;70% (escleras, paladar blando, pabellón auricular), sarcopenia epaxial/temporal severa contrastando con grasa falciforme preservada, hepatomegalia simétrica lisa e indolora, ptialismo, deshidratación (5-10%), ventroflexión cervical y marcha plantígrada (por hipopotasemia, hipofosfatemia o déficit de tiamina) y signos de encefalopatía hepática (<em>head pressing</em>).
-              </p>
-            </div>
-
-            <div class="clinical-card">
-              <h3>Diagnóstico Laboratorial, Ecográfico y Citológico</h3>
-              <p>
-                <strong>Disociación enzimática clásica:</strong> Elevación marcada de <strong>Fosfatasa Alcalina (FA: 4 a 10 veces LSN)</strong> con <strong>GGT normal o levemente incrementada</strong>. Si la GGT se eleva de forma paralela y marcada, sospechar afección primaria del árbol biliar (colangitis supurativa, colecistitis o pancreatitis).
-              </p>
-              <p>
-                <strong>Bioquímica y Hemostasia:</strong> Hiperbilirrubinemia mixta severa (<strong>5 a 15 mg/dL</strong>), ALT/AST con alzas leves a moderadas, <strong>&beta;-hidroxibutirato &gt; 2.43 mmol/L</strong> (AUC 0.86), hipopotasemia, hipofosfatemia (&lt;2.0 mg/dL; hemolítica si &lt;1.5 mg/dL) e hipomagnesemia (&lt;1.5 mg/dL). Prolongación de PT y aPTT en &gt;50% de casos, PIVKA positivo y trombocitopenia (&lt;80,000/&mu;L).
-              </p>
-              <p>
-                <strong>Imagen y Citología (PAAF):</strong> Hígado difusamente hiperecogénico (&ge; grasa falciforme y bazo) con atenuación acústica profunda. Descartar pared vesicular &gt;1 mm o colédoco &gt;4-5 mm. La PAAF confirma <strong>&gt;80% de hepatocitos</strong> distendidos por vacuolas lipídicas negativas (positivas a Sudán III, Sudán Black B u Oil Red O). Evitar biopsia Tru-Cut en agudo (<em>"hígado de mantequilla"</em>; posponer 5-7 días).
-              </p>
-            </div>
-          </div>
-
-          <div class="callout-box danger">
-            <div class="callout-title">
-              <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:var(--accent-rose);"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
-              Reglas de Oro en la Estabilización Felina (Consensos ISFM / ACVIM / WSAVA)
-            </div>
-            <p style="font-size:0.88rem;color:var(--text-secondary);">
-              1) <strong>Prohibido el force-feeding con jeringa oral</strong> (genera aversión alimentaria condicionada irreversible y neumonía por aspiración). 2) <strong>Prohibidas las soluciones dextrosadas de mantenimiento</strong> (estimulan insulina, elevan malonil-CoA, inhiben CPT-1 y agravan la esteatosis) y <strong>evitar Ringer Lactato</strong> (deficiente aclaramiento hepático de L-lactato). 3) Administrar <strong>Tiamina (B1) y Vitamina K1</strong> antes del sondaje y de la primera toma enteral.
-            </p>
-          </div>
-
-          <div class="table-responsive">
-            <table class="vet-table" aria-label="Tabla posológica completa para lipidosis hepática felina">
-              <thead>
-                <tr>
-                  <th>Fármaco / Suplemento</th>
-                  <th>Dosis Exacta</th>
-                  <th>Vía y Frecuencia</th>
-                  <th>Fundamento Clínico y Precauciones del Informe</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Cloruro de Potasio (KCl)</strong></td>
-                  <td class="mono-val">20 a 80 mEq/L (escala móvil)</td>
-                  <td>IV continua (&le; 0.5 mEq/kg/h)</td>
-                  <td>K &gt;3.5: 20 mEq/L | K 3.0-3.5: 30 mEq/L | K 2.5-2.9: 40 mEq/L | K &lt;2.5: 60-80 mEq/L. Nunca exceder 0.5 mEq/kg/h.</td>
-                </tr>
-                <tr>
-                  <td><strong>Fosfato de Potasio</strong></td>
-                  <td class="mono-val">0.01 a 0.03 mmol/kg/h</td>
-                  <td>IV infusión continua</td>
-                  <td>Si P &lt;2.0 mg/dL o profilaxis en ayuno &gt;7 días. Suspender si P &gt;2.0-2.5 mg/dL. Cada mmol aporta 1.4 mEq de K+ (descontar del KCl). Mantener [Ca]&times;[P] &lt;58-60 mg/dL.</td>
-                </tr>
-                <tr>
-                  <td><strong>Sulfato de Magnesio 50%</strong></td>
-                  <td class="mono-val">0.15 a 0.3 mEq/kg/día (o 0.01 - 0.02 mEq/kg/h)</td>
-                  <td>IV continua (primeras 24 h)</td>
-                  <td>Si Mg &lt;1.5 mg/dL. Cofactor obligado de la bomba Na+/K+-ATPasa; revierte la hipopotasemia refractaria al KCl.</td>
-                </tr>
-                <tr>
-                  <td><strong>Vitamina K1 (Fitomenadiona)</strong></td>
-                  <td class="mono-val">0.5 a 1.5 mg/kg</td>
-                  <td>SC o IM cada 12 h (2 a 3 dosis totales)</td>
-                  <td>Restaura carboxilación de factores II, VII, IX y X en 12-24 h antes de sonda E-Tube. <strong>Vía IV prohibida</strong> por shock anafiláctico.</td>
-                </tr>
-                <tr>
-                  <td><strong>Tiamina (Vitamina B1)</strong></td>
-                  <td class="mono-val">50 a 100 mg/gato inicial (25 mg talla menor); luego 25-50 mg/día SC/IM o 100-200 mg/día PO</td>
-                  <td>SC / IM / PO cada 24 h (3 a 5 días)</td>
-                  <td>Obligatoria antes de la primera toma enteral; previene poliencefalomalacia y necrosis cortical por agotamiento de piruvato deshidrogenasa.</td>
-                </tr>
-                <tr>
-                  <td><strong>Cobalamina (Vitamina B12)</strong></td>
-                  <td class="mono-val">250 a 500 &mu;g/gato</td>
-                  <td>SC cada 7 días (4 a 6 semanas)</td>
-                  <td>Cofactor de metionina sintasa y metabolismo energético mitocondrial.</td>
-                </tr>
-                <tr>
-                  <td><strong>L-Carnitina</strong></td>
-                  <td class="mono-val">250 a 500 mg/gato/día</td>
-                  <td>PO / Sonda cada 24 h</td>
-                  <td>Reactiva la lanzadera mitocondrial CPT-1 para la &beta;-oxidación de acil-CoA de cadena larga.</td>
-                </tr>
-                <tr>
-                  <td><strong>Taurina</strong></td>
-                  <td class="mono-val">250 a 500 mg/gato/día</td>
-                  <td>PO / Sonda cada 24 h</td>
-                  <td>Conjugación obligatoria de ácidos biliares en el gato y protección antioxidante de membrana.</td>
-                </tr>
-                <tr>
-                  <td><strong>S-Adenosilmetionina (SAMe)</strong></td>
-                  <td class="mono-val">20 a 40 mg/kg</td>
-                  <td>PO / Sonda cada 24 h (en ayunas)</td>
-                  <td>Donante de metilos para sintetizar fosfatidilcolina (exportación de VLDL) y precursor de glutatión (GSH).</td>
-                </tr>
-                <tr>
-                  <td><strong>N-Acetilcisteína (NAC)</strong></td>
-                  <td class="mono-val">Ataque: 140 mg/kg; Mant.: 70 mg/kg</td>
-                  <td>IV lenta en 30 min; luego cada 12 h (3-5 días)</td>
-                  <td>Diluir al 5% en NaCl 0.9% y administrar con filtro de 0.22 &mu;m. Donante directo de grupos sulfhidrilo/cisteína.</td>
-                </tr>
-                <tr>
-                  <td><strong>Ácido Ursodesoxicólico (UDCA)</strong></td>
-                  <td class="mono-val">10 a 15 mg/kg</td>
-                  <td>PO / Sonda cada 24 h (con alimento)</td>
-                  <td>Colerético hidrofílico, antiapoptótico e inmunomodulador. <strong>Contraindicado</strong> en obstrucción biliar extrahepática.</td>
-                </tr>
-                <tr>
-                  <td><strong>Maropitant</strong></td>
-                  <td class="mono-val">1.0 mg/kg</td>
-                  <td>SC / IV lenta / PO cada 24 h</td>
-                  <td>Antagonista central NK-1; antiemético y analgésico visceral sin frenar peristaltismo.</td>
-                </tr>
-                <tr>
-                  <td><strong>Ondansetrón</strong></td>
-                  <td class="mono-val">0.22 a 0.5 mg/kg (hasta 1.0 mg/kg en refractarios)</td>
-                  <td>IV lenta / PO cada 8 a 12 h</td>
-                  <td>Antagonista 5-HT3 central y periférico para náusea refractaria.</td>
-                </tr>
-                <tr>
-                  <td><strong>Cisaprida</strong></td>
-                  <td class="mono-val">0.5 a 1.5 mg/kg (o 2.5 - 5.0 mg/gato)</td>
-                  <td>PO cada 8 a 12 h</td>
-                  <td>Agonista 5-HT4 procinético para íleo o atonía gástrica, previa exclusión de obstrucción orgánica.</td>
-                </tr>
-                <tr>
-                  <td><strong>Mirtazapina</strong></td>
-                  <td class="mono-val">1.88 a 2.0 mg/gato PO; o 2.0 mg/gato (3.8 cm pomada 2%)</td>
-                  <td>PO c/24-48 h; o Tópica auricular c/24 h (máx 14 d)</td>
-                  <td>Espaciar a 48 h en fallo hepático severo. Orexígeno para transición; <strong>no sustituye la sonda enteral</strong>.</td>
-                </tr>
-                <tr>
-                  <td><strong>Capromorelina (Elura)</strong></td>
-                  <td class="mono-val">2.0 mg/kg</td>
-                  <td>PO cada 24 h</td>
-                  <td>Agonista de grelina; monitorear glucemia por elevación pulsátil de hormona del crecimiento.</td>
-                </tr>
-                <tr>
-                  <td><strong>Lactulosa / Plasma Fresco</strong></td>
-                  <td class="mono-val">Lactulosa: 0.5 - 1.0 mL/kg | PFC: 10 - 15 mL/kg</td>
-                  <td>Lactulosa PO c/8 h | PFC IV en sangrado</td>
-                  <td>Lactulosa en encefalopatía hepática para atrapar amonio colónico; PFC en coagulopatía activa o hemoabdomen.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div>
-            <a class="source-tag" href="https://journals.sagepub.com/doi/10.1177/1098612X221106353" target="_blank" rel="noopener">Fuente: ISFM Consensus Guidelines 2022</a>
-            <a class="source-tag" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10816292/" target="_blank" rel="noopener">Fuente: PMC10816292 (Clinical Review)</a>
-            <a class="source-tag" href="https://www.merckvetmanual.com/digestive-system/hepatic-diseases-of-small-animals/feline-hepatic-lipidosis" target="_blank" rel="noopener">Fuente: Merck Veterinary Manual</a>
-            <a class="source-tag" href="https://wsava.org/" target="_blank" rel="noopener">Fuente: WSAVA Liver Group</a>
+        <!-- PANEL 1: FELINOS (tarjetas-enlace: el contenido completo está en los módulos 01, 05, 06 y 07) -->
+        <div class="species-panel active" id="sp-felinos" role="tabpanel" aria-labelledby="tab-felinos" tabindex="0">
+          <p class="species-intro">El gato es la especie foco de la guía: su abordaje completo está en los módulos 01, 05, 06 y 07.</p>
+          <div class="species-link-grid">
+            <a class="clinical-card species-link-card" href="#mod-definicion">
+              <span class="link-mod">Módulo 01</span>
+              <h4>Definición, formas y umbral de riesgo</h4>
+              <p>Forma idiopática y secundaria (triaditis felina, linfoma alimentario, ERC, cetoacidosis), edad, condición corporal previa y horas de anorexia.</p>
+            </a>
+            <a class="clinical-card species-link-card" href="#mod-signos">
+              <span class="link-mod">Módulo 05</span>
+              <h4>Signos clínicos</h4>
+              <p>Ictericia, paradoja sarcopenia / grasa falciforme, hepatomegalia indolora, ventroflexión cervical, marcha plantígrada y encefalopatía hepática.</p>
+            </a>
+            <a class="clinical-card species-link-card" href="#mod-diagnostico">
+              <span class="link-mod">Módulo 06</span>
+              <h4>Diagnóstico</h4>
+              <p>Disociación FA / GGT, bilirrubina y BHB, electrólitos, ecografía, PAAF frente a biopsia Tru-Cut y coagulopatía por vitamina K1.</p>
+            </a>
+            <a class="clinical-card species-link-card is-alert" href="#mod-tratamiento">
+              <span class="link-mod">Módulo 07</span>
+              <h4>Estabilización y sondas</h4>
+              <p>Sin force-feeding con jeringa, sin soluciones dextrosadas ni Ringer Lactato; escala móvil de KCl, síndrome de realimentación y sondas enterales.</p>
+            </a>
+            <a class="clinical-card species-link-card" href="#tabla-dosis-felina">
+              <span class="link-mod">Módulo 07</span>
+              <h4>Tabla posológica felina</h4>
+              <p>Electrólitos, vitaminas, L-carnitina, taurina, SAMe, NAC, ursodiol, antieméticos, procinéticos, orexígenos, lactulosa y plasma.</p>
+            </a>
           </div>
         </div>
 
         <!-- PANEL 2: CANINOS (RAZAS TOY / HIPOGLUCEMIA JUVENIL) -->
-        <div class="species-panel" id="sp-caninos" role="tabpanel">
-          <div class="grid-2">
+        <div class="species-panel" id="sp-caninos" role="tabpanel" aria-labelledby="tab-caninos" tabindex="0" hidden>
+          <div class="grid-2" id="cachorros-toy">
             <div class="clinical-card">
               <h3>Presentación: Microesteatosis e Hipoglucemia Juvenil en Razas Toy</h3>
               <p>
                 A diferencia del gato, el perro adulto posee una notable capacidad metabólica para oxidar ácidos grasos y exportar VLDL, lo que previene un síndrome colestásico primario por infiltración grasa. Sin embargo, la esteatosis hepática aguda adquiere relevancia crítica como <strong>microesteatosis hepatocelular difusa</strong> vinculada a crisis de <strong>hipoglucemia juvenil transitoria</strong> en cachorros de razas miniatura y toy (<strong>Yorkshire Terrier, Pomerania, Chihuahua, Pinscher Miniatura y Maltés</strong>) de <strong>5 a 16 semanas de edad</strong>.
               </p>
               <p>
-                <strong>Fisiopatología y Signos:</strong> La reducida masa muscular esquelética limita el aporte de precursores gluconeogénicos (como la <strong>alanina</strong>) y las reservas de glucógeno hepático son sumamente lábiles. Ante ayunos breves de <strong>12 a 24 horas</strong>, hipotermia, estrés o parasitismo, se activa una lipólisis intensa; el influjo masivo de NEFA en un hígado pediátrico inmaduro colapsa la gluconeogénesis. Se manifiesta con postración súbita, hipotermia, temblores musculares, amaurosis funcional, marcha tambaleante, convulsiones generalizadas, hepatomegalia palpable difusa y aliento ligeramente cetónico.
+                <strong>Fisiopatología y Signos:</strong> La inmadurez enzimática hepática y la reducida masa muscular esquelética limitan el aporte de precursores gluconeogénicos (baja reserva de <strong>alanina</strong>) y las reservas de glucógeno hepático son sumamente lábiles. Ante ayunos breves de <strong>12 a 24 horas</strong>, hipotermia, estrés (también térmico) o parasitismo, se activa una lipólisis intensa; el influjo masivo de NEFA en un hígado pediátrico inmaduro colapsa la gluconeogénesis. Se manifiesta con postración súbita, hipotermia, temblores musculares, amaurosis funcional, marcha tambaleante, convulsiones generalizadas, hepatomegalia palpable difusa y aliento ligeramente cetónico.
               </p>
             </div>
 
             <div class="clinical-card">
               <h3>Diagnóstico, Tratamiento y Posología en Cachorros Toy</h3>
               <p>
-                <strong>Diagnóstico:</strong> Confirmación inmediata de hipoglucemia neuroglicopénica severa acompañada de hepatomegalia y hallazgos histopatológicos/citológicos de microesteatosis hepatocelular difusa. <em>Nota de evidencia:</em> El informe no establece puntos de corte enzimáticos específicos de FA/GGT para esta presentación pediátrica canina, priorizando la urgencia glucémica.
+                <strong>Diagnóstico:</strong> Confirmación inmediata de hipoglucemia neuroglicopénica severa acompañada de hepatomegalia y hallazgos histopatológicos/citológicos de microesteatosis hepatocelular difusa. No hay puntos de corte enzimáticos específicos de FA/GGT para esta presentación pediátrica canina: prima la urgencia glucémica.
               </p>
               <div class="table-responsive">
                 <table class="vet-table">
@@ -3070,7 +3014,7 @@
                 </table>
               </div>
               <p style="font-size:0.82rem;color:var(--text-muted);">
-                Nota de evidencia: El informe adjunto no reporta dosis de otros fármacos hepatoprotectores específicos para cachorros caninos con hipoglucemia juvenil.
+                No hay dosis documentadas de otros fármacos hepatoprotectores específicos para cachorros caninos con hipoglucemia juvenil.
               </p>
               <a class="source-tag" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5949948/" target="_blank" rel="noopener">Fuente: PMC5949948 (Hypoglycemia in dogs)</a>
               <a class="source-tag" href="https://anyflip.com/zrhw/drfr/basic" target="_blank" rel="noopener">Fuente: Yorkshire Terrier Booklet</a>
@@ -3079,7 +3023,7 @@
         </div>
 
         <!-- PANEL 3: EQUINOS (HIPERLIPEMIA EN PONIS, BURROS Y MINIATURAS) -->
-        <div class="species-panel" id="sp-equinos" role="tabpanel">
+        <div class="species-panel" id="sp-equinos" role="tabpanel" aria-labelledby="tab-equinos" tabindex="0" hidden>
           <div class="grid-2" style="margin-bottom:1rem;">
             <div class="clinical-card">
               <h3>Presentación: Hiperlipemia en Ponis, Burros y Miniaturas</h3>
@@ -3114,7 +3058,7 @@
                   <th>Intervención / Fármaco</th>
                   <th>Dosis Exacta</th>
                   <th>Vía y Frecuencia</th>
-                  <th>Directrices Clínicas y Evidencia Crítica del Informe</th>
+                  <th>Directrices Clínicas y Evidencia Crítica</th>
                 </tr>
               </thead>
               <tbody>
@@ -3157,7 +3101,7 @@
         </div>
 
         <!-- PANEL 4: RUMIANTES (VACA GORDA Y TOXEMIA DE LA GESTACIÓN) -->
-        <div class="species-panel" id="sp-rumiantes" role="tabpanel">
+        <div class="species-panel" id="sp-rumiantes" role="tabpanel" aria-labelledby="tab-rumiantes" tabindex="0" hidden>
           <div class="grid-2" style="margin-bottom:1rem;">
             <div class="clinical-card">
               <h3>Bovinos Lecheros: Síndrome de la Vaca Gorda</h3>
@@ -3257,7 +3201,7 @@
         </div>
 
         <!-- PANEL 5: CAMÉLIDOS SUDAMERICANOS -->
-        <div class="species-panel" id="sp-camelidos" role="tabpanel">
+        <div class="species-panel" id="sp-camelidos" role="tabpanel" aria-labelledby="tab-camelidos" tabindex="0" hidden>
           <div class="grid-2">
             <div class="clinical-card">
               <h3>Presentación y Diagnóstico en Llamas y Alpacas</h3>
@@ -3306,7 +3250,7 @@
         </div>
 
         <!-- PANEL 6: CONEJOS Y HURONES -->
-        <div class="species-panel" id="sp-exoticos" role="tabpanel">
+        <div class="species-panel" id="sp-exoticos" role="tabpanel" aria-labelledby="tab-exoticos" tabindex="0" hidden>
           <div class="grid-2">
             <div class="clinical-card">
               <h3>Lagomorfos (Conejos) y Mustélidos (Hurones)</h3>
@@ -3314,7 +3258,7 @@
                 <strong>Conejos (<em>Oryctolagus cuniculus</em>):</strong> El ayuno forzado de <strong>24 a 48 horas</strong> o la estasis gastrointestinal prolongada desencadenan una esteatosis hepática acelerada que perpetúa la hipomotilidad entérica, con ausencia total de cecotrofos y heces duras, dolor abdominal severo (postura encorvada) y colapso circulatorio.
               </p>
               <p>
-                <strong>Hurones (<em>Mustela putorius furo</em>):</strong> Carnívoros hipermetabólicos de tránsito intestinal corto; la hiporexia secundaria a <strong>insulinomas</strong> o cuerpos extraños gastrointestinales provoca lipidosis hepática letal en tan solo <strong>24 a 36 horas</strong>. (El informe fundamenta el diagnóstico en la historia aguda de ayuno de 24-48 h (conejos) o hiporexia de 24-36 h (hurones), íleo o insulinoma y hallazgos de esteatosis, sin listar puntos de corte bioquímicos aislados para estas dos especies).
+                <strong>Hurones (<em>Mustela putorius furo</em>):</strong> Carnívoros hipermetabólicos de tránsito intestinal corto; la hiporexia secundaria a <strong>insulinomas</strong> o cuerpos extraños gastrointestinales provoca lipidosis hepática letal en tan solo <strong>24 a 36 horas</strong>. El diagnóstico se basa en la historia aguda de ayuno de 24-48 h (conejos) o hiporexia de 24-36 h (hurones), íleo o insulinoma y hallazgos de esteatosis; no hay puntos de corte bioquímicos aislados para estas dos especies.
               </p>
             </div>
 
@@ -3370,7 +3314,7 @@
         </div>
 
         <!-- PANEL 7: AVES PSITÁCIDAS -->
-        <div class="species-panel" id="sp-aves" role="tabpanel">
+        <div class="species-panel" id="sp-aves" role="tabpanel" aria-labelledby="tab-aves" tabindex="0" hidden>
           <div class="grid-2">
             <div class="clinical-card">
               <h3>Presentación y Diagnóstico en Aves Psitácidas</h3>
@@ -3693,7 +3637,7 @@
           <div class="clinical-card">
             <h3>Grandes Animales, Cachorros y Exóticos</h3>
             <p>
-              <strong>Cachorros Toy:</strong> Emergencia neuroglicopénica con postración súbita, hipotermia, amaurosis funcional, convulsiones y hepatomegalia.<br />
+              <strong>Cachorros Toy:</strong> emergencia neuroglicopénica; signos completos en <a class="inline-xref" href="#cachorros-toy">Módulo 03 · Caninos (toy)</a>.<br />
               <strong>Bovinos:</strong> <em>Downer cow</em> refractaria al calcio, atonía ruminal, aliento cetónico y desplazamiento de abomaso.<br />
               <strong>Ovejas/Cabras:</strong> Bruxismo, marcha en círculos, ceguera central y decúbito.<br />
               <strong>Équidos/Camélidos:</strong> "Cara somnolienta", lipuria oscura (équidos) y postura <em>kush</em> con atonía de C1 (camélidos).<br />
@@ -3797,29 +3741,160 @@
               Corregir la deshidratación en las primeras <strong>6 a 12 horas</strong> antes de iniciar la nutrición enteral utilizando <strong>NaCl 0.9%</strong> o cristaloides poliónicos sin lactato (<strong>Normosol-R, Plasmalyte 148</strong>) calculados sobre el peso magro estimado (evita edema pulmonar, quilotórax o ascitis transudativa).
             </p>
             <p>
-              <strong>Evitar Ringer Lactato</strong> (deficiente conversión hepática de L-lactato a bicarbonato) y <strong>prohibir soluciones dextrosadas de mantenimiento</strong> en felinos (elevan insulina y malonil-CoA, inhibiendo la CPT-1). Corregir KCl por escala móvil (&le; 0.5 mEq/kg/h) y agregar <strong>Sulfato de Magnesio 50%</strong> (0.15-0.3 mEq/kg/día) si el potasio es refractario.
+              <strong>Evitar Ringer Lactato</strong> (deficiente conversión hepática de L-lactato a bicarbonato) y <strong>prohibir soluciones dextrosadas de mantenimiento</strong> en felinos (elevan insulina y malonil-CoA, inhibiendo la CPT-1, y agravan la esteatosis). Corregir KCl por escala móvil (&le; 0.5 mEq/kg/h) y agregar <strong>Sulfato de Magnesio 50%</strong> (0.15-0.3 mEq/kg/día) si el potasio es refractario.
             </p>
           </div>
 
-          <div class="clinical-card">
+          <div class="clinical-card" id="sindrome-realimentacion">
             <h3>2. Síndrome de Realimentación</h3>
             <p>
-              Ocurre entre las <strong>24 y 72 horas</strong> tras reintroducir nutrientes: el pico de insulina endógena estimula la glucólisis y la bomba Na+/K+-ATPasa, desplazando abruptamente <strong>fósforo, potasio y magnesio</strong> al espacio intracelular.
+              Ocurre entre las <strong>24 y 72 horas</strong> tras reintroducir nutrientes (vigilar los primeros 3-5 días): el pico de insulina endógena estimula la glucólisis y la bomba Na+/K+-ATPasa, desplazando abruptamente <strong>fósforo, potasio y magnesio</strong> al espacio intracelular.
             </p>
             <p>
-              La <strong>hipofosfatemia severa (&lt; 2.0 mg/dL; crítica si &lt; 1.5 mg/dL)</strong> agota el ATP y el 2,3-DPG eritrocitario, causando <strong>anemia hemolítica intravascular fulminante</strong> (esferocitos, hemoglobinemia, hemoglobinuria), fallo diafragmático y asistolia. Tratar con <strong>Fosfato de Potasio IV (0.01 - 0.03 mmol/kg/h)</strong> descontando 1.4 mEq de K+ por cada mmol, manteniendo [Ca]&times;[P] &lt; 58-60 mg/dL. Medir P, K y Mg previo y a las <strong>12, 24, 48 y 72 h</strong>.
+              La <strong>hipofosfatemia severa (&lt; 2.0 mg/dL; crítica si &lt; 1.5 mg/dL)</strong> agota el ATP y el 2,3-DPG eritrocitario, causando <strong>anemia hemolítica intravascular fulminante</strong> (esferocitos frágiles, hemoglobinemia, hemoglobinuria), fallo diafragmático con fallo ventilatorio hipercápnico y asistolia. Prevenir con escalado gradual del RER y tratar con <strong>Fosfato de Potasio IV (0.01 - 0.03 mmol/kg/h)</strong> descontando 1.4 mEq de K+ por cada mmol, manteniendo [Ca]&times;[P] &lt; 58-60 mg/dL. Medir P, K y Mg previo y a las <strong>12, 24, 48 y 72 h</strong>.
             </p>
           </div>
 
           <div class="clinical-card">
             <h3>3. Selección de Sondas Enterales</h3>
             <p>
-              <strong>Force-feeding oral contraindicado</strong> (induce aversión alimentaria condicionada irreversible).<br />
+              <strong>Force-feeding oral con jeringa contraindicado</strong> (induce aversión alimentaria condicionada irreversible y neumonía por aspiración).<br />
               <strong>Sonda Nasoesofágica / Nasogástrica (3.5 a 5 Fr):</strong> Vía inicial para las primeras <strong>24 a 72 h</strong> en pacientes inestables o con coagulopatía que impide anestesia. Analgesia nasal con lidocaína o proparacaína 0.5%. Solo admite dietas líquidas (<em>Royal Canin Renal Liquid, Clinicare, EmerAid Sustain HDN Feline</em>).
             </p>
             <p>
               <strong>Sonda de Esofagostomía / E-Tube (12 a 14 Fr):</strong> Estándar de oro (ACVIM / ISFM) para manejo de <strong>3 a 8 semanas</strong>. Se coloca en piel cervical izquierda hacia esófago medio bajo anestesia corta (propofol o alfaxalona + buprenorfina, previa vitamina K1). Permite papillas hiperproteicas (<em>Hill's a/d, Royal Canin Recovery, Purina CN</em>).
             </p>
+          </div>
+        </div>
+
+        <!-- POSOLOGÍA FELINA COMPLETA (enlazada desde el Módulo 03 · Felinos) -->
+        <div class="dose-block" id="tabla-dosis-felina">
+          <h3 class="dose-block-title">
+            <svg class="lucide icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+            Posología Felina Completa
+          </h3>
+          <p class="dose-block-intro">Antes del sondaje y de la primera toma enteral, administrar <strong>Tiamina (B1) y Vitamina K1</strong> (consensos ISFM / ACVIM / WSAVA).</p>
+          <div class="table-responsive">
+            <table class="vet-table" aria-label="Tabla posológica completa para lipidosis hepática felina">
+              <thead>
+                <tr>
+                  <th>Fármaco / Suplemento</th>
+                  <th>Dosis Exacta</th>
+                  <th>Vía y Frecuencia</th>
+                  <th>Fundamento Clínico y Precauciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Cloruro de Potasio (KCl)</strong></td>
+                  <td class="mono-val">20 a 80 mEq/L (escala móvil)</td>
+                  <td>IV continua (&le; 0.5 mEq/kg/h)</td>
+                  <td>K &gt;3.5: 20 mEq/L | K 3.0-3.5: 30 mEq/L | K 2.5-2.9: 40 mEq/L | K &lt;2.5: 60-80 mEq/L. Nunca exceder 0.5 mEq/kg/h.</td>
+                </tr>
+                <tr>
+                  <td><strong>Fosfato de Potasio</strong></td>
+                  <td class="mono-val">0.01 a 0.03 mmol/kg/h</td>
+                  <td>IV infusión continua</td>
+                  <td>Si P &lt;2.0 mg/dL o profilaxis en ayuno &gt;7 días. Suspender si P &gt;2.0-2.5 mg/dL. Cada mmol aporta 1.4 mEq de K+ (descontar del KCl). Mantener [Ca]&times;[P] &lt;58-60 mg/dL.</td>
+                </tr>
+                <tr>
+                  <td><strong>Sulfato de Magnesio 50%</strong></td>
+                  <td class="mono-val">0.15 a 0.3 mEq/kg/día (o 0.01 - 0.02 mEq/kg/h)</td>
+                  <td>IV continua (primeras 24 h)</td>
+                  <td>Si Mg &lt;1.5 mg/dL. Cofactor obligado de la bomba Na+/K+-ATPasa; revierte la hipopotasemia refractaria al KCl.</td>
+                </tr>
+                <tr>
+                  <td><strong>Vitamina K1 (Fitomenadiona)</strong></td>
+                  <td class="mono-val">0.5 a 1.5 mg/kg</td>
+                  <td>SC o IM cada 12 h (2 a 3 dosis totales)</td>
+                  <td>Restaura carboxilación de factores II, VII, IX y X en 12-24 h antes de sonda E-Tube. <strong>Vía IV prohibida</strong> por shock anafiláctico.</td>
+                </tr>
+                <tr>
+                  <td><strong>Tiamina (Vitamina B1)</strong></td>
+                  <td class="mono-val">50 a 100 mg/gato inicial (25 mg talla menor); luego 25-50 mg/día SC/IM o 100-200 mg/día PO</td>
+                  <td>SC / IM / PO cada 24 h (3 a 5 días)</td>
+                  <td>Obligatoria antes de la primera toma enteral; previene poliencefalomalacia y necrosis cortical por agotamiento de piruvato deshidrogenasa.</td>
+                </tr>
+                <tr>
+                  <td><strong>Cobalamina (Vitamina B12)</strong></td>
+                  <td class="mono-val">250 a 500 &mu;g/gato</td>
+                  <td>SC cada 7 días (4 a 6 semanas)</td>
+                  <td>Cofactor de metionina sintasa y metabolismo energético mitocondrial.</td>
+                </tr>
+                <tr>
+                  <td><strong>L-Carnitina</strong></td>
+                  <td class="mono-val">250 a 500 mg/gato/día</td>
+                  <td>PO / Sonda cada 24 h</td>
+                  <td>Reactiva la lanzadera mitocondrial CPT-1 para la &beta;-oxidación de acil-CoA de cadena larga.</td>
+                </tr>
+                <tr>
+                  <td><strong>Taurina</strong></td>
+                  <td class="mono-val">250 a 500 mg/gato/día</td>
+                  <td>PO / Sonda cada 24 h</td>
+                  <td>Conjugación obligatoria de ácidos biliares en el gato y protección antioxidante de membrana.</td>
+                </tr>
+                <tr>
+                  <td><strong>S-Adenosilmetionina (SAMe)</strong></td>
+                  <td class="mono-val">20 a 40 mg/kg</td>
+                  <td>PO / Sonda cada 24 h (en ayunas)</td>
+                  <td>Donante de metilos para sintetizar fosfatidilcolina (exportación de VLDL) y precursor de glutatión (GSH).</td>
+                </tr>
+                <tr>
+                  <td><strong>N-Acetilcisteína (NAC)</strong></td>
+                  <td class="mono-val">Ataque: 140 mg/kg; Mant.: 70 mg/kg</td>
+                  <td>IV lenta en 30 min; luego cada 12 h (3-5 días)</td>
+                  <td>Diluir al 5% en NaCl 0.9% y administrar con filtro de 0.22 &mu;m. Donante directo de grupos sulfhidrilo/cisteína.</td>
+                </tr>
+                <tr>
+                  <td><strong>Ácido Ursodesoxicólico (UDCA)</strong></td>
+                  <td class="mono-val">10 a 15 mg/kg</td>
+                  <td>PO / Sonda cada 24 h (con alimento)</td>
+                  <td>Colerético hidrofílico, antiapoptótico e inmunomodulador. <strong>Contraindicado</strong> en obstrucción biliar extrahepática.</td>
+                </tr>
+                <tr>
+                  <td><strong>Maropitant</strong></td>
+                  <td class="mono-val">1.0 mg/kg</td>
+                  <td>SC / IV lenta / PO cada 24 h</td>
+                  <td>Antagonista central NK-1; antiemético y analgésico visceral sin frenar peristaltismo.</td>
+                </tr>
+                <tr>
+                  <td><strong>Ondansetrón</strong></td>
+                  <td class="mono-val">0.22 a 0.5 mg/kg (hasta 1.0 mg/kg en refractarios)</td>
+                  <td>IV lenta / PO cada 8 a 12 h</td>
+                  <td>Antagonista 5-HT3 central y periférico para náusea refractaria.</td>
+                </tr>
+                <tr>
+                  <td><strong>Cisaprida</strong></td>
+                  <td class="mono-val">0.5 a 1.5 mg/kg (o 2.5 - 5.0 mg/gato)</td>
+                  <td>PO cada 8 a 12 h</td>
+                  <td>Agonista 5-HT4 procinético para íleo o atonía gástrica, previa exclusión de obstrucción orgánica.</td>
+                </tr>
+                <tr>
+                  <td><strong>Mirtazapina</strong></td>
+                  <td class="mono-val">1.88 a 2.0 mg/gato PO; o 2.0 mg/gato (3.8 cm pomada 2%)</td>
+                  <td>PO c/24-48 h; o Tópica auricular c/24 h (máx 14 d)</td>
+                  <td>Espaciar a 48 h en fallo hepático severo. Orexígeno para transición; <strong>no sustituye la sonda enteral</strong>.</td>
+                </tr>
+                <tr>
+                  <td><strong>Capromorelina (Elura)</strong></td>
+                  <td class="mono-val">2.0 mg/kg</td>
+                  <td>PO cada 24 h</td>
+                  <td>Agonista de grelina; monitorear glucemia por elevación pulsátil de hormona del crecimiento.</td>
+                </tr>
+                <tr>
+                  <td><strong>Lactulosa / Plasma Fresco</strong></td>
+                  <td class="mono-val">Lactulosa: 0.5 - 1.0 mL/kg | PFC: 10 - 15 mL/kg</td>
+                  <td>Lactulosa PO c/8 h | PFC IV en sangrado</td>
+                  <td>Lactulosa en encefalopatía hepática para atrapar amonio colónico; PFC en coagulopatía activa o hemoabdomen.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <a class="source-tag" href="https://journals.sagepub.com/doi/10.1177/1098612X221106353" target="_blank" rel="noopener">Fuente: ISFM Consensus Guidelines 2022</a>
+            <a class="source-tag" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10816292/" target="_blank" rel="noopener">Fuente: PMC10816292 (Clinical Review)</a>
+            <a class="source-tag" href="https://www.merckvetmanual.com/digestive-system/hepatic-diseases-of-small-animals/feline-hepatic-lipidosis" target="_blank" rel="noopener">Fuente: Merck Veterinary Manual</a>
+            <a class="source-tag" href="https://wsava.org/" target="_blank" rel="noopener">Fuente: WSAVA Liver Group</a>
           </div>
         </div>
 
@@ -3913,7 +3988,7 @@
           <div class="clinical-card">
             <h3>Complicaciones Críticas y su Resolución</h3>
             <p>
-              <strong>1. Síndrome de Realimentación:</strong> Hipofosfatemia (&lt;2.0 mg/dL), hipopotasemia e hipomagnesemia en los primeros 3-5 días; causa hemólisis intravascular por esferocitos frágiles y fallo ventilatorio hipercápnico. Prevenir con Fosfato de Potasio IV (0.01-0.03 mmol/kg/h) y escalado gradual del RER.
+              <strong>1. Síndrome de Realimentación:</strong> hipofosfatemia, hipopotasemia e hipomagnesemia tras reintroducir la comida; mecanismo, umbrales, prevención y tratamiento en <a class="inline-xref" href="#sindrome-realimentacion">Módulo 07 · Síndrome de realimentación</a>.
             </p>
             <p>
               <strong>2. Encefalopatía Hepática (EH) y Tiamino-priva:</strong> Desencadenada por hiperamonemia y agotamiento de vitamina B1. Tratar en paralelo con <strong>tiamina parenteral (50-100 mg/gato)</strong>, <strong>lactulosa oral (0.5-1.0 mL/kg cada 8 h)</strong> y enemas evacuantes si existe constipación.
@@ -4232,7 +4307,7 @@
         <div class="module-header">
           <span class="module-index">MÓDULO 12</span>
           <h2 class="module-title">Autoevaluación Interactiva y Certificación AMC VetAtlas</h2>
-          <p class="module-subtitle">Responde las <strong>14</strong> preguntas clínicas paso a paso. Al finalizar y calificar con al menos <strong>70%</strong> (<strong>10/14</strong>) obtendrás el Certificado de Aprobación; con menor puntaje se emitirá tu Constancia de Participación.</p>
+          <p class="module-subtitle">Examen de <strong>14</strong> preguntas clínicas paso a paso, con certificado al final.</p>
         </div>
 
         <!-- Barra de progreso del examen y racha de aciertos -->
@@ -4285,7 +4360,7 @@
                 Completa el examen para desbloquear tu certificado
               </strong>
               <p style="font-size:0.86rem;color:var(--text-secondary);">
-                Responde las <strong>14</strong> preguntas y pulsa <strong>Calificar Evaluación</strong> al final. Quien apruebe con <strong>&ge; 70%</strong> recibe el Certificado de Aprobación; quien obtenga un puntaje menor recibe la Constancia de Participación.
+                Responde las <strong>14</strong> preguntas y pulsa <strong>Calificar Evaluación</strong> al final. Quien apruebe con <strong>&ge; 70%</strong> (<strong>10/14</strong>) recibe el Certificado de Aprobación; quien obtenga un puntaje menor recibe la Constancia de Participación.
               </p>
             </div>
           </div>
@@ -4515,21 +4590,59 @@
       });
     });
 
-    // Pestañas por Especie
+    // Pestañas por Especie (role=tablist/tab/tabpanel, tabindex itinerante y hidden en paneles inactivos)
     const speciesTabBtns = document.querySelectorAll('.species-tab-btn');
     const speciesPanels = document.querySelectorAll('.species-panel');
+    function selectSpeciesTab(btn) {
+      const targetId = btn.getAttribute('data-species-target');
+      speciesTabBtns.forEach(b => {
+        const active = b === btn;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+        b.tabIndex = active ? 0 : -1;
+      });
+      speciesPanels.forEach(p => {
+        const active = p.id === targetId;
+        p.classList.toggle('active', active);
+        p.hidden = !active;
+      });
+    }
     speciesTabBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         playArcadeSound('transition');
-        speciesTabBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
-        speciesPanels.forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        btn.setAttribute('aria-selected', 'true');
-        const targetId = btn.getAttribute('data-species-target');
-        const targetPanel = document.getElementById(targetId);
-        if (targetPanel) targetPanel.classList.add('active');
+        selectSpeciesTab(btn);
       });
     });
+
+    // Enlaces internos (#cachorros-toy, #tabla-dosis-felina…): activar la pestaña o abrir el <details> que contiene el destino
+    function revealHashTarget(hash) {
+      if (!hash || hash.length < 2) return null;
+      let target = null;
+      try { target = document.querySelector(hash); } catch (e) { return null; }
+      if (!target) return null;
+      const panel = target.closest('.species-panel');
+      if (panel && !panel.classList.contains('active')) {
+        const tab = document.getElementById(panel.getAttribute('aria-labelledby'));
+        if (tab) selectSpeciesTab(tab);
+      }
+      let det = target.parentElement && target.parentElement.closest('details');
+      while (det) {
+        det.open = true;
+        det = det.parentElement && det.parentElement.closest('details');
+      }
+      return target;
+    }
+    // Se revela antes de que el navegador salte al ancla, así que el desplazamiento nativo no cambia
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href^="#"]');
+      if (link) revealHashTarget(link.getAttribute('href'));
+    });
+    window.addEventListener('hashchange', () => revealHashTarget(location.hash));
+    if (location.hash) {
+      const initialTarget = revealHashTarget(location.hash);
+      // Tras el resto del script (cajas «En 30 segundos», <details> «Profundizar»), que cambia la altura de la página
+      if (initialTarget) setTimeout(() => { revealHashTarget(location.hash); initialTarget.scrollIntoView({ block: 'start' }); }, 0);
+    }
 
     /* ==========================================================
        2. HERO CANVAS ANIMADO PROTAGONISTA:
@@ -7497,8 +7610,8 @@
       });
       btn.addEventListener('keydown', (e) => {
         let targetIdx = null;
-        if (e.key === 'ArrowRight') targetIdx = (idx + 1) % tabBtnsArray.length;
-        else if (e.key === 'ArrowLeft') targetIdx = (idx - 1 + tabBtnsArray.length) % tabBtnsArray.length;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') targetIdx = (idx + 1) % tabBtnsArray.length;
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') targetIdx = (idx - 1 + tabBtnsArray.length) % tabBtnsArray.length;
         else if (e.key === 'Home') targetIdx = 0;
         else if (e.key === 'End') targetIdx = tabBtnsArray.length - 1;
         if (targetIdx !== null) {
