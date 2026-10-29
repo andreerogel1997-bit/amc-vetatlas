@@ -1368,6 +1368,105 @@
   
     /* Iconos Lucide en línea con el texto (el reset global pone svg en display:block) */
     svg.lucide { display: inline-block; }
+    /* Bloque por especie: tarjetas-enlace a los módulos y plegables */
+    .species-tab-btn { max-width: 100%; text-align: left; }
+    .species-tab-btn:focus-visible,
+    .species-panel:focus-visible,
+    .species-link-card:focus-visible,
+    .fold-card > summary:focus-visible {
+      outline: 2px solid var(--accent-primary);
+      outline-offset: 2px;
+    }
+    .species-intro {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      margin-bottom: 1rem;
+    }
+    .species-link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+      gap: 0.85rem;
+    }
+    .species-link-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      padding: 0.95rem 1.05rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .species-link-card:hover {
+      color: var(--text-secondary);
+      border-color: var(--border-highlight);
+      transform: translateY(-2px);
+    }
+    .species-link-card h4 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.98rem;
+      color: var(--text-primary);
+    }
+    .species-link-card h4::after {
+      content: "→";
+      margin-left: auto;
+      color: var(--accent-primary);
+    }
+    .species-link-card p { font-size: 0.86rem; line-height: 1.5; }
+    .species-link-card .link-mod {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+    }
+    .species-link-card.is-alert { border-left: 3px solid var(--accent-danger); }
+    .species-link-card.is-alert .link-mod { color: var(--accent-danger); }
+
+    .fold-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+      align-items: start;
+    }
+    @media (min-width: 768px) {
+      .fold-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1100px) {
+      .fold-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .fold-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      min-width: 0;
+    }
+    .fold-card > summary {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.85rem 1rem;
+      cursor: pointer;
+      list-style: none;
+      border-radius: var(--radius-md);
+    }
+    .fold-card > summary::-webkit-details-marker { display: none; }
+    .fold-card > summary:hover { background: color-mix(in srgb, var(--accent-primary) 8%, transparent); }
+    .fold-title {
+      flex: 1 1 12rem;
+      min-width: 0;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+    .fold-chevron { margin-left: auto; color: var(--accent-primary); transition: transform 0.2s ease; }
+    .fold-card[open] > summary .fold-chevron { transform: rotate(180deg); }
+    .fold-card[open] > summary {
+      border-bottom: 1px solid var(--border-color);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+    }
+    .fold-body { padding: 0.75rem 1rem 0.95rem; }
   </style>
 </head>
 <body>
@@ -1510,237 +1609,217 @@
     </div>
   </section>
 
-  <!-- (2) PESTAÑAS POR ESPECIE -->
+  <!-- (2) PESTAÑAS POR ESPECIE: tarjetas cortas; los datos completos están en los módulos -->
   <section id="especies" class="section-block">
     <div class="container">
       <div class="section-header">
         <span class="badge badge-cyan">Medicina Comparada Basada en Evidencia</span>
         <h2>Abordaje Clínico y Evidencia por Especie</h2>
-        <p>Selecciona la especie para revisar su presentación clínica, criterios diagnósticos, manejo terapéutico y posología exacta documentada en el informe técnico.</p>
+        <p>Elige la especie. En perras y gatas, cada tarjeta lleva al módulo con las cifras, las dosis y las citas; en otras especies se resume la medicina comparada.</p>
       </div>
 
-      <div class="species-tabs-nav" role="tablist">
-        <button type="button" class="species-tab-btn active" role="tab" aria-selected="true" data-species-tab="caninos">
+      <div class="species-tabs-nav" role="tablist" aria-label="Especie">
+        <button type="button" class="species-tab-btn active" role="tab" id="tab-caninos" aria-selected="true" aria-controls="species-caninos" tabindex="0" data-species-tab="caninos">
           <svg class="icon-svg lucide lucide-dog" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306"/></svg>
-          Caninos (Foco Principal)
+          <span>Caninos (Foco Principal)</span>
         </button>
-        <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-tab="felinos">
+        <button type="button" class="species-tab-btn" role="tab" id="tab-felinos" aria-selected="false" aria-controls="species-felinos" tabindex="-1" data-species-tab="felinos">
           <svg class="icon-svg lucide lucide-cat" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>
-          Felinos (Gata Doméstica)
+          <span>Felinos (Gata Doméstica)</span>
         </button>
-        <button type="button" class="species-tab-btn" role="tab" aria-selected="false" data-species-tab="otras">
+        <button type="button" class="species-tab-btn" role="tab" id="tab-otras" aria-selected="false" aria-controls="species-otras" tabindex="-1" data-species-tab="otras">
           <svg class="icon-svg lucide lucide-info" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-          Otras Especies (Conejas, Yeguas, Vacas, Cerdas, Aves y Otras)
+          <span>Otras Especies (Conejas, Yeguas, Vacas, Cerdas, Aves y Otras)</span>
         </button>
       </div>
 
       <!-- PANEL CANINOS -->
-      <div id="species-caninos" class="species-panel active" role="tabpanel">
-        <div class="grid-2">
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Epidemiología y Presentación en Perras</span>
-              <span class="badge badge-cyan">20% – 25% &lt; 10 años</span>
-            </div>
-            <ul class="clinical-list">
-              <li><strong>Incidencia y edad:</strong> Entre el 20% y el 25% de las perras enteras desarrollan piometra antes de los 10 años, elevándose exponencialmente desde los 4 a 6 años, con mayor riesgo en nulíparas <span class="cite-tag">Johnston et al., 2001; Feldman et al., 2015</span>.</li>
-              <li><strong>Predisposición racial y genómica:</strong> Boyero de Berna, Golden Retriever (asociación significativa con polimorfismos en el gen transportador <code>ABCC4</code>), Rottweiler, San Bernardo, Pastor Alemán y Collie <span class="cite-tag">Attard et al., 2022</span>.</li>
-              <li><strong>Evidencia en Ecuador y Latinoamérica:</strong> En Cuenca, prevalencia macroscópica del 17.0% asociada significativamente (p = 0.019) a anticonceptivos inyectables incluso en menores de 3 años <span class="cite-tag">Quito Arias, 2023</span>. En Guayaquil, representa el 53.33% de las colectas uterinas (57.78% a cuello cerrado; <em>E. coli</em> 70–90%) <span class="cite-tag">Chung Pérez, 2023</span>. En Londrina (Brasil), <em>E. coli</em> fue aislada en 55.2% y bacterias Gram-positivas en 20.9% (<em>Streptococcus</em> spp. 13.43%, <em>Staphylococcus</em> spp. 5.97%) <span class="cite-tag">Sant'Anna et al., 2017</span>.</li>
-              <li><strong>Presentación clínica (2–8 semanas post-estro):</strong> Letargia, anorexia, deshidratación (6–10%), vómitos/diarrea por LPS y uremia, descarga vulvar purulenta/achocolatada (cuello abierto) o abdomen distendido en tabla (cuello cerrado) y tríada de poliuria, polidipsia (PU/PD) y deshidratación <span class="cite-tag">Hall, 2012</span>.</li>
-              <li><strong>Estado hemodinámico:</strong> Fase hiperdinámica inicial (mucosas rojo ladrillo, TLC &lt; 1 s, pulso saltón taquicárdico) que progresa a choque hipodinámico (mucosas pálidas/ictéricas, TLC &gt; 2.5 s, hipotermia e hipotensión refractaria) <span class="cite-tag">Goggs et al., 2026</span>.</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Diagnóstico y Criterios SIRS Caninos</span>
-              <span class="badge badge-warning">Estándar de Oro: Ecografía</span>
-            </div>
-            <ul class="clinical-list">
-              <li><strong>Criterios SIRS en Caninos (al menos 2):</strong> Temperatura &lt; 37.8 °C o &gt; 39.4 °C; Frecuencia Cardíaca &gt; 140 lpm; Frecuencia Respiratoria &gt; 30 rpm; Leucocitos &lt; 6,000/µL, &gt; 19,000/µL o &gt; 10% neutrófilos en banda <span class="cite-tag">Trotman, 2015; Nobre et al., 2020</span>.</li>
-              <li><strong>Hematología y Bioquímica:</strong> Leucocitosis neutrofílica severa (30,000 a 80,000/µL, reacción leucemoide) con desviación a la izquierda, o leucopenia crítica (&lt; 4,000/µL) con cuerpos de Döhle en sepsis hiperaguda. Anemia normocítica normocrómica no regenerativa, azotemia prerrenal/renal, hipoalbuminemia, hiperglobulinemia, elevación de ALT/FA y bilirrubina total por colestasis séptica <span class="cite-tag">Martínez et al., 2016</span>.</li>
-              <li><strong>Biomarcadores y Urianálisis:</strong> Proteína C Reactiva (PCR) &gt; 50–150 mg/L (normal &lt; 10 mg/L) <span class="cite-tag">Smith, 2022</span>; SDMA &gt; 14 µg/dL; isostenuria (1.008–1.012) o hipostenuria (&lt; 1.008) por bloqueo de AQP2 y proteinuria glomerular con UPC &gt; 1.0–2.0 <span class="cite-tag">Nielsen et al., 2004; Maddens et al., 2010; Fulton, 2023</span>. <strong>Cistocentesis formalmente proscrita</strong>.</li>
-              <li><strong>Ultrasonografía abdominal:</strong> Cuernos distendidos y convolutos (&gt; 1.5–2.0 cm), contenido anecoico/hipoecoico con "efecto de copos de nieve en remolino" y quistes endometriales de HEQ <span class="cite-tag">Hall, 2012</span>.</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Estabilización, Cirugía y Anestesia Canina</span>
-              <span class="badge badge-danger">OVH Urgente</span>
-            </div>
-            <ul class="clinical-list">
-              <li><strong>Fluidos en Caninos:</strong> Cristaloides isotónicos balanceados (Ringer Lactato, Plasmalyte 148, Normosol-R). Volumen de choque total 60–90 mL/kg, administrado en <strong>bolos titulados de 10–20 mL/kg IV en 15–20 min</strong>. Si glucemia &lt; 70 mg/dL: Dextrosa 50% a 0.5–1.0 mL/kg diluida 1:1 o 1:3 + mantenimiento 2.5–5%. Si albúmina &lt; 1.8–2.0 g/dL o coagulopatía: Plasma Fresco Congelado (PFC) 10–20 mL/kg IV en 2–4 h <span class="cite-tag">Cortellini et al., 2024; Goggs et al., 2026</span>.</li>
-              <li><strong>Antibióticos IV:</strong> 1.ª elección: Ampicilina/Sulbactam 20–30 mg/kg IV q8h, o Amoxicilina/Ác. Clavulánico 20 mg/kg IV q8h (Cefazolina 22–30 mg/kg IV q8h en estables). En choque séptico/ruptura: Ampicilina 20 mg/kg IV q8h + Enrofloxacino 5–10 mg/kg IV q24h (infusión 30 min) + Metronidazol 10–15 mg/kg IV q12h (o Amikacina 15–20 mg/kg IV q24h si hay normovolemia y sin oligoanuria) <span class="cite-tag">Hall, 2012; Carvalho et al., 2021</span>.</li>
-              <li><strong>Anestesia y CRI Analgésica:</strong> Premedicación: Metadona 0.2–0.3 mg/kg IV (0.3–0.5 mg/kg IM) o Fentanilo 2.0–5.0 µg/kg IV + Midazolam 0.2 mg/kg IV. Inducción: Alfaxalona 1.0–2.0 mg/kg IV, Propofol 2.0–3.0 mg/kg IV titulado o Etomidato 0.5–1.5 mg/kg IV. CRI: <strong>Remifentanilo</strong> bolo 0.5–1.0 µg/kg y CRI 0.1–0.3 µg/kg/min (6.0–18.0 µg/kg/h) <span class="cite-tag">Kwon et al., 2007; Vandermeulen et al., 2022</span>; <strong>Fentanilo</strong> CRI 5.0–20.0 µg/kg/h <span class="cite-tag">Nobre et al., 2020</span>; <strong>Metadona</strong> CRI 0.05–0.1 mg/kg/h; <strong>Lidocaína (solo caninos)</strong> bolo 1.0–2.0 mg/kg IV y CRI 1.5–3.0 mg/kg/h (25–50 µg/kg/min) <span class="cite-tag">Hansen, 2002; Mathews et al., 2014</span>.</li>
-              <li><strong>Soporte Vasoactivo (PAM &lt; 65 mmHg):</strong> Bolo cristaloide 5–10 mL/kg en 10–15 min; Norepinefrina 0.05–0.5 µg/kg/min IV; Dobutamina 2.5–10.0 µg/kg/min IV; Dopamina 5.0–10.0 µg/kg/min (hasta 15 µg/kg/min) <span class="cite-tag">Veterian Key, 2020; Goggs et al., 2026</span>.</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Tratamiento Médico Conservador (Caninos)</span>
-              <span class="badge badge-success">Éxito 84.4% – 90% Combinado</span>
-            </div>
-            <ul class="clinical-list">
-              <li><strong>Aglepristona (RU 534):</strong> 10 mg/kg SC los días 1, 2 y 8 (+ refuerzo 10 mg/kg SC el día 14 o 15 si persiste fluido ecográfico). Fraccionar si supera 5 mL <span class="cite-tag">Fieni, 2006; Applecross Vet, 2006</span>.</li>
-              <li><strong>Cloprostenol (análogo PGF2alfa):</strong> 1.0 a 2.0 µg/kg SC cada 24 h desde el día 3 al día 7 (solo tras apertura cervical con aglepristona) <span class="cite-tag">Fieni, 2006; Rao et al., 2012</span>.</li>
-              <li><strong>Cabergolina (agonista D2):</strong> 5.0 µg/kg PO cada 24 h por 7 a 14 días (o 2.5 µg/kg q12h), combinada con Cloprostenol (1.0 µg/kg SC q24h) <span class="cite-tag">Romagnoli, 2002; England et al., 2007; Rani et al., 2013</span>.</li>
-              <li><strong>Antibiótico coadyuvante:</strong> Amoxicilina/Ácido Clavulánico 20 mg/kg PO cada 12 h durante todo el protocolo y hasta 10–14 días tras la remisión ecográfica <span class="cite-tag">Smith, 2022; Al-Zubaidi et al., 2023</span>.</li>
-            </ul>
-          </div>
+      <div id="species-caninos" class="species-panel active" role="tabpanel" aria-labelledby="tab-caninos" tabindex="0">
+        <p class="species-intro">La perra es la especie foco de la guía: todo su abordaje está en los módulos 01 a 11.</p>
+        <div class="species-link-grid">
+          <a class="card species-link-card" href="#mod-02">
+            <span class="link-mod">Módulo 02</span>
+            <h4>Epidemiología y riesgo</h4>
+            <p>Incidencia por edad, nuliparidad, razas predispuestas y gen <code>ABCC4</code>; casuística de Ecuador, Perú y Brasil.</p>
+          </a>
+          <a class="card species-link-card" href="#mod-04">
+            <span class="link-mod">Módulo 04</span>
+            <h4>Presentación y formas clínicas</h4>
+            <p>Signos tras el estro, fase hiperdinámica e hipodinámica, cuello abierto o cerrado y piometra del muñón.</p>
+          </a>
+          <a class="card species-link-card" href="#mod-05">
+            <span class="link-mod">Módulo 05</span>
+            <h4>Diagnóstico</h4>
+            <p>Hemograma, bioquímica, PCR, SDMA, urianálisis, ecografía (estándar de oro), radiografía y cultivo. Cistocentesis proscrita.</p>
+          </a>
+          <a class="card species-link-card" href="#mod-06">
+            <span class="link-mod">Módulo 06</span>
+            <h4>SIRS y sepsis</h4>
+            <p>Criterios SIRS caninos, evaluador interactivo y disfunción orgánica.</p>
+          </a>
+          <a class="card species-link-card" href="#mod-07">
+            <span class="link-mod">Módulo 07</span>
+            <h4>Estabilización y antibióticos</h4>
+            <p>Bolos de cristaloides, dextrosa, plasma fresco congelado y pautas antimicrobianas IV.</p>
+          </a>
+          <a class="card species-link-card" href="#mod-08">
+            <span class="link-mod">Módulo 08</span>
+            <h4>Cirugía (OVH)</h4>
+            <p>Técnica atraumática, calibre de sutura por tamaño y protocolo ante rotura uterina.</p>
+          </a>
+          <a class="card species-link-card" href="#mod-09">
+            <span class="link-mod">Módulo 09</span>
+            <h4>Anestesia y CRI</h4>
+            <p>Premedicación, inducción, vasopresores y CRI de remifentanilo, fentanilo, metadona y lidocaína.</p>
+          </a>
+          <a class="card species-link-card" href="#mod-10">
+            <span class="link-mod">Módulo 10</span>
+            <h4>Tratamiento médico y calculadora</h4>
+            <p>Aglepristona, cloprostenol, cabergolina, tasas de éxito y cálculo de dosis por peso.</p>
+          </a>
+          <a class="card species-link-card" href="#mod-11">
+            <span class="link-mod">Módulo 11</span>
+            <h4>Monitoreo y pronóstico</h4>
+            <p>Lactato, presión, diuresis, mortalidad, predictores y prevención.</p>
+          </a>
         </div>
       </div>
 
       <!-- PANEL FELINOS -->
-      <div id="species-felinos" class="species-panel" role="tabpanel">
-        <div class="grid-2">
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Particularidades Fisiopatológicas y Clínicas en la Gata</span>
-              <span class="badge badge-cyan">Prevalencia ~2.2% a los 13 años</span>
-            </div>
-            <ul class="clinical-list">
-              <li><strong>Fisiología ovulatoria y riesgo:</strong> Las gatas son ovuladoras inducidas, por lo que su prevalencia (2.2% hacia los 13 años) es menor que en la perra. Sin embargo, aumenta tras montas infértiles, por uso de progestágenos sintéticos o en colonias de alta densidad donde ocurren <strong>ovulaciones espontáneas en el 30% al 40% de los ciclos</strong> estimuladas por feromonas o interacciones sociales. Mayor predisposición en razas <strong>Siamés, Persa y Bengala</strong> <span class="cite-tag">Feldman et al., 2015; Musleh Uddin et al., 2021</span>.</li>
-              <li><strong>Enmascaramiento clínico:</strong> El hábito de lamido perineal constante de la gata suele limpiar y ocultar la descarga vulvar en casos de piometra de cuello abierto, retrasando la detección por parte del tutor <span class="cite-tag">Musleh Uddin et al., 2021; Memon, 2007</span>.</li>
-              <li><strong>Tríada Felina de Choque Séptico:</strong> A diferencia del perro, la gata séptica rara vez exhibe una fase hiperdinámica febril y taquicárdica; se presenta con <strong>hipotermia severa, bradicardia paradójica e hipotensión profunda</strong> <span class="cite-tag">Trotman, 2015; Goggs et al., 2026</span>.</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Diagnóstico, SIRS y Biomarcadores en Felinos</span>
-              <span class="badge badge-warning">Biomarcador: Amiloide Sérico A (SAA)</span>
-            </div>
-            <ul class="clinical-list">
-              <li><strong>Criterios SIRS en Felinos (al menos 2):</strong>
-                <br>• Temperatura corporal central: <strong>&lt; 37.8 °C o &gt; 39.7 °C</strong>
-                <br>• Frecuencia cardíaca: <strong>&lt; 140 lpm (bradicardia) o &gt; 225 lpm</strong>
-                <br>• Frecuencia respiratoria: <strong>&gt; 40 respiraciones/min</strong>
-                <br>• Recuento leucocitario: <strong>&lt; 5,000/µL, &gt; 19,000/µL o &gt; 10% neutrófilos en banda</strong> <span class="cite-tag">Trotman, 2015; Goggs et al., 2026</span>.
-              </li>
-              <li><strong>Biomarcador de fase aguda:</strong> Mientras que en caninos se emplea la PCR, en la gata el <strong>Amiloide Sérico A (SAA)</strong> cumple el rol de alta reactividad inflamatoria para seguimiento diagnóstico y posoperatorio <span class="cite-tag">Smith, 2022</span>.</li>
-              <li><strong>Ultrasonografía y Urianálisis:</strong> Igual que en la perra, la ecografía confirma la colecta uterina y descarta gestación; la cistocentesis está formalmente proscrita por riesgo de perforación uterina <span class="cite-tag">Musleh Uddin et al., 2021</span>.</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Fluidoterapia, Antibióticos y Alertas de Toxicidad Felina</span>
-              <span class="badge badge-danger">Precaución Pulmonar y Retiniana</span>
-            </div>
-            <ul class="clinical-list">
-              <li><strong>Fluidoterapia titulada en Felinos:</strong> El volumen de resucitación total teórico es de <strong>40 a 60 mL/kg</strong>, administrado en <strong>alícuotas fraccionadas de 5 a 10 mL/kg IV lento en 20 a 30 minutos</strong>, con auscultación torácica estricta para prevenir edema pulmonar agudo dada la reducida capacitancia vascular felina <span class="cite-tag">Cortellini et al., 2024; Goggs et al., 2026</span>.</li>
-              <li><strong>Alerta con Enrofloxacino en Gatos:</strong> En el esquema de espectro extendido para choque séptico (ampicilina + enrofloxacino + metronidazol), el informe especifica que el enrofloxacino (5–10 mg/kg IV q24h) se reserva para caninos, y <strong>en felinos no debe exceder los 5 mg/kg</strong> para evitar el riesgo de degeneración retiniana aguda y ceguera irreversible <span class="cite-tag">Hall, 2012; Veterian Key, 2020</span>.</li>
-              <li><strong>Contraindicación absoluta de Lidocaína CRI:</strong> La infusión continua (CRI) de lidocaína analgésica/procinética es exclusiva de caninos y está <strong>estrictamente contraindicada en gatos</strong> por toxicidad cardiovascular y neurológica severa <span class="cite-tag">Hansen, 2002; Mathews et al., 2014</span>.</li>
-              <li><strong>Técnica quirúrgica (OVH) y Tratamiento Médico:</strong> En gatas se emplean suturas monofilamento absorbibles calibre <strong>3-0</strong> (polidioxanona o poligliconato) para los pedículos ováricos. Para el tratamiento médico, el informe incluye a gatas jóvenes (&lt; 4–6 años) de valor genético y cuello abierto dentro de los criterios de selección, aunque las tasas de éxito y dosis detalladas del informe provienen primordialmente de estudios caninos <span class="cite-tag">Memon, 2007; Fieni, 2006</span>.</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Pronóstico en la Paciente Felina</span>
-              <span class="badge badge-success">Mortalidad OVH 3% – 8%</span>
-            </div>
-            <p style="font-size:0.9rem;color:var(--text-secondary);">
-              En gatas estabilizadas oportunamente y sometidas a ovariohisterectomía de urgencia, el pronóstico es favorable a excelente (mortalidad global del 3% al 8%, subiendo a 25%–57% si concurre peritonitis séptica, ruptura uterina o choque séptico descompensado) <span class="cite-tag">Goggs et al., 2026; Musleh Uddin et al., 2021</span>.
-            </p>
-          </div>
+      <div id="species-felinos" class="species-panel" role="tabpanel" aria-labelledby="tab-felinos" tabindex="0" hidden>
+        <p class="species-intro">En la gata cambian varios umbrales y hay alertas propias (en rojo). Cada tarjeta lleva al módulo donde está el dato.</p>
+        <div class="species-link-grid">
+          <a class="card species-link-card" href="#mod-02">
+            <span class="link-mod">Módulo 02</span>
+            <h4>Epidemiología felina</h4>
+            <p>Ovuladoras inducidas: prevalencia menor, ovulación espontánea en colonias y razas predispuestas.</p>
+          </a>
+          <a class="card species-link-card" href="#mod-04">
+            <span class="link-mod">Módulo 04</span>
+            <h4>Presentación</h4>
+            <p>El lamido perineal oculta la descarga vulvar en la piometra de cuello abierto.</p>
+          </a>
+          <a class="card species-link-card" href="#mod-05">
+            <span class="link-mod">Módulo 05</span>
+            <h4>Biomarcador: SAA</h4>
+            <p>En la gata se usa el amiloide sérico A en lugar de la PCR.</p>
+          </a>
+          <a class="card species-link-card is-alert" href="#mod-06">
+            <span class="link-mod">Módulo 06</span>
+            <h4>SIRS felino y tríada de choque</h4>
+            <p>Umbrales propios y choque con hipotermia, bradicardia e hipotensión.</p>
+          </a>
+          <a class="card species-link-card is-alert" href="#mod-07">
+            <span class="link-mod">Módulo 07</span>
+            <h4>Fluidos y enrofloxacino</h4>
+            <p>Alícuotas más pequeñas por riesgo de edema pulmonar y tope de enrofloxacino por toxicidad retiniana.</p>
+          </a>
+          <a class="card species-link-card" href="#mod-08">
+            <span class="link-mod">Módulo 08</span>
+            <h4>Suturas en gatas</h4>
+            <p>Calibre de monofilamento absorbible para los pedículos ováricos.</p>
+          </a>
+          <a class="card species-link-card is-alert" href="#mod-09">
+            <span class="link-mod">Módulo 09</span>
+            <h4>Lidocaína en CRI: contraindicada</h4>
+            <p>Prohibida en gatos; resto del protocolo anestésico.</p>
+          </a>
+          <a class="card species-link-card" href="#mod-10">
+            <span class="link-mod">Módulo 10</span>
+            <h4>Tratamiento médico en gatas</h4>
+            <p>Criterios de selección; tasas y dosis provienen sobre todo de estudios caninos. Alertas felinas en la calculadora.</p>
+          </a>
+          <a class="card species-link-card" href="#mod-11">
+            <span class="link-mod">Módulo 11</span>
+            <h4>Pronóstico</h4>
+            <p>Mortalidad en OVH oportuna y con complicaciones.</p>
+          </a>
         </div>
       </div>
 
       <!-- PANEL OTRAS ESPECIES -->
-      <div id="species-otras" class="species-panel" role="tabpanel">
-        <div class="callout callout-warning" style="margin-bottom:1.25rem;">
+      <div id="species-otras" class="species-panel" role="tabpanel" aria-labelledby="tab-otras" tabindex="0" hidden>
+        <div id="nota-dosis-especies" class="callout callout-warning" style="margin:0 0 1.25rem;">
           <div class="callout-title">
             <svg class="icon-svg lucide lucide-triangle-alert" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-            Declaración de Honestidad Científica sobre Evidencia y Posología en el Informe
+            Dosis: solo para perras y gatas
           </div>
           <p>
-            El informe técnico adjunto describe la etiopatogenia, microbiología y presentación clínica comparada en <strong>conejas, yeguas, vacas, cerdas y aves</strong> <span class="cite-tag">Shibabaw &amp; Verma, 2023; Sheldon et al., 2017; Woods et al., 2023</span>, pero <strong>NO incluye protocolos posológicos ni dosis farmacológicas específicas para estas especies</strong> (las dosis del informe corresponden a caninos y felinos). Tampoco contiene evidencia sobre otras especies adicionales (pequeños rumiantes, camélidos o roedores), por lo que no se extrapola ni inventa ninguna dosis fuera del documento.
+            Todas las dosis de esta guía corresponden a caninos y felinos. Para <strong>conejas, yeguas, vacas, cerdas y aves</strong> se describen la etiopatogenia, la microbiología y la presentación clínica comparada <span class="cite-tag">Shibabaw &amp; Verma, 2023; Sheldon et al., 2017; Woods et al., 2023</span>, pero <strong>no hay protocolos posológicos ni dosis farmacológicas específicas</strong>: ni para lagomorfos, ni equinas, ni bovinas, ni porcinas, ni aviares. Para <strong>ovejas, cabras y otros pequeños rumiantes, camélidos sudamericanos, roedores y pequeños mamíferos exóticos distintos de la coneja</strong> no hay datos epidemiológicos, clínicos, diagnósticos ni posológicos. Siguiendo el rigor metodológico de <strong>AMC VetAtlas</strong>, no se extrapola ni se inventa ninguna dosis.
           </p>
         </div>
 
-        <div class="grid-3">
-          <!-- Conejas -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Coneja (<em>Oryctolagus cuniculus</em>)</span>
+        <div class="fold-grid">
+          <details class="fold-card">
+            <summary>
+              <span class="fold-title">Coneja (<em>Oryctolagus cuniculus</em>)</span>
               <span class="badge badge-danger">Neoplasia Subyacente</span>
+              <svg class="icon-svg lucide lucide-chevron-down fold-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="fold-body">
+              <ul class="clinical-list">
+                <li><strong>Etiopatogenia:</strong> Correlación directa con lesiones proliferativas crónicas del endometrio. Más del <strong>50% al 80% de las conejas enteras mayores de 4 años</strong> desarrollan <strong>adenocarcinoma uterino primario</strong>; sobre estas masas o zonas de HEQ se implantan infecciones oportunistas <span class="cite-tag">Shibabaw &amp; Verma, 2023</span>.</li>
+                <li><strong>Agentes aislados:</strong> <em>Pasteurella multocida</em>, <em>Staphylococcus aureus</em> y <em>Pseudomonas aeruginosa</em>.</li>
+                <li><strong>Clínica y diagnóstico:</strong> Anorexia, letargia profunda y hematuria previa (hematometra por vascularización neoplásica friable), evolucionando a caquexia y peritonitis séptica.</li>
+              </ul>
             </div>
-            <ul class="clinical-list">
-              <li><strong>Etiopatogenia:</strong> Correlación directa con lesiones proliferativas crónicas del endometrio. Más del <strong>50% al 80% de las conejas enteras mayores de 4 años</strong> desarrollan <strong>adenocarcinoma uterino primario</strong>; sobre estas masas o zonas de HEQ se implantan infecciones oportunistas <span class="cite-tag">Shibabaw &amp; Verma, 2023</span>.</li>
-              <li><strong>Agentes aislados:</strong> <em>Pasteurella multocida</em>, <em>Staphylococcus aureus</em> y <em>Pseudomonas aeruginosa</em>.</li>
-              <li><strong>Clínica y diagnóstico:</strong> Anorexia, letargia profunda y hematuria previa (hematometra por vascularización neoplásica friable), evolucionando a caquexia y peritonitis séptica.</li>
-              <li><strong>Evidencia de dosis en el informe:</strong> No se reportan dosis farmacológicas específicas para lagomorfos en el documento.</li>
-            </ul>
-          </div>
-
-          <!-- Yeguas -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Yegua (<em>Equus caballus</em>)</span>
+          </details>
+          <details class="fold-card">
+            <summary>
+              <span class="fold-title">Yegua (<em>Equus caballus</em>)</span>
               <span class="badge badge-warning">10 a 60 Litros sin Sepsis</span>
+              <svg class="icon-svg lucide lucide-chevron-down fold-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="fold-body">
+              <ul class="clinical-list">
+                <li><strong>Etiopatogenia mecánica:</strong> No se origina primordialmente por disfunción lútea primaria, sino por un <strong>fallo mecánico del conducto cervical</strong> (adherencias transluminales intrauterinas, fibrosis cervical, cicatrices postparto traumáticas o laceraciones cervicales) que impide el aclaramiento uterino <span class="cite-tag">Woods et al., 2023; Shibabaw &amp; Verma, 2023</span>.</li>
+                <li><strong>Agentes causales:</strong> <em>Streptococcus equi</em> subsp. <em>zooepidemicus</em>, <em>Escherichia coli</em> y <em>Klebsiella pneumoniae</em>.</li>
+                <li><strong>Clínica y biomarcadores:</strong> Rara vez muestra enfermedad sistémica o endotoxemia aunque el útero acumule de <strong>10 a 60 litros</strong> de pus espeso. La ciclicidad puede mantenerse o alterarse secundariamente por destrucción endometrial de PGF2alfa. El <strong>Amiloide Sérico A (SAA)</strong> actúa como reactante de fase aguda <span class="cite-tag">Woods et al., 2023; Smith, 2022</span>.</li>
+              </ul>
             </div>
-            <ul class="clinical-list">
-              <li><strong>Etiopatogenia mecánica:</strong> No se origina primordialmente por disfunción lútea primaria, sino por un <strong>fallo mecánico del conducto cervical</strong> (adherencias transluminales intrauterinas, fibrosis cervical, cicatrices postparto traumáticas o laceraciones cervicales) que impide el aclaramiento uterino <span class="cite-tag">Woods et al., 2023; Shibabaw &amp; Verma, 2023</span>.</li>
-              <li><strong>Agentes causales:</strong> <em>Streptococcus equi</em> subsp. <em>zooepidemicus</em>, <em>Escherichia coli</em> y <em>Klebsiella pneumoniae</em>.</li>
-              <li><strong>Clínica y biomarcadores:</strong> Rara vez muestra enfermedad sistémica o endotoxemia aunque el útero acumule de <strong>10 a 60 litros</strong> de pus espeso. La ciclicidad puede mantenerse o alterarse secundariamente por destrucción endometrial de PGF2alfa. El <strong>Amiloide Sérico A (SAA)</strong> actúa como reactante de fase aguda <span class="cite-tag">Woods et al., 2023; Smith, 2022</span>.</li>
-              <li><strong>Evidencia de dosis en el informe:</strong> Sin posología equina reportada en el informe.</li>
-            </ul>
-          </div>
-
-          <!-- Vacas -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Vaca (<em>Bos taurus / Bos indicus</em>)</span>
+          </details>
+          <details class="fold-card">
+            <summary>
+              <span class="fold-title">Vaca (<em>Bos taurus / Bos indicus</em>)</span>
               <span class="badge badge-cyan">Cuerpo Lúteo Persistente</span>
+              <svg class="icon-svg lucide lucide-chevron-down fold-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="fold-body">
+              <ul class="clinical-list">
+                <li><strong>Etiopatogenia puerperal:</strong> Se instaura de <strong>2 a 8 semanas postparto</strong> tras metritis o endometritis puerperal no resuelta. La destrucción del epitelio endometrial bloquea los pulsos luteolíticos de PGF2alfa, causando persistencia del cuerpo lúteo, secreción continua de P4, cierre cervical e inmunosupresión <span class="cite-tag">Sheldon et al., 2017; El-Sebaei et al., 2021</span>.</li>
+                <li><strong>Agentes y toxinas:</strong> <em>Trueperella pyogenes</em> (productora de <strong>piolisina</strong>, citolítica para el estroma endometrial) en sinergia con anaerobios como <em>Fusobacterium necrophorum</em> <span class="cite-tag">Sheldon et al., 2017</span>.</li>
+                <li><strong>Clínica:</strong> Acumulación de <strong>1 a 20 litros</strong> de pus en anestro patológico estricto. Repercusión sistémica leve o moderada (pérdida de condición corporal y merma láctea; raro choque endotóxico agudo).</li>
+              </ul>
             </div>
-            <ul class="clinical-list">
-              <li><strong>Etiopatogenia puerperal:</strong> Se instaura de <strong>2 a 8 semanas postparto</strong> tras metritis o endometritis puerperal no resuelta. La destrucción del epitelio endometrial bloquea los pulsos luteolíticos de PGF2alfa, causando persistencia del cuerpo lúteo, secreción continua de P4, cierre cervical e inmunosupresión <span class="cite-tag">Sheldon et al., 2017; El-Sebaei et al., 2021</span>.</li>
-              <li><strong>Agentes y toxinas:</strong> <em>Trueperella pyogenes</em> (productora de <strong>piolisina</strong>, citolítica para el estroma endometrial) en sinergia con anaerobios como <em>Fusobacterium necrophorum</em> <span class="cite-tag">Sheldon et al., 2017</span>.</li>
-              <li><strong>Clínica:</strong> Acumulación de <strong>1 a 20 litros</strong> de pus en anestro patológico estricto. Repercusión sistémica leve o moderada (pérdida de condición corporal y merma láctea; raro choque endotóxico agudo).</li>
-              <li><strong>Evidencia de dosis en el informe:</strong> Sin dosis bovinas reportadas en el documento.</li>
-            </ul>
-          </div>
-
-          <!-- Cerdas -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Cerda (<em>Sus scrofa domesticus</em>)</span>
+          </details>
+          <details class="fold-card">
+            <summary>
+              <span class="fold-title">Cerda (<em>Sus scrofa domesticus</em>)</span>
               <span class="badge badge-warning">Post-servicio / Puerperal</span>
+              <svg class="icon-svg lucide lucide-chevron-down fold-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="fold-body">
+              <ul class="clinical-list">
+                <li><strong>Etiopatogenia:</strong> Endometritis crónica ascendente post-servicio o puerperal secundaria a distocia mecánica y retención de membranas fetales <span class="cite-tag">Shibabaw &amp; Verma, 2023</span>.</li>
+                <li><strong>Agentes causales:</strong> <em>Actinobaculum suis</em>, <em>Escherichia coli</em>, <em>Streptococcus</em> spp. y anaerobios obligados.</li>
+                <li><strong>Clínica y desenlace:</strong> Ciclos estrales irregulares por retención de cuerpos lúteos, descargas vulvares purulentas intermitentes (visibles al tumbarse) e infertilidad definitiva que conduce habitualmente al descarte zootécnico.</li>
+              </ul>
             </div>
-            <ul class="clinical-list">
-              <li><strong>Etiopatogenia:</strong> Endometritis crónica ascendente post-servicio o puerperal secundaria a distocia mecánica y retención de membranas fetales <span class="cite-tag">Shibabaw &amp; Verma, 2023</span>.</li>
-              <li><strong>Agentes causales:</strong> <em>Actinobaculum suis</em>, <em>Escherichia coli</em>, <em>Streptococcus</em> spp. y anaerobios obligados.</li>
-              <li><strong>Clínica y desenlace:</strong> Ciclos estrales irregulares por retención de cuerpos lúteos, descargas vulvares purulentas intermitentes (visibles al tumbarse) e infertilidad definitiva que conduce habitualmente al descarte zootécnico.</li>
-              <li><strong>Evidencia de dosis en el informe:</strong> Sin posología porcina especificada en el informe.</li>
-            </ul>
-          </div>
-
-          <!-- Aves -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Aves (Clase <em>Aves</em>)</span>
+          </details>
+          <details class="fold-card">
+            <summary>
+              <span class="fold-title">Aves (Clase <em>Aves</em>)</span>
               <span class="badge badge-danger">No Existe Piometra Verdadera</span>
+              <svg class="icon-svg lucide lucide-chevron-down fold-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="fold-body">
+              <ul class="clinical-list">
+                <li><strong>Ausencia anatómica de piometra:</strong> En aves <strong>no existe la piometra como entidad patológica mamífera</strong>. Solo desarrollan el ovario y oviducto izquierdos (infundíbulo, mágnum, istmo, glándula de la cáscara y vagina desembocando en el urodeo cloacal), careciendo de útero con cérvix oclusivo y de cuerpo lúteo diéstrico <span class="cite-tag">Shibabaw &amp; Verma, 2023</span>.</li>
+                <li><strong>Entidad análoga aviar:</strong> Debe denominarse <strong>salpingitis fibrinopurulenta</strong> o <strong>celomitis ovocitaria por peritonitis por huevo</strong> (<em>egg yolk coelomitis</em>).</li>
+                <li><strong>Microbiología y clínica:</strong> Impactación del oviducto con agregados caseosos de albúmina, fibrina y exudado infectado por <em>Escherichia coli</em>, <em>Salmonella enterica</em> o <em>Gallibacterium anatis</em>, provocando distensión celómica severa, disnea por compresión de sacos aéreos y caquexia.</li>
+              </ul>
             </div>
-            <ul class="clinical-list">
-              <li><strong>Ausencia anatómica de piometra:</strong> En aves <strong>no existe la piometra como entidad patológica mamífera</strong>. Solo desarrollan el ovario y oviducto izquierdos (infundíbulo, mágnum, istmo, glándula de la cáscara y vagina desembocando en el urodeo cloacal), careciendo de útero con cérvix oclusivo y de cuerpo lúteo diéstrico <span class="cite-tag">Shibabaw &amp; Verma, 2023</span>.</li>
-              <li><strong>Entidad análoga aviar:</strong> Debe denominarse <strong>salpingitis fibrinopurulenta</strong> o <strong>celomitis ovocitaria por peritonitis por huevo</strong> (<em>egg yolk coelomitis</em>).</li>
-              <li><strong>Microbiología y clínica:</strong> Impactación del oviducto con agregados caseosos de albúmina, fibrina y exudado infectado por <em>Escherichia coli</em>, <em>Salmonella enterica</em> o <em>Gallibacterium anatis</em>, provocando distensión celómica severa, disnea por compresión de sacos aéreos y caquexia.</li>
-            </ul>
-          </div>
-
-          <!-- Otras especies no cubiertas -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Otras Especies (Pequeños Rumiantes, Camélidos, Roedores)</span>
-              <span class="badge">Sin Evidencia en el Informe</span>
-            </div>
-            <p style="font-size:0.9rem;color:var(--text-secondary);">
-              Siguiendo el rigor metodológico de <strong>AMC VetAtlas</strong>, se declara explícitamente que el informe de referencia adjunto no incluye datos epidemiológicos, clínicos, diagnósticos ni posológicos sobre ovejas, cabras, camélidos sudamericanos ni roedores o pequeños mamíferos exóticos distintos a la coneja.
-            </p>
-          </div>
+          </details>
         </div>
       </div>
     </div>
@@ -1864,10 +1943,10 @@
           <div>
             <h4 style="margin-bottom:0.5rem;color:var(--accent-primary);">Factores Etarios, Endocrinos y Genéticos</h4>
             <ul class="clinical-list">
-              <li><strong>Perras enteras:</strong> El 20% a 25% desarrolla piometra antes de los 10 años, subiendo exponencialmente desde los 4 a 6 años <span class="cite-tag">Feldman et al., 2015</span>.</li>
+              <li><strong>Perras enteras:</strong> El 20% a 25% desarrolla piometra antes de los 10 años, subiendo exponencialmente desde los 4 a 6 años <span class="cite-tag">Johnston et al., 2001; Feldman et al., 2015</span>.</li>
               <li><strong>Nuliparidad:</strong> Las hembras nulíparas presentan el mayor riesgo por exposición cíclica ininterrumpida a concentraciones lúteas de progesterona sin la remodelación celular protectora de una gestación fisiológica.</li>
               <li><strong>Razas predispuestas y genómica:</strong> Boyero de Berna, Golden Retriever, Rottweiler, San Bernardo, Pastor Alemán y Collie. En el <strong>Golden Retriever</strong>, estudios genómicos confirman asociación significativa entre polimorfismos en el gen transportador <strong>ABCC4</strong> y susceptibilidad a piometra diéstrica <span class="cite-tag">Attard et al., 2022</span>.</li>
-              <li><strong>Gatas enteras:</strong> Prevalencia ~2.2% hacia los 13 años (ovuladoras inducidas). El riesgo se eleva por montas infértiles, colonias de alta densidad con ovulación espontánea (30%–40% de los ciclos por feromonas o interacciones sociales) y en razas <strong>Siamés, Persa y Bengala</strong> <span class="cite-tag">Musleh Uddin et al., 2021</span>.</li>
+              <li><strong>Gatas enteras:</strong> Prevalencia ~2.2% hacia los 13 años, menor que en la perra porque son ovuladoras inducidas. El riesgo se eleva por montas infértiles, uso de progestágenos sintéticos, colonias de alta densidad con ovulación espontánea (30%–40% de los ciclos por feromonas o interacciones sociales) y en razas <strong>Siamés, Persa y Bengala</strong> <span class="cite-tag">Feldman et al., 2015; Musleh Uddin et al., 2021</span>.</li>
             </ul>
           </div>
 
@@ -2047,6 +2126,22 @@
             </p>
           </div>
         </div>
+
+        <div class="grid-2" style="margin-top:1rem;">
+          <div class="card" style="background:var(--bg-elevated);">
+            <h4 style="color:var(--accent-primary);margin-bottom:0.45rem;">Presentación Clínica en la Perra (2–8 semanas post-estro)</h4>
+            <ul class="clinical-list">
+              <li><strong>Signos:</strong> Letargia, anorexia, deshidratación (6–10%), vómitos/diarrea por LPS y uremia, descarga vulvar purulenta/achocolatada (cuello abierto) o abdomen distendido en tabla (cuello cerrado) y tríada de poliuria, polidipsia (PU/PD) y deshidratación <span class="cite-tag">Hall, 2012</span>.</li>
+              <li><strong>Estado hemodinámico:</strong> Fase hiperdinámica inicial (mucosas rojo ladrillo, TLC &lt; 1 s, pulso saltón taquicárdico) que progresa a choque hipodinámico (mucosas pálidas/ictéricas, TLC &gt; 2.5 s, hipotermia e hipotensión refractaria) <span class="cite-tag">Goggs et al., 2026</span>.</li>
+            </ul>
+          </div>
+          <div class="card" style="background:var(--bg-elevated);">
+            <h4 style="color:var(--accent-primary);margin-bottom:0.45rem;">Particularidad en la Gata: Enmascaramiento Clínico</h4>
+            <ul class="clinical-list">
+              <li>El hábito de lamido perineal constante de la gata suele limpiar y ocultar la descarga vulvar en casos de piometra de cuello abierto, retrasando la detección por parte del tutor <span class="cite-tag">Musleh Uddin et al., 2021; Memon, 2007</span>.</li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       <!-- MÓDULO 05 -->
@@ -2061,7 +2156,7 @@
             <ul class="clinical-list">
               <li><strong>Hemograma y Frotis:</strong> Leucocitosis neutrofílica profunda de <strong>30,000 a 80,000 leucocitos/µL</strong> (respuesta leucemoide) con desviación a la izquierda (bandas y metamielocitos). En sepsis hiperaguda o peritonitis post-ruptura sobreviene <strong>leucopenia crítica (&lt; 4,000 leucocitos/µL)</strong> con neutropenia degenerativa y cambios tóxicos (basofilia difusa, vacuolización, <strong>cuerpos de Döhle</strong>) de pronóstico sombrío. Anemia normocítica normocrómica no regenerativa moderada <span class="cite-tag">Martínez et al., 2016</span>.</li>
               <li><strong>Perfil Bioquímico:</strong> Azotemia prerrenal y/o renal intrínseca, <strong>hipoalbuminemia</strong> (fuga capilar, pérdida glomerular y reactante negativo de fase aguda), hiperglobulinemia, aumento de ALT y fosfatasa alcalina, e hiperbilirrubinemia por colestasis séptica <span class="cite-tag">Maddens et al., 2010</span>.</li>
-              <li><strong>Proteína C Reactiva (PCR) y SAA:</strong> En la perra, la PCR supera los <strong>50 a 150 mg/L</strong> (rango normal &lt; 10 mg/L) y se normaliza en 5 a 10 días post-OVH exitosa. En gata y yegua se utiliza el <strong>Amiloide Sérico A (SAA)</strong> <span class="cite-tag">Smith, 2022</span>.</li>
+              <li><strong>Proteína C Reactiva (PCR) y SAA:</strong> En la perra, la PCR supera los <strong>50 a 150 mg/L</strong> (rango normal &lt; 10 mg/L) y se normaliza en 5 a 10 días post-OVH exitosa. En gata y yegua se utiliza el <strong>Amiloide Sérico A (SAA)</strong>, de alta reactividad inflamatoria, para el seguimiento diagnóstico y posoperatorio <span class="cite-tag">Smith, 2022</span>.</li>
               <li><strong>SDMA (Dimetilarginina Simétrica):</strong> Se eleva por encima de <strong>14 µg/dL</strong> ante pérdidas del 25%–40% de la tasa de filtración glomerular, detectando daño renal antes que la creatinina <span class="cite-tag">Smith, 2022</span>.</li>
             </ul>
           </div>
@@ -2070,7 +2165,7 @@
             <h4 style="color:var(--accent-primary);margin-bottom:0.5rem;">Urianálisis, Imagen, Citología y Cultivo</h4>
             <ul class="clinical-list">
               <li><strong>Urianálisis:</strong> Isostenuria o hipostenuria persistente (<strong>1.008–1.015</strong>) pese a deshidratación clínica y proteinuria glomerular con <strong>UPC &gt; 1.0–2.0</strong> <span class="cite-tag">Nielsen et al., 2004; Fulton, 2023</span>.</li>
-              <li><strong>Ultrasonografía (Estándar de Oro):</strong> Cuernos uterinos distendidos y tortuosos con diámetro luminal <strong>&gt; 1.5–2.0 cm</strong>, contenido anecoico/hipoecoico con <strong>"efecto de copos de nieve en remolino"</strong>, pared con quistes de HEQ, descarte de viabilidad fetal y pesquisa de líquido libre peritoneal.</li>
+              <li><strong>Ultrasonografía (Estándar de Oro):</strong> Cuernos uterinos distendidos y tortuosos con diámetro luminal <strong>&gt; 1.5–2.0 cm</strong>, contenido anecoico/hipoecoico con <strong>"efecto de copos de nieve en remolino"</strong>, pared con quistes de HEQ, descarte de viabilidad fetal y pesquisa de líquido libre peritoneal <span class="cite-tag">Hall, 2012</span>.</li>
               <li><strong>Radiografía abdominal:</strong> Estructuras tubulares radiopacas serpentinas en abdomen ventral medio/caudal que desplazan el intestino delgado craneodorsalmente y comprimen la vejiga caudoventralmente.</li>
               <li><strong>Citología vaginal y Cultivo:</strong> En cuello abierto, neutrófilos degenerados con cariolisis, cariorrexis y bacterias fagocitadas. Siempre tomar aspirado estéril peroperatorio para cultivo aerobio/anaerobio y antibiograma con CIM <span class="cite-tag">Carvalho et al., 2021</span>.</li>
             </ul>
@@ -2122,6 +2217,11 @@
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <div class="callout callout-warning" style="margin:0 0 1.25rem;">
+          <div class="callout-title">Tríada Felina de Choque Séptico</div>
+          <p>A diferencia del perro, la gata séptica rara vez exhibe una fase hiperdinámica febril y taquicárdica; se presenta con <strong>hipotermia severa, bradicardia paradójica e hipotensión profunda</strong> <span class="cite-tag">Trotman, 2015; Goggs et al., 2026</span>.</p>
         </div>
 
         <!-- Evaluador Rápido SIRS Interactivo -->
@@ -2195,11 +2295,11 @@
         </div>
         <div class="grid-2">
           <div>
-            <h4 style="color:var(--accent-primary);margin-bottom:0.5rem;">Fluidoterapia por Metas y Hemocomponentes</h4>
+            <h4 style="color:var(--accent-primary);margin-bottom:0.5rem;">Fluidoterapia por Metas y Hemocomponentes <span class="cite-tag">Cortellini et al., 2024; Goggs et al., 2026</span></h4>
             <ul class="clinical-list">
               <li><strong>Cristaloides de elección:</strong> Soluciones isotónicas balanceadas (Ringer Lactato, Plasmalyte 148 o Normosol-R). Evitar NaCl 0.9% en grandes volúmenes por acidosis metabólica hiperclorémica.</li>
               <li><strong>Resucitación en Caninos:</strong> Volumen de choque calculado de <strong>60–90 mL/kg</strong>, administrado en <strong>bolos conservadores titulados de 10 a 20 mL/kg IV rápido en 15 a 20 minutos</strong>, reevaluando metas tras cada bolo (FC, pulso femoral, mucosas rosadas, TLC 1.5–2.0 s, PAM ≥ 65 mmHg y descenso del lactato).</li>
-              <li><strong>Resucitación en Felinos:</strong> Volumen teórico total de <strong>40–60 mL/kg</strong>, fraccionado en <strong>alícuotas tituladas de 5 a 10 mL/kg IV lento en 20 a 30 minutos</strong> con auscultación pulmonar estricta para evitar sobrecarga y edema pulmonar.</li>
+              <li><strong>Resucitación en Felinos:</strong> Volumen teórico total de <strong>40–60 mL/kg</strong>, fraccionado en <strong>alícuotas tituladas de 5 a 10 mL/kg IV lento en 20 a 30 minutos</strong> con auscultación pulmonar estricta para evitar sobrecarga y edema pulmonar agudo, dada la reducida capacitancia vascular felina.</li>
               <li><strong>Control de Hipoglucemia (&lt; 70 mg/dL):</strong> Bolo lento de <strong>Dextrosa al 50% a 0.5–1.0 mL/kg</strong> diluido al menos 1:1 o 1:3 en cristaloide isotónico, seguido de infusión de mantenimiento con glucosa al 2.5% o 5%.</li>
               <li><strong>Plasma Fresco Congelado (PFC):</strong> Indicado si la albúmina es <strong>&lt; 1.8–2.0 g/dL</strong> o existe coagulopatía de consumo, a dosis de <strong>10 a 20 mL/kg IV en 2 a 4 horas</strong> (aporta presión oncótica, factores de coagulación y antitrombina III).</li>
             </ul>
@@ -2215,7 +2315,7 @@
               </li>
               <li><strong>Terapia Combinada en Choque Séptico o Ruptura Uterina:</strong>
                 <br>• <strong>Ampicilina:</strong> <strong>20 mg/kg IV cada 8 horas</strong> +
-                <br>• <strong>Enrofloxacino:</strong> <strong>5 a 10 mg/kg IV cada 24 horas</strong> diluido en 30 min (reservado a caninos; en felinos no exceder 5 mg/kg por degeneración retiniana y ceguera) +
+                <br>• <strong>Enrofloxacino:</strong> <strong>5 a 10 mg/kg IV cada 24 horas</strong> diluido en 30 min (reservado a caninos; en felinos <strong>no exceder 5 mg/kg</strong> por riesgo de degeneración retiniana aguda y ceguera irreversible <span class="cite-tag">Hall, 2012; Veterian Key, 2020</span>) +
                 <br>• <strong>Metronidazol:</strong> <strong>10 a 15 mg/kg IV cada 12 horas</strong> infundido en 20 min (erradicación de anaerobios obligados).
                 <br>• <strong>Sustitución por Aminoglucósido (solo con normovolemia plena y sin disfunción renal ni oligoanuria):</strong> <strong>Amikacina a 15 a 20 mg/kg IV cada 24 horas</strong> <span class="cite-tag">Hall, 2012; Carvalho et al., 2021</span>.
               </li>
@@ -2351,6 +2451,7 @@
             <h4 style="color:var(--accent-success);margin-bottom:0.45rem;">Criterios de Selección vs. Contraindicaciones</h4>
             <ul class="clinical-list">
               <li><strong>Inclusión estricta:</strong> Hembras destinadas a reproducción de alto valor genético; jóvenes (idealmente <strong>&lt; 4 a 6 años</strong>); <strong>piometra de cuello abierto confirmada</strong>; ausencia total de SIRS, sepsis o peritonitis; función renal basal normal (creatinina y SDMA normales) <span class="cite-tag">Fieni, 2006; Smith, 2022</span>.</li>
+              <li><strong>Gatas:</strong> Los criterios de selección incluyen a gatas jóvenes (&lt; 4–6 años) de valor genético y con cuello abierto, aunque las tasas de éxito y las dosis detalladas provienen primordialmente de estudios caninos <span class="cite-tag">Memon, 2007; Fieni, 2006</span>.</li>
               <li><strong>Contraindicaciones absolutas:</strong> Piometra de <strong>cuello cerrado</strong> (los uterotónicos inducen rotura uterina inminente); hembras añosas con HEQ avanzada; azotemia renal intrínseca; peritonitis o choque séptico; tutores sin posibilidad de controles ecográficos seriados.</li>
               <li><strong>Tasas de Éxito, Recidiva y Fertilidad:</strong>
                 <br>• Monoterapia con Aglepristona: <strong>60% a 75%</strong>.
@@ -2447,6 +2548,7 @@
             <ul class="clinical-list">
               <li><strong>Mortalidad global en OVH oportuna:</strong> Baja, entre el <strong>3% y el 8%</strong>.</li>
               <li><strong>Mortalidad con peritonitis, CID o choque séptico:</strong> Asciende del <strong>25% al 57%</strong> <span class="cite-tag">Cortellini et al., 2024; Goggs et al., 2026</span>.</li>
+              <li><strong>En la gata:</strong> Estabilizada oportunamente y sometida a OVH de urgencia, el pronóstico es favorable a excelente (mortalidad global del 3% al 8%, que sube a 25%–57% si concurre peritonitis séptica, ruptura uterina o choque séptico descompensado) <span class="cite-tag">Goggs et al., 2026; Musleh Uddin et al., 2021</span>.</li>
               <li><strong>6 Predictores de mortalidad intrahospitalaria:</strong>
                 <br>1) Hipotermia central al ingreso (<strong>&lt; 37.0 °C</strong>).
                 <br>2) Leucopenia extrema (<strong>&lt; 4,000/µL</strong>) con neutropenia degenerativa.
@@ -2961,18 +3063,37 @@
     /* =========================================================================
        (2) PESTAÑAS POR ESPECIE
        ========================================================================= */
-    const speciesTabBtns = document.querySelectorAll('[data-species-tab]');
-    speciesTabBtns.forEach((btn) => {
+    const speciesTabBtns = Array.from(document.querySelectorAll('[data-species-tab]'));
+    function selectSpeciesTab(btn, focus) {
+      const target = btn.getAttribute('data-species-tab');
+      speciesTabBtns.forEach((b) => {
+        const active = b === btn;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+        b.tabIndex = active ? 0 : -1;
+      });
+      document.querySelectorAll('.species-panel').forEach((panel) => {
+        const active = panel.id === `species-${target}`;
+        panel.classList.toggle('active', active);
+        panel.hidden = !active;
+      });
+      if (focus) btn.focus();
+    }
+    speciesTabBtns.forEach((btn, i) => {
       btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-species-tab');
-        speciesTabBtns.forEach((b) => {
-          const active = b === btn;
-          b.classList.toggle('active', active);
-          b.setAttribute('aria-selected', active ? 'true' : 'false');
-        });
-        document.querySelectorAll('.species-panel').forEach((panel) => {
-          panel.classList.toggle('active', panel.id === `species-${target}`);
-        });
+        selectSpeciesTab(btn, false);
+        playSound('transition');
+      });
+      btn.addEventListener('keydown', (e) => {
+        const n = speciesTabBtns.length;
+        let j = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') j = (i + 1) % n;
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') j = (i - 1 + n) % n;
+        else if (e.key === 'Home') j = 0;
+        else if (e.key === 'End') j = n - 1;
+        if (j === null) return;
+        e.preventDefault();
+        selectSpeciesTab(speciesTabBtns[j], true);
         playSound('transition');
       });
     });
