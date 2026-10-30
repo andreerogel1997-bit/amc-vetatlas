@@ -1327,12 +1327,9 @@
           <p class="hero-subtitle-short">
             Guía interactiva paso a paso para identificar crisis, detener el status epilepticus a tiempo y ajustar fármacos seguros según la especie.
           </p>
-          <details class="hero-tech-details">
-            <summary>Ver definición técnica</summary>
-            <p class="hero-subtitle" style="margin-top:0.5rem;margin-bottom:0.2rem;">
-              Bases fisiopatológicas del cambio de despolarización paroxística (PDS), endocitosis de receptores GABA<sub>A</sub> y tráfico NMDA; estratificación diagnóstica por niveles IVETF (Tiers I–III), síndromes específicos felinos (FTLE, anti-LGI1, FARS, toxicosis por permetrina), algoritmos escalonados de Status Epilepticus y monitoreo terapéutico (TDM).
-            </p>
-          </details>
+          <p class="hero-module-links">
+            <a href="#mod-02">PDS y GABA<sub>A</sub>/NMDA</a> · <a href="#mod-03">Tiers IVETF</a> · <a href="#especies-tabs">síndromes felinos y permetrina</a> · <a href="#mod-04">status epilepticus</a> · <a href="#mod-05">TDM</a>
+          </p>
           <div class="hero-kpis">
             <div class="kpi-box danger">
               <div class="kpi-val">T1 ≥ 5m | T2 ≥ 30m</div>
@@ -1426,7 +1423,7 @@
         <li><a class="nav-link" href="#mod-juegos"><span class="nav-num">SIM</span><span>Mini Juegos y Reloj SE</span></a></li>
         <li><a class="nav-link" href="#mod-quiz"><span class="nav-num">EVA</span><span>Examen 12P y Certificado</span></a></li>
         <li><a class="nav-link" href="#mod-galeria"><span class="nav-num">IMG</span><span>Galería Commons</span></a></li>
-        <li><a class="nav-link" href="#mod-fuentes"><span class="nav-num">REF</span><span>67 Fuentes Científicas</span></a></li>
+        <li><a class="nav-link" href="#mod-fuentes"><span class="nav-num">REF</span><span>51 Fuentes Científicas</span></a></li>
       </ul>
 
       <!-- Calculadora Rápida de Urgencia por Especie -->
@@ -1489,26 +1486,26 @@
           <span class="mono-badge">Extrapolación Directa Proscrita</span>
         </div>
 
-        <div class="tabs-bar" id="speciesTabButtons" role="tablist">
-          <button class="tab-btn active" data-sp="caninos" type="button">
+        <div class="tabs-bar" id="speciesTabButtons" role="tablist" aria-label="Especie y síndromes">
+          <button class="tab-btn active" id="sp-tab-caninos" data-sp="caninos" type="button" role="tab" aria-selected="true" aria-controls="speciesTabContent" tabindex="0">
             <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.25 16.25h1.5L12 17z"/><path d="M16 14v.5"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444a11.702 11.702 0 0 0-.493-3.309"/><path d="M8 14v.5"/><path d="M8.5 8.5c-.384 1.05-1.083 2.028-2.344 2.5-1.931.722-3.576-.297-3.656-1-.113-.994 1.177-6.53 4-7 1.923-.321 3.651.845 3.651 2.235A7.497 7.497 0 0 1 14 5.277c0-1.39 1.844-2.598 3.767-2.277 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/></svg>
             <span>Caninos (Perros)</span>
           </button>
-          <button class="tab-btn" data-sp="felinos" type="button">
+          <button class="tab-btn" id="sp-tab-felinos" data-sp="felinos" type="button" role="tab" aria-selected="false" aria-controls="speciesTabContent" tabindex="-1">
             <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>
             <span>Felinos (Gatos)</span>
           </button>
-          <button class="tab-btn" data-sp="ftle" type="button">
+          <button class="tab-btn" id="sp-tab-ftle" data-sp="ftle" type="button" role="tab" aria-selected="false" aria-controls="speciesTabContent" tabindex="-1">
             <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></svg>
             <span>Síndromes Felinos (FTLE / LGI1 / FARS)</span>
           </button>
-          <button class="tab-btn" data-sp="permetrina" type="button">
+          <button class="tab-btn" id="sp-tab-permetrina" data-sp="permetrina" type="button" role="tab" aria-selected="false" aria-controls="speciesTabContent" tabindex="-1">
             <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
             <span>Intoxicación por Permetrina (Gatos)</span>
           </button>
         </div>
 
-        <div id="speciesTabContent"></div>
+        <div id="speciesTabContent" role="tabpanel" aria-labelledby="sp-tab-caninos" tabindex="0"></div>
       </section>
 
       <!-- MÓDULO 01: CLASIFICACIÓN Y MARCO NOSOLÓGICO (ILAE / IVETF) -->
@@ -1924,24 +1921,24 @@
         </div>
 
         <!-- Selector Interactivo de Protocolo Paso a Paso por Especie -->
-        <div class="tabs-bar" id="seSpeciesTabs" style="margin-top:1.1rem;">
-          <button class="tab-btn active" data-sesp="canino" type="button">
+        <div class="tabs-bar" id="seSpeciesTabs" role="tablist" aria-label="Protocolo de status por especie" style="margin-top:1.1rem;">
+          <button class="tab-btn active" id="se-tab-canino" data-sesp="canino" type="button" role="tab" aria-selected="true" aria-controls="seSpeciesContent" tabindex="0">
             <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.25 16.25h1.5L12 17z"/><path d="M16 14v.5"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444a11.702 11.702 0 0 0-.493-3.309"/><path d="M8 14v.5"/><path d="M8.5 8.5c-.384 1.05-1.083 2.028-2.344 2.5-1.931.722-3.576-.297-3.656-1-.113-.994 1.177-6.53 4-7 1.923-.321 3.651.845 3.651 2.235A7.497 7.497 0 0 1 14 5.277c0-1.39 1.844-2.598 3.767-2.277 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/></svg>
             <span>Protocolo Status Canino Paso a Paso</span>
           </button>
-          <button class="tab-btn" data-sesp="felino" type="button">
+          <button class="tab-btn" id="se-tab-felino" data-sesp="felino" type="button" role="tab" aria-selected="false" aria-controls="seSpeciesContent" tabindex="-1">
             <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/></svg>
             <span>Protocolo Status Felino Paso a Paso</span>
           </button>
-          <button class="tab-btn" data-sesp="racimo" type="button">
+          <button class="tab-btn" id="se-tab-racimo" data-sesp="racimo" type="button" role="tab" aria-selected="false" aria-controls="seSpeciesContent" tabindex="-1">
             <svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>
             <span>Manejo de Crisis en Racimo (Hospital y Casa)</span>
           </button>
         </div>
-        <div id="seSpeciesContent" style="margin-bottom:1.25rem;"></div>
+        <div id="seSpeciesContent" role="tabpanel" aria-labelledby="se-tab-canino" tabindex="0" style="margin-bottom:1.25rem;"></div>
 
         <!-- Tabla Completa de Fármacos en Urgencias Epilépticas -->
-        <h3 style="font-size:1rem;color:var(--accent-cyan);margin-bottom:0.5rem;">Tabla de Fármacos en Urgencias Epilépticas (Consenso ACVIM)</h3>
+        <h3 id="tabla-dosis-urgencias" style="font-size:1rem;color:var(--accent-cyan);margin-bottom:0.5rem;">Tabla de Fármacos en Urgencias Epilépticas (Consenso ACVIM)</h3>
         <div class="table-responsive">
           <table class="clinical-table">
             <thead>
@@ -1973,7 +1970,7 @@
                 <td>Felino</td>
                 <td><span class="mono-badge">0,5 mg/kg IV</span> bolo único o intermitente de rescate.</td>
                 <td><span class="mono-badge danger">NO RECOMENDADO en CRI</span></td>
-                <td><strong>Contraindicación absoluta vía PO</strong> por necrosis hepática masiva (mortalidad &gt; 80%). Evitar CRI por acumulación de vehículo y hepatotoxicidad idiopática.</td>
+                <td><strong>Contraindicado vía PO</strong> y no en CRI: <a class="xref-link" href="#diazepam-oral-felino">Módulo 05 · Diazepam oral felino</a>.</td>
               </tr>
               <tr>
                 <td><strong>Levetiracetam</strong><br><span class="mono-badge">IV, IM, PR, PO</span></td>
@@ -1981,6 +1978,20 @@
                 <td><span class="mono-badge">60 mg/kg</span> bolo IV diluido en NaCl 0,9% en 10–15 minutos.</td>
                 <td><span class="mono-badge">20 a 30 mg/kg c/8h</span> (pulso canino verificado: 60 mg/kg y luego 20 mg/kg c/8h).</td>
                 <td>Unión a proteína presináptica SV2A. Recomendación ACVIM A en perro, B en gato. Excelente seguridad hemodinámica y hepática.</td>
+              </tr>
+              <tr>
+                <td><strong>Levetiracetam</strong><br><span class="mono-badge">PO · pulso en casa</span></td>
+                <td>Canino</td>
+                <td>Carga oral: <span class="mono-badge">60 mg/kg PO</span> (solo si deglute sin riesgo de aspiración).</td>
+                <td>Vía oral, sin CRI: <span class="mono-badge">20 mg/kg PO c/8h</span> (dosis canina verificada) o <span class="mono-badge">30 mg/kg PO c/8h</span> durante 48 horas.</td>
+                <td>Terapia de pulso domiciliaria en crisis en racimo (plan en casa del Módulo 06).</td>
+              </tr>
+              <tr>
+                <td><strong>Clorazepato dipotásico</strong><br><span class="mono-badge">PO</span></td>
+                <td>Canino</td>
+                <td><span class="mono-badge">0,5–1,0 mg/kg PO c/8–12h</span> por 48 h.</td>
+                <td>Vía oral, sin CRI.</td>
+                <td>Alternativa ambulatoria al pulso de levetiracetam en perros con crisis en racimo.</td>
               </tr>
               <tr>
                 <td><strong>Fenobarbital</strong><br><span class="mono-badge">IV</span></td>
@@ -2197,7 +2208,7 @@
             <ul>
               <li><strong>Fenobarbital:</strong> 1) <em>Mielosupresión inmunomediada</em> (neutropenia severa, trombocitopenia o pancitopenia); 2) <em>Hepatotoxicidad idiosincrática aguda</em> (necrosis centrolobulillar en los primeros 90 días); 3) <em>Dermatitis necrolítica superficial</em> (síndrome hepatocutáneo en uniones mucocutáneas y almohadillas).</li>
               <li><strong>Zonisamida:</strong> Necrosis hepática aguda fulminante idiopática y acidosis tubular renal por inhibición de anhidrasa carbónica en perros.</li>
-              <li><strong>Diazepam Oral Felino:</strong> Necrosis hepática masiva fulminante a los <strong>4 a 10 días</strong> de uso oral (ictericia, hipoalbuminemia y <strong>mortalidad &gt; 80%</strong>).</li>
+              <li id="diazepam-oral-felino"><strong>Diazepam Oral Felino (contraindicación absoluta):</strong> Necrosis hepática masiva fulminante a los <strong>4 a 10 días</strong> de uso oral (ictericia, hipoalbuminemia y <strong>mortalidad &gt; 80%</strong>). En gatos se evita también la CRI de diazepam por acumulación de vehículo y hepatotoxicidad idiopática.</li>
             </ul>
           </div>
           <div class="info-panel">
@@ -2253,15 +2264,16 @@
           <div class="info-panel" style="border-left:3px solid var(--accent-amber);">
             <h4>2. Crisis en Racimo (≥ 2 episodios en 24 h) en Casa</h4>
             <ul>
-              <li>Iniciar medicación de rescate tras la segunda crisis: en caninos, <strong>Midazolam intranasal (0,2–0,5 mg/kg con atomizador MAD)</strong> o <strong>Diazepam rectal (1–2 mg/kg)</strong>.</li>
-              <li>Si el paciente puede deglutir sin riesgo de aspiración, iniciar terapia de pulso oral con <strong>Levetiracetam: carga de 60 mg/kg PO</strong>, seguida de <strong>20 mg/kg PO c/8h</strong> (dosis canina verificada) o <strong>30 mg/kg PO c/8h</strong> durante 48 horas; o <strong>Clorazepato dipotásico (0,5–1,0 mg/kg PO c/8–12h por 48 h en perros)</strong>.</li>
+              <li>Iniciar medicación de rescate tras la segunda crisis: en caninos, <strong>Midazolam intranasal</strong> (con atomizador MAD) o <strong>Diazepam rectal</strong>.</li>
+              <li>Si el paciente puede deglutir sin riesgo de aspiración, iniciar terapia de pulso oral con <strong>Levetiracetam</strong> (carga oral y luego cada 8 h durante 48 horas) o, en perros, <strong>Clorazepato dipotásico</strong>.</li>
+              <li>Dosis: <a class="xref-link" href="#tabla-dosis-urgencias">Tabla de Fármacos en Urgencias (Módulo 04)</a>.</li>
               <li>Si ocurre una tercera crisis pese al rescate, trasladar de urgencia al hospital.</li>
             </ul>
           </div>
           <div class="info-panel" style="border-left:3px solid var(--accent-crimson);">
             <h4>3. Status Epilepticus (≥ 5 minutos continuos) en Casa</h4>
             <ul>
-              <li>Administrar de inmediato rescate con <strong>Midazolam intranasal (0,2–0,5 mg/kg)</strong> o Diazepam rectal e iniciar el traslado urgente envolviendo al paciente en mantas acolchadas.</li>
+              <li>Administrar de inmediato rescate con <strong>Midazolam intranasal</strong> o Diazepam rectal (<a class="xref-link" href="#tabla-dosis-urgencias">dosis en la tabla del Módulo 04</a>) e iniciar el traslado urgente envolviendo al paciente en mantas acolchadas.</li>
               <li>Si la temperatura supera los <strong>40 °C</strong>, colocar toallas humedecidas con agua templada/ambiente en cuello, ingles y axilas (<strong>evitar agua helada o hielo directo</strong> que causan vasoconstricción periférica e hipotermia de rebote).</li>
               <li>Avisar por teléfono al hospital durante el trayecto para alistar intubación, oxígeno, venoclisis e infusiones continuas.</li>
             </ul>
@@ -2811,7 +2823,7 @@
           </figure>
           <figure class="qa-gal-card">
             <img loading="lazy" decoding="async" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Tallulah%2C_a_Seal-Point_Birman_cat.jpg/960px-Tallulah%2C_a_Seal-Point_Birman_cat.jpg" alt="Gato Sagrado de Birmania" width="960" />
-            <figcaption><strong>Gato Sagrado de Birmania</strong><span>En felinos se buscan primero causas estructurales, inflamatorias o reflejas; el bromuro está contraindicado.</span>
+            <figcaption><strong>Gato Sagrado de Birmania</strong><span>En felinos se buscan primero causas estructurales, inflamatorias o reflejas.</span>
               <small class="qa-credit">Foto: Jon McKnight · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Tallulah,_a_Seal-Point_Birman_cat.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></small></figcaption>
           </figure>
           <figure class="qa-gal-card">
@@ -2835,7 +2847,7 @@
     </main>
   </div>
 
-  <!-- PIE DE PÁGINA CON SELLO, CRÉDITO DE ANDREÉ Y LAS 67 FUENTES CON ENLACES -->
+  <!-- PIE DE PÁGINA CON SELLO, CRÉDITO DE ANDREÉ Y LAS 51 FUENTES ÚNICAS (67 ENLACES) -->
   <footer id="mod-fuentes" class="site-footer">
     <div class="footer-inner">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-bottom:1px solid var(--border-subtle);padding-bottom:1.25rem;">
@@ -2854,78 +2866,65 @@
       </div>
 
       <div>
-        <h3 style="font-size:0.86rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent-cyan);margin-bottom:0.8rem;font-family:var(--font-mono);">
-          Fuentes Científicas y Consensos del Informe (67 Referencias Verificadas)
-        </h3>
-        <ol class="sources-list">
-          <li>instituteofcaninebiology.org — International Veterinary Epilepsy Task Force consensus reports on — <a href="https://www.instituteofcaninebiology.org/uploads/1/9/6/9/19691109/international_veterinary_epilepsy_task_force_consensus_report_on_epilepsy_2015__pdf_.pdf" target="_blank" rel="noopener">Enlace</a></li>
-          <li>researchgate.net — (PDF) ACVIM Consensus Statement on the management of status — <a href="https://www.researchgate.net/publication/375299410_ACVIM_Consensus_Statement_on_the_management_of_status_epilepticus_and_cluster_seizures_in_dogs_and_cats" target="_blank" rel="noopener">Enlace</a></li>
-          <li>pmc.ncbi.nlm.nih.gov — International Veterinary Epilepsy Task Force consensus reports on — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4552413/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>pubmed.ncbi.nlm.nih.gov — ACVIM Consensus Statement on the management of status — <a href="https://pubmed.ncbi.nlm.nih.gov/37921621/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>primveterinary.com — What is status epilepticus in dogs and what does latest evidence say — <a href="https://www.primveterinary.com/ask/status-epilepticus-dogs-emergency-management" target="_blank" rel="noopener">Enlace</a></li>
-          <li>research-portal.uu.nl — International veterinary epilepsy task force consensus report on — <a href="https://research-portal.uu.nl/ws/files/18938636/2Fs12917_015.pdf" target="_blank" rel="noopener">Enlace</a></li>
-          <li>vettimes.com — Epilepsy in dogs: investigation, diagnosis and management — <a href="https://www.vettimes.com/clinical/small-animal/epilepsy-in-dogs-investigation-diagnosis-and-management" target="_blank" rel="noopener">Enlace</a></li>
-          <li>dspace.library.uu.nl — International Veterinary Epilepsy Task Force consensus proposal — <a href="https://dspace.library.uu.nl/bitstreams/d83b9ce2-16de-4f88-9bb0-8310072919c3/download" target="_blank" rel="noopener">Enlace</a></li>
-          <li>researchgate.net — Akos PAKOZDY | University of Veterinary Medicine Vienna — <a href="https://www.researchgate.net/profile/Akos-Pakozdy" target="_blank" rel="noopener">Enlace</a></li>
-          <li>researchgate.net — Status Epilepticus and Epileptic Seizures in Dogs | Request PDF — <a href="https://www.researchgate.net/publication/26796060_Status_Epilepticus_and_Epileptic_Seizures_in_Dogs" target="_blank" rel="noopener">Enlace</a></li>
-          <li>mdpi.com — Clinical and Diagnostic Features of Feline Epilepsy - MDPI — <a href="https://www.mdpi.com/2076-2615/15/23/3497" target="_blank" rel="noopener">Enlace</a></li>
-          <li>pmc.ncbi.nlm.nih.gov — Feline temporal lobe epilepsy: seven cases of hippocampal and — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11104249/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>researchgate.net — (PDF) 2015 ACVIM Small Animal Consensus Statement on Seizure — <a href="https://www.researchgate.net/publication/295540202_2015_ACVIM_Small_Animal_Consensus_Statement_on_Seizure_Management_in_Dogs" target="_blank" rel="noopener">Enlace</a></li>
-          <li>resources.vet-ct.com — Idiopathic epilepsy: diagnosis and treatment — <a href="https://resources.vet-ct.com/idiopathic-epilepsy-diagnosis-and-treatment" target="_blank" rel="noopener">Enlace</a></li>
-          <li>researchgate.net — International Veterinary Epilepsy Task Force consensus proposal — <a href="https://www.researchgate.net/publication/281484287_International_Veterinary_Epilepsy_Task_Force_consensus_proposal_medical_treatment_of_canine_epilepsy_in_Europe" target="_blank" rel="noopener">Enlace</a></li>
-          <li>avmajournals.avma.org — Evidence of neuronal loss and granule cell axon reorganization in — <a href="https://avmajournals.avma.org/view/journals/ajvr/aop/ajvr.26.06.0275/ajvr.26.06.0275.xml?tab_body=supplementary-materials" target="_blank" rel="noopener">Enlace</a></li>
-          <li>pmc.ncbi.nlm.nih.gov — A case of feline temporal lobe epilepsy with hippocampal sclerosis — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9177400/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>frontiersin.org — Advances in Autoimmune epilepsy Associated with Antibodies, Their — <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2017.00395/pdf" target="_blank" rel="noopener">Enlace</a></li>
-          <li>msdvetmanual.com — Epilepsy in Small Animals - Nervous System - MSD Veterinary Manual — <a href="https://www.msdvetmanual.com/nervous-system/epilepsy-in-small-animals/epilepsy-in-small-animals" target="_blank" rel="noopener">Enlace</a></li>
-          <li>vet-ebooks.com — Methocarbamol Dose for Dogs, Cats &amp; Horses - Vet eBooks — <a href="https://www.vet-ebooks.com/vetdrugslist/methocarbamol/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>primveterinary.com — What is the recommended dosage of methocarbamol for cats — <a href="https://www.primveterinary.com/ask/dosage-methocarbamol-cat" target="_blank" rel="noopener">Enlace</a></li>
-          <li>thevoyage.ai — Permethrin Toxicosis in Cats: Diagnosis &amp; Treatment - For Vets — <a href="https://www.thevoyage.ai/forvets/knowledge/permethrin-toxicosis-cats" target="_blank" rel="noopener">Enlace</a></li>
-          <li>pmc.ncbi.nlm.nih.gov — Emergency Approach to Acute Seizures in Dogs and Cats - PMC — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11209469/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>pmc.ncbi.nlm.nih.gov — International Veterinary Epilepsy Task Force consensus proposal — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4552371/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>ebvminpractice.org — ACVIM Consensus Statement on the management of status — <a href="https://ebvminpractice.org/wp-content/uploads/2025/08/status-epilepticus-management-2023.pdf" target="_blank" rel="noopener">Enlace</a></li>
-          <li>avmajournals.avma.org — Median blood lactate values are elevated in dogs presenting with — <a href="https://avmajournals.avma.org/view/journals/ajvr/86/9/ajvr.25.03.0094.xml" target="_blank" rel="noopener">Enlace</a></li>
-          <li>ebvminpractice.org — International veterinary epilepsy task force consensus proposal — <a href="https://ebvminpractice.org/wp-content/uploads/2025/08/epilepsy-tf-diagnosis.pdf" target="_blank" rel="noopener">Enlace</a></li>
-          <li>researchprofiles.ku.dk — International veterinary epilepsy task force consensus proposal — <a href="https://researchprofiles.ku.dk/en/publications/international-veterinary-epilepsy-task-force-consensus-proposal-d/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>frontiersin.org — Retrospective study on canine idiopathic epilepsy treatment in — <a href="https://www.frontiersin.org/journals/veterinary-science/articles/10.3389/fvets.2026.1723038/full" target="_blank" rel="noopener">Enlace</a></li>
-          <li>simposios.abnv.com.br — 7_Antiepileptic Therapy in Dogs - Fundamentals and Cases — <a href="https://simposios.abnv.com.br/wp-content/uploads/2019/08/7_Antiepileptic_Therapy_in_Dogs-Fundamentals_and_Cases.pdf" target="_blank" rel="noopener">Enlace</a></li>
-          <li>blogs.biomedcentral.com — Veterinary neurology experts collaborate to publish consensus — <a href="https://blogs.biomedcentral.com/bmcseriesblog/2015/09/04/veterinary-neurology-experts-collaborate-publish-consensus-statements-pets-epilepsy/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>fitzpatrickreferrals.co.uk — International veterinary epilepsy task force recommendations for — <a href="https://www.fitzpatrickreferrals.co.uk/research-centre/international-veterinary-epilepsy-task-force-recommendations-systematic-sampling-processing-brains-epileptic-dogs-cats/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>academic.oup.com — ACVIM Consensus Statement on the management of status — <a href="https://academic.oup.com/jvim/article/38/1/19/8448818" target="_blank" rel="noopener">Enlace</a></li>
-          <li>academic.oup.com — ACVIM Consensus Statement on the management of status (abstract) — <a href="https://academic.oup.com/jvim/article-abstract/38/1/19/8448818" target="_blank" rel="noopener">Enlace</a></li>
-          <li>elib.tiho-hannover.de — Out-of-hospital rescue medication in dogs with emergency seizure — <a href="https://elib.tiho-hannover.de/servlets/MCRFileNodeServlet/tiho_derivate_00002444/fvets-10-1278618.pdf" target="_blank" rel="noopener">Enlace</a></li>
-          <li>researchgate.net — Emergency Approach to Acute Seizures in Dogs and Cats — <a href="https://www.researchgate.net/publication/381492575_Emergency_Approach_to_Acute_Seizures_in_Dogs_and_Cats" target="_blank" rel="noopener">Enlace</a></li>
-          <li>semanticscholar.org — Intravenous Ketamine Bolus(es) for the Treatment of Status — <a href="https://www.semanticscholar.org/paper/Intravenous-Ketamine-Bolus(es)-for-the-Treatment-of-Roynard-Bilderback/0a539bc9907593082065f2a24460eae4333b3ef8" target="_blank" rel="noopener">Enlace</a></li>
-          <li>improveinternational.com — Management of status epilepticus and cluster seizures in dogs and — <a href="https://improveinternational.com/uk/clinical-library/status-epilepticus-cluster-seizures" target="_blank" rel="noopener">Enlace</a></li>
-          <li>pmc.ncbi.nlm.nih.gov — Efficacy and safety of alfaxalone compared to propofol in canine — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11260799/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>pmc.ncbi.nlm.nih.gov — Antiseizure monotherapy with imepitoin or phenobarbital in feline — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12921493/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>frontiersin.org — Antiseizure monotherapy with imepitoin or phenobarbital in feline — <a href="https://www.frontiersin.org/journals/veterinary-science/articles/10.3389/fvets.2026.1770972/full" target="_blank" rel="noopener">Enlace</a></li>
-          <li>rvc.ac.uk — Canine Epilepsy Research - Royal Veterinary College, RVC — <a href="https://www.rvc.ac.uk/research/animals-in-research/case-studies/canine-epilepsy-research" target="_blank" rel="noopener">Enlace</a></li>
-          <li>pubmed.ncbi.nlm.nih.gov — International veterinary epilepsy task force consensus report on — <a href="https://pubmed.ncbi.nlm.nih.gov/26316133/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>biblio.ugent.be — International Veterinary Epilepsy Task Force consensus report on — <a href="https://biblio.ugent.be/publication/7252654" target="_blank" rel="noopener">Enlace</a></li>
-          <li>recercat.cat — International veterinary epilepsy task force consensus report on — <a href="https://recercat.cat/handle/2072/426933?show=full" target="_blank" rel="noopener">Enlace</a></li>
-          <li>dspace.library.uu.nl — International veterinary epilepsy task force consensus proposal — <a href="https://dspace.library.uu.nl/bitstreams/186327d8-db6e-4a07-83e9-4d4d44630ff0/download" target="_blank" rel="noopener">Enlace</a></li>
-          <li>ebvs.eu — New Consensus Statement for Managing Seizure Emergencies in — <a href="https://www.ebvs.eu/news-ebvs/new-consensus-statement-managing-seizure-emergencies-dogs-and-cats" target="_blank" rel="noopener">Enlace</a></li>
-          <li>revistaaposta.com — CONDUTAS NO DIAGNÓSTICO E TRATAMENTO CLÍNICO DA — <a href="https://revistaaposta.com/index.php/ra/article/view/2150" target="_blank" rel="noopener">Enlace</a></li>
-          <li>experts.umn.edu — ACVIM Consensus Statement on the management of status — <a href="https://experts.umn.edu/en/publications/acvim-consensus-statement-on-the-management-of-status-epilepticus/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>semanticscholar.org — ACVIM Consensus Statement on the management of status — <a href="https://www.semanticscholar.org/paper/ee6b2660428e7507708877eefe325107ee506144" target="_blank" rel="noopener">Enlace</a></li>
-          <li>cabidigitallibrary.org — Clinical and Diagnostic Features of Feline Epilepsy: Distribution of — <a href="https://www.cabidigitallibrary.org/doi/pdf/10.5555/20260001584" target="_blank" rel="noopener">Enlace</a></li>
-          <li>researchgate.net — (PDF) Constant rate infusion of diazepam or propofol for the — <a href="https://www.researchgate.net/publication/365454515_Constant_rate_infusion_of_diazepam_or_propofol_for_the_management_of_canine_cluster_seizures_or_status_epilepticus" target="_blank" rel="noopener">Enlace</a></li>
-          <li>media.wvma.org — PROCEEDINGS - Wisconsin Veterinary Medical Association — <a href="https://media.wvma.org/wp-content/uploads/2026/05/13104532/Rustic-Reboot-Proceedings.pdf" target="_blank" rel="noopener">Enlace</a></li>
-          <li>avmajournals.avma.org — Pharmacokinetics of intranasal levetiracetam in healthy dogs — <a href="https://avmajournals.avma.org/downloadpdf/view/journals/ajvr/87/4/ajvr.25.10.0366.pdf" target="_blank" rel="noopener">Enlace</a></li>
-          <li>academic.oup.com — Feline Temporal Lobe Epilepsy: Review of the Experimental Literature — <a href="https://academic.oup.com/jvim/article/31/3/633/8449499" target="_blank" rel="noopener">Enlace</a></li>
-          <li>m2.mtmt.hu — citation list - MTMT2 — <a href="https://m2.mtmt.hu/api/citation/?&sort=related,desc&size=100&cond=externalCitation;eq;true&cond=publication.mtid;in;108834,109159,109168,109357,109379,109629,109665,109681,109759,207843,207937,207998,208029,1118612,1118614,1234812,1250049,1341714,1362087,1384666,1422686,1611469,2210099,2444026,2736807,2743439,2954102,3069618,3102692,3167675,3293692,3298716,3314769,3337070,30387596,30795909,30828125,30878791,31256609,31680838,31794996,31951354,32040021,32048437,32556740,32649994,32785453,33075628,33632094,33632200,33651637,34015800,34093583,34205650,35050690,35470005,35739289&labelLang=hun&page=22" target="_blank" rel="noopener">Enlace</a></li>
-          <li>pubmed.ncbi.nlm.nih.gov — Feline Temporal Lobe Epilepsy: Review of the Experimental Literature — <a href="https://pubmed.ncbi.nlm.nih.gov/28382749/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>scispace.com — S. Kitz | University of Veterinary Medicine Vienna — <a href="https://scispace.com/authors/s-kitz-5bdtyrhcya" target="_blank" rel="noopener">Enlace</a></li>
-          <li>phaidra.vetmeduni.ac.at — Temporal lobe epilepsy in cats — <a href="https://phaidra.vetmeduni.ac.at/api/object/o:3286/get" target="_blank" rel="noopener">Enlace</a></li>
-          <li>bmcvetres.biomedcentral.com — Bhatti SFM et al. (2015). International Veterinary Epilepsy Task Force consensus proposal: medical treatment of canine epilepsy in Europe. BMC Veterinary Research 11:176 — <a href="https://bmcvetres.biomedcentral.com/articles/10.1186/s12917-015-0464-z" target="_blank" rel="noopener">Enlace</a></li>
-          <li>repository.cam.ac.uk — Prevalence of structural and idiopathic epilepsy in brachycephalic — <a href="https://www.repository.cam.ac.uk/items/156e118f-2ae3-4b73-ab8c-e83e06273f37" target="_blank" rel="noopener">Enlace</a></li>
-          <li>epicentrum.ugent.be — International Veterinary Epilepsy Task Force | U Gent — <a href="https://www.epicentrum.ugent.be/ivetf" target="_blank" rel="noopener">Enlace</a></li>
-          <li>vin.com — Epilepsy: Causes, Clinical Signs and Treatment - VIN — <a href="https://www.vin.com/doc/?id=8506261" target="_blank" rel="noopener">Enlace</a></li>
-          <li>farmacosmo.it — Epilessia nel cane - Farmacosmo — <a href="https://www.farmacosmo.it/patologie-e-rimedi-pets/epilessia-nel-cane/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>semanticscholar.org — Antiepileptic Drug Use Patterns in Suspect Epileptic Dogs Among — <a href="https://www.semanticscholar.org/paper/746efc8be89485b58c5bb34c38d25d185358d0f4" target="_blank" rel="noopener">Enlace</a></li>
-          <li>pmc.ncbi.nlm.nih.gov — International veterinary epilepsy task force consensus proposal — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4552098/" target="_blank" rel="noopener">Enlace</a></li>
-          <li>ovid.com — Owner compliance in canine epilepsy : The Veterinary Record — <a href="https://www.ovid.com/00008049-202102020-00005" target="_blank" rel="noopener">Enlace</a></li>
-        </ol>
+        <details id="bibliografia" class="fold-card">
+          <summary>
+            <span class="fold-title">Fuentes Científicas y Consensos del Informe (51 fuentes únicas · 67 enlaces verificados)</span>
+            <svg class="lucide fold-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </summary>
+          <ol class="sources-list">
+          <li id="ref-1">International Veterinary Epilepsy Task Force consensus reports on — Enlaces: <a href="https://www.instituteofcaninebiology.org/uploads/1/9/6/9/19691109/international_veterinary_epilepsy_task_force_consensus_report_on_epilepsy_2015__pdf_.pdf" target="_blank" rel="noopener">instituteofcaninebiology.org (PDF)</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4552413/" target="_blank" rel="noopener">pmc.ncbi.nlm.nih.gov</a></li>
+          <li id="ref-2">ACVIM Consensus Statement on the management of status epilepticus and cluster seizures in dogs and cats — Enlaces: <a href="https://www.researchgate.net/publication/375299410_ACVIM_Consensus_Statement_on_the_management_of_status_epilepticus_and_cluster_seizures_in_dogs_and_cats" target="_blank" rel="noopener">researchgate.net</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/37921621/" target="_blank" rel="noopener">pubmed.ncbi.nlm.nih.gov</a> · <a href="https://ebvminpractice.org/wp-content/uploads/2025/08/status-epilepticus-management-2023.pdf" target="_blank" rel="noopener">ebvminpractice.org (PDF)</a> · <a href="https://academic.oup.com/jvim/article/38/1/19/8448818" target="_blank" rel="noopener">academic.oup.com</a> · <a href="https://academic.oup.com/jvim/article-abstract/38/1/19/8448818" target="_blank" rel="noopener">academic.oup.com (resumen)</a> · <a href="https://experts.umn.edu/en/publications/acvim-consensus-statement-on-the-management-of-status-epilepticus/" target="_blank" rel="noopener">experts.umn.edu</a> · <a href="https://www.semanticscholar.org/paper/ee6b2660428e7507708877eefe325107ee506144" target="_blank" rel="noopener">semanticscholar.org</a></li>
+          <li id="ref-3">primveterinary.com — What is status epilepticus in dogs and what does latest evidence say — <a href="https://www.primveterinary.com/ask/status-epilepticus-dogs-emergency-management" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-4">International veterinary epilepsy task force consensus report on — Enlaces: <a href="https://research-portal.uu.nl/ws/files/18938636/2Fs12917_015.pdf" target="_blank" rel="noopener">research-portal.uu.nl (PDF)</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/26316133/" target="_blank" rel="noopener">pubmed.ncbi.nlm.nih.gov</a> · <a href="https://biblio.ugent.be/publication/7252654" target="_blank" rel="noopener">biblio.ugent.be</a> · <a href="https://recercat.cat/handle/2072/426933?show=full" target="_blank" rel="noopener">recercat.cat</a></li>
+          <li id="ref-5">vettimes.com — Epilepsy in dogs: investigation, diagnosis and management — <a href="https://www.vettimes.com/clinical/small-animal/epilepsy-in-dogs-investigation-diagnosis-and-management" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-6">dspace.library.uu.nl — International Veterinary Epilepsy Task Force consensus proposal — <a href="https://dspace.library.uu.nl/bitstreams/d83b9ce2-16de-4f88-9bb0-8310072919c3/download" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-7">researchgate.net — Akos PAKOZDY | University of Veterinary Medicine Vienna — <a href="https://www.researchgate.net/profile/Akos-Pakozdy" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-8">researchgate.net — Status Epilepticus and Epileptic Seizures in Dogs | Request PDF — <a href="https://www.researchgate.net/publication/26796060_Status_Epilepticus_and_Epileptic_Seizures_in_Dogs" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-9">Clinical and Diagnostic Features of Feline Epilepsy — Enlaces: <a href="https://www.mdpi.com/2076-2615/15/23/3497" target="_blank" rel="noopener">mdpi.com</a> · <a href="https://www.cabidigitallibrary.org/doi/pdf/10.5555/20260001584" target="_blank" rel="noopener">cabidigitallibrary.org</a></li>
+          <li id="ref-10">pmc.ncbi.nlm.nih.gov — Feline temporal lobe epilepsy: seven cases of hippocampal and — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11104249/" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-11">researchgate.net — (PDF) 2015 ACVIM Small Animal Consensus Statement on Seizure — <a href="https://www.researchgate.net/publication/295540202_2015_ACVIM_Small_Animal_Consensus_Statement_on_Seizure_Management_in_Dogs" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-12">resources.vet-ct.com — Idiopathic epilepsy: diagnosis and treatment — <a href="https://resources.vet-ct.com/idiopathic-epilepsy-diagnosis-and-treatment" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-13">Bhatti SFM et al. (2015). International Veterinary Epilepsy Task Force consensus proposal: medical treatment of canine epilepsy in Europe. BMC Veterinary Research 11:176 — Enlaces: <a href="https://www.researchgate.net/publication/281484287_International_Veterinary_Epilepsy_Task_Force_consensus_proposal_medical_treatment_of_canine_epilepsy_in_Europe" target="_blank" rel="noopener">researchgate.net</a> · <a href="https://bmcvetres.biomedcentral.com/articles/10.1186/s12917-015-0464-z" target="_blank" rel="noopener">bmcvetres.biomedcentral.com</a></li>
+          <li id="ref-14">avmajournals.avma.org — Evidence of neuronal loss and granule cell axon reorganization in — <a href="https://avmajournals.avma.org/view/journals/ajvr/aop/ajvr.26.06.0275/ajvr.26.06.0275.xml?tab_body=supplementary-materials" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-15">pmc.ncbi.nlm.nih.gov — A case of feline temporal lobe epilepsy with hippocampal sclerosis — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9177400/" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-16">frontiersin.org — Advances in Autoimmune epilepsy Associated with Antibodies, Their — <a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2017.00395/pdf" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-17">msdvetmanual.com — Epilepsy in Small Animals - Nervous System - MSD Veterinary Manual — <a href="https://www.msdvetmanual.com/nervous-system/epilepsy-in-small-animals/epilepsy-in-small-animals" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-18">vet-ebooks.com — Methocarbamol Dose for Dogs, Cats &amp; Horses - Vet eBooks — <a href="https://www.vet-ebooks.com/vetdrugslist/methocarbamol/" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-19">primveterinary.com — What is the recommended dosage of methocarbamol for cats — <a href="https://www.primveterinary.com/ask/dosage-methocarbamol-cat" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-20">thevoyage.ai — Permethrin Toxicosis in Cats: Diagnosis &amp; Treatment - For Vets — <a href="https://www.thevoyage.ai/forvets/knowledge/permethrin-toxicosis-cats" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-21">Emergency Approach to Acute Seizures in Dogs and Cats — Enlaces: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11209469/" target="_blank" rel="noopener">pmc.ncbi.nlm.nih.gov</a> · <a href="https://www.researchgate.net/publication/381492575_Emergency_Approach_to_Acute_Seizures_in_Dogs_and_Cats" target="_blank" rel="noopener">researchgate.net</a></li>
+          <li id="ref-22">pmc.ncbi.nlm.nih.gov — International Veterinary Epilepsy Task Force consensus proposal — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4552371/" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-23">avmajournals.avma.org — Median blood lactate values are elevated in dogs presenting with — <a href="https://avmajournals.avma.org/view/journals/ajvr/86/9/ajvr.25.03.0094.xml" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-24">International veterinary epilepsy task force consensus proposal — Enlaces: <a href="https://ebvminpractice.org/wp-content/uploads/2025/08/epilepsy-tf-diagnosis.pdf" target="_blank" rel="noopener">ebvminpractice.org (PDF)</a> · <a href="https://researchprofiles.ku.dk/en/publications/international-veterinary-epilepsy-task-force-consensus-proposal-d/" target="_blank" rel="noopener">researchprofiles.ku.dk</a></li>
+          <li id="ref-25">frontiersin.org — Retrospective study on canine idiopathic epilepsy treatment in — <a href="https://www.frontiersin.org/journals/veterinary-science/articles/10.3389/fvets.2026.1723038/full" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-26">simposios.abnv.com.br — 7_Antiepileptic Therapy in Dogs - Fundamentals and Cases — <a href="https://simposios.abnv.com.br/wp-content/uploads/2019/08/7_Antiepileptic_Therapy_in_Dogs-Fundamentals_and_Cases.pdf" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-27">blogs.biomedcentral.com — Veterinary neurology experts collaborate to publish consensus — <a href="https://blogs.biomedcentral.com/bmcseriesblog/2015/09/04/veterinary-neurology-experts-collaborate-publish-consensus-statements-pets-epilepsy/" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-28">fitzpatrickreferrals.co.uk — International veterinary epilepsy task force recommendations for — <a href="https://www.fitzpatrickreferrals.co.uk/research-centre/international-veterinary-epilepsy-task-force-recommendations-systematic-sampling-processing-brains-epileptic-dogs-cats/" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-29">elib.tiho-hannover.de — Out-of-hospital rescue medication in dogs with emergency seizure — <a href="https://elib.tiho-hannover.de/servlets/MCRFileNodeServlet/tiho_derivate_00002444/fvets-10-1278618.pdf" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-30">semanticscholar.org — Intravenous Ketamine Bolus(es) for the Treatment of Status — <a href="https://www.semanticscholar.org/paper/Intravenous-Ketamine-Bolus(es)-for-the-Treatment-of-Roynard-Bilderback/0a539bc9907593082065f2a24460eae4333b3ef8" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-31">improveinternational.com — Management of status epilepticus and cluster seizures in dogs and — <a href="https://improveinternational.com/uk/clinical-library/status-epilepticus-cluster-seizures" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-32">pmc.ncbi.nlm.nih.gov — Efficacy and safety of alfaxalone compared to propofol in canine — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11260799/" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-33">Antiseizure monotherapy with imepitoin or phenobarbital in feline — Enlaces: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12921493/" target="_blank" rel="noopener">pmc.ncbi.nlm.nih.gov</a> · <a href="https://www.frontiersin.org/journals/veterinary-science/articles/10.3389/fvets.2026.1770972/full" target="_blank" rel="noopener">frontiersin.org</a></li>
+          <li id="ref-34">rvc.ac.uk — Canine Epilepsy Research - Royal Veterinary College, RVC — <a href="https://www.rvc.ac.uk/research/animals-in-research/case-studies/canine-epilepsy-research" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-35">dspace.library.uu.nl — International veterinary epilepsy task force consensus proposal — <a href="https://dspace.library.uu.nl/bitstreams/186327d8-db6e-4a07-83e9-4d4d44630ff0/download" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-36">ebvs.eu — New Consensus Statement for Managing Seizure Emergencies in — <a href="https://www.ebvs.eu/news-ebvs/new-consensus-statement-managing-seizure-emergencies-dogs-and-cats" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-37">revistaaposta.com — CONDUTAS NO DIAGNÓSTICO E TRATAMENTO CLÍNICO DA — <a href="https://revistaaposta.com/index.php/ra/article/view/2150" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-38">researchgate.net — (PDF) Constant rate infusion of diazepam or propofol for the — <a href="https://www.researchgate.net/publication/365454515_Constant_rate_infusion_of_diazepam_or_propofol_for_the_management_of_canine_cluster_seizures_or_status_epilepticus" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-39">media.wvma.org — PROCEEDINGS - Wisconsin Veterinary Medical Association — <a href="https://media.wvma.org/wp-content/uploads/2026/05/13104532/Rustic-Reboot-Proceedings.pdf" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-40">avmajournals.avma.org — Pharmacokinetics of intranasal levetiracetam in healthy dogs — <a href="https://avmajournals.avma.org/downloadpdf/view/journals/ajvr/87/4/ajvr.25.10.0366.pdf" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-41">Feline Temporal Lobe Epilepsy: Review of the Experimental Literature — Enlaces: <a href="https://academic.oup.com/jvim/article/31/3/633/8449499" target="_blank" rel="noopener">academic.oup.com</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/28382749/" target="_blank" rel="noopener">pubmed.ncbi.nlm.nih.gov</a></li>
+          <li id="ref-42">m2.mtmt.hu — citation list - MTMT2 — <a href="https://m2.mtmt.hu/api/citation/?&sort=related,desc&size=100&cond=externalCitation;eq;true&cond=publication.mtid;in;108834,109159,109168,109357,109379,109629,109665,109681,109759,207843,207937,207998,208029,1118612,1118614,1234812,1250049,1341714,1362087,1384666,1422686,1611469,2210099,2444026,2736807,2743439,2954102,3069618,3102692,3167675,3293692,3298716,3314769,3337070,30387596,30795909,30828125,30878791,31256609,31680838,31794996,31951354,32040021,32048437,32556740,32649994,32785453,33075628,33632094,33632200,33651637,34015800,34093583,34205650,35050690,35470005,35739289&labelLang=hun&page=22" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-43">scispace.com — S. Kitz | University of Veterinary Medicine Vienna — <a href="https://scispace.com/authors/s-kitz-5bdtyrhcya" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-44">phaidra.vetmeduni.ac.at — Temporal lobe epilepsy in cats — <a href="https://phaidra.vetmeduni.ac.at/api/object/o:3286/get" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-45">repository.cam.ac.uk — Prevalence of structural and idiopathic epilepsy in brachycephalic — <a href="https://www.repository.cam.ac.uk/items/156e118f-2ae3-4b73-ab8c-e83e06273f37" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-46">epicentrum.ugent.be — International Veterinary Epilepsy Task Force | U Gent — <a href="https://www.epicentrum.ugent.be/ivetf" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-47">vin.com — Epilepsy: Causes, Clinical Signs and Treatment - VIN — <a href="https://www.vin.com/doc/?id=8506261" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-48">farmacosmo.it — Epilessia nel cane - Farmacosmo — <a href="https://www.farmacosmo.it/patologie-e-rimedi-pets/epilessia-nel-cane/" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-49">semanticscholar.org — Antiepileptic Drug Use Patterns in Suspect Epileptic Dogs Among — <a href="https://www.semanticscholar.org/paper/746efc8be89485b58c5bb34c38d25d185358d0f4" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-50">pmc.ncbi.nlm.nih.gov — International veterinary epilepsy task force consensus proposal — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4552098/" target="_blank" rel="noopener">Enlace</a></li>
+          <li id="ref-51">ovid.com — Owner compliance in canine epilepsy : The Veterinary Record — <a href="https://www.ovid.com/00008049-202102020-00005" target="_blank" rel="noopener">Enlace</a></li>
+          </ol>
+        </details>
       </div>
     </div>
   </footer>
@@ -3093,25 +3092,18 @@
       margin-bottom: 0.42rem;
       line-height: 1.4;
     }
-    .hero-tech-details {
+    .hero-module-links {
       margin-bottom: 0.52rem;
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
-      background: rgba(15, 23, 42, 0.35);
-      padding: 0.16rem 0.55rem;
-    }
-    html[data-theme="light"] .hero-tech-details {
-      background: rgba(241, 245, 249, 0.75);
-    }
-    .hero-tech-details summary {
-      cursor: pointer;
       font-family: var(--font-mono);
       font-size: 0.72rem;
-      font-weight: 700;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+    .hero-module-links a {
       color: var(--accent-cyan);
-      min-height: 30px;
-      display: flex;
-      align-items: center;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
     .hero-kpis {
       display: grid;
@@ -4187,7 +4179,7 @@
             h: 'Contraindicaciones Absolutas por Deficiencia UGT Felina',
             items: [
               '<strong>1. Bromuro de Potasio (KBr) PROSCRITO:</strong> Induce neumonitis o bronquitis eosinofílica severa en el <strong>35% al 42%</strong> de los gatos tratados (tos refractaria, disnea espiratoria, infiltrado bronquioalveolar y mortalidad de hasta el <strong>10%</strong>).',
-              '<strong>2. Diazepam Oral PROSCRITO (y evitar CRI):</strong> Desencadena necrosis hepática masiva y fulminante a los 4–10 días de uso oral con mortalidad <strong>&gt; 80%</strong>.',
+              '<strong>2. Diazepam Oral PROSCRITO (y evitar CRI):</strong> necrosis hepática letal; <a class="xref-link" href="#diazepam-oral-felino">detalle en Módulo 05</a>.',
               '<strong>3. Propofol en CRI prolongada (&gt; 6–12 h) PROSCRITO:</strong> Capacidad limitada para glucuronidar fenoles → estrés oxidativo intraeritrocitario, <strong>cuerpos de Heinz</strong> y anemia hemolítica intravascular aguda. Preferir <strong>Alfaxalona</strong> (1–3 mg/kg bolo; 4–8 mg/kg/h CRI).',
               '<strong>4. Enrofloxacino &gt; 5 mg/kg/día:</strong> Además de reducir el umbral convulsivo por inhibición competitiva GABA<sub>A</sub>, induce degeneración retiniana aguda irreversible con ceguera permanente.'
             ]
@@ -4301,7 +4293,7 @@
           <div class="info-panel">
             <h4>Fase 1 (0–10 min) y Fase 2 (10–30 min) en Gatos</h4>
             <ul>
-              <li><strong>Fase 1 (1.ª Línea):</strong> <strong>Midazolam 0,2–0,5 mg/kg IV, IN (atomizador MAD) o IM</strong> (máximo 3 bolos c/5–10 min). Si se usa Diazepam (0,5 mg/kg IV), solo como bolo único/intermitente: <strong>está contraindicada la CRI de diazepam y prohibida la vía oral en gatos</strong> por necrosis hepática letal.</li>
+              <li><strong>Fase 1 (1.ª Línea):</strong> <strong>Midazolam 0,2–0,5 mg/kg IV, IN (atomizador MAD) o IM</strong> (máximo 3 bolos c/5–10 min). Si se usa Diazepam (0,5 mg/kg IV), solo como bolo único/intermitente: <strong>nunca en CRI ni por vía oral en gatos</strong> (<a class="xref-link" href="#diazepam-oral-felino">Módulo 05</a>).</li>
               <li><strong>Fase 2 (2.ª Línea):</strong> <strong>Levetiracetam 60 mg/kg IV</strong> diluido en 10–15 min (Recomendación ACVIM B en gatos), continuando con 20–30 mg/kg IV c/8h; y/o <strong>Fenobarbital carga 16–20 mg/kg IV</strong> en alícuotas de 4 mg/kg cada 20–30 min.</li>
               <li><strong>Infusión de benzodiacepina:</strong> Utilizar exclusivamente <strong>Midazolam CRI a 0,2–0,5 mg/kg/h</strong> (titulable hasta 1,0–2,5 mg/kg/h).</li>
             </ul>
@@ -4683,10 +4675,13 @@
           const cap = card.querySelector('figcaption');
           const title = cap && cap.querySelector('strong') ? cap.querySelector('strong').textContent : 'Imagen Clínica';
           modalTitle.textContent = title;
+          // El título ya va en la cabecera del visor: el pie se muestra sin repetirlo
+          const capBody = cap ? cap.cloneNode(true) : null;
+          if (capBody && capBody.querySelector('strong')) capBody.querySelector('strong').remove();
           modalBody.innerHTML = `
             <div style="display:flex;flex-direction:column;gap:0.75rem;align-items:center;">
               <img src="${img.src}" alt="${img.alt}" style="max-width:100%;max-height:66vh;object-fit:contain;border-radius:8px;" />
-              <div style="width:100%;display:flex;flex-direction:column;gap:0.35rem;font-size:0.86rem;color:var(--text-secondary);">${cap ? cap.innerHTML : ''}</div>
+              <div style="width:100%;display:flex;flex-direction:column;gap:0.35rem;font-size:0.86rem;color:var(--text-secondary);">${capBody ? capBody.innerHTML : ''}</div>
             </div>
           `;
           modal.showModal();
@@ -4705,6 +4700,68 @@
     setupSidebarProgressUI();
     enhanceModulesStructure();
     setupModalsForSvgAndGallery();
+
+    // 6. Pestañas accesibles: tabindex itinerante, aria-labelledby del panel y teclado (←→↑↓ con vuelta, Inicio, Fin)
+    function setupTabKeyboard(barId, panelId) {
+      const bar = document.getElementById(barId);
+      const panel = document.getElementById(panelId);
+      if (!bar || !panel) return;
+      const tabs = Array.from(bar.querySelectorAll('.tab-btn'));
+      const sync = () => tabs.forEach(t => {
+        const on = t.classList.contains('active');
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        if (on) panel.setAttribute('aria-labelledby', t.id);
+      });
+      tabs.forEach(t => t.addEventListener('click', sync));
+      bar.addEventListener('keydown', e => {
+        const i = tabs.indexOf(document.activeElement);
+        if (i < 0) return;
+        let j = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') j = (i + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') j = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') j = 0;
+        else if (e.key === 'End') j = tabs.length - 1;
+        if (j === null) return;
+        e.preventDefault();
+        tabs[j].focus();
+        tabs[j].click();
+      });
+      sync();
+    }
+    setupTabKeyboard('speciesTabButtons', 'speciesTabContent');
+    setupTabKeyboard('seSpeciesTabs', 'seSpeciesContent');
+
+    // 7. Enlaces internos a un destino dentro de un <details> cerrado (Profundizar en móvil, bibliografía):
+    //    se abre antes de desplazar. Funciona al hacer clic, en hashchange y al cargar con hash.
+    function revealHashTarget(hash) {
+      if (!hash || hash.length < 2) return null;
+      let target = null;
+      try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch (err) { return null; }
+      if (!target) return null;
+      for (let d = target.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')) {
+        d.open = true;
+      }
+      return target;
+    }
+    document.addEventListener('click', e => {
+      const a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const target = revealHashTarget(a.getAttribute('href'));
+      if (target && target.closest('details')) {
+        e.preventDefault();
+        history.pushState(null, '', a.getAttribute('href'));
+        target.scrollIntoView({ block: 'start' });
+      }
+    });
+    window.addEventListener('hashchange', () => {
+      const target = revealHashTarget(location.hash);
+      if (target) target.scrollIntoView({ block: 'start' });
+    });
+    if (location.hash) {
+      const target = revealHashTarget(location.hash);
+      if (target && target.closest('details')) requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+    }
 
     document.querySelectorAll('#seSpeciesTabs .tab-btn, #speciesTabButtons .tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -7321,6 +7378,26 @@
     .qa-gal-card figcaption strong { color: var(--text-primary); }
     .qa-credit { font-size: 0.72rem; color: var(--text-muted); }
     .qa-credit a { color: var(--accent-cyan); }
+    /* Enlaces cruzados, destinos de salto y bibliografía plegable (variables del tema: claro y oscuro) */
+    .xref-link { color: var(--accent-cyan); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+    #diazepam-oral-felino, #tabla-dosis-urgencias, #bibliografia, .sources-list li { scroll-margin-top: 84px; }
+    .fold-card { background: var(--bg-panel); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); }
+    .fold-card > summary {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+      min-height: 44px; padding: 0.7rem 1rem; cursor: pointer; list-style: none; border-radius: var(--radius-md);
+    }
+    .fold-card > summary::-webkit-details-marker { display: none; }
+    .fold-card > summary:hover { background: color-mix(in srgb, var(--accent-cyan) 8%, transparent); }
+    .fold-card[open] > summary { border-bottom: 1px solid var(--border-subtle); border-radius: var(--radius-md) var(--radius-md) 0 0; }
+    .fold-title {
+      font-family: var(--font-mono); font-size: 0.86rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--accent-cyan); min-width: 0; overflow-wrap: anywhere;
+    }
+    .fold-chevron { flex: 0 0 auto; color: var(--accent-cyan); transition: transform 0.2s ease; }
+    .fold-card[open] > summary .fold-chevron { transform: rotate(180deg); }
+    .fold-card .sources-list { padding: 0.9rem 1rem 0.6rem 2.35rem; margin: 0; }
+    .sources-list li a { color: var(--accent-cyan); }
+    #speciesTabContent:focus-visible, #seSpeciesContent:focus-visible { outline-offset: 4px; border-radius: var(--radius-sm); }
     /* Dark mode: white text on the cyan->blue active tab was 2.4-3.7:1; darker gradient gives >=5.3:1. */
     html:not([data-theme="light"]) .tab-btn.active { background: linear-gradient(135deg, #0e7490, #1d4ed8); }
   </style>
