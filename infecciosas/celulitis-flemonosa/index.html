@@ -55,9 +55,9 @@
       --alert-warn-text: #fde68a;
       --alert-danger-bg: rgba(239, 68, 68, 0.15);
       --alert-danger-text: #fecaca;
-      --hero-overlay-grad: linear-gradient(90deg, rgba(7,11,20,0.94) 0%, rgba(7,11,20,0.78) 62%, rgba(7,11,20,0.42) 100%);
-      --viewer3d-bg: radial-gradient(circle at center, #111c33 0%, #060a12 100%);
-      --label3d-bg: rgba(7, 11, 20, 0.92);
+--hero-overlay-grad: linear-gradient(90deg, rgba(7,11,20,0.92) 0%, rgba(7,11,20,0.74) 48%, rgba(7,11,20,0.12) 76%, rgba(7,11,20,0.0) 100%);
+--viewer3d-bg: radial-gradient(circle at center, #111c33 0%, #060a12 100%);
+--label3d-bg: rgba(7, 11, 20, 0.92);
       --svg-bg: #09101f;
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
@@ -92,9 +92,9 @@
       --alert-warn-text: #92400e;
       --alert-danger-bg: rgba(220, 38, 38, 0.12);
       --alert-danger-text: #991b1b;
-      --hero-overlay-grad: linear-gradient(90deg, rgba(241,245,249,0.96) 0%, rgba(241,245,249,0.86) 65%, rgba(241,245,249,0.58) 100%);
-      --viewer3d-bg: radial-gradient(circle at center, #e0f2fe 0%, #cbd5e1 100%);
-      --label3d-bg: rgba(255, 255, 255, 0.95);
+--hero-overlay-grad: linear-gradient(90deg, rgba(241,245,249,0.94) 0%, rgba(241,245,249,0.80) 48%, rgba(241,245,249,0.15) 76%, rgba(241,245,249,0.0) 100%);
+--viewer3d-bg: radial-gradient(circle at center, #e0f2fe 0%, #cbd5e1 100%);
+--label3d-bg: rgba(255, 255, 255, 0.95);
       --svg-bg: #0f172a;
       --shadow-lg: 0 18px 36px -12px rgba(15, 23, 42, 0.12);
     }
@@ -260,19 +260,23 @@
       z-index: 1;
       display: block;
     }
-    .hero-overlay {
-      position: relative;
-      z-index: 2;
-      max-width: 1440px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 2.75rem 1.25rem;
-      display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 2rem;
-      align-items: center;
-      background: var(--hero-overlay-grad);
-    }
+.hero-overlay {
+position: relative;
+z-index: 2;
+max-width: 1440px;
+width: 100%;
+margin: 0 auto;
+padding: 2.2rem 1.25rem;
+display: grid;
+grid-template-columns: minmax(0, 1.18fr) minmax(260px, 0.62fr);
+gap: 1.5rem;
+align-items: end;
+background: var(--hero-overlay-grad);
+pointer-events: none;
+}
+.hero-overlay > * {
+pointer-events: auto;
+}
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -571,23 +575,33 @@
       color: var(--alert-danger-text);
     }
 
-    /* Tables */
-    .table-responsive {
-      width: 100%;
-      overflow-x: auto;
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      margin-top: 1rem;
-      -webkit-overflow-scrolling: touch;
-    }
-    table.clinical-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.82rem;
-      text-align: left;
-      min-width: 660px;
-    }
-    table.clinical-table th {
+/* Tables */
+.table-responsive {
+position: relative;
+width: 100%;
+overflow-x: auto;
+border: 1px solid var(--border-subtle);
+border-radius: var(--radius-md);
+margin-top: 1rem;
+-webkit-overflow-scrolling: touch;
+background:
+linear-gradient(to right, var(--bg-surface) 20%, rgba(0,0,0,0)),
+linear-gradient(to left, var(--bg-surface) 20%, rgba(0,0,0,0)),
+radial-gradient(farthest-side at 0 50%, rgba(6, 182, 212, 0.38), rgba(0,0,0,0)),
+radial-gradient(farthest-side at 100% 50%, rgba(6, 182, 212, 0.38), rgba(0,0,0,0));
+background-position: 0 0, 100% 0, 0 0, 100% 0;
+background-repeat: no-repeat;
+background-size: 36px 100%, 36px 100%, 14px 100%, 14px 100%;
+background-attachment: local, local, scroll, scroll;
+}
+table.clinical-table {
+width: 100%;
+border-collapse: collapse;
+font-size: 0.82rem;
+text-align: left;
+min-width: 660px;
+}
+table.clinical-table th {
       background: var(--bg-elevated);
       color: var(--accent-cyan);
       font-weight: 700;
@@ -674,83 +688,180 @@
       height: auto;
     }
 
-    /* 3D Viewer Section & Non-overlapping Callout Labels with SVG Leader Lines */
-    .viewer3d-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 1.25rem;
-      margin-top: 1rem;
-    }
-    .canvas3d-box {
-      position: relative;
-      width: 100%;
-      height: 460px;
-      background: var(--viewer3d-bg);
-      border: 1px solid var(--border-highlight);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-    }
-    #skin3dCanvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-    #labels3dSvg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 2;
-    }
-    .labels3d-layer {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 3;
-    }
-    .label3d-pin {
-      position: absolute;
-      background: var(--label3d-bg);
-      border: 1px solid var(--accent-cyan);
-      color: var(--text-primary);
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      line-height: 1.25;
-      padding: 0.28rem 0.5rem;
-      border-radius: 5px;
-      max-width: 44%;
-      white-space: normal;
-      overflow-wrap: break-word;
-      pointer-events: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.28);
-    }
-    .label3d-pin.side-left {
-      left: 8px;
-      text-align: left;
-      border-left: 3px solid var(--accent-cyan);
-    }
-    .label3d-pin.side-right {
-      right: 8px;
-      text-align: right;
-      border-right: 3px solid var(--accent-emerald);
-    }
-    .controls3d-panel {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 1.15rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .slider-Input {
-      width: 100%;
-      height: 28px;
-      accent-color: var(--accent-crimson);
-      cursor: pointer;
-    }
+/* 3D Viewer Section & Non-overlapping Callout Labels with SVG Leader Lines */
+.viewer3d-wrapper {
+display: grid;
+grid-template-columns: minmax(0, 1fr) 340px;
+gap: 1.25rem;
+margin-top: 1rem;
+align-items: start;
+}
+.canvas3d-box {
+position: relative;
+width: 100%;
+height: 480px;
+background: var(--viewer3d-bg);
+border: 1px solid var(--border-highlight);
+border-radius: var(--radius-md);
+overflow: hidden;
+}
+#skin3dCanvas {
+width: 100%;
+height: 480px;
+display: block;
+touch-action: pan-y;
+}
+#labels3dSvg {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 480px;
+pointer-events: none;
+z-index: 2;
+}
+.labels3d-layer {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+height: 428px;
+pointer-events: none;
+overflow: hidden;
+z-index: 3;
+}
+.label3d-pin {
+position: absolute;
+background: var(--label3d-bg);
+border: 1px solid var(--accent-cyan);
+color: var(--text-primary);
+font-family: var(--font-mono);
+font-size: 0.68rem;
+line-height: 1.22;
+padding: 0.24rem 0.48rem;
+border-radius: 5px;
+max-width: 175px;
+white-space: normal;
+overflow-wrap: break-word;
+pointer-events: none;
+box-shadow: 0 4px 12px rgba(0,0,0,0.28);
+transform: translateY(-50%);
+}
+.label3d-pin .pin-num {
+font-weight: 800;
+color: var(--accent-cyan);
+}
+.label3d-pin.side-right .pin-num {
+color: var(--accent-emerald);
+}
+.label3d-pin.side-left {
+left: 8px;
+text-align: left;
+border-left: 3px solid var(--accent-cyan);
+}
+.label3d-pin.side-right {
+right: 8px;
+text-align: right;
+border-right: 3px solid var(--accent-emerald);
+}
+#hud3dTelemetry {
+position: absolute;
+bottom: 10px;
+left: 10px;
+right: 10px;
+display: flex;
+justify-content: space-between;
+gap: 0.5rem;
+flex-wrap: wrap;
+pointer-events: none;
+z-index: 4;
+font-family: var(--font-mono);
+font-size: 0.7rem;
+}
+.labels3d-mobile-legend {
+display: none;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 0.35rem 0.5rem;
+padding: 0.55rem 0.65rem;
+background: var(--bg-surface);
+border-top: 1px solid var(--border-subtle);
+font-family: var(--font-mono);
+font-size: 0.66rem;
+line-height: 1.25;
+color: var(--text-secondary);
+}
+.labels3d-mobile-item {
+display: flex;
+align-items: baseline;
+gap: 0.35rem;
+min-width: 0;
+}
+.labels3d-mobile-badge {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 18px;
+height: 18px;
+border-radius: 50%;
+font-size: 0.64rem;
+font-weight: 800;
+flex-shrink: 0;
+background: var(--label3d-bg);
+border: 1.5px solid var(--accent-cyan);
+color: var(--text-primary);
+}
+.labels3d-mobile-item.is-right .labels3d-mobile-badge {
+border-color: var(--accent-emerald);
+}
+.fallback3d-overlay {
+position: absolute;
+inset: 0;
+z-index: 6;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+padding: 0.85rem;
+background: var(--viewer3d-bg);
+color: var(--text-primary);
+text-align: center;
+}
+.fallback3d-banner {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 0.6rem;
+flex-wrap: wrap;
+width: 100%;
+padding: 0.5rem 0.75rem;
+background: var(--label3d-bg);
+border: 1px solid var(--accent-amber);
+border-radius: var(--radius-sm);
+font-size: 0.76rem;
+z-index: 2;
+}
+.fallback3d-svg {
+width: 100%;
+max-width: 520px;
+height: auto;
+max-height: 340px;
+flex: 1;
+}
+.controls3d-panel {
+background: var(--bg-surface);
+border: 1px solid var(--border-subtle);
+border-radius: var(--radius-md);
+padding: 1.15rem;
+display: flex;
+flex-direction: column;
+gap: 1rem;
+}
+.slider-Input {
+width: 100%;
+height: 28px;
+accent-color: var(--accent-crimson);
+cursor: pointer;
+}
 
     /* Mini Games */
     .games-grid {
@@ -1121,21 +1232,119 @@
       .module-card {
         padding: 1rem;
       }
-      .canvas3d-box {
-        height: 400px;
-      }
-      .label3d-pin {
-        font-size: 0.61rem;
-        padding: 0.2rem 0.36rem;
-        max-width: 45%;
-      }
-      .label3d-pin.side-left {
-        left: 4px;
-      }
-      .label3d-pin.side-right {
-        right: 4px;
-      }
-    }
+.hero-section {
+min-height: auto;
+}
+.hero-overlay {
+padding: 0.85rem 0.85rem 0.75rem;
+gap: 0.55rem;
+background: linear-gradient(180deg, rgba(7,11,20,0.84) 0%, rgba(7,11,20,0.52) 52%, rgba(7,11,20,0.16) 100%);
+}
+html[data-theme="light"] .hero-overlay {
+background: linear-gradient(180deg, rgba(241,245,249,0.90) 0%, rgba(241,245,249,0.62) 52%, rgba(241,245,249,0.18) 100%);
+}
+.hero-badge {
+margin-bottom: 0.4rem;
+padding: 0.22rem 0.55rem;
+font-size: 0.65rem;
+}
+.hero-title {
+font-size: clamp(1.28rem, 5.2vw, 1.6rem);
+margin-bottom: 0.35rem;
+line-height: 1.12;
+}
+.hero-subtitle {
+font-size: 0.78rem;
+line-height: 1.32;
+margin-bottom: 0.55rem;
+}
+.hero-kpis {
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 0.38rem;
+}
+.kpi-box {
+padding: 0.38rem 0.5rem;
+}
+.kpi-val {
+font-size: 0.82rem;
+}
+.kpi-lbl {
+font-size: 0.64rem;
+line-height: 1.15;
+margin-top: 0.08rem;
+}
+.hero-canvas-legend {
+padding: 0.45rem 0.6rem;
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 0.22rem 0.45rem;
+background: var(--label3d-bg);
+}
+.legend-title {
+grid-column: 1 / -1;
+font-size: 0.68rem;
+margin-bottom: 0.1rem;
+}
+.legend-item {
+font-size: 0.63rem;
+line-height: 1.15;
+margin-bottom: 0;
+gap: 0.35rem;
+}
+.legend-dot {
+width: 8px;
+height: 8px;
+}
+table.clinical-table th:first-child,
+table.clinical-table td:first-child {
+position: sticky;
+left: 0;
+z-index: 2;
+background: var(--bg-surface);
+box-shadow: 3px 0 8px rgba(0, 0, 0, 0.22);
+max-width: 150px;
+}
+}
+@media (max-width: 480px) {
+.site-header {
+padding: 0.38rem 0.55rem;
+}
+.header-inner {
+gap: 0.35rem;
+}
+.brand-group {
+gap: 0.35rem;
+}
+.brand-seal {
+min-height: 36px;
+padding: 0.25rem 0.5rem;
+font-size: 0.7rem;
+}
+.brand-seal img.brand-seal-logo {
+width: 24px;
+height: 24px;
+}
+.header-actions {
+gap: 0.3rem;
+}
+.site-header .btn-action {
+min-height: 36px;
+width: 36px;
+padding: 0.35rem;
+}
+.site-header .btn-action span {
+position: absolute;
+width: 1px;
+height: 1px;
+padding: 0;
+margin: -1px;
+overflow: hidden;
+clip: rect(0, 0, 0, 0);
+white-space: nowrap;
+border: 0;
+}
+}
+
   </style>
 </head>
 <body>
@@ -2114,10 +2323,11 @@
             <canvas id="skin3dCanvas"></canvas>
             <svg id="labels3dSvg" aria-hidden="true"></svg>
             <div class="labels3d-layer" id="labels3dLayer"></div>
-            <div id="hud3dTelemetry" style="position:absolute;bottom:10px;left:10px;right:10px;display:flex;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;pointer-events:none;z-index:4;font-family:var(--font-mono);font-size:0.7rem;">
+            <div id="hud3dTelemetry">
               <span class="mono-badge" id="hud3dPressure">Presión ilustrativa: 14 mmHg</span>
-              <span class="mono-badge" id="hud3dDoppler">Doppler microvascular: Hiperemia activa</span>
+              <span class="mono-badge" id="hud3dDoppler">Doppler microvascular: Hiperemia periférica</span>
             </div>
+            <div class="labels3d-mobile-legend" id="labels3dMobileLegend" aria-label="Leyenda anatómica del modelo 3D"></div>
           </div>
 
           <div class="controls3d-panel">
@@ -2468,14 +2678,16 @@
     html[data-theme="light"] .ehrlichia-title {
       color: #b91c1c !important;
     }
-    html[data-theme="light"] .canvas3d-box {
-      background: radial-gradient(circle at center, #e2e8f0 0%, #cbd5e1 100%);
-    }
-    html[data-theme="light"] .label3d-pin {
-      background: rgba(255, 255, 255, 0.94);
-      color: #0f172a;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
-    }
+html[data-theme="light"] .canvas3d-box {
+background: var(--viewer3d-bg);
+}
+html[data-theme="light"] .label3d-pin,
+html[data-theme="light"] .fallback3d-banner,
+html[data-theme="light"] .labels3d-mobile-badge {
+background: rgba(255, 255, 255, 0.95);
+color: #0f172a;
+box-shadow: 0 4px 12px rgba(15, 23, 42, 0.14);
+}
     html[data-theme="light"] .dropzone-item {
       background: rgba(241, 245, 249, 0.85);
     }
@@ -2530,8 +2742,8 @@
 
   <script src="../../assets/vetatlas-certificate.js"></script>
   <script type="module">
-    import * as THREE from 'three';
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    let THREE = null;
+    let OrbitControls = null;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -3205,300 +3417,1159 @@
       sync();
     })();
 
-    /* =========================================================================
-       4. MODELO 3D INTERACTIVO CON THREE.JS + PARTÍCULAS LINFÁTICAS + CORTE EXPANDIDO
-       ========================================================================= */
-    const canvas3d = document.getElementById('skin3dCanvas');
-    const labelsLayer = document.getElementById('labels3dLayer');
-    const labelsSvg = document.getElementById('labels3dSvg');
-    const stageSlider = document.getElementById('stageSlider');
-    const stageSliderVal = document.getElementById('stageSliderVal');
-    const stage3dTitle = document.getElementById('stage3dTitle');
-    const stage3dDesc = document.getElementById('stage3dDesc');
-    const hud3dPressure = document.getElementById('hud3dPressure');
-    const hud3dDoppler = document.getElementById('hud3dDoppler');
+/* =========================================================================
+4. MODELO 3D INTERACTIVO CON THREE.JS + CARGA DIFERIDA + RESPALDO SVG
+========================================================================= */
+document.querySelectorAll('.site-header .btn-action').forEach((btn) => {
+if (!btn.getAttribute('aria-label')) {
+const txt = btn.textContent.replace(/\s+/g, ' ').trim();
+if (txt) btn.setAttribute('aria-label', txt);
+}
+});
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    camera.position.set(5.8, 3.6, 6.8);
+const mod3dSection = document.getElementById('mod-3d');
+const canvas3dContainer = document.getElementById('canvas3dContainer');
+const canvas3d = document.getElementById('skin3dCanvas');
+const labelsLayer = document.getElementById('labels3dLayer');
+const labelsSvg = document.getElementById('labels3dSvg');
+const labelsMobileLegend = document.getElementById('labels3dMobileLegend');
+const stageSlider = document.getElementById('stageSlider');
+const stageSliderVal = document.getElementById('stageSliderVal');
+const stage3dTitle = document.getElementById('stage3dTitle');
+const stage3dDesc = document.getElementById('stage3dDesc');
+const hud3dPressure = document.getElementById('hud3dPressure');
+const hud3dDoppler = document.getElementById('hud3dDoppler');
+const explode3dBtn = document.getElementById('explode3dBtn');
+const toggleLabels3dBtn = document.getElementById('toggleLabels3dBtn');
+const resetCam3dBtn = document.getElementById('resetCam3dBtn');
 
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const labelDefs = [
+  { num: '1', rest: '. Epidermis (Inoculación)', text: '1. Epidermis (Inoculación)', coords: [-1.15, 1.56, 0.72], layerKey: 'epi', side: 'left', topPct: 14, color: '#06b6d4' },
+  { num: '2', rest: '. Dermis Reticular', text: '2. Dermis Reticular', coords: [-1.45, 0.98, 0.85], layerKey: 'derm', side: 'left', topPct: 45, color: '#06b6d4' },
+  { num: '3', rest: '. Fascia Profunda y Músculo', text: '3. Fascia Profunda y Músculo', coords: [-1.35, -0.78, 0.88], layerKey: 'musc', side: 'left', topPct: 77, color: '#06b6d4' },
+  { num: '4', rest: '. Hipodermis (Flemón / Empedrado)', text: '4. Hipodermis (Flemón / Empedrado)', coords: [0.32, 0.12, 1.04], layerKey: 'hypo', side: 'right', topPct: 18, color: '#10b981' },
+  { num: '5', rest: '. Colector Linfático', text: '5. Colector Linfático', coords: [1.35, -0.08, 0.86], layerKey: 'lymphTube', side: 'right', topPct: 50, color: '#10b981' },
+  { num: '6', rest: '. Linfonodo Regional Satélite', text: '6. Linfonodo Regional Satélite', coords: [2.15, -0.16, 0.65], layerKey: 'lymphNode', side: 'right', topPct: 81, color: '#10b981' }
+];
 
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.target.set(0, -0.3, 0);
+let showLabels3d = true;
+let isExploded3d = false;
+let currentStageVal = Number(stageSlider ? stageSlider.value : 15);
+let viewer3dApi = null;
+let is3dLoading = false;
+let is3dReady = false;
+let is3dInView = true;
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.8));
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1.25);
-    dirLight.position.set(6, 10, 7);
-    scene.add(dirLight);
+labelsLayer.innerHTML = '';
+labelsSvg.innerHTML = '';
+if (labelsMobileLegend) labelsMobileLegend.innerHTML = '';
 
-    const rootGroup = new THREE.Group();
-    scene.add(rootGroup);
+const labelEls = labelDefs.map((a) => {
+  const el = document.createElement('div');
+  el.className = `label3d-pin side-${a.side}`;
+  el.style.top = `${a.topPct}%`;
+  const numSpan = document.createElement('span');
+  numSpan.className = 'pin-num';
+  numSpan.textContent = a.num;
+  const txtSpan = document.createElement('span');
+  txtSpan.className = 'pin-txt';
+  txtSpan.textContent = a.rest;
+  el.appendChild(numSpan);
+  el.appendChild(txtSpan);
+  labelsLayer.appendChild(el);
 
-    // 1. Epidermis
-    const epiGeo = new THREE.BoxGeometry(4.2, 0.28, 3.0);
-    const epiMat = new THREE.MeshStandardMaterial({ color: 0xe2b897, roughness: 0.45 });
-    const epiMesh = new THREE.Mesh(epiGeo, epiMat);
-    epiMesh.position.y = 1.65;
-    rootGroup.add(epiMesh);
+  const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  line.setAttribute('stroke', a.color);
+  line.setAttribute('stroke-width', '1.5');
+  line.setAttribute('stroke-dasharray', '3 3');
+  line.setAttribute('opacity', '0.88');
+  labelsSvg.appendChild(line);
 
-    // 2. Dermis Reticular
-    const dermGeo = new THREE.BoxGeometry(4.2, 0.75, 3.0);
-    const dermMat = new THREE.MeshStandardMaterial({ color: 0xd9777f, roughness: 0.55, transparent: true, opacity: 0.92 });
-    const dermMesh = new THREE.Mesh(dermGeo, dermMat);
-    dermMesh.position.y = 1.1;
-    rootGroup.add(dermMesh);
+  const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  dot.setAttribute('r', '3.5');
+  dot.setAttribute('fill', a.color);
+  labelsSvg.appendChild(dot);
 
-    // 3. Hipodermis (Lobulillos adiposos para el "signo del empedrado" + exudado)
-    const hypoGroup = new THREE.Group();
-    hypoGroup.position.y = 0.1;
-    rootGroup.add(hypoGroup);
+  if (labelsMobileLegend) {
+    const item = document.createElement('div');
+    item.className = `labels3d-mobile-item ${a.side === 'right' ? 'is-right' : 'is-left'}`;
+    item.innerHTML = `<span class="labels3d-mobile-badge">${a.num}</span><span>${a.rest.slice(2)}</span>`;
+    labelsMobileLegend.appendChild(item);
+  }
 
-    const fatLobules = [];
-    const lobGeo = new THREE.SphereGeometry(0.28, 16, 12);
-    for (let x = -1.5; x <= 1.5; x += 0.6) {
-      for (let z = -1.0; z <= 1.0; z += 0.65) {
-        const lobMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.38 });
-        const lob = new THREE.Mesh(lobGeo, lobMat);
-        lob.scale.set(1.1, 0.75, 1.1);
-        lob.position.set(x + (Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.18, z);
-        lob.userData = { basePos: lob.position.clone() };
-        hypoGroup.add(lob);
-        fatLobules.push(lob);
-      }
+  return { el, line, dot, def: a, side: a.side };
+});
+
+function updateStageFromSlider(val) {
+  currentStageVal = val;
+  const t = val / 100;
+  if (stageSliderVal) stageSliderVal.textContent = `${val}%`;
+
+  const estMmHg = Math.round(10 + t * 28);
+  if (hud3dPressure) {
+    hud3dPressure.textContent = `Presión ilustrativa: ${estMmHg} mmHg${estMmHg > 30 ? ' (¡ALERTA >30 mmHg: Fasciotomía!)' : ''}`;
+    hud3dPressure.style.color = estMmHg > 30 ? '#fca5a5' : '';
+  }
+  if (hud3dDoppler) {
+    hud3dDoppler.textContent = t > 0.72
+      ? 'Doppler microvascular: Hipoperfusión / Trombosis'
+      : 'Doppler microvascular: Hiperemia periférica';
+  }
+
+  if (val < 25) {
+    stage3dTitle.textContent = 'Estadio 1: Inoculación Traumática y Adhesión MSCRAMMs';
+    stage3dDesc.textContent = 'Disrupción de la barrera córnea epidérmica. Los microorganismos se fijan al colágeno I/III y laminina sin ser arrastrados por el flujo intersticial.';
+  } else if (val < 55) {
+    stage3dTitle.textContent = 'Estadio 2: Lisis Exoenzimática y Signo del Empedrado';
+    stage3dDesc.textContent = 'Hialuronidasas, estreptoquinasas y colagenasas impiden la cápsula de fibrina. El exudado diseca en sábana los lobulillos grasos hipodérmicos (patrón ecográfico en empedrado).';
+  } else if (val < 82) {
+    stage3dTitle.textContent = 'Estadio 3: Drenaje Linfático y Linfadenitis Reactiva Satélite';
+    stage3dDesc.textContent = 'La presión hidrostática colapsa capilares terminales; los colectores permeables transportan bacterias y citocinas al linfonodo regional, causando linfadenomegalia y trombosis sinusal.';
+  } else {
+    stage3dTitle.textContent = 'Estadio 4: Trombosis Microvascular, Necrosis Fascial y Sepsis';
+    stage3dDesc.textContent = 'Microtrombos de plaquetas y fibrina ocluyen arteriolas y vénulas dérmicas (piel violácea/escaras). Riesgo de síndrome compartimental (>30 mmHg) y choque séptico por superantígenos.';
+  }
+
+  if (viewer3dApi && viewer3dApi.applyStage) {
+    viewer3dApi.applyStage(val);
+  }
+}
+
+if (stageSlider) {
+  stageSlider.addEventListener('input', (e) => {
+    updateStageFromSlider(Number(e.target.value));
+  });
+  stageSlider.addEventListener('change', () => SoundEngine.click());
+}
+updateStageFromSlider(15);
+
+if (explode3dBtn) {
+  explode3dBtn.addEventListener('click', () => {
+    SoundEngine.click();
+    isExploded3d = !isExploded3d;
+    explode3dBtn.innerHTML = `<svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg><span>${isExploded3d ? 'Unir Capas Anatómicas' : 'Vista Expandida Capas'}</span>`;
+    if (viewer3dApi && viewer3dApi.onExplodeChange) {
+      viewer3dApi.onExplodeChange(isExploded3d);
     }
+  });
+}
 
-    // Exudado flemonoso difuso en sábana
-    const phlegmonGeo = new THREE.BoxGeometry(4.15, 0.95, 2.95);
-    const phlegmonMat = new THREE.MeshStandardMaterial({
-      color: 0xef4444,
-      emissive: 0x7f1d1d,
-      transparent: true,
-      opacity: 0.15,
-      roughness: 0.25
-    });
-    const phlegmonMesh = new THREE.Mesh(phlegmonGeo, phlegmonMat);
-    phlegmonMesh.position.y = 0.08;
-    phlegmonMesh.scale.set(0.2, 0.3, 0.2);
-    rootGroup.add(phlegmonMesh);
-
-    // 4. Fascia Profunda / Aponeurosis
-    const fasciaGeo = new THREE.BoxGeometry(4.2, 0.16, 3.0);
-    const fasciaMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.4 });
-    const fasciaMesh = new THREE.Mesh(fasciaGeo, fasciaMat);
-    fasciaMesh.position.y = -0.52;
-    rootGroup.add(fasciaMesh);
-
-    // 5. Plano Muscular
-    const muscGeo = new THREE.BoxGeometry(4.2, 0.75, 3.0);
-    const muscMat = new THREE.MeshStandardMaterial({ color: 0x881337, roughness: 0.65 });
-    const muscMesh = new THREE.Mesh(muscGeo, muscMat);
-    muscMesh.position.y = -1.02;
-    rootGroup.add(muscMesh);
-
-    // 6. Vaso Colector Linfático, Partículas de Drenaje y Linfonodo Regional Satélite
-    const lymphCurve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-1.4, 0.05, 1.55),
-      new THREE.Vector3(-0.2, -0.1, 1.75),
-      new THREE.Vector3(1.1, -0.2, 1.85),
-      new THREE.Vector3(2.35, -0.25, 1.6)
-    ]);
-    const lymphTubeGeo = new THREE.TubeGeometry(lymphCurve, 32, 0.08, 12, false);
-    const lymphTubeMat = new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x064e3b, roughness: 0.35 });
-    const lymphTube = new THREE.Mesh(lymphTubeGeo, lymphTubeMat);
-    rootGroup.add(lymphTube);
-
-    // Partículas bacterianas/antigénicas viajando hacia el linfonodo
-    const lymphParticles = [];
-    const pGeo = new THREE.SphereGeometry(0.055, 8, 8);
-    const pMat = new THREE.MeshBasicMaterial({ color: 0xfef08a });
-    for (let i = 0; i < 6; i++) {
-      const pm = new THREE.Mesh(pGeo, pMat);
-      pm.userData = { u: i / 6 };
-      rootGroup.add(pm);
-      lymphParticles.push(pm);
+if (toggleLabels3dBtn) {
+  toggleLabels3dBtn.addEventListener('click', () => {
+    SoundEngine.click();
+    showLabels3d = !showLabels3d;
+    labelsLayer.style.display = showLabels3d ? 'block' : 'none';
+    labelsSvg.style.display = showLabels3d ? 'block' : 'none';
+    if (labelsMobileLegend) {
+      labelsMobileLegend.style.display = showLabels3d ? '' : 'none';
     }
+  });
+}
 
-    const nodeGeo = new THREE.SphereGeometry(0.42, 24, 20);
-    const nodeMat = new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x065f46, roughness: 0.4 });
-    const lymphNode = new THREE.Mesh(nodeGeo, nodeMat);
-    lymphNode.scale.set(1.3, 0.9, 1.0);
-    lymphNode.position.set(2.55, -0.25, 1.55);
-    rootGroup.add(lymphNode);
-
-    const labelAnchors = [
-      { text: '1. Epidermis (Inoculación)', pos: new THREE.Vector3(-0.6, 1.75, 0.4), side: 'left', topPct: 8, color: '#06b6d4' },
-      { text: '2. Dermis Reticular', pos: new THREE.Vector3(-1.3, 1.1, 0.9), side: 'left', topPct: 40, color: '#06b6d4' },
-      { text: '3. Fascia Profunda y Músculo', pos: new THREE.Vector3(-1.2, -0.8, 0.9), side: 'left', topPct: 74, color: '#06b6d4' },
-      { text: '4. Hipodermis (Flemón / Empedrado)', pos: new THREE.Vector3(0.5, 0.15, 1.1), side: 'right', topPct: 18, color: '#10b981' },
-      { text: '5. Colector Linfático', pos: new THREE.Vector3(0.6, -0.15, 1.8), side: 'right', topPct: 50, color: '#10b981' },
-      { text: '6. Linfonodo Regional Satélite', pos: new THREE.Vector3(2.55, -0.25, 1.55), side: 'right', topPct: 82, color: '#10b981' }
-    ];
-
-    let showLabels3d = true;
-    let isExploded3d = false;
-    const labelEls = labelAnchors.map(a => {
-      const el = document.createElement('div');
-      el.className = `label3d-pin side-${a.side}`;
-      el.style.top = `${a.topPct}%`;
-      el.textContent = a.text;
-      labelsLayer.appendChild(el);
-
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('stroke', a.color);
-      line.setAttribute('stroke-width', '1.5');
-      line.setAttribute('stroke-dasharray', '3 3');
-      line.setAttribute('opacity', '0.85');
-      labelsSvg.appendChild(line);
-
-      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      dot.setAttribute('r', '3.5');
-      dot.setAttribute('fill', a.color);
-      labelsSvg.appendChild(dot);
-
-      return { el, line, dot, pos: a.pos, side: a.side };
-    });
-
-    function updateStageFromSlider(val) {
-      const t = val / 100;
-      if (stageSliderVal) stageSliderVal.textContent = `${val}%`;
-
-      phlegmonMesh.scale.set(0.25 + t * 0.78, 0.35 + t * 0.7, 0.25 + t * 0.78);
-      phlegmonMat.opacity = 0.18 + t * 0.55;
-
-      fatLobules.forEach((lob, i) => {
-        const dir = i % 2 === 0 ? 1 : -1;
-        lob.position.y = lob.userData.basePos.y + dir * t * 0.12;
-        lob.material.color.setHSL(0.12 - t * 0.04, 0.9, 0.55 + t * 0.12);
-      });
-
-      const nodeScale = 1 + t * 0.55;
-      lymphNode.scale.set(1.3 * nodeScale, 0.9 * nodeScale, 1.0 * nodeScale);
-      if (t > 0.65) {
-        nodeMat.color.setHex(0xef4444);
-        nodeMat.emissive.setHex(0x7f1d1d);
-        lymphTubeMat.color.setHex(0xf59e0b);
-        epiMat.color.setHex(0x6b4c7a);
-      } else {
-        nodeMat.color.setHex(0x10b981);
-        nodeMat.emissive.setHex(0x065f46);
-        lymphTubeMat.color.setHex(0x10b981);
-        epiMat.color.setHex(0xe2b897);
-      }
-
-      const estMmHg = Math.round(10 + t * 28);
-      if (hud3dPressure) {
-        hud3dPressure.textContent = `Presión ilustrativa: ${estMmHg} mmHg${estMmHg > 30 ? ' (¡ALERTA >30 mmHg: Fasciotomía!)' : ''}`;
-        hud3dPressure.style.color = estMmHg > 30 ? '#fca5a5' : '';
-      }
-      if (hud3dDoppler) {
-        hud3dDoppler.textContent = t > 0.72
-          ? 'Doppler microvascular: Hipoperfusión / Trombosis'
-          : 'Doppler microvascular: Hiperemia periférica';
-      }
-
-      if (val < 25) {
-        stage3dTitle.textContent = 'Estadio 1: Inoculación Traumática y Adhesión MSCRAMMs';
-        stage3dDesc.textContent = 'Disrupción de la barrera córnea epidérmica. Los microorganismos se fijan al colágeno I/III y laminina sin ser arrastrados por el flujo intersticial.';
-      } else if (val < 55) {
-        stage3dTitle.textContent = 'Estadio 2: Lisis Exoenzimática y Signo del Empedrado';
-        stage3dDesc.textContent = 'Hialuronidasas, estreptoquinasas y colagenasas impiden la cápsula de fibrina. El exudado diseca en sábana los lobulillos grasos hipodérmicos (patrón ecográfico en empedrado).';
-      } else if (val < 82) {
-        stage3dTitle.textContent = 'Estadio 3: Drenaje Linfático y Linfadenitis Reactiva Satélite';
-        stage3dDesc.textContent = 'La presión hidrostática colapsa capilares terminales; los colectores permeables transportan bacterias y citocinas al linfonodo regional, causando linfadenomegalia y trombosis sinusal.';
-      } else {
-        stage3dTitle.textContent = 'Estadio 4: Trombosis Microvascular, Necrosis Fascial y Sepsis';
-        stage3dDesc.textContent = 'Microtrombos de plaquetas y fibrina ocluyen arteriolas y vénulas dérmicas (piel violácea/escaras). Riesgo de síndrome compartimental (>30 mmHg) y choque séptico por superantígenos.';
-      }
+if (resetCam3dBtn) {
+  resetCam3dBtn.addEventListener('click', () => {
+    SoundEngine.click();
+    if (viewer3dApi && viewer3dApi.resetCamera) {
+      viewer3dApi.resetCamera();
     }
+  });
+}
 
-    stageSlider.addEventListener('input', (e) => {
-      updateStageFromSlider(Number(e.target.value));
-    });
-    stageSlider.addEventListener('change', () => SoundEngine.click());
-    updateStageFromSlider(15);
-
-    const explode3dBtn = document.getElementById('explode3dBtn');
-    if (explode3dBtn) {
-      explode3dBtn.addEventListener('click', () => {
+function renderFallback3D() {
+  if (!canvas3dContainer) return;
+  let fb = canvas3dContainer.querySelector('.fallback3d-overlay');
+  if (!fb) {
+    fb = document.createElement('div');
+    fb.className = 'fallback3d-overlay';
+    fb.innerHTML = `
+      <div class="fallback3d-banner" role="alert">
+        <span>No se pudo cargar el modelo 3D; revisa tu conexión</span>
+        <button type="button" class="btn-action" id="retry3dLoadBtn" style="min-height:34px;padding:0.25rem 0.65rem;font-size:0.74rem;">Reintentar</button>
+      </div>
+      <svg class="fallback3d-svg" viewBox="0 0 520 300" aria-label="Ilustración de capas anatómicas">
+        <defs>
+          <linearGradient id="fbEpi" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#e2b897"/><stop offset="50%" stop-color="#b91c1c"/><stop offset="100%" stop-color="#d6a27e"/></linearGradient>
+          <linearGradient id="fbDerm" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f48fb1"/><stop offset="100%" stop-color="#d9777f"/></linearGradient>
+          <linearGradient id="fbPhleg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f59e0b" stop-opacity="0.72"/><stop offset="100%" stop-color="#dc2626" stop-opacity="0.82"/></linearGradient>
+        </defs>
+        <g transform="translate(25,22)">
+          <path d="M18,32 L310,32 L336,52 L44,52 Z" fill="url(#fbEpi)" stroke="#94a3b8" stroke-width="1"/>
+          <path d="M170,28 L182,58 L194,28 Z" fill="#7f1d1d"/>
+          <rect x="44" y="52" width="292" height="48" rx="3" fill="url(#fbDerm)" opacity="0.92"/>
+          <path d="M56,74 Q115,62 180,76 T322,72" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+          <path d="M56,84 Q125,94 190,80 T322,86" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+          <rect x="44" y="100" width="292" height="72" rx="4" fill="url(#fbPhleg)"/>
+          <g fill="#fde047" stroke="#ca8a04" stroke-width="1.2">
+            <polygon points="58,112 92,107 104,128 84,142 56,134"/>
+            <polygon points="116,109 152,113 158,136 124,144 108,126"/>
+            <polygon points="174,114 212,108 220,132 192,146 168,134"/>
+            <polygon points="234,110 272,114 278,136 248,145 228,130"/>
+            <polygon points="284,112 322,109 328,134 302,144 280,132"/>
+            <polygon points="72,146 112,143 118,165 82,168 64,158"/>
+            <polygon points="138,147 182,144 188,166 146,168 130,158"/>
+            <polygon points="204,146 250,143 256,165 214,168 196,158"/>
+            <polygon points="268,145 316,143 324,164 282,168 262,158"/>
+          </g>
+          <rect x="44" y="172" width="292" height="14" rx="2" fill="#e2e8f0"/>
+          <rect x="44" y="186" width="292" height="48" rx="3" fill="#881337"/>
+          <path d="M336,138 C368,142 384,154 412,148" fill="none" stroke="#10b981" stroke-width="7" stroke-linecap="round" stroke-dasharray="14 3"/>
+          <path d="M425,112 C456,106 476,132 472,162 C468,192 442,204 420,188 C408,178 416,162 406,152 C416,140 410,118 425,112 Z" fill="#10b981" stroke="#047857" stroke-width="2.5"/>
+        </g>
+      </svg>
+    `;
+    canvas3dContainer.appendChild(fb);
+    const retryBtn = fb.querySelector('#retry3dLoadBtn');
+    if (retryBtn) {
+      retryBtn.addEventListener('click', () => {
         SoundEngine.click();
-        isExploded3d = !isExploded3d;
-        epiMesh.position.y = isExploded3d ? 2.15 : 1.65;
-        dermMesh.position.y = isExploded3d ? 1.3 : 1.1;
-        fasciaMesh.position.y = isExploded3d ? -0.75 : -0.52;
-        muscMesh.position.y = isExploded3d ? -1.45 : -1.02;
-        explode3dBtn.innerHTML = `<svg class="lucide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg><span>${isExploded3d ? 'Unir Capas Anatómicas' : 'Vista Expandida Capas'}</span>`;
+        fb.remove();
+        load3DLab(true);
+      });
+    }
+  }
+}
+
+async function init3DViewer() {
+  if (viewer3dApi && viewer3dApi.dispose) {
+    viewer3dApi.dispose();
+    viewer3dApi = null;
+  }
+
+  const existingFb = canvas3dContainer.querySelector('.fallback3d-overlay');
+  if (existingFb) existingFb.remove();
+
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({
+      canvas: canvas3d,
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
+    });
+  } catch (err) {
+    renderFallback3D();
+    return;
+  }
+
+  const isMobileDevice = window.innerWidth <= 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobileDevice ? 1.5 : 2));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.07;
+  controls.enablePan = false;
+  controls.enableZoom = false;
+  controls.minPolarAngle = Math.PI * 0.18;
+  controls.maxPolarAngle = Math.PI * 0.49;
+  controls.minAzimuthAngle = -Math.PI * 0.36;
+  controls.maxAzimuthAngle = Math.PI * 0.36;
+
+  const onWheelGuard = (e) => {
+    controls.enableZoom = Boolean(e.ctrlKey || e.metaKey);
+  };
+  canvas3d.addEventListener('wheel', onWheelGuard, { passive: true });
+
+  scene.add(new THREE.HemisphereLight(0xf8fafc, 0x1e293b, 0.95));
+  const dirLight = new THREE.DirectionalLight(0xfffbeb, 1.55);
+  dirLight.position.set(5.5, 9.5, 6.5);
+  scene.add(dirLight);
+
+  const fillLight = new THREE.DirectionalLight(0xfda4af, 0.55);
+  fillLight.position.set(-6.0, 2.5, 4.5);
+  scene.add(fillLight);
+
+  const rimLight = new THREE.DirectionalLight(0x38bdf8, 0.85);
+  rimLight.position.set(0.5, 5.5, -7.0);
+  scene.add(rimLight);
+
+  const rootGroup = new THREE.Group();
+  scene.add(rootGroup);
+
+  const disposables = [];
+  const trackGeo = (g) => { disposables.push(g); return g; };
+  const trackMat = (m) => { disposables.push(m); return m; };
+
+  const wedgeX = -0.32;
+  const W = 3.4;
+  const D = 2.45;
+  const dummy = new THREE.Object3D();
+  const tempColor = new THREE.Color();
+
+  // 1a. EPIDERMIS CON SUPERFICIE RUGOSA, FOLÍCULOS PILOSOS, GLÁNDULAS SEBÁCEAS Y HERIDA PUNZANTE
+  const epiGroup = new THREE.Group();
+  epiGroup.position.set(wedgeX, 1.48, 0);
+  rootGroup.add(epiGroup);
+
+  const epiGeo = trackGeo(new THREE.BoxGeometry(W, 0.22, D, 40, 5, 28));
+  const epiPos = epiGeo.attributes.position;
+  const epiColors = new Float32Array(epiPos.count * 3);
+  const woundCenter = new THREE.Vector2(-0.62, 0.28);
+
+  for (let i = 0; i < epiPos.count; i++) {
+    const vx = epiPos.getX(i);
+    let vy = epiPos.getY(i);
+    const vz = epiPos.getZ(i);
+    const distWound = Math.hypot(vx - woundCenter.x, vz - woundCenter.y);
+    const ripple = Math.sin(vx * 7.5) * Math.cos(vz * 7.5) * 0.018 + Math.sin((vx + vz) * 14) * 0.008;
+
+    if (vy > 0) {
+      vy += ripple;
+      if (distWound < 0.36) {
+        vy -= Math.cos((distWound / 0.36) * Math.PI * 0.5) * 0.19;
+      }
+    } else {
+      vy += Math.sin(vx * 9.0) * Math.sin(vz * 9.0) * 0.022;
+    }
+    epiPos.setXYZ(i, vx, vy, vz);
+
+    if (distWound < 0.34) {
+      tempColor.setHex(0x881337).lerp(new THREE.Color(0xd99b78), distWound / 0.34);
+    } else if (vy > 0.04) {
+      tempColor.setHex(0xe5b895).offsetHSL(0, 0, ripple * 0.9);
+    } else {
+      tempColor.setHex(0xc98a6b);
+    }
+    epiColors[i * 3] = tempColor.r;
+    epiColors[i * 3 + 1] = tempColor.g;
+    epiColors[i * 3 + 2] = tempColor.b;
+  }
+  epiGeo.setAttribute('color', new THREE.BufferAttribute(epiColors, 3));
+  epiGeo.computeVertexNormals();
+
+  const epiMat = trackMat(new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    vertexColors: true,
+    roughness: 0.42,
+    clearcoat: 0.32,
+    clearcoatRoughness: 0.35,
+    sheen: 0.35,
+    sheenColor: new THREE.Color(0xfde68a)
+  }));
+  epiGroup.add(new THREE.Mesh(epiGeo, epiMat));
+
+  const tractGeo = trackGeo(new THREE.CylinderGeometry(0.16, 0.04, 0.58, 18, 4));
+  const tractMat = trackMat(new THREE.MeshPhysicalMaterial({
+    color: 0x7f1d1d,
+    emissive: 0x450a0a,
+    roughness: 0.25,
+    clearcoat: 0.8
+  }));
+  const tractMesh = new THREE.Mesh(tractGeo, tractMat);
+  tractMesh.position.set(woundCenter.x, -0.14, woundCenter.y);
+  tractMesh.rotation.z = 0.14;
+  epiGroup.add(tractMesh);
+
+  const escharGeo = trackGeo(new THREE.CylinderGeometry(0.42, 0.32, 0.06, 20));
+  const escharMat = trackMat(new THREE.MeshStandardMaterial({
+    color: 0x2e1065,
+    roughness: 0.75,
+    transparent: true,
+    opacity: 0.0
+  }));
+  const escharMesh = new THREE.Mesh(escharGeo, escharMat);
+  escharMesh.position.set(woundCenter.x, 0.1, woundCenter.y);
+  epiGroup.add(escharMesh);
+
+  const hairCoords = [
+    [-1.35, -0.75], [-0.95, -0.45], [-0.25, -0.72], [0.45, -0.68], [1.15, -0.62],
+    [-1.25, 0.15], [0.15, 0.05], [0.85, -0.12], [1.32, 0.22],
+    [-1.18, 0.78], [-0.15, 0.74], [0.55, 0.68], [1.18, 0.76], [-0.68, -0.85]
+  ];
+  const hairShaftGeo = trackGeo(new THREE.CylinderGeometry(0.01, 0.024, 0.92, 7, 5));
+  const hairShaftMat = trackMat(new THREE.MeshStandardMaterial({ color: 0x27272a, roughness: 0.38 }));
+  const hairInst = new THREE.InstancedMesh(hairShaftGeo, hairShaftMat, hairCoords.length);
+
+  const sebGeo = trackGeo(new THREE.DodecahedronGeometry(0.075, 1));
+  const sebMat = trackMat(new THREE.MeshPhysicalMaterial({ color: 0xfef08a, roughness: 0.3, clearcoat: 0.5 }));
+  const sebInst = new THREE.InstancedMesh(sebGeo, sebMat, hairCoords.length);
+
+  hairCoords.forEach(([hx, hz], idx) => {
+    dummy.position.set(hx, 0.12, hz);
+    dummy.rotation.set(0.18 + (idx % 3) * 0.04, idx * 0.7, -0.15);
+    dummy.scale.set(1, 1, 1);
+    dummy.updateMatrix();
+    hairInst.setMatrixAt(idx, dummy.matrix);
+
+    dummy.position.set(hx + 0.05, -0.18, hz + 0.03);
+    dummy.rotation.set(0, idx, 0);
+    dummy.scale.set(1.2, 0.85, 1.0);
+    dummy.updateMatrix();
+    sebInst.setMatrixAt(idx, dummy.matrix);
+  });
+  epiGroup.add(hairInst);
+  epiGroup.add(sebInst);
+
+  // 1b. DERMIS PAPILAR Y RETICULAR + COLÁGENO ONDULADO + ARTERIOLA/VÉNULA + MICROTROMBOS
+  const dermGroup = new THREE.Group();
+  dermGroup.position.set(wedgeX, 0.96, 0);
+  rootGroup.add(dermGroup);
+
+  const dermGeo = trackGeo(new THREE.BoxGeometry(W, 0.68, D, 32, 8, 22));
+  const dermPos = dermGeo.attributes.position;
+  const dermColors = new Float32Array(dermPos.count * 3);
+  for (let i = 0; i < dermPos.count; i++) {
+    const vx = dermPos.getX(i);
+    let vy = dermPos.getY(i);
+    const vz = dermPos.getZ(i);
+    if (vy > 0.25) {
+      vy += Math.sin(vx * 9.0) * Math.sin(vz * 9.0) * 0.022;
+    }
+    dermPos.setXYZ(i, vx, vy, vz);
+    const hNorm = (vy + 0.34) / 0.68;
+    tempColor.setHex(0xd96b75).lerp(new THREE.Color(0xf497a0), Math.max(0, Math.min(1, hNorm)));
+    dermColors[i * 3] = tempColor.r;
+    dermColors[i * 3 + 1] = tempColor.g;
+    dermColors[i * 3 + 2] = tempColor.b;
+  }
+  dermGeo.setAttribute('color', new THREE.BufferAttribute(dermColors, 3));
+  dermGeo.computeVertexNormals();
+
+  const dermMat = trackMat(new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    vertexColors: true,
+    roughness: 0.35,
+    clearcoat: 0.45,
+    clearcoatRoughness: 0.25,
+    transparent: true,
+    opacity: 0.84
+  }));
+  dermGroup.add(new THREE.Mesh(dermGeo, dermMat));
+
+  const collagenCount = 78;
+  const colGeo = trackGeo(new THREE.CylinderGeometry(0.015, 0.015, 0.78, 6, 4));
+  const colPos = colGeo.attributes.position;
+  for (let i = 0; i < colPos.count; i++) {
+    colPos.setX(i, colPos.getX(i) + Math.sin(colPos.getY(i) * 12.0) * 0.022);
+  }
+  colGeo.computeVertexNormals();
+  const colMat = trackMat(new THREE.MeshStandardMaterial({ color: 0xfbcfe8, roughness: 0.35 }));
+  const collagenInst = new THREE.InstancedMesh(colGeo, colMat, collagenCount);
+  const collagenBase = [];
+
+  for (let i = 0; i < collagenCount; i++) {
+    const cx = ((i % 13) / 12 - 0.5) * (W - 0.35);
+    const cy = (Math.floor(i / 13) % 3 - 1) * 0.18;
+    const cz = (Math.floor(i / 39) - 0.5) * (D - 0.55) + Math.sin(i * 1.7) * 0.35;
+    const rx = Math.PI * 0.5 + Math.sin(i * 2.1) * 0.28;
+    const ry = (i % 2 === 0 ? 0.35 : -0.35) + Math.cos(i) * 0.25;
+    const rz = Math.PI * 0.35;
+    collagenBase.push({ cx, cy, cz, rx, ry, rz });
+    dummy.position.set(cx, cy, cz);
+    dummy.rotation.set(rx, ry, rz);
+    dummy.scale.set(1, 1, 1);
+    dummy.updateMatrix();
+    collagenInst.setMatrixAt(i, dummy.matrix);
+  }
+  dermGroup.add(collagenInst);
+
+  const artCurve = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(-1.58, -0.22, 0.75),
+    new THREE.Vector3(-0.75, -0.05, 0.88),
+    new THREE.Vector3(0.15, 0.12, 0.82),
+    new THREE.Vector3(0.95, -0.04, 0.92),
+    new THREE.Vector3(1.58, 0.08, 0.72)
+  ]);
+  const venCurve = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(-1.58, -0.10, 0.96),
+    new THREE.Vector3(-0.65, -0.22, 1.05),
+    new THREE.Vector3(0.22, -0.08, 1.02),
+    new THREE.Vector3(1.05, -0.18, 1.06),
+    new THREE.Vector3(1.58, -0.12, 0.92)
+  ]);
+  const artGeo = trackGeo(new THREE.TubeGeometry(artCurve, 32, 0.036, 8, false));
+  const artMat = trackMat(new THREE.MeshPhysicalMaterial({ color: 0xef4444, emissive: 0x7f1d1d, roughness: 0.25, clearcoat: 0.8 }));
+  dermGroup.add(new THREE.Mesh(artGeo, artMat));
+
+  const venGeo = trackGeo(new THREE.TubeGeometry(venCurve, 32, 0.042, 8, false));
+  const venMat = trackMat(new THREE.MeshPhysicalMaterial({ color: 0x2563eb, emissive: 0x1e3a8a, roughness: 0.25, clearcoat: 0.8 }));
+  dermGroup.add(new THREE.Mesh(venGeo, venMat));
+
+  const thrombiCount = 18;
+  const thrombGeo = trackGeo(new THREE.DodecahedronGeometry(0.048, 0));
+  const thrombMat = trackMat(new THREE.MeshStandardMaterial({ color: 0x3b0764, emissive: 0x1e1b4b, roughness: 0.6 }));
+  const thrombiInst = new THREE.InstancedMesh(thrombGeo, thrombMat, thrombiCount);
+  const thrombiPts = [];
+  for (let i = 0; i < thrombiCount; i++) {
+    const curve = i % 2 === 0 ? venCurve : artCurve;
+    thrombiPts.push(curve.getPointAt((i + 0.5) / thrombiCount));
+  }
+  dermGroup.add(thrombiInst);
+
+  // 1c. HIPODERMIS: LOBULILLOS ADIPOSOS POLIÉDRICOS + SEPTOS FIBROSOS + FLEMÓN DIFUSO ("SIGNO DEL EMPEDRADO")
+  const hypoGroup = new THREE.Group();
+  hypoGroup.position.set(wedgeX, 0.04, 0);
+  rootGroup.add(hypoGroup);
+
+  const septaCount = 16;
+  const septaGeo = trackGeo(new THREE.BoxGeometry(0.025, 0.86, D - 0.12, 1, 4, 8));
+  const septaMat = trackMat(new THREE.MeshPhysicalMaterial({
+    color: 0xf1f5f9,
+    roughness: 0.3,
+    clearcoat: 0.6,
+    transparent: true,
+    opacity: 0.55
+  }));
+  const septaInst = new THREE.InstancedMesh(septaGeo, septaMat, septaCount);
+  for (let i = 0; i < septaCount; i++) {
+    if (i < 9) {
+      dummy.position.set(((i / 8) - 0.5) * (W - 0.28), 0, 0);
+      dummy.rotation.set(0, 0, i % 2 === 0 ? 0.08 : -0.08);
+      dummy.scale.set(1, 1, 1);
+    } else {
+      dummy.position.set(0, 0, (((i - 9) / 6) - 0.5) * (D - 0.28));
+      dummy.rotation.set(0, Math.PI * 0.5, 0);
+      dummy.scale.set(1, 1, (W - 0.16) / (D - 0.12));
+    }
+    dummy.updateMatrix();
+    septaInst.setMatrixAt(i, dummy.matrix);
+  }
+  hypoGroup.add(septaInst);
+
+  const lobGeo = trackGeo(new THREE.IcosahedronGeometry(0.23, 1));
+  const lPos = lobGeo.attributes.position;
+  for (let i = 0; i < lPos.count; i++) {
+    const lx = lPos.getX(i);
+    const ly = lPos.getY(i);
+    const lz = lPos.getZ(i);
+    const facet = 0.94 + 0.08 * Math.cos(lx * 10) * Math.cos(ly * 10) * Math.cos(lz * 10);
+    lPos.setXYZ(i, lx * facet * 1.12, ly * facet * 0.78, lz * facet * 1.08);
+  }
+  lobGeo.computeVertexNormals();
+
+  const lobMat = trackMat(new THREE.MeshPhysicalMaterial({
+    color: 0xfde047,
+    roughness: 0.26,
+    clearcoat: 0.65,
+    clearcoatRoughness: 0.22,
+    sheen: 0.45,
+    sheenColor: new THREE.Color(0xfef9c3)
+  }));
+
+  const lobuleData = [];
+  for (let ix = 0; ix < 7; ix++) {
+    for (let iy = 0; iy < 2; iy++) {
+      for (let iz = 0; iz < 5; iz++) {
+        lobuleData.push({
+          bx: (ix - 3) * 0.46 + (iy % 2 === 0 ? 0.06 : -0.06),
+          by: (iy - 0.5) * 0.34 + Math.sin(ix * 1.7 + iz) * 0.03,
+          bz: (iz - 2) * 0.45 + (ix % 2 === 0 ? 0.05 : -0.05),
+          rx: (ix * 0.5) % Math.PI,
+          ry: (iz * 0.8) % Math.PI,
+          rz: (iy * 0.4) % Math.PI
+        });
+      }
+    }
+  }
+  const lobuleInst = new THREE.InstancedMesh(lobGeo, lobMat, lobuleData.length);
+  hypoGroup.add(lobuleInst);
+
+  const phlegmonGeo = trackGeo(new THREE.BoxGeometry(W - 0.06, 0.88, D - 0.06, 26, 6, 18));
+  const phPos = phlegmonGeo.attributes.position;
+  for (let i = 0; i < phPos.count; i++) {
+    const px = phPos.getX(i);
+    const py = phPos.getY(i);
+    const pz = phPos.getZ(i);
+    const wave = Math.sin(px * 5.2 + pz * 4.1) * 0.045 + Math.cos(px * 8.0 - py * 6.0) * 0.025;
+    phPos.setXYZ(i, px + wave * 0.3, py + wave * 0.6, pz + wave * 0.3);
+  }
+  phlegmonGeo.computeVertexNormals();
+
+  const phlegmonMat = trackMat(new THREE.MeshPhysicalMaterial({
+    color: 0xd97706,
+    emissive: 0x991b1b,
+    emissiveIntensity: 0.45,
+    roughness: 0.14,
+    clearcoat: 0.95,
+    clearcoatRoughness: 0.1,
+    transparent: true,
+    opacity: 0.22,
+    depthWrite: false
+  }));
+  const phlegmonMesh = new THREE.Mesh(phlegmonGeo, phlegmonMat);
+  hypoGroup.add(phlegmonMesh);
+
+  // 1d. FASCIA PROFUNDA NACARADA BRILLANTE CON FIBRAS ORIENTADAS
+  const fasciaGroup = new THREE.Group();
+  fasciaGroup.position.set(wedgeX, -0.52, 0);
+  rootGroup.add(fasciaGroup);
+
+  const fasciaGeo = trackGeo(new THREE.BoxGeometry(W, 0.11, D, 24, 2, 16));
+  const fasciaMat = trackMat(new THREE.MeshPhysicalMaterial({
+    color: 0xe2e8f0,
+    roughness: 0.18,
+    metalness: 0.08,
+    clearcoat: 0.9,
+    clearcoatRoughness: 0.12,
+    iridescence: 0.28,
+    iridescenceIOR: 1.3,
+    sheen: 0.6,
+    sheenColor: new THREE.Color(0xbae6fd)
+  }));
+  fasciaGroup.add(new THREE.Mesh(fasciaGeo, fasciaMat));
+
+  const fFiberCount = 34;
+  const fFiberGeo = trackGeo(new THREE.CylinderGeometry(0.009, 0.009, W - 0.08, 5, 1));
+  fFiberGeo.rotateZ(Math.PI * 0.5);
+  const fFiberMat = trackMat(new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.2, metalness: 0.12 }));
+  const fFiberInst = new THREE.InstancedMesh(fFiberGeo, fFiberMat, fFiberCount);
+  for (let i = 0; i < fFiberCount; i++) {
+    dummy.position.set(0, i % 2 === 0 ? 0.058 : -0.058, ((i / (fFiberCount - 1)) - 0.5) * (D - 0.14));
+    dummy.rotation.set(0, 0.03 * Math.sin(i), 0);
+    dummy.scale.set(1, 1, 1);
+    dummy.updateMatrix();
+    fFiberInst.setMatrixAt(i, dummy.matrix);
+  }
+  fasciaGroup.add(fFiberInst);
+
+  // 1e. MÚSCULO ESQUELÉTICO CON FASCÍCULOS ESTRIADOS Y PERIMISIO
+  const muscGroup = new THREE.Group();
+  muscGroup.position.set(wedgeX, -0.96, 0);
+  rootGroup.add(muscGroup);
+
+  const muscBaseGeo = trackGeo(new THREE.BoxGeometry(W - 0.04, 0.58, D - 0.04, 12, 4, 10));
+  const muscBaseMat = trackMat(new THREE.MeshPhysicalMaterial({
+    color: 0x7f1d1d,
+    roughness: 0.48,
+    clearcoat: 0.35,
+    sheen: 0.3,
+    sheenColor: new THREE.Color(0xfda4af)
+  }));
+  muscGroup.add(new THREE.Mesh(muscBaseGeo, muscBaseMat));
+
+  const fascGeo = trackGeo(new THREE.CylinderGeometry(0.115, 0.115, W - 0.02, 12, 16));
+  fascGeo.rotateZ(Math.PI * 0.5);
+  const fPos = fascGeo.attributes.position;
+  const fColors = new Float32Array(fPos.count * 3);
+  for (let i = 0; i < fPos.count; i++) {
+    const fx = fPos.getX(i);
+    const fy = fPos.getY(i);
+    const fz = fPos.getZ(i);
+    const striation = Math.sin(fx * 28.0) * 0.006;
+    fPos.setXYZ(i, fx, fy + striation, fz + striation);
+    tempColor.setHex(0x881337).lerp(new THREE.Color(0xb91c1c), (0.5 + 0.5 * Math.sin(fx * 32.0)) * 0.45);
+    fColors[i * 3] = tempColor.r;
+    fColors[i * 3 + 1] = tempColor.g;
+    fColors[i * 3 + 2] = tempColor.b;
+  }
+  fascGeo.setAttribute('color', new THREE.BufferAttribute(fColors, 3));
+  fascGeo.computeVertexNormals();
+
+  const fascMat = trackMat(new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    vertexColors: true,
+    roughness: 0.38,
+    clearcoat: 0.45
+  }));
+
+  const fascCoords = [];
+  for (let row = 0; row < 3; row++) {
+    for (let col = 0; col < 9; col++) {
+      fascCoords.push([(row - 1) * 0.19, (col - 4) * 0.27 + (row % 2 === 0 ? 0.04 : -0.04)]);
+    }
+  }
+  const fascInst = new THREE.InstancedMesh(fascGeo, fascMat, fascCoords.length);
+  fascCoords.forEach(([fy, fz], idx) => {
+    dummy.position.set(0, fy, fz);
+    dummy.rotation.set(0, 0, 0);
+    dummy.scale.set(1, 0.85, 0.95);
+    dummy.updateMatrix();
+    fascInst.setMatrixAt(idx, dummy.matrix);
+  });
+  muscGroup.add(fascInst);
+
+  // 1f. COLECTOR LINFÁTICO CON VÁLVULAS + LINFONODO REGIONAL RENIFORME (HILIO, CORTEZA, FOLÍCULOS, MÉDULA)
+  const lymphGroup = new THREE.Group();
+  rootGroup.add(lymphGroup);
+
+  const lymphCurve = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0.75, 0.04, 0.82),
+    new THREE.Vector3(1.25, -0.06, 0.92),
+    new THREE.Vector3(1.72, -0.14, 0.82),
+    new THREE.Vector3(2.12, -0.16, 0.65)
+  ]);
+
+  const lymphTubeGeo = trackGeo(new THREE.TubeGeometry(lymphCurve, 44, 0.068, 12, false));
+  const ltPos = lymphTubeGeo.attributes.position;
+  const ltUv = lymphTubeGeo.attributes.uv;
+  for (let i = 0; i < ltPos.count; i++) {
+    const u = ltUv.getX(i);
+    const centerPt = lymphCurve.getPointAt(u);
+    const valveBulge = 0.78 + 0.36 * Math.abs(Math.sin(u * Math.PI * 5.0));
+    ltPos.setXYZ(
+      i,
+      centerPt.x + (ltPos.getX(i) - centerPt.x) * valveBulge,
+      centerPt.y + (ltPos.getY(i) - centerPt.y) * valveBulge,
+      centerPt.z + (ltPos.getZ(i) - centerPt.z) * valveBulge
+    );
+  }
+  lymphTubeGeo.computeVertexNormals();
+
+  const lymphTubeMat = trackMat(new THREE.MeshPhysicalMaterial({
+    color: 0x10b981,
+    emissive: 0x064e3b,
+    emissiveIntensity: 0.35,
+    roughness: 0.18,
+    clearcoat: 0.85,
+    transparent: true,
+    opacity: 0.76
+  }));
+  lymphGroup.add(new THREE.Mesh(lymphTubeGeo, lymphTubeMat));
+
+  const lymphNodeGroup = new THREE.Group();
+  lymphNodeGroup.position.set(2.22, -0.16, 0.62);
+  lymphGroup.add(lymphNodeGroup);
+
+  const nodeGeo = trackGeo(new THREE.SphereGeometry(0.42, 32, 24));
+  const nPos = nodeGeo.attributes.position;
+  const nColors = new Float32Array(nPos.count * 3);
+  for (let i = 0; i < nPos.count; i++) {
+    let nx = nPos.getX(i);
+    const ny = nPos.getY(i) * 1.32;
+    const nz = nPos.getZ(i) * 0.82;
+    nx += (ny * ny) * 0.32;
+    if (nx < 0 && Math.abs(ny) < 0.28) {
+      nx += Math.cos((ny / 0.28) * Math.PI * 0.5) * Math.exp(-nz * nz * 8.0) * 0.22;
+    }
+    nPos.setXYZ(i, nx, ny, nz);
+
+    const rDist = Math.hypot(nx, ny * 0.75, nz);
+    tempColor.setHex(nz > 0.16 && rDist < 0.36 ? 0x065f46 : 0x10b981);
+    nColors[i * 3] = tempColor.r;
+    nColors[i * 3 + 1] = tempColor.g;
+    nColors[i * 3 + 2] = tempColor.b;
+  }
+  nodeGeo.setAttribute('color', new THREE.BufferAttribute(nColors, 3));
+  nodeGeo.computeVertexNormals();
+
+  const nodeMat = trackMat(new THREE.MeshPhysicalMaterial({
+    color: 0x34d399,
+    vertexColors: true,
+    emissive: 0x064e3b,
+    emissiveIntensity: 0.35,
+    roughness: 0.28,
+    clearcoat: 0.72,
+    clearcoatRoughness: 0.2
+  }));
+  lymphNodeGroup.add(new THREE.Mesh(nodeGeo, nodeMat));
+
+  const folCoords = [
+    [0.14, 0.32, 0.22], [0.24, 0.18, 0.24], [0.26, 0.0, 0.25],
+    [0.24, -0.18, 0.24], [0.14, -0.32, 0.22], [0.02, 0.36, 0.20],
+    [0.02, -0.36, 0.20], [0.12, 0.12, 0.27], [0.12, -0.12, 0.27]
+  ];
+  const folGeo = trackGeo(new THREE.SphereGeometry(0.058, 10, 8));
+  const folMat = trackMat(new THREE.MeshStandardMaterial({
+    color: 0xa7f3d0,
+    emissive: 0x059669,
+    emissiveIntensity: 0.4,
+    roughness: 0.3
+  }));
+  const folInst = new THREE.InstancedMesh(folGeo, folMat, folCoords.length);
+  folCoords.forEach(([fx, fy, fz], idx) => {
+    dummy.position.set(fx, fy, fz);
+    dummy.rotation.set(0, 0, 0);
+    dummy.scale.set(1, 1, 0.65);
+    dummy.updateMatrix();
+    folInst.setMatrixAt(idx, dummy.matrix);
+  });
+  lymphNodeGroup.add(folInst);
+
+  // 1g. PARTÍCULAS: COCOS EN RACIMOS + NEUTRÓFILOS MIGRANDO + PARTÍCULAS LINFÁTICAS
+  const cocciCount = 60;
+  const cocciGeo = trackGeo(new THREE.SphereGeometry(0.032, 8, 6));
+  const cocciMat = trackMat(new THREE.MeshStandardMaterial({
+    color: 0xfacc15,
+    emissive: 0xca8a04,
+    emissiveIntensity: 0.55,
+    roughness: 0.25
+  }));
+  const cocciInst = new THREE.InstancedMesh(cocciGeo, cocciMat, cocciCount);
+  const cocciSeeds = [];
+  for (let i = 0; i < cocciCount; i++) {
+    const cluster = Math.floor(i / 4);
+    const angle = (i % 4) * 1.57;
+    cocciSeeds.push({
+      x0: wedgeX + woundCenter.x + Math.sin(cluster * 1.9) * 0.22 + Math.cos(angle) * 0.04,
+      y0: 1.38 - (cluster / 15) * 0.45 + Math.sin(angle) * 0.04,
+      z0: woundCenter.y + Math.cos(cluster * 2.3) * 0.22,
+      dx: Math.sin(cluster * 3.1 + i) * 1.25,
+      dy: -0.95 - (cluster % 5) * 0.14,
+      dz: Math.cos(cluster * 2.7 + i) * 0.85
+    });
+  }
+  rootGroup.add(cocciInst);
+
+  const neutroCount = 38;
+  const neutroGeo = trackGeo(new THREE.DodecahedronGeometry(0.046, 1));
+  const neutroMat = trackMat(new THREE.MeshPhysicalMaterial({
+    color: 0x38bdf8,
+    emissive: 0x0284c7,
+    emissiveIntensity: 0.45,
+    roughness: 0.2,
+    clearcoat: 0.7
+  }));
+  const neutroInst = new THREE.InstancedMesh(neutroGeo, neutroMat, neutroCount);
+  const neutroSeeds = [];
+  for (let i = 0; i < neutroCount; i++) {
+    neutroSeeds.push({
+      x: wedgeX + ((i % 9) / 8 - 0.5) * 2.7 + Math.sin(i * 3) * 0.12,
+      y: 0.52 - (i / neutroCount) * 0.85,
+      z: (Math.floor(i / 9) / 4 - 0.5) * 1.85,
+      phase: i * 0.65
+    });
+  }
+  rootGroup.add(neutroInst);
+
+  const lymphParticles = [];
+  const lpGeo = trackGeo(new THREE.SphereGeometry(0.042, 8, 8));
+  const lpMat = trackMat(new THREE.MeshBasicMaterial({ color: 0xfef08a }));
+  for (let i = 0; i < 8; i++) {
+    const pm = new THREE.Mesh(lpGeo, lpMat);
+    pm.userData = { u: i / 8 };
+    lymphGroup.add(pm);
+    lymphParticles.push(pm);
+  }
+
+  let targetLayerOffsets = { epi: 1.48, derm: 0.96, hypo: 0.04, fascia: -0.52, musc: -0.96 };
+
+  function applyStageTo3D(val) {
+    const t = val / 100;
+
+    phlegmonMesh.scale.set(0.28 + t * 0.74, 0.34 + t * 0.78, 0.28 + t * 0.74);
+    phlegmonMat.opacity = 0.18 + t * 0.58;
+    phlegmonMat.color.setHex(t > 0.7 ? 0xb91c1c : 0xd97706);
+
+    lobuleData.forEach((ld, idx) => {
+      const radialSep = 1 + t * 0.14;
+      const vertWave = (idx % 2 === 0 ? 1 : -1) * t * 0.11;
+      dummy.position.set(ld.bx * radialSep, ld.by + vertWave, ld.bz * radialSep);
+      dummy.rotation.set(ld.rx + t * 0.25, ld.ry + t * 0.2, ld.rz);
+      const shrink = 1 - t * 0.08;
+      dummy.scale.set(shrink, shrink, shrink);
+      dummy.updateMatrix();
+      lobuleInst.setMatrixAt(idx, dummy.matrix);
+    });
+    lobuleInst.instanceMatrix.needsUpdate = true;
+    lobMat.color.setHSL(0.13 - t * 0.04, 0.92, 0.58 - t * 0.08);
+
+    collagenBase.forEach((cb, idx) => {
+      const distFocus = Math.hypot(cb.cx - woundCenter.x, cb.cz - woundCenter.y);
+      const lysis = distFocus < 1.15 ? Math.max(0.28, 1 - t * 0.72) : 1;
+      dummy.position.set(cb.cx, cb.cy, cb.cz);
+      dummy.rotation.set(cb.rx + t * 0.2, cb.ry, cb.rz);
+      dummy.scale.set(lysis, 1, lysis);
+      dummy.updateMatrix();
+      collagenInst.setMatrixAt(idx, dummy.matrix);
+    });
+    collagenInst.instanceMatrix.needsUpdate = true;
+
+    cocciSeeds.forEach((cs, idx) => {
+      const spread = Math.min(1, t * 1.25);
+      dummy.position.set(cs.x0 + cs.dx * spread, cs.y0 + cs.dy * spread, cs.z0 + cs.dz * spread);
+      const sc = 0.65 + t * 0.65;
+      dummy.scale.set(sc, sc, sc);
+      dummy.rotation.set(0, 0, 0);
+      dummy.updateMatrix();
+      cocciInst.setMatrixAt(idx, dummy.matrix);
+    });
+    cocciInst.instanceMatrix.needsUpdate = true;
+
+    neutroSeeds.forEach((ns, idx) => {
+      const active = Math.max(0.2, Math.min(1.25, t * 1.4));
+      dummy.position.set(ns.x * (1 - t * 0.22), ns.y - t * 0.24, ns.z * (1 - t * 0.22));
+      dummy.scale.set(active, active, active);
+      dummy.rotation.set(ns.phase, ns.phase, 0);
+      dummy.updateMatrix();
+      neutroInst.setMatrixAt(idx, dummy.matrix);
+    });
+    neutroInst.instanceMatrix.needsUpdate = true;
+
+    const thrombusScale = t > 0.55 ? Math.min(1.35, (t - 0.55) * 3.0) : 0.001;
+    thrombiPts.forEach((pt, idx) => {
+      dummy.position.copy(pt);
+      dummy.scale.set(thrombusScale, thrombusScale, thrombusScale);
+      dummy.rotation.set(idx, idx * 0.5, 0);
+      dummy.updateMatrix();
+      thrombiInst.setMatrixAt(idx, dummy.matrix);
+    });
+    thrombiInst.instanceMatrix.needsUpdate = true;
+
+    escharMat.opacity = t > 0.65 ? Math.min(0.92, (t - 0.65) * 2.6) : 0;
+
+    const nodeScale = 1 + t * 0.42;
+    lymphNodeGroup.scale.set(nodeScale, nodeScale, nodeScale);
+
+    if (t > 0.65) {
+      nodeMat.color.setHex(0xef4444);
+      nodeMat.emissive.setHex(0x7f1d1d);
+      folMat.color.setHex(0xfca5a5);
+      folMat.emissive.setHex(0xb91c1c);
+      lymphTubeMat.color.setHex(0xf59e0b);
+      lymphTubeMat.emissive.setHex(0x78350f);
+      epiMat.color.setHex(0x8b6b9e);
+      fasciaMat.color.setHex(0x94a3b8);
+    } else if (t > 0.35) {
+      nodeMat.color.setHex(0x10b981);
+      nodeMat.emissive.setHex(0x065f46);
+      folMat.color.setHex(0xfde047);
+      folMat.emissive.setHex(0xca8a04);
+      lymphTubeMat.color.setHex(0x34d399);
+      lymphTubeMat.emissive.setHex(0x065f46);
+      epiMat.color.setHex(0xffffff);
+      fasciaMat.color.setHex(0xe2e8f0);
+    } else {
+      nodeMat.color.setHex(0x34d399);
+      nodeMat.emissive.setHex(0x064e3b);
+      folMat.color.setHex(0xa7f3d0);
+      folMat.emissive.setHex(0x059669);
+      lymphTubeMat.color.setHex(0x10b981);
+      lymphTubeMat.emissive.setHex(0x064e3b);
+      epiMat.color.setHex(0xffffff);
+      fasciaMat.color.setHex(0xe2e8f0);
+    }
+  }
+
+  // ENCUADRE MATEMÁTICO POR CAJA ENVOLVENTE (SIN NADA CORTADO EN ESCRITORIO NI EN CELULAR)
+  const viewDir = new THREE.Vector3(0.46, 0.36, 0.81).normalize();
+
+  function fitCameraToModel() {
+    const w = canvas3d.clientWidth || canvas3dContainer.clientWidth || 320;
+    const h = canvas3d.clientHeight || 400;
+    const aspect = w / Math.max(1, h);
+    const isCompact = w <= 640;
+
+    lymphGroup.position.set(isCompact ? -0.34 : 0, isCompact ? -0.08 : 0, isCompact ? 0.22 : 0);
+
+    camera.aspect = aspect;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h, false);
+    labelsSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+
+    const minX = -2.08;
+    const maxX = isCompact ? 2.42 : 2.82;
+    const minY = isExploded3d ? -1.78 : -1.32;
+    const maxY = isExploded3d ? 2.38 : 1.92;
+    const minZ = -1.26;
+    const maxZ = 1.36;
+
+    const center = new THREE.Vector3((minX + maxX) * 0.5, (minY + maxY) * 0.5 - 0.04, (minZ + maxZ) * 0.5);
+    const halfX = (maxX - minX) * 0.5;
+    const halfY = (maxY - minY) * 0.5;
+    const halfZ = (maxZ - minZ) * 0.5;
+
+    const sweepRad = 0.38;
+    const effHalfWidth = halfX * Math.cos(sweepRad) + halfZ * Math.sin(sweepRad) + 0.18;
+    const effHalfHeight = halfY + halfZ * 0.24 + 0.14;
+
+    const targetFillW = isCompact ? 0.72 : Math.min(0.68, Math.max(0.54, (w - 330) / w));
+    const targetFillH = 0.72;
+
+    const vFovRad = THREE.MathUtils.degToRad(camera.fov);
+    const tanHalfVFov = Math.tan(vFovRad * 0.5);
+    const tanHalfHFov = tanHalfVFov * aspect;
+
+    const distV = effHalfHeight / (tanHalfVFov * targetFillH);
+    const distH = effHalfWidth / (tanHalfHFov * targetFillW);
+    const dist = Math.max(distV, distH) * 1.06;
+
+    controls.target.copy(center);
+    camera.position.copy(center).addScaledVector(viewDir, dist);
+    controls.minDistance = dist * 0.78;
+    controls.maxDistance = dist * 1.45;
+    controls.update();
+  }
+
+  function updateTargetLayerOffsets() {
+    targetLayerOffsets = isExploded3d
+      ? { epi: 2.02, derm: 1.24, hypo: 0.04, fascia: -0.78, musc: -1.42 }
+      : { epi: 1.48, derm: 0.96, hypo: 0.04, fascia: -0.52, musc: -0.96 };
+    fitCameraToModel();
+  }
+
+  applyStageTo3D(currentStageVal);
+  updateTargetLayerOffsets();
+
+  const onResize = () => fitCameraToModel();
+  window.addEventListener('resize', onResize);
+
+  let rafId = null;
+  let isContextLost = false;
+  const anchorWorldVec = new THREE.Vector3();
+
+  function getAnchorLocalPos(def) {
+    const [bx, by, bz] = def.coords;
+    if (def.layerKey === 'epi') return new THREE.Vector3(bx, epiGroup.position.y + 0.08, bz);
+    if (def.layerKey === 'derm') return new THREE.Vector3(bx, dermGroup.position.y, bz);
+    if (def.layerKey === 'musc') return new THREE.Vector3(bx, (fasciaGroup.position.y + muscGroup.position.y) * 0.5, bz);
+    if (def.layerKey === 'hypo') return new THREE.Vector3(bx, hypoGroup.position.y + 0.06, bz);
+    if (def.layerKey === 'lymphTube') {
+      return new THREE.Vector3(bx + lymphGroup.position.x, by + lymphGroup.position.y, bz + lymphGroup.position.z);
+    }
+    return new THREE.Vector3(
+      lymphNodeGroup.position.x + lymphGroup.position.x,
+      lymphNodeGroup.position.y + lymphGroup.position.y,
+      lymphNodeGroup.position.z + lymphGroup.position.z
+    );
+  }
+
+  function animate3D(now) {
+    if (isContextLost || !is3dInView || document.hidden) {
+      rafId = null;
+      return;
+    }
+    rafId = requestAnimationFrame(animate3D);
+
+    epiGroup.position.y += (targetLayerOffsets.epi - epiGroup.position.y) * 0.12;
+    dermGroup.position.y += (targetLayerOffsets.derm - dermGroup.position.y) * 0.12;
+    hypoGroup.position.y += (targetLayerOffsets.hypo - hypoGroup.position.y) * 0.12;
+    fasciaGroup.position.y += (targetLayerOffsets.fascia - fasciaGroup.position.y) * 0.12;
+    muscGroup.position.y += (targetLayerOffsets.musc - muscGroup.position.y) * 0.12;
+
+    if (!prefersReducedMotion) {
+      rootGroup.rotation.y = Math.sin((now || 0) * 0.00055) * 0.35;
+      const speed = 0.0022 + (currentStageVal / 100) * 0.0042;
+      lymphParticles.forEach((p) => {
+        p.userData.u = (p.userData.u + speed) % 1;
+        p.position.copy(lymphCurve.getPointAt(p.userData.u));
       });
     }
 
-    document.getElementById('toggleLabels3dBtn').addEventListener('click', () => {
-      SoundEngine.click();
-      showLabels3d = !showLabels3d;
-      labelsLayer.style.display = showLabels3d ? 'block' : 'none';
-      labelsSvg.style.display = showLabels3d ? 'block' : 'none';
-    });
-    document.getElementById('resetCam3dBtn').addEventListener('click', () => {
-      SoundEngine.click();
-      camera.position.set(5.8, 3.6, 6.8);
-      controls.target.set(0, -0.3, 0);
-      controls.update();
-    });
+    controls.update();
+    renderer.render(scene, camera);
 
-    function resize3D() {
-      const container = document.getElementById('canvas3dContainer');
-      const w = container.clientWidth;
-      const h = container.clientHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-      labelsSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    if (showLabels3d) {
+      const w = canvas3d.clientWidth;
+      const h = canvas3d.clientHeight;
+      const parentRect = labelsLayer.getBoundingClientRect();
+
+      labelEls.forEach((item) => {
+        anchorWorldVec.copy(getAnchorLocalPos(item.def)).applyMatrix4(rootGroup.matrixWorld);
+        anchorWorldVec.project(camera);
+
+        const tx = Math.max(14, Math.min(w - 14, (anchorWorldVec.x * 0.5 + 0.5) * w));
+        const ty = Math.max(14, Math.min(h - 14, (-anchorWorldVec.y * 0.5 + 0.5) * h));
+
+        const rect = item.el.getBoundingClientRect();
+        const boxX = item.side === 'left'
+          ? (rect.right - parentRect.left)
+          : (rect.left - parentRect.left);
+        const boxY = (rect.top - parentRect.top) + rect.height * 0.5;
+
+        item.line.setAttribute('x1', boxX);
+        item.line.setAttribute('y1', boxY);
+        item.line.setAttribute('x2', tx);
+        item.line.setAttribute('y2', ty);
+
+        item.dot.setAttribute('cx', tx);
+        item.dot.setAttribute('cy', ty);
+      });
     }
-    window.addEventListener('resize', resize3D);
-    resize3D();
+  }
 
-    function animate3D(now) {
-      requestAnimationFrame(animate3D);
-      if (!prefersReducedMotion) {
-        rootGroup.rotation.y += 0.0014;
-        const speed = 0.002 + (Number(stageSlider.value) / 100) * 0.004;
-        lymphParticles.forEach(p => {
-          p.userData.u = (p.userData.u + speed) % 1;
-          const pt = lymphCurve.getPointAt(p.userData.u);
-          p.position.copy(pt);
-        });
-      }
-      controls.update();
-      renderer.render(scene, camera);
-
-      if (showLabels3d) {
-        const w = canvas3d.clientWidth;
-        const h = canvas3d.clientHeight;
-        labelEls.forEach(item => {
-          const worldPos = item.pos.clone().applyMatrix4(rootGroup.matrixWorld);
-          worldPos.project(camera);
-          const tx = Math.max(12, Math.min(w - 12, (worldPos.x * 0.5 + 0.5) * w));
-          const ty = Math.max(12, Math.min(h - 12, (-worldPos.y * 0.5 + 0.5) * h));
-
-          const rect = item.el.getBoundingClientRect();
-          const parentRect = labelsLayer.getBoundingClientRect();
-          const boxX = item.side === 'left'
-            ? (rect.right - parentRect.left)
-            : (rect.left - parentRect.left);
-          const boxY = (rect.top - parentRect.top) + rect.height / 2;
-
-          item.line.setAttribute('x1', boxX);
-          item.line.setAttribute('y1', boxY);
-          item.line.setAttribute('x2', tx);
-          item.line.setAttribute('y2', ty);
-
-          item.dot.setAttribute('cx', tx);
-          item.dot.setAttribute('cy', ty);
-        });
-      }
+  function startLoop() {
+    if (!rafId && !isContextLost && is3dInView && !document.hidden) {
+      rafId = requestAnimationFrame(animate3D);
     }
-    requestAnimationFrame(animate3D);
+  }
+
+  const onVisibilityChange = () => {
+    if (document.hidden) {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    } else {
+      startLoop();
+    }
+  };
+  document.addEventListener('visibilitychange', onVisibilityChange);
+
+  const onContextLost = (e) => {
+    e.preventDefault();
+    isContextLost = true;
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+    renderFallback3D();
+  };
+  canvas3d.addEventListener('webglcontextlost', onContextLost);
+
+  viewer3dApi = {
+    applyStage: applyStageTo3D,
+    onExplodeChange: () => {
+      updateTargetLayerOffsets();
+      startLoop();
+    },
+    resetCamera: () => {
+      rootGroup.rotation.y = 0;
+      fitCameraToModel();
+      startLoop();
+    },
+    setInView: (inView) => {
+      is3dInView = inView;
+      if (inView) startLoop();
+    },
+    dispose: () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      canvas3d.removeEventListener('wheel', onWheelGuard);
+      canvas3d.removeEventListener('webglcontextlost', onContextLost);
+      controls.dispose();
+      disposables.forEach((d) => { if (d && d.dispose) d.dispose(); });
+      renderer.dispose();
+    }
+  };
+
+  startLoop();
+}
+
+async function load3DLab(forceRetry = false) {
+  if (is3dLoading || (is3dReady && !forceRetry)) return;
+  is3dLoading = true;
+  try {
+    if (!THREE || !OrbitControls) {
+      const [threeMod, orbitMod] = await Promise.all([
+        import('three'),
+        import('three/addons/controls/OrbitControls.js')
+      ]);
+      THREE = threeMod;
+      OrbitControls = orbitMod.OrbitControls;
+    }
+    await init3DViewer();
+    is3dReady = true;
+  } catch (err) {
+    is3dReady = false;
+    renderFallback3D();
+  } finally {
+    is3dLoading = false;
+  }
+}
+
+if ('IntersectionObserver' in window && mod3dSection) {
+  const mod3dObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const visible = entry.isIntersecting;
+      if (visible && !is3dReady && !is3dLoading) {
+        load3DLab();
+      }
+      if (viewer3dApi && viewer3dApi.setInView) {
+        viewer3dApi.setInView(visible);
+      } else {
+        is3dInView = visible;
+      }
+    });
+  }, { rootMargin: '300px' });
+  mod3dObserver.observe(mod3dSection);
+} else {
+  load3DLab();
+}
 
     /* =========================================================================
        5. MINI JUEGO 1: SIMULADOR DE CASO CLÍNICO POR DECISIONES CON TIEMPO
@@ -4137,14 +5208,55 @@
     html[data-theme="light"] .btn-action.active-sound { color: #065f46; }
     html[data-theme="dark"] .step-badge { color: #fca5a5; }
     html[data-theme="dark"] .nav-link.active .nav-num { color: #04131c; }
-    /* 3D: the telemetry badges (new in v3) sat under labels 3 and 6; keep the label rails above them. */
-    .labels3d-layer { bottom: 52px; }
-    /* 360 px: the 3D box and its control panel were 6 px wider than the screen (grid min-content). */
-    .viewer3d-wrapper > * { min-width: 0; }
-    .controls3d-panel div[style*="justify-content:space-between"] { flex-wrap: wrap; gap: 0.25rem 0.5rem; }
-    @media (max-width: 640px) { .labels3d-layer { bottom: 100px; } }
-    #hud3dTelemetry .mono-badge { background: var(--label3d-bg, rgba(7, 11, 20, 0.92)) !important; opacity: 1 !important; }
-    html[data-theme="light"] #hud3dPressure[style*="color"] { color: #991b1b !important; }
+/* 3D: keep the label rails above telemetry on desktop and move telemetry + legend below canvas on <=640px */
+.viewer3d-wrapper > * { min-width: 0; }
+.controls3d-panel div[style="justify-content:space-between"] { flex-wrap: wrap; gap: 0.25rem 0.5rem; }
+#hud3dTelemetry .mono-badge { background: var(--label3d-bg, rgba(7, 11, 20, 0.92)) !important; opacity: 1 !important; }
+html[data-theme="light"] #hud3dPressure[style*="color"] { color: #991b1b !important; }
+@media (max-width: 640px) {
+.canvas3d-box {
+height: auto !important;
+display: flex;
+flex-direction: column;
+}
+#skin3dCanvas,
+#labels3dSvg,
+.labels3d-layer {
+height: 350px !important;
+bottom: auto !important;
+}
+.label3d-pin {
+width: 22px;
+height: 22px;
+max-width: none !important;
+padding: 0 !important;
+border-radius: 50%;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+font-size: 0.66rem !important;
+}
+.label3d-pin .pin-txt {
+display: none;
+}
+.label3d-pin.side-left {
+left: 6px !important;
+border-left-width: 1.5px;
+}
+.label3d-pin.side-right {
+right: 6px !important;
+border-right-width: 1.5px;
+}
+#hud3dTelemetry {
+position: static !important;
+padding: 0.45rem 0.65rem;
+background: var(--bg-surface);
+border-top: 1px solid var(--border-subtle);
+}
+.labels3d-mobile-legend {
+display: grid;
+}
+}
     /* Enlaces cruzados, destinos de salto y lista de dosis plegable de las pestañas (variables del tema: claro y oscuro) */
     .xref-link { color: var(--accent-cyan); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; overflow-wrap: anywhere; }
     #mrsp, #duracion-antibiotico, #tabla-posologia { scroll-margin-top: 88px; }
